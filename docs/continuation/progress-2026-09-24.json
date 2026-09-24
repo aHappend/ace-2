@@ -11,8 +11,7 @@
     ],
     "branch": "main",
     "checkpoint_ref": "refs/tags/checkpoint-2026-09-24-source",
-    "checkpoint_commit": null,
-    "checkpoint_commit_resolution": "Set to the exact first publication commit in the final main documentation commit before push.",
+    "checkpoint_commit": "da5f71ab4160344db3680e2865648ca199796f8c",
     "required_github_login": "aHappend"
   },
   "live_identity_observed": {
