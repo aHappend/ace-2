@@ -1,0 +1,86 @@
+{
+  "acceptance": {
+    "content_requirements": [
+      "new successor identity distinct from every preserved S5 and rejected S6 v1 identity",
+      "specification-stage design freeze only",
+      "material mechanism difference from S5 justified exclusively by permitted aggregate fields",
+      "complete explicit future data, training, checkpoint-selection, fail-closed, and no-downstream boundaries",
+      "no response text, token arrays, row-level scores, checkpoint bytes, backend logs, hidden harness, or golden output in the artifact"
+    ],
+    "fresh_reviewer_required": true,
+    "provenance_requirements": [
+      "construction occurs in a fresh isolated context whose readable project evidence is limited to this procedural brief and byte-exact copies of the three permitted S5 sources",
+      "an access manifest records the exposed input paths and hashes",
+      "the rejected S6 v1 design, audit tool, audit output, SPEC projection, GROUND_TRUTH projection, Reviewer checkpoint, and all historical row-level outputs are absent from the construction context",
+      "Fresh Reviewer confirms both aggregate-only content and clean-room process provenance"
+    ],
+    "zero_state_requirements": [
+      "no training dataset or probe rows created",
+      "no runner or execution package created",
+      "no operator authority, submission intent, execution namespace, backend experiment, backend job, or attempt marker created",
+      "no model or evaluator execution, replay, rescore, retention, holdout, W4A8, RTL, synthesis/PPA, FPGA, U280, or stage transition"
+    ]
+  },
+  "claim_boundary": "This is a non-consuming replacement task contract, not an accepted successor design. It authorizes only clean-room specification construction and local non-consuming audits; it grants no attempt or downstream authority.",
+  "current_stage": "specification",
+  "forbidden_construction_inputs": [
+    "design/QWEN25_05B_INSTRUCT_BF16_CATEGORY_BALANCED_SUCCESSOR_S6_DESIGN_FREEZE.json",
+    "tools/audit_bf16_successor_s6_design_freeze.py",
+    "build/bf16-category-balanced-successor-s6-design-freeze/package-audit.json",
+    "design/SPEC.md",
+    "research/GROUND_TRUTH.md",
+    "CHECKPOINT.md",
+    "any V4, V5, S5, or other historical response text, token array, row-level scored output, checkpoint, backend log, hidden harness, or golden output"
+  ],
+  "objective": "Freeze one new marker-free BF16 successor specification from clean-room aggregate evidence after S6 v1 was rejected for non-pristine process provenance.",
+  "permitted_evidence_sources": [
+    {
+      "allowed_fields": [
+        "failure.classification",
+        "quality.dev.category_passes",
+        "quality.dev.category_totals",
+        "quality.dev.critical_safety_failures",
+        "quality.dev.gates",
+        "quality.dev.hard_pass_count",
+        "quality.dev.response_count",
+        "quality.probe_selection.*.category_minimum_gates_satisfied",
+        "quality.probe_selection.*.category_passes",
+        "quality.probe_selection.*.category_totals",
+        "quality.probe_selection.*.critical_safety_failures",
+        "quality.probe_selection.*.hard_pass_count",
+        "quality.selected_epoch"
+      ],
+      "path": "build/bf16-full-finetune-successor-s5/backend-terminal-audit-20260808T150208Z.json",
+      "sha256": "bd7bd5c0f55bbb63b9bd66473eb95dc0306380bdd96d53c5c71600b555c192b8"
+    },
+    {
+      "allowed_fields": [
+        "evaluator_contract.dev",
+        "mechanism"
+      ],
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_FULL_FINETUNE_SUCCESSOR_S5_EXECUTION_PACKAGE_CONTRACT.json",
+      "sha256": "6b9425f027bcc50f399fdded1ac91147fbdde91c9a041e10d1e00e6b3c9c0a54"
+    },
+    {
+      "allowed_fields": [
+        "checkpoint_lifecycle",
+        "checkpoint_policy",
+        "data counts",
+        "full_finetune",
+        "optimizer",
+        "schedule",
+        "training dtype and loss-scope fields"
+      ],
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/training_recipe.json",
+      "sha256": "24a4b8acf314c0bd90a026b0a2438c424ab281a0f29c9ab9e183e9b272b42df2"
+    }
+  ],
+  "preserved_rejected_predecessor": {
+    "disposition": "PRESERVED_NON_ACCEPTED_PROVENANCE",
+    "path": "design/QWEN25_05B_INSTRUCT_BF16_CATEGORY_BALANCED_SUCCESSOR_S6_DESIGN_FREEZE.json",
+    "sha256": "0fc1c2dcb10c3b477045f0767bb60f03e5f06a7d7c9b349db82cea34b37355cb"
+  },
+  "schema_version": 1,
+  "status": "READY_FOR_FRESH_CLEAN_ROOM_CONSTRUCTION_NO_SUCCESSOR_FROZEN",
+  "task_id": "qwen2.5-0.5b-instruct-ace2-bf16-successor-s6-clean-room-replacement-task-v1"
+}

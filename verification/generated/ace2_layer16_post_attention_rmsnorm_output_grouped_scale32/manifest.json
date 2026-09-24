@@ -1,0 +1,89 @@
+{
+  "bindings": {
+    "generator": {
+      "bytes": 12444,
+      "path": "tools/gen_layer16_post_attention_rmsnorm_output_grouped_scale32_vectors.py",
+      "sha256": "88ec69c4d50add689299c0d831ecb3f1b7df4d48d910290158f42efbc964b84f"
+    },
+    "layer16_post_attention_gain_f32_sha256": "ab24abdcc4957895e434c6bb3a5237a71ff5044efb9f76c1a9e76e280c128410",
+    "reference": {
+      "bytes": 6440,
+      "path": "tools/ace2_layer16_post_attention_rmsnorm_output_reference.py",
+      "sha256": "004136a5de5a9fb47f52b0770dfed6cbb93cfee6f5a42d7b49198ffd83d502a5"
+    },
+    "source_candidate_result": {
+      "bytes": 36917,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/result.json",
+      "sha256": "f734ae5e80bafed36fd434d65d1caec1794d6fa28ec6756c88092227726e6a18"
+    },
+    "source_candidate_sha256s": {
+      "bytes": 25541,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/SHA256SUMS",
+      "sha256": "5ce1654ce0ea9d2164eadfee04c2dded00a0ba4bd18d9246a14e0e96016a1b44"
+    },
+    "source_post_attention_scale32": {
+      "bytes": 215040,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/contracts/00-control/post_attention_output_group_scale32.bin",
+      "sha256": "5de7b5d6f26fb6690202e15f90a23808d4633346299671ec7d319ee9d98f9caf"
+    },
+    "source_post_attention_sum_s8": {
+      "bytes": 26880,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/contracts/00-control/post_attention_sum_s8.bin",
+      "sha256": "4f129de929030ee6a0f877092b90fb5f8d8a2265554c31793ef76acc8cde9317"
+    }
+  },
+  "boundary": "model.layers.16.post_attention_layernorm.output_to_signed_a8",
+  "classification": "candidate_arithmetic_increment_no_official_attempt",
+  "control": {
+    "exact_repeat_passed": true,
+    "gate_up_input_nonzero_samples": 0,
+    "reference_rank": 3252,
+    "top_token_id": 12
+  },
+  "executed_contract": "group-128",
+  "numeric_contract": {
+    "carried_output": "signed A8 plus explicit Scale32",
+    "gain": "model.layers.16.post_attention_layernorm.weight encoded as signed Q7.8 after output-scale selection",
+    "gain_representability_floor": true,
+    "product": "signed 61-bit activation*gain*reciprocal",
+    "rebased_internal_activation": "signed 12-bit magnitude bounded to 2047",
+    "reciprocal": "nonzero unsigned Q30 derived from rebased 896-channel RMS",
+    "rounding": "signed round-to-nearest ties-to-even at 38 fractional bits",
+    "runtime_bf16_sidecar": false,
+    "saturation": "signed int8 clamp",
+    "source": "accepted group-1 signed-A8 plus per-channel Scale32"
+  },
+  "observed": {
+    "maximum_inv_rms_q30": 22369621,
+    "maximum_output_scale32": "0x00fdcadc",
+    "maximum_rebased_magnitude": 1986,
+    "minimum_inv_rms_q30": 1984735,
+    "minimum_output_scale32": "0x00f9f202",
+    "nonzero_outputs": 25666,
+    "saturation_count": 0
+  },
+  "ordered_contracts": [
+    "control",
+    "group-896",
+    "group-128",
+    "group-064"
+  ],
+  "schema_version": 1,
+  "scope_guards": {
+    "carried_activation_wider_than_a8": false,
+    "gate_up_w4_mutated": false,
+    "independent_review_still_required": true,
+    "official_attempt_consumed": false,
+    "official_run_launched": false,
+    "protected_candidate_mutated": false,
+    "rank_selection_completed": false,
+    "u280_or_stage2_entered": false
+  },
+  "shape": {
+    "channels": 896,
+    "output_group_size": 128,
+    "output_groups_per_position": 7,
+    "positions": 30,
+    "samples": 26880
+  }
+}

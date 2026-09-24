@@ -1,0 +1,247 @@
+{
+  "schema_version": 1,
+  "contract_id": "option_b_alias_safe_packed_scale24_per_row_selector_dual_input_block_codebook_w4_grouped_dynamic_scale32_w4a8_v10",
+  "candidate_id": "option_b_alias_safe_packed_scale24_per_row_selector_dual_input_block_codebook_w4_grouped_dynamic_scale32_w4a8_v10",
+  "status": "planning_requirements_frozen",
+  "stage": "specification",
+  "selected_policy_id": null,
+  "predecessor": {
+    "candidate_id": "option_b_alias_safe_dual_input_block_codebook_row_group_selector_w4_grouped_dynamic_scale32_w4a8_v9",
+    "terminal_status": "PREATTEMPT_NO_GO",
+    "failure_taxonomy": "NO_GO_NON_EVALUATOR_QUALITY_GATE",
+    "review_record": {
+      "path": "research/raw/specification/dual-input-block-codebook-row-group-selector-v9-review-done-20260806T231214Z.json",
+      "sha256": "340e38b4b58ead6ff8639c5d3fd7930b0d199631b81ac8f5953b7f973799ac29"
+    },
+    "aggregate_fresh_v7_bf16_sse": 2303.224223882074,
+    "aggregate_v9_bf16_sse": 2176.5828747795154,
+    "exact_bf16_sequence_match_count": 2,
+    "required_exact_bf16_sequence_match_count": 8,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_under_predecessor_id_permitted": false
+  },
+  "evidence_backed_direction": {
+    "measured_failure": "V9 reproduced fresh V7, improved all 169 Linear tensors, reduced aggregate literal BF16 SSE to 2176.5828747795154, and passed all 312 Dynamic Scale32 events, but matched only 2/8 construction-blind BF16 token arrays. The official attempt was therefore correctly not started.",
+    "retained_baseline": "Retain V9 four-bit payload indices, two signed-Q4.4 codebook banks per contiguous 128-input-lane block, one exact Scale32 value per output row, legal grouped Dynamic Scale32 activations, and the unchanged public ace2_shell contract.",
+    "binding_format_fact": "Every legal Scale32 record contains a 16-bit normalized unsigned-Q1.15 significand, one signed exponent byte in [-24,+4], and a reserved high byte that must be zero. Storing only the three meaningful little-endian bytes and restoring the zero byte is lossless for every legal record.",
+    "replacement_hypothesis": "Use the bytes released by lossless packed-Scale24 storage to replace V9 down_proj two-row selectors and lm_head 32-row selectors with one selector per output row and input block. The initial state exactly reproduces V9 by repeating each predecessor selector over its former row group; subsequent exact source-space optimization can therefore only retain or improve the predecessor representation.",
+    "distinctness": "V10 changes the accelerator-facing weight-metadata encoding and selector geometry. It does not change the four-bit payload width, add a codebook bank, change the mathematical Scale32 value, use prompt-derived construction data, retry V9 under its candidate ID, or alter public ports."
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "local_files_only": true,
+    "network_access_permitted": false,
+    "dtype": "bfloat16",
+    "tokenizer_and_chat_template_unchanged": true,
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f"
+  },
+  "candidate_state_construction": {
+    "initial_invariant": "lm_head.weight and model.embed_tokens.weight are the same Parameter object and storage immediately after pinned-model load",
+    "separation_rule": "Before construction, replace only lm_head.weight with a detached byte-identical non-trainable clone and set only the in-memory candidate configuration tie_word_embeddings field to false.",
+    "retie_forbidden": true,
+    "quantization_scope": "exactly 168 transformer Linear weights plus the separated lm_head weight",
+    "post_quantization_embedding_invariant": "The original embedding Parameter object, storage pointer, shape, dtype, and complete BF16 byte stream remain unchanged.",
+    "independent_candidate_a_and_b_manifest_equality_required": true,
+    "module_counts": {
+      "transformer_linears": 168,
+      "lm_head": 1,
+      "total_linears": 169
+    }
+  },
+  "weight_policy": {
+    "payload_bits_per_weight": 4,
+    "payload_semantics": "unsigned codebook index 0 through 15",
+    "packing": "row-major output row then input lane; even flat index in low nibble and odd flat index in high nibble",
+    "row_scale": {
+      "mathematical_format": "unchanged Scale32 normalized unsigned-Q1.15 significand plus signed exponent",
+      "stored_format": "packed_scale24",
+      "stored_bytes_per_output_row": 3,
+      "stored_byte_order": "little-endian significand low byte, significand high byte, signed exponent byte",
+      "decode_rule": "restore a zero reserved high byte to obtain the exact original 32-bit Scale32 record before arithmetic",
+      "lossless_for_all_legal_scale32_records": true,
+      "record_count_changed": false,
+      "legal_significand_range": [32768, 65535],
+      "legal_exponent_range": [-24, 4],
+      "reserved_high_byte_required_zero": true,
+      "overflow_clipping_saturation_or_scale_approximation_permitted": false
+    },
+    "input_block": {
+      "lanes": 128,
+      "legal_input_feature_counts": [896, 4864],
+      "block_count_rule": "input_features divided by 128",
+      "blocks_for_896_inputs": 7,
+      "blocks_for_4864_inputs": 38,
+      "ordering": "increasing contiguous input-channel block within each output row"
+    },
+    "dual_codebook": {
+      "banks_per_input_block": 2,
+      "bank_names": ["A", "B"],
+      "entries_per_bank": 16,
+      "entry_format": "strictly increasing signed-Q4.4 two's-complement int8",
+      "bytes_per_bank": 16,
+      "bytes_per_input_block": 32,
+      "alignment_bytes": 16,
+      "transport_beats_at_128_bits": 2,
+      "entry_order": "bank A bytes 0 through 15 followed by bank B bytes 16 through 31; byte offset within a bank equals payload index"
+    },
+    "row_selector": {
+      "bits_per_output_row_per_input_block": 1,
+      "semantics": "zero selects codebook A and one selects codebook B",
+      "row_group_size_for_every_linear": 1,
+      "packing": "For each tensor, selector bit ordinal equals output_row_ordinal times input_block_count plus input_block_ordinal. Bits are packed least-significant-bit first, the tensor stream is padded to a 16-byte boundary, and every unused padding bit is zero.",
+      "output_dimensions_divisible_by_row_group_size": true
+    },
+    "construction_algorithm": {
+      "data_source": "pinned BF16 weights, a fresh hash-bound V9 reconstruction, and authenticated Scale32 semantics only",
+      "official_prompt_output_token_or_gate_access_permitted": false,
+      "v9_reproduction_step": "Freshly reconstruct the complete V9 candidate under the V10 namespace. Pack each legal V9 Scale32 record into its three meaningful bytes, copy V9 payload and dual codebooks, and repeat each predecessor selector over every output row in its former group. Expanding packed scales and decoding selectors must reproduce all 169 V9 BF16 reconstructions byte-for-byte before V10 updates.",
+      "outer_iterations": 8,
+      "selector_assignment_step": "With payload, packed row scales, and both codebook banks fixed, evaluate exact BF16 source-space SSE for bank A and bank B independently for every output row and input block. Select the lower-cost bank; exact ties select bank A.",
+      "payload_assignment_step": "For every weight, use its per-row selector and assign the nearest reconstructed level from the selected bank under the exact decoded Scale32 row value. Exact-distance ties choose the lower payload index.",
+      "row_scale_step": "With selectors, payload, and both banks fixed, form the exact dyadic least-squares ideal for each complete output row. Evaluate legal Scale32 bracketing records, immediate normalized-significand neighbors, and the prior record; choose minimum exact row SSE, then smaller positive scale, then smaller packed Scale32 record. Store the selected record losslessly as three bytes.",
+      "codebook_update_step": "For each input block and bank independently, accumulate exact per-cluster quadratic costs from rows selecting that bank and use the reviewed V7 dynamic program to select the globally minimum-cost strictly increasing 16-entry signed-Q4.4 codebook. An empty bank retains its prior codebook; cost ties choose the lexicographically smaller codebook.",
+      "iteration_acceptance": "Reassign payload after each row-scale and complete dual-codebook sweep. Exact per-tensor SSE may not increase from the preceding outer iteration. Execute all eight iterations even after a fixed point.",
+      "final_reconstruction": "decoded_weight equals exact_expanded_scale32 times selected_bank_signed_codepoint_q4_4 divided by 16",
+      "floating_point_nondeterminism_stochastic_rounding_prompt_ranking_or_gate_tuning_permitted": false
+    },
+    "pre_attempt_model_only_gate": {
+      "fresh_v9_reference_required": true,
+      "fresh_v9_aggregate_unweighted_bf16_sse": 2176.5828747795154,
+      "fresh_v9_exact_reproduction_count_required": 169,
+      "per_tensor_unweighted_bf16_sse_may_increase_against_fresh_v9": false,
+      "aggregate_unweighted_bf16_sse_must_strictly_decrease_against_fresh_v9": true,
+      "candidate_a_and_b_payload_packed_scale_dual_codebook_selector_reconstruction_iteration_trace_weight_and_state_manifests_must_match": true
+    }
+  },
+  "activation_policy": {
+    "payload": "signed A8 symmetric range -127 through +127 with -128 reserved",
+    "rounding": "round_to_nearest_ties_to_even",
+    "event_family_count_per_layer": 13,
+    "event_count_complete_model": 312,
+    "base_record_source": "the same frozen authenticated activation Scale32 significands used by V3 through V9",
+    "selection_rule": "For each live finite group, preserve the base activation Scale32 significand and choose the minimum integer exponent delta in [-24,+24] whose effective exponent remains in [-24,+4] and covers every lane without saturation.",
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "activation_behavior_changed_by_packed_weight_scale_storage": false
+  },
+  "accelerator_facing_format": {
+    "public_ace2_shell_contract_changed": false,
+    "packed_scale_transport": "three bytes per output row in row order; every tensor scale stream is naturally 16-byte aligned for the frozen shapes; the metadata loader restores the required zero high byte before Scale32 validation and arithmetic",
+    "dual_codebook_transport": "two ordered 16-byte beats per input block",
+    "selector_transport": "one authenticated packed bitstream per Linear tensor, consumed in output-row-major then input-block-major order; tensor padding is included in the frozen byte counts",
+    "metadata_cache_budget_bytes": 96,
+    "cache_policy": "32 bytes hold both active codebook banks, 32 bytes prefetch both banks for the next block, and 32 bytes buffer selector lines. Packed Scale24 expands into the existing row-scale register and adds no SRAM buffer.",
+    "compute_primitive": "selector-controlled 2:1 signed-int8 codepoint mux, signed A8 by signed Q4.4 codepoint multiply, integer accumulation, exact expanded Scale32 row application, and fixed fractional shift four",
+    "additional_product_runtime_transport_or_sram_bytes": {
+      "whole_model_bytes_vs_v9": -276208,
+      "whole_model_packed_scale_bytes": 1368192,
+      "whole_model_selector_bytes": 482384,
+      "incremental_sram_bytes_over_v7": 64
+    },
+    "floating_point_rtl_permitted": false,
+    "cycle_accurate_rtl_or_ppa_claimed_by_this_plan": false
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "standard_decoder_layer_weight_count": 14909440,
+    "standard_decoder_layer_packed_w4_payload_bytes": 7454720,
+    "standard_decoder_layer_output_row_count": 12672,
+    "standard_decoder_layer_packed_scale24_bytes": 38016,
+    "standard_decoder_layer_input_block_count": 80,
+    "standard_decoder_layer_dual_codebook_bytes": 2560,
+    "standard_decoder_layer_selector_bytes_by_family": {
+      "q_proj": 784,
+      "k_proj": 112,
+      "v_proj": 112,
+      "o_proj": 784,
+      "gate_proj": 4256,
+      "up_proj": 4256,
+      "down_proj": 4256
+    },
+    "standard_decoder_layer_selector_bytes": 14560,
+    "standard_decoder_layer_total_weight_bytes": 7509856,
+    "standard_decoder_layer_exact_bits_per_weight": 4.029584478021978,
+    "standard_decoder_layer_cap_reserve_bytes": 11956.48,
+    "lm_head_shape": [151936, 896],
+    "lm_head_weight_count": 136134656,
+    "lm_head_output_row_count": 151936,
+    "lm_head_input_block_count": 7,
+    "lm_head_row_group_size": 1,
+    "lm_head_selector_bits": 1063552,
+    "lm_head_selector_bytes_before_alignment": 132944,
+    "lm_head_selector_bytes_after_16_byte_alignment": 132944,
+    "lm_head_packed_scale24_bytes": 455808,
+    "lm_head_dual_codebook_bytes": 224,
+    "lm_head_total_weight_bytes": 68656304,
+    "lm_head_exact_bits_per_weight": 4.034611377722951,
+    "lm_head_cap_reserve_bytes": 23629.952,
+    "whole_model_weight_count": 493961216,
+    "whole_model_packed_w4_payload_bytes": 246980608,
+    "whole_model_output_row_count": 456064,
+    "whole_model_packed_scale24_bytes": 1368192,
+    "whole_model_dual_codebook_bytes": 61664,
+    "whole_model_selector_bytes": 482384,
+    "whole_model_total_weight_bytes": 248892848,
+    "whole_model_exact_bits_per_weight": 4.030969880841819,
+    "whole_model_cap_reserve_bytes": 310585.472,
+    "maximum_scale_metadata_bits_per_activation": 0.5,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_tensor_sidecars_per_decoder_layer_token": 13,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "maximum_incremental_sram_bytes": 2368,
+    "new_public_ace2_shell_ports_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0
+  },
+  "pre_attempt_closure": {
+    "official_execution_marker_permitted": false,
+    "official_nine_prompt_inputs_permitted_for_preflight": false,
+    "network_access_permitted": false,
+    "representation_gate": "Two independent V10 builds must match byte-for-byte, reproduce fresh V9 exactly before V10 updates, preserve or improve every tensor against fresh V9, strictly reduce aggregate literal unweighted BF16 SSE below 2176.5828747795154, losslessly round-trip every packed Scale24 record, and use only legal dual codebooks, per-row selectors, payload indices, zero padding, and tensor identities.",
+    "non_evaluator_quality_gate": "The unchanged eight construction-blind non-evaluator inputs must achieve 8/8 exact BF16 token arrays and 8/8 matching BF16 response-gate outcomes before an official marker may be created.",
+    "dynamic_gate": "A fresh V10 candidate must cover all 312 named activation boundaries with legal deltas, zero saturation, zero clipping, no reserved -128 payload, and no more than 832 activation-metadata bytes per decoder-layer token.",
+    "required_artifacts": [
+      "hash-bound candidate-specific runner, scalable backend, packed-Scale24 codec, and constructor self-test",
+      "fresh V9 reconstruction and exact pre-optimization V9 reproduction witness",
+      "candidate A and B payload, packed-scale, dual-codebook, selector, reconstruction, objective, iteration-trace, weight, and state manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "codec tests for all legal Scale32 fields, reserved-byte rejection, byte ordering, exact round trip, truncated records, and stream alignment",
+      "constructor tests for per-row selector geometry, ordering and zero padding, two-bank ordering, codepoint range and strict increase, nibble packing, Scale32 bracketing, empty banks, all-zero rows, metadata sequencing, and hash rejection",
+      "model-only report proving 169/169 V9-relative non-regression and strict aggregate SSE improvement",
+      "8/8 construction-blind non-evaluator exact-sequence and response-gate report",
+      "fresh-candidate 312-event Dynamic Scale32 report",
+      "predeclared contract binding every source, model, matrix hash, runner, tool version, format, byte count, and policy hash",
+      "PREATTEMPT_READY.json that verifies all prior artifacts without creating execution_started.json"
+    ],
+    "failure_disposition": "Preserve PREATTEMPT_NO_GO, leave the official attempt absent and unconsumed, keep selected_policy_id null, and submit the bounded result for Fresh Review without accessing official inputs."
+  },
+  "official_attempt": {
+    "attempts_authorized_by_this_file": 0,
+    "required_fresh_attempt_directory": "build/stage1-option-b-alias-safe-packed-scale24-per-row-selector-dual-input-block-codebook-w4-grouped-dynamic-scale32-w4a8-v10/attempt-0001",
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false,
+    "fresh_reviewer_required": true
+  },
+  "risk_register": [
+    "Per-row selectors and packed Scale24 are a strict lossless representational superset of V9 but do not prove exact token identity; the eight-input exact gate remains mandatory and precedes official execution.",
+    "The packed-scale codec changes later metadata load and validation logic. No RTL, cycle, area, or timing claim follows from this specification; a Manager stage advance and focused regression are required before implementation.",
+    "Unweighted source-space SSE has not predicted exact token closure in V3 through V9. V10 is justified by lossless capacity and decision-facing lm_head granularity, but must fail closed if the construction-blind gate remains below 8/8.",
+    "Any accepted policy still requires focused RTL regression, one fresh tree-specific PPA after a core RTL change, local arbitrary-text demo acceptance, and later U280 work."
+  ],
+  "claim_boundary": {
+    "planning_requirements_frozen": true,
+    "attempt_authority_created": false,
+    "official_attempt_started": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

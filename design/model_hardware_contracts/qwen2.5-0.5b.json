@@ -7,19 +7,20 @@
   "contract_id": "ace2-qwen2.5-0.5b-w4a8_scale32-v1",
   "derived": {
     "bf16_embedding_bytes": 272269312,
-    "estimated_weight_bytes": 526690832,
+    "estimated_weight_bytes": 581138960,
     "head_dim": 64,
     "kv_bytes_per_token_per_layer": 272,
     "kv_payload_bytes_per_token_per_layer": 256,
     "kv_scale_metadata_bytes_per_token_per_layer": 16,
     "kv_width_elements": 128,
     "maximum_kv_bytes": 213909504,
-    "maximum_weight_plus_kv_bytes": 740600336,
+    "maximum_weight_plus_kv_bytes": 795048464,
     "operator_aux_metadata_bytes": 55296,
     "packed_linear_weight_elements": 493961216,
     "packed_w4_bytes": 246980608,
-    "projection_metadata_bytes": 7297024,
+    "projection_metadata_bytes": 61745152,
     "projection_output_rows": 456064,
+    "projection_scale_record_count": 15436288,
     "query_heads_per_kv_head": 7,
     "rmsnorm_metadata_bytes": 88592,
     "transformer_linear_weight_elements": 357826560
@@ -37,7 +38,7 @@
   "estimate_scope": {
     "kv_cache": "all layers at max_position_embeddings with signed-int8 K/V payload and one Scale32 value per K/V head per token",
     "units": "bytes",
-    "weight": "packed W4 transformer and LM-head matrices, 16-byte per-output projection records, RMSNorm/operator metadata, and one BF16 input embedding table"
+    "weight": "packed W4 transformer and LM-head matrices, one little-endian 4-byte Scale32 record per output channel and 32-input group, RMSNorm/operator metadata, and one BF16 input embedding table"
   },
   "hardware": {
     "compute_tile": {
@@ -77,11 +78,15 @@
   },
   "weight_layout": {
     "embedding_storage": "bf16",
+    "input_group_size": 32,
     "lm_head_representation": "separate_packed_w4_copy",
     "matrix_order": "output_channel_major_row_major",
+    "packed_group_bytes": 16,
+    "packed_int4_values_per_byte": 2,
     "packing": "even_input_low_nibble_odd_input_high_nibble",
-    "projection_record_bytes": 16,
+    "scale_record_bytes": 4,
+    "scale_record_format": "scale32_little_endian_u32",
     "signed_encoding": "twos_complement",
-    "weight_scale_granularity": "per_output_channel"
+    "weight_scale_granularity": "per_output_channel_per_input_group"
   }
 }

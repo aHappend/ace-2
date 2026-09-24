@@ -1,0 +1,21 @@
+task: hellaswag
+dataset_path: Rowan/hellaswag
+dataset_name: default
+dataset_kwargs:
+  revision: 218ec52e09a7e7462a5400043bb9a69a41d06b76
+output_type: multiple_choice
+training_split: train
+validation_split: validation
+process_docs: !function hellaswag_utils.process_docs
+doc_to_text: "{{query}}"
+doc_to_target: "{{label}}"
+doc_to_choice: "choices"
+metric_list:
+  - metric: acc
+    aggregation: mean
+    higher_is_better: true
+  - metric: acc_norm
+    aggregation: mean
+    higher_is_better: true
+metadata:
+  version: 1.0

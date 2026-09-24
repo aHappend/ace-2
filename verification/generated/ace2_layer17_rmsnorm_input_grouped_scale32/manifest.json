@@ -1,0 +1,45 @@
+{
+  "bindings": {
+    "candidate_result": {
+      "bytes": 8407,
+      "path": "evidence/candidates/w4a8-layer16-output-to-layer17-rmsnorm-input-repair-v1/candidate-0002/result.json",
+      "sha256": "54457d287c5ddeb18203655ccb258e646505aa5f6a9d0ee26c014f9cb9665064"
+    },
+    "candidate_sha256s": {
+      "bytes": 9739,
+      "path": "evidence/candidates/w4a8-layer16-output-to-layer17-rmsnorm-input-repair-v1/candidate-0002/SHA256SUMS",
+      "sha256": "2ab37674be5ae3c8941bf7fdd0e6f5d2154112bf550b6def67203c7d50aad6f7"
+    },
+    "search_runner": {
+      "bytes": 31520,
+      "path": "tools/ace2_checkpoint176_layer17_rmsnorm_input_grouped_scale32_search.py",
+      "sha256": "94046ceaa8b378d1ef1ee7ed14a8e4ae3d7fd77628b28da89a12d19748d1a31d"
+    },
+    "selected_group_result": {
+      "bytes": 17452,
+      "path": "evidence/candidates/w4a8-layer16-output-to-layer17-rmsnorm-input-repair-v1/candidate-0002/groups/group-032/result.json",
+      "sha256": "ed85f3f5dec2954723597ba5f18fb083e401b048efeae1189dd3ff8c9c1ce9b6"
+    }
+  },
+  "boundary": "model.layers.16.output_to_model.layers.17.input_rmsnorm.input",
+  "classification": "candidate_only_best_null_focused_rtl_vectors",
+  "expected": {
+    "saturation_count": 0,
+    "sum_s8_sha256": "110a567a7a15e8bd0b956acc9187a7af2074ff0446e41aa8d7ce78fbb3fec183"
+  },
+  "schema_version": 1,
+  "selected_as_repair": false,
+  "shape": {
+    "group_size": 32,
+    "groups": 28,
+    "hidden": 896
+  },
+  "validation_candidate": {
+    "baseline_reference_rank": 33375,
+    "first_token_restored": false,
+    "reference_rank": 41369,
+    "rms_input_group_size": 32,
+    "selection_reason": "no_group_improved_independently_accepted_q_output_baseline",
+    "top_token_id": 72759
+  }
+}

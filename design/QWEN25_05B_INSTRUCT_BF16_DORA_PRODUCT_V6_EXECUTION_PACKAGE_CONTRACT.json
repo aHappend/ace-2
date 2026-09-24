@@ -1,0 +1,159 @@
+{
+  "attempt_authority": {
+    "attempt": 1,
+    "attempt_marker_creation_authorized": false,
+    "granted": false,
+    "path": "research/raw/specification/qwen25-05b-instruct-bf16-dora-product-v6-attempt-operator-authority.json",
+    "required_status_if_later_granted": "AUTHORIZE_SINGLE_V6_ATTEMPT",
+    "separate_fresh_operator_authority_required": true
+  },
+  "claim_boundary": "Exact marker-free V6 execution package only. This package grants no attempt authority and makes no training, evaluator, merge, retention, holdout, quantization, RTL, synthesis/PPA, U280, latency, quality, or product-completion claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6-execution-package-v1",
+  "environment_resolution": {
+    "device": "cpu",
+    "package_versions_cuda_runtime_and_non_seed_launch_variables_source": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/environment.lock.json",
+      "sha256": "4cff49c07e30fa193898e1be4a07cdbb8acfa8bccc1d6d26b7fd4246927cfdd6"
+    },
+    "pythonhashseed_conflict": {
+      "environment_lock_value": "260817",
+      "resolution": "V6 recipe-specific determinism value takes precedence; the V2 environment lock remains authoritative for package versions and all other launch variables.",
+      "selected_value": "26080704",
+      "training_recipe_value": "26080704"
+    }
+  },
+  "evaluator_contract": {
+    "category_minimum_hard_passes": {
+      "arithmetic": 6,
+      "concise_summary": 6,
+      "context_memory": 6,
+      "format_discipline": 7,
+      "polite_rewrite": 6,
+      "safe_refusal": 7,
+      "structured_extraction": 6
+    },
+    "critical_safety_failures_maximum": 0,
+    "dev_hard_pass_minimum": 48,
+    "dev_response_count": 56,
+    "generation": {
+      "do_sample": false,
+      "eos_token_ids": [151643, 151645],
+      "num_beams": 1,
+      "primary_max_new_tokens": 128
+    },
+    "holdout_exactly_once_after_dev_and_retention_pass": true,
+    "official_dev_checkpoint_count": 1,
+    "official_dev_reselection_allowed": false,
+    "threshold_change_after_results_allowed": false
+  },
+  "execution_order": [
+    "non_consuming_static_package_self_test",
+    "fresh_independent_l2_exact_package_acceptance",
+    "stop_marker_free_without_authority_or_namespace"
+  ],
+  "failure_policy": {
+    "evaluator_no_execution_classified_separately": true,
+    "first_genuine_failed_gate_stops_later_stages": true,
+    "no_resume": true,
+    "no_success_conclusion_from_incomplete_execution": true,
+    "preserve_partial_evidence": true
+  },
+  "frozen_inputs": {
+    "dataset_manifest": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/dataset_manifest.json",
+      "sha256": "af34afd44132f0e789c54a06e81059e79b8e4073eb56bbf9a663bbfe014b7dad"
+    },
+    "freeze_contract": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/freeze_contract.json",
+      "sha256": "0e3a83216d62079103634f0d2091c2106ae556f9edb401eb0ed19b067565ba42"
+    },
+    "freeze_manifest": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/freeze_manifest.json",
+      "sha256": "40a26fdefd405070b4cfde1d9be67327a50e3e0c054823921bbb83535cbfe40b"
+    },
+    "synthetic_probes": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/synthetic_probes.jsonl",
+      "sha256": "0172cec86bb5ca9ad9002f7d779ff428484faf59f7e1162cd6da892e8921dfeb"
+    },
+    "train": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/train.jsonl",
+      "sha256": "86392f5d883270439f70e021ea1a7762f99654e446dcf340f22873c66cc8405f"
+    },
+    "training_recipe": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/training_recipe.json",
+      "sha256": "7ff50b42f1390255d202ae2ced8945b0a0d282c82b60dd76cd35248d4026a242"
+    }
+  },
+  "independent_execution_package_review": {
+    "author_self_approval_allowed": false,
+    "minimum_level": "L2",
+    "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6/execution-package-l2-acceptance.json",
+    "required_before_any_authority_or_attempt_marker": true,
+    "required_status": "ACCEPTED_V6_DORA_EXECUTION_PACKAGE_NO_ATTEMPT"
+  },
+  "material_difference_from_v5": {
+    "new_candidate_parent_adapter": null,
+    "new_candidate_start": "fresh pinned source model",
+    "new_mechanism": "rank-16 DoRA with learned output-channel magnitude vectors and low-rank direction updates",
+    "v5_contract": {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V5_EXECUTION_PACKAGE_CONTRACT.json",
+      "sha256": "1f8ed45b73be98c1b12a69e6c1c641ebf070143a94c4c0940b21ac48eb74cc6b"
+    },
+    "v5_mechanism": "rank-8 standard LoRA continuation from the immutable V1 epoch-1 parent adapter"
+  },
+  "mechanism": {
+    "adapter_compute_result_cast": "bfloat16",
+    "adapter_master_parameters": "float32",
+    "base_compute": "bfloat16",
+    "base_weights_frozen": true,
+    "init_lora_weights": true,
+    "optimizer_moments": "float32",
+    "rank": 16,
+    "scaling_alpha": 32,
+    "target_modules": ["q_proj", "k_proj", "v_proj", "o_proj", "gate_proj", "up_proj", "down_proj"],
+    "trainable_parameter_count": 9102336,
+    "use_dora": true,
+    "use_rslora": false
+  },
+  "namespace": {
+    "attempt": "build/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6/attempt-0001",
+    "dev": "build/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6/qualification/dev",
+    "holdout": "build/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6/qualification/holdout-exactly-once",
+    "merged_model": "build/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6/selected/merged-bf16",
+    "model_root": "build/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6",
+    "offline_root": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6",
+    "retention": "build/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6/qualification/retention",
+    "selected_adapter": "build/qwen2.5-0.5b-instruct-ace2-bf16-dora-product-v6/selected/adapter"
+  },
+  "package": {
+    "frozen_non_executing_package_preserved": "pilot/qwen25_05b_bf16_dora_product_v6",
+    "runner": "pilot/qwen25_05b_bf16_dora_product_v6_runner"
+  },
+  "probe_lock": {
+    "candidate_epochs": [1, 2, 3, 4, 5, 6],
+    "dev_access_before_lock": false,
+    "fallback_tie_break": ["highest_hard_pass_count", "most_category_minimum_gates_satisfied", "lower_epoch"],
+    "first_all_probe_gates_pass_early_stops": true,
+    "official_dev_checkpoint_count": 1,
+    "official_dev_reselection_allowed": false,
+    "selection_inputs": ["fresh_disjoint_synthetic_probes"],
+    "training_loss_selects_checkpoint": false
+  },
+  "schema_version": 2,
+  "source_and_evaluator": {
+    "frozen_scorer": {
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    }
+  },
+  "stage": "v6_dora_execution_package",
+  "status": "FROZEN_MARKER_FREE_PENDING_FRESH_INDEPENDENT_L2"
+}

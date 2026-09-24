@@ -1,0 +1,189 @@
+{
+  "schema_version": 2,
+  "kind": "versioned_interface_closure",
+  "version": "2.0",
+  "mission_id": "extend-layer0-two-token-kv-rtl",
+  "normative_spec": "design/LORA_V4_LAYER0_TWO_TOKEN_KV_FULL_SPEC_V2.md",
+  "inherits": {
+    "specification": {
+      "path": "design/LORA_V4_LAYER0_TWO_TOKEN_KV_FULL_SPEC.md",
+      "bytes": 9565,
+      "sha256": "b913b397b4b15d89a5f63647c257da5f169c68be100ba12ae42e8228eed6aa70"
+    },
+    "exact_port_and_workload_manifest": {
+      "path": "design/LORA_V4_LAYER0_TWO_TOKEN_KV_FULL_INTERFACE.json",
+      "bytes": 17837,
+      "sha256": "dfff2c3db0b6d8eee138d964c6557dfa2766f60bdfe0bb05af2ae3c513bf0a37"
+    }
+  },
+  "composition_rule": "V2 is additive; the inherited exact port/workload manifest remains normative for declarations, hashes, elaboration, testbenches, timeout guards, and transaction totals, while this artifact is normative for semantic ranges, reset observations, performance expectations, scenarios, and benchmark applicability.",
+  "claim_boundary": "two tokenizer positions through one complete layer-0 W4A8 RTL operator path; no full-model, product, FPGA, U280, PPA, hardware-latency, benchmark, or model-quality claim",
+  "benchmark_applicability": {
+    "mission_id": "extend-layer0-two-token-kv-rtl",
+    "applies": false,
+    "classification": "non_benchmark_bounded_rtl_reproduction",
+    "reason": "Acceptance is exact RTL-versus-independent-fixed-point agreement for one layer and two frozen tokenizer positions, not a benchmark score or comparative performance result.",
+    "forbidden_claims": [
+      "benchmark_score_or_ranking",
+      "model_quality_certification",
+      "accelerator_or_hardware_latency",
+      "full_model_or_arbitrary_text_chat",
+      "fpga_u280_synthesis_ppa_or_routed_timing"
+    ]
+  },
+  "legal_semantic_ranges": {
+    "common": {
+      "one_bit_controls": [0, 1],
+      "signed_int4": [-8, 7],
+      "signed_int8": [-128, 127],
+      "signed_int16": [-32768, 32767],
+      "signed_int32": [-2147483648, 2147483647],
+      "unsigned_shift6": [0, 63],
+      "ready_valid_rule": "sample_on_rising_edge_only_when_valid_and_ready_are_both_1; payload_stable_while_valid_1_ready_0"
+    },
+    "projection": {
+      "last_group_i": {"legal": [0, 1215], "attempt_values": [223, 1215]},
+      "act_lane": {"interpretation": "signed_int8", "legal": [-128, 127]},
+      "weight_lane": {"interpretation": "signed_int4", "legal": [-8, 7]},
+      "multiplier_i": {"interpretation": "signed_int32", "legal": [-2147483648, 2147483647]},
+      "right_shift_i": {"legal": [0, 63]},
+      "output_zero_point_i": {"legal": [-128, 127], "attempt_value": 0},
+      "bias_accumulator_i": {"legal": [-2147483648, 2147483647], "attempt_value": 0},
+      "transaction_rule": "exactly last_group_i_plus_1 pair accepts, then one metadata accept, then one output"
+    },
+    "rmsnorm": {
+      "hidden_size": 896,
+      "lanes": 16,
+      "beats_per_phase": 56,
+      "input_and_scale_activation_lane": {"interpretation": "signed_int8", "legal": [-128, 127]},
+      "gain_lane": {"interpretation": "signed_q7_8", "raw_legal": [-32768, 32767]},
+      "partial_or_extra_beat_legal": false
+    },
+    "rope": {
+      "positions": [0, 1],
+      "beats_per_tensor": 56,
+      "act_and_pair_lane": {"interpretation": "signed_int8", "legal": [-128, 127]},
+      "scale_and_pair_scale_lane": {"interpretation": "signed_int16", "legal": [-32768, 32767]},
+      "cos_and_sin_lane": {"interpretation": "signed_q15", "raw_legal": [-32768, 32767]},
+      "second_half_i": [0, 1],
+      "pairing": "split_half_and_second_half_must_match_vector_generation"
+    },
+    "attention_score": {
+      "pair_accepts_per_token": 64,
+      "q_and_k_lane": {"interpretation": "signed_int8", "legal": [-128, 127]},
+      "multiplier_i": {"interpretation": "signed_int32", "legal": [-2147483648, 2147483647]},
+      "right_shift_i": {"legal": [0, 63]},
+      "score_o": {"interpretation": "signed_int16", "legal": [-32768, 32767]},
+      "context_by_position": [1, 2]
+    },
+    "softmax": {
+      "context_count_i": {"legal": [1, 8], "attempt_values": [1, 2]},
+      "active_score_lane": {"interpretation": "signed_int16", "legal": [-32768, 32767]},
+      "inactive_score_lane": -32768,
+      "active_probability_lane": {"interpretation": "unsigned_q15", "legal": [0, 32768]},
+      "active_probability_sum": 32768
+    },
+    "attention_compose": {
+      "command_i": {
+        "legal": {"MAX_FIRST": 0, "MAX_MORE": 1, "SUM_FIRST": 2, "SUM_MORE": 3, "VALUE_FIRST": 4, "VALUE_MORE": 5, "VALUE_LAST": 6},
+        "all_other_values": "illegal"
+      },
+      "tile_count_i": {"legal": [1, 8]},
+      "cumulative_context_count": {"legal": [1, 32768], "attempt_value": 9, "real_entries": [1, 2]},
+      "start_authorized_i_for_acceptance": 1,
+      "score_lane": {"interpretation": "signed_int16", "legal": [-32768, 32767]},
+      "value_lane": {"interpretation": "signed_int8", "legal": [-128, 127]},
+      "protocol_order": ["MAX_FIRST_or_MAX_MORE", "SUM_FIRST_or_SUM_MORE", "VALUE_FIRST_or_VALUE_MORE_or_VALUE_LAST"]
+    },
+    "silu_gate": {
+      "lane_count_i": {"legal": [1, 8], "nominal_attempt_value": 8},
+      "gate_and_up_lane": {"interpretation": "signed_q6_9", "raw_legal": [-32768, 32767]},
+      "multiplier_i": {"interpretation": "signed_int32", "legal": [-2147483648, 2147483647]},
+      "right_shift_i": {"legal": [0, 63]},
+      "output_zero_point_i": {"legal": [-128, 127], "attempt_value": 0}
+    },
+    "residual_shell": {
+      "cmd_opcode_i": {"legal_attempt_value": 8, "symbol": "ACE2_OPCODE_RESIDUAL_ADD"},
+      "cmd_flags_i": {"legal_attempt_value": 9},
+      "cmd_layer_id_i": {"legal": [0, 23], "attempt_value": 0},
+      "cmd_m_i": {"legal_attempt_value": 1},
+      "cmd_n_i": {"legal_attempt_value": 896},
+      "cmd_k_i": {"legal_attempt_value": 0},
+      "cmd_sequence_position_i": {"legal_attempt_value": 0},
+      "cmd_completion_tag_i": {"legal": [0, 65535], "rule": "returned_unchanged_and_in_order"},
+      "addresses": {"legal": [0, 18446744073709551615], "alignment_bytes": 16},
+      "misaligned_or_wrong_shape_or_layer_or_opcode": "illegal_descriptor"
+    }
+  },
+  "reset_observability": {
+    "input_assumption": "all non-clock inputs zero, including source valids and sink readies; observe after asynchronous reset propagation",
+    "families": {
+      "projection": {"start_ready_o": 1, "pair_ready_o": 0, "meta_ready_o": 0, "out_valid_o": 0, "out_data_o": 0, "acc_o": 0, "accumulator_overflow_o": 0, "saturation_seen_o": 0},
+      "rmsnorm": {"start_ready_o": 1, "in_ready_o": 0, "gain_ready_o": 0, "scale_act_ready_o": 0, "out_valid_o": 0, "out_data_o": 0, "done_valid_o": 0, "sumsq_o": 0, "inv_rms_q30_o": 0, "saturation_seen_o": 0},
+      "rope": {"start_ready_o": 1, "beat_ready_o": 0, "out_valid_o": 0, "out_data_o": 0, "saturation_seen_o": 0},
+      "attention_score": {"start_ready_o": 1, "pair_ready_o": 0, "out_valid_o": 0, "score_o": 0, "acc_o": 0, "saturation_seen_o": 0},
+      "softmax": {"start_ready_o": 1, "out_valid_o": 0, "prob_data_o": 0, "saturation_seen_o": 0},
+      "attention_compose": {"command_allowed_o": 0, "start_ready_o": 1, "value_ready_o": 0, "out_valid_o": 0, "out_data_o": 0, "out_last_o": 0, "command_done_o": 0, "saturation_seen_o": 0, "context_count_o": 0},
+      "silu_gate": {"start_ready_o": 1, "beat_ready_o": 1, "out_valid_o": 0, "out_data_o": 0, "saturation_seen_o": 0},
+      "residual_shell": {"csr_ready_o": 1, "cmd_ready_o": 0, "busy_o": 0, "irq_o": 0, "cmd_done_valid_o": 0, "cmd_done_tag_o": 0, "cmd_done_error_o": 0, "cmd_done_sumsq_o": 0, "cmd_done_inv_rms_q30_o": 0, "cmd_done_saturation_seen_o": 0, "mem_req_valid_o": 0, "mem_wvalid_o": 0, "mem_rready_o": 0, "mem_bready_o": 0, "sram_req_valid_o": 0, "csr_rvalid_o": 0, "csr_rdata_o": 0, "csr_error_o": 0, "invalid_payload_rule": "payloads_are_ignored_when_corresponding_valid_is_0"}
+    },
+    "release_expectation": "each core completes its first legal post-settle transaction; shell remains command-not-ready until normal CSR enable, then completes its first residual command",
+    "midcommand_reset_covered": false
+  },
+  "latency_throughput_expectations": {
+    "clock_period_ns": 10,
+    "classification": "deterministic_family_local_simulator_cycles_not_accelerator_latency",
+    "expected_simulator_cycles_exact": {"projection": 26764922, "rmsnorm": 249060, "rope": 757397, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1764423, "residual": 3623},
+    "expected_aggregate_family_cycles": 29582152,
+    "throughput_accounting": {
+      "projection": {"pair_handshakes": 7454720, "metadata_handshakes": 25344, "outputs": 25344, "cycles": 26764922},
+      "rmsnorm": {"collect_beats": 224, "scale_gain_beats": 224, "output_beats": 224, "done_handshakes": 4, "cycles": 249060},
+      "rope": {"transactions": 224, "cycles": 757397},
+      "attention_score": {"pair_handshakes": 2688, "outputs": 42, "cycles": 5633},
+      "softmax": {"starts": 28, "outputs": 28, "cycles": 3071},
+      "attention_compose": {"commands": 168, "value_beats": 1008, "output_beats": 112, "cycles": 34023},
+      "silu_gate": {"input_beats": 1216, "output_handshakes": 1216, "cycles": 1764423},
+      "residual_shell": {"commands": 4, "output_beats": 224, "cycles": 3623}
+    },
+    "overlap": "cases_serialized_within_each_family",
+    "output_backpressure": "valid_and_payload_stable_until_ready",
+    "timeout_semantics": "hard_failure_bound_not_expected_latency"
+  },
+  "scenario_matrix": [
+    {"id": "normal_two_position_full_path", "class": "normal", "required": true, "acceptance": "all operators and both positions pass with zero fixed-point mismatches"},
+    {"id": "prefill_decode_cache_rope_boundaries", "class": "boundary", "required": true, "acceptance": "position0 singleton identity RoPE; position1 context2 nonidentity RoPE, grouped-query mapping, cached position0 K/V reuse, and cache counterfactual effect"},
+    {"id": "reset_entry_and_first_transaction", "class": "reset", "required": true, "acceptance": "source-bound reset map matches this artifact and every family completes its first legal post-reset transaction without pre-command output-valid or error"},
+    {"id": "deterministic_output_backpressure", "class": "stall", "required": true, "acceptance": "valid and payload remain stable until sink ready acceptance"},
+    {"id": "sequential_intercase_recovery", "class": "recovery", "required": true, "acceptance": "ready/idle returns without intercase reset and shell tags remain exact and ordered"},
+    {"id": "illegal_compose_control", "class": "illegal", "required": false, "acceptance_if_exercised": "unsupported command, invalid order, zero/excessive count, or unauthorized start is not accepted and command_allowed_o is 0 where applicable", "current_outcome": "NOT_EXERCISED_NO_CLAIM"},
+    {"id": "illegal_shell_descriptor", "class": "illegal", "required": false, "acceptance_if_exercised": "wrong opcode, shape, layer, or alignment terminates as descriptor error without successful payload completion", "current_outcome": "NOT_EXERCISED_NO_CLAIM"},
+    {"id": "random_input_or_output_stalls", "class": "stall", "required": false, "acceptance_if_exercised": "eventual completion within timeout and exact payload stability", "current_outcome": "NOT_EXERCISED_NO_CLAIM"},
+    {"id": "midcommand_clear_or_reset", "class": "reset", "required": false, "acceptance_if_exercised": "quiescent cancellation and documented restart behavior", "current_outcome": "NOT_EXERCISED_NO_CLAIM"},
+    {"id": "injected_memory_or_tag_error_recovery", "class": "recovery", "required": false, "acceptance_if_exercised": "error completion without false success and documented recovery", "current_outcome": "NOT_EXERCISED_NO_CLAIM"}
+  ],
+  "fresh_l2": {
+    "preserve_attempt": "evidence/verification/lora-v4-layer0-two-token-kv-full-v1/attempt-0001",
+    "new_attempt": "evidence/verification/lora-v4-layer0-two-token-kv-full-v1/attempt-0002",
+    "repair_contract": "evidence/verification/lora-v4-layer0-two-token-kv-full-v1/repair-0002-contract.json",
+    "compile_families": ["projection", "rmsnorm", "rope", "score", "softmax", "compose", "silu", "residual"],
+    "reuse_prior_simulator_binaries": false,
+    "expected_projection_results": 25344,
+    "expected_final_layer_output_sha256_by_position": ["87e50216a5fad60d4022be22c7df9a422cd3670d9e3805a6d66dbd3071894bd3", "163c71316c812b156f4094d17b8ba23581a7d1e565d5b4ad9373b03764cf04ef"]
+  },
+  "acceptance": {
+    "integer_mismatches_max": 0,
+    "projection_accumulator_mismatches_max": 0,
+    "projection_results_exact": 25344,
+    "kv_cache_bytes_exact": 512,
+    "final_output_positions": 2,
+    "final_output_bytes_per_position": 896,
+    "float_quality_pass_allowed": false,
+    "preserved_attempt_0001_members_exact": 143,
+    "fresh_attempt_0002_required": true,
+    "fresh_compile_returncodes_all_zero": true,
+    "fresh_simulation_returncodes_all_zero": true,
+    "expected_simulator_cycles_exact_required": true,
+    "expected_final_output_hashes_exact_required": true,
+    "immutable_attempt_required": true
+  }
+}

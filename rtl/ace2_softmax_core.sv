@@ -21,6 +21,9 @@ module ace2_softmax_core #(
 );
     localparam integer INDEX_WIDTH = (CONTEXT_MAX <= 1) ? 1 : $clog2(CONTEXT_MAX);
     localparam [INDEX_WIDTH-1:0] LAST_INDEX = INDEX_WIDTH'(CONTEXT_MAX - 1);
+    localparam integer EXP_SUM_WIDTH = 15 + $clog2(CONTEXT_MAX + 1);
+    localparam integer DIV_TRIAL_WIDTH =
+        (EXP_SUM_WIDTH + 15 < 32) ? 32 : EXP_SUM_WIDTH + 15;
 
     localparam [3:0] ST_IDLE      = 4'd0;
     localparam [3:0] ST_MAX       = 4'd1;
@@ -40,10 +43,10 @@ module ace2_softmax_core #(
     reg [15:0] context_count_q;
     reg [INDEX_WIDTH-1:0] index_q;
     reg signed [SCORE_WIDTH-1:0] max_score_q;
-    reg [18:0] exp_sum_q;
+    reg [EXP_SUM_WIDTH-1:0] exp_sum_q;
     reg [31:0] div_remaining_q;
     reg [15:0] div_quotient_q;
-    reg [33:0] div_trial_q;
+    reg [DIV_TRIAL_WIDTH-1:0] div_trial_q;
     reg [4:0] div_bit_q;
     reg div_take_q;
     reg [INDEX_WIDTH-1:0] exp_index_q;
@@ -58,9 +61,11 @@ module ace2_softmax_core #(
     wire [16:0] max_minus_score_w = max_minus_score_signed_w[16] ? 17'd0 : max_minus_score_signed_w[16:0];
     wire [15:0] current_exp_weight_w = exp_weight_q[index_q*PROB_WIDTH +: PROB_WIDTH];
     wire [15:0] exp_lookup_w = index_active_w ? exp_lookup_q15(max_minus_score_w) : 16'd0;
-    wire div_take_trial_w = ({2'd0, div_remaining_q} >= div_trial_q);
+    wire div_take_trial_w =
+        ({{(DIV_TRIAL_WIDTH-32){1'b0}}, div_remaining_q} >= div_trial_q);
     wire [32:0] round_remainder_doubled_w = {div_remaining_q, 1'b0};
-    wire [32:0] round_denominator_w = {14'd0, exp_sum_q};
+    wire [32:0] round_denominator_w =
+        {{(33-EXP_SUM_WIDTH){1'b0}}, exp_sum_q};
     wire round_increment_w = (round_remainder_doubled_w > round_denominator_w) ||
                              ((round_remainder_doubled_w == round_denominator_w) && div_quotient_q[0]);
     wire [16:0] rounded_prob_w = {1'b0, div_quotient_q} + {16'd0, round_increment_w};
@@ -158,10 +163,10 @@ module ace2_softmax_core #(
             context_count_q <= 16'd0;
             index_q <= {INDEX_WIDTH{1'b0}};
             max_score_q <= {SCORE_WIDTH{1'b0}};
-            exp_sum_q <= 19'd0;
+            exp_sum_q <= {EXP_SUM_WIDTH{1'b0}};
             div_remaining_q <= 32'd0;
             div_quotient_q <= 16'd0;
-            div_trial_q <= 34'd0;
+            div_trial_q <= {DIV_TRIAL_WIDTH{1'b0}};
             div_bit_q <= 5'd0;
             div_take_q <= 1'b0;
             exp_index_q <= {INDEX_WIDTH{1'b0}};
@@ -170,10 +175,10 @@ module ace2_softmax_core #(
         end else if (clear_i) begin
             state_q <= ST_IDLE;
             index_q <= {INDEX_WIDTH{1'b0}};
-            exp_sum_q <= 19'd0;
+            exp_sum_q <= {EXP_SUM_WIDTH{1'b0}};
             exp_index_q <= {INDEX_WIDTH{1'b0}};
             exp_lane_weight_q <= 16'd0;
-            div_trial_q <= 34'd0;
+            div_trial_q <= {DIV_TRIAL_WIDTH{1'b0}};
             div_take_q <= 1'b0;
             out_valid_q <= 1'b0;
         end else begin
@@ -192,7 +197,7 @@ module ace2_softmax_core #(
                             exp_index_q <= {INDEX_WIDTH{1'b0}};
                             exp_lane_weight_q <= 16'd0;
                             max_score_q <= score_data_i[SCORE_WIDTH-1:0];
-                            exp_sum_q <= 19'd0;
+                            exp_sum_q <= {EXP_SUM_WIDTH{1'b0}};
                             state_q <= ST_MAX;
                         end
                     end
@@ -217,7 +222,8 @@ module ace2_softmax_core #(
 
                     ST_EXP_ACCUM: begin
                         exp_weight_q[exp_index_q*PROB_WIDTH +: PROB_WIDTH] <= exp_lane_weight_q;
-                        exp_sum_q <= exp_sum_q + {3'd0, exp_lane_weight_q};
+                        exp_sum_q <= exp_sum_q +
+                            {{(EXP_SUM_WIDTH-16){1'b0}}, exp_lane_weight_q};
                         if (index_q == LAST_INDEX) begin
                             index_q <= {INDEX_WIDTH{1'b0}};
                             state_q <= ST_DIV_INIT;
@@ -228,7 +234,8 @@ module ace2_softmax_core #(
                     end
 
                     ST_DIV_INIT: begin
-                        if (!index_active_w || (current_exp_weight_w == 16'd0) || (exp_sum_q == 19'd0)) begin
+                        if (!index_active_w || (current_exp_weight_w == 16'd0) ||
+                            (exp_sum_q == {EXP_SUM_WIDTH{1'b0}})) begin
                             for (store_lane = 0; store_lane < CONTEXT_MAX;
                                  store_lane = store_lane + 1) begin
                                 if (index_q == INDEX_WIDTH'(store_lane)) begin
@@ -246,14 +253,16 @@ module ace2_softmax_core #(
                             div_remaining_q <= {1'b0, current_exp_weight_w, 15'd0};
                             div_quotient_q <= 16'd0;
                             div_bit_q <= 5'd15;
-                            div_trial_q <= 34'd0;
+                            div_trial_q <= {DIV_TRIAL_WIDTH{1'b0}};
                             div_take_q <= 1'b0;
                             state_q <= ST_DIV_PREP;
                         end
                     end
 
                     ST_DIV_PREP: begin
-                        div_trial_q <= {15'd0, exp_sum_q} << div_bit_q;
+                        div_trial_q <=
+                            {{(DIV_TRIAL_WIDTH-EXP_SUM_WIDTH){1'b0}}, exp_sum_q}
+                            << div_bit_q;
                         state_q <= ST_DIV_CMP;
                     end
 

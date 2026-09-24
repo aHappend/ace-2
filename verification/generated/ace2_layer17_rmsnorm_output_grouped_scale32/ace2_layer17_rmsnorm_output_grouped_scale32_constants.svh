@@ -1,0 +1,11 @@
+localparam integer MODEL_HIDDEN = 896;
+localparam integer MODEL_LANES = 16;
+localparam integer MODEL_BEATS = 56;
+localparam integer MODEL_RMS_GROUP_SIZE = 64;
+localparam integer MODEL_RMS_GROUP_COUNT = 14;
+localparam integer MODEL_BEATS_PER_GROUP = 4;
+localparam [47:0] MODEL_EXPECTED_SUMSQ = 48'd1161458;
+localparam [31:0] MODEL_EXPECTED_INV_RMS_Q30 = 32'd29826161;
+localparam MODEL_EXPECTED_SATURATION = 1'b0;
+localparam integer MODEL_BEST_REFERENCE_RANK = 41895;
+localparam integer MODEL_BASELINE_REFERENCE_RANK = 33375;

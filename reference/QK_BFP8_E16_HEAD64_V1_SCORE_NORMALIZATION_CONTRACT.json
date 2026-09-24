@@ -1,0 +1,141 @@
+{
+  "api": {
+    "consumer_compatibility": "Only the checksum-bound attention-softmax boundary accepting signed-int64-container Q12.20 logits plus the authoritative valid-key bitmap is compatible. A Q6.9, score-pair, sentinel-only, or otherwise different consumer must reject this version and use a separately checksummed contract.",
+    "error_policy": "Any malformed type, range, canonical encoding, row length, mask length, frame field, reserved field, payload length, or trailing byte rejects the complete row before output publication.",
+    "functions": {
+      "canonicalize_producer_score_pair": "canonicalize_producer_score_pair(pair) validates the exact bound-producer range and maps every zero mantissa, including a reachable summed head exponent, to canonical (0,0).",
+      "compare_score_pairs": "compare_score_pairs(left_pair, right_pair) returns exactly -1, 0, or +1 from exact represented values.",
+      "normalize_score_row": "normalize_score_row(score_pairs, valid_mask) canonicalizes producer zeros and returns (scores_q12_20, common_exponent, argmax_index).",
+      "pack_input_row": "pack_input_row(score_pairs, valid_mask) canonicalizes producer zeros and emits the canonical input frame only after validating every pair, including masked pairs.",
+      "pack_normalized_row": "pack_normalized_row(score_pairs, valid_mask) performs validation and normalization internally; callers cannot supply derived scores, common_exponent, or argmax_index.",
+      "unpack_input_row": "unpack_input_row(payload) accepts only the exact canonical input frame and returns immutable tuples.",
+      "unpack_normalized_row": "unpack_normalized_row(payload) accepts only the exact canonical output frame and returns immutable tuples. The valid-key bitmap remains authoritative."
+    },
+    "input_types": "score_pairs is an immutable tuple of immutable two-integer tuples; valid_mask is an immutable tuple of exact booleans. bool is not accepted as an integer.",
+    "row_atomicity": "No partial row result, partial packed frame, inferred default, compatibility alias, or repaired field is permitted."
+  },
+  "artifact_kind": "qk_bfp8_e16_head64_v1_score_normalization_prerequisite_contract",
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "claim_boundary": {
+    "calibration_or_scoring_performed": false,
+    "candidate_or_execution_namespace_created": false,
+    "fixed_input_or_model_execution_performed": false,
+    "generation_or_repair_replay_performed": false,
+    "rtl_spec_manifest_or_u280_modified": false,
+    "stage_transition_authorized": false
+  },
+  "comparison": {
+    "algorithm": "After canonical validation, zero compares by sign class. For two nonzero pairs choose e_cmp=min(e_a,e_b), form A=m_a<<(e_a-e_cmp) and B=m_b<<(e_b-e_cmp) in signed 543-bit or wider exact integers, then compare A and B. This is exact for positive, negative, mixed-sign, unequal-exponent, and extreme pairs.",
+    "equality": "Equality is represented-value equality, not field equality; for example (1,0), (2,-1), and (4,-2) compare equal.",
+    "ordering": "The result is a total order over canonical score pairs. No floating-point conversion, host-libm operation, saturation, truncation, or rounded comparison is allowed.",
+    "zero": "The bound producer may emit (0,e) for any summed head exponent e in -278 through 244. The direct interface canonicalizes every such pair to (0,0); canonical packed input permits only (0,0)."
+  },
+  "contract_id": "QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_V2",
+  "input": {
+    "head_scale": "The fixed-softmax realization applies the exact HEAD64 attention scale 1/sqrt(64)=1/8 after exact row-max centering.",
+    "maximum_row_length": 512,
+    "minimum_row_length": 1,
+    "score_exponent": {
+      "canonical_nonzero_range": [
+        -278,
+        244
+      ],
+      "minimum_exact_signed_width": 10,
+      "storage_width": 16
+    },
+    "score_mantissa": {
+      "canonical_range": [
+        -1032256,
+        1032256
+      ],
+      "minimum_exact_signed_width": 21,
+      "storage_width": 32
+    },
+    "score_value": "score_mantissa * 2^score_exponent exactly",
+    "validation_order": "At the direct producer interface validate every pair including masked pairs, canonicalize any in-range zero to (0,0), and validate the complete bitmap before applying the mask semantically. Packed frames must already contain canonical (0,0) zeros and reject any alternate zero exponent."
+  },
+  "normalization": {
+    "all_masked_row": "Reject before choosing a common exponent or publishing output.",
+    "argmax_tie": "Choose the lowest key index among exact equal valid maxima. Every valid score equal to the maximum centers to exact zero.",
+    "common_exponent": "Choose the minimum score_exponent among valid nonzero pairs. Valid canonical zeros do not participate. If every valid pair is zero, choose 0.",
+    "exact_alignment": "For each valid nonzero pair, aligned_i=score_mantissa_i<<(score_exponent_i-common_exponent). A valid zero aligns to 0. Alignment is exact and uses signed 543-bit or wider integers.",
+    "mask_order": "Masked pairs are validated but excluded from common-exponent selection, maximum selection, alignment, and centering. Their packed output score is assigned only after all valid numeric results are complete.",
+    "row_max": "Select one global maximum across all valid keys using exact aligned integers; tile-local maxima are not sufficient.",
+    "row_max_centering": "For every valid key, centered_i=aligned_i-aligned_argmax in signed 544-bit or wider arithmetic. Therefore centered_i is never positive and the selected maximum is exactly zero.",
+    "zero_after_centering": "Every exact centered zero is canonical integer +0 at common_exponent; no negative-zero state exists."
+  },
+  "objective": "Freeze deterministic, exact comparison and row normalization of QK_BFP8_E16_HEAD64_V1 score pairs before the checksum-bound signed-int64-container Q12.20 attention-softmax boundary without granting workload, model, RTL, or stage execution authority.",
+  "packing": {
+    "common": {
+      "byte_order": "little-endian",
+      "mask_bit_order": "key index k is byte floor(k/8), bit k mod 8; one means valid and zero means masked",
+      "mask_tail": "Unused high bits in the final mask byte must be zero.",
+      "row_order": "Scores and mask bits are in increasing key index with no permutation, padding between records, or trailing bytes."
+    },
+    "input_frame": {
+      "header_bytes": 16,
+      "layout": "bytes 0..7 ASCII QKSPIN01; bytes 8..9 u16 schema_version=2; bytes 10..11 u16 flags=0; bytes 12..13 u16 row_length; bytes 14..15 u16 record_bytes=6; then row_length records; then ceil(row_length/8) mask bytes",
+      "record_layout": "signed-int32 score_mantissa followed by signed-int16 score_exponent",
+      "total_bytes": "16 + 6*row_length + ceil(row_length/8)"
+    },
+    "output_frame": {
+      "header_bytes": 24,
+      "layout": "bytes 0..7 ASCII QKSPOU01; bytes 8..9 u16 schema_version=2; bytes 10..11 u16 flags=0; bytes 12..13 u16 row_length; bytes 14..15 u16 score_bytes=8; bytes 16..17 signed-int16 common_exponent; bytes 18..19 u16 argmax_index; bytes 20..23 u32 reserved=0; then row_length signed-int64-container Q12.20 scores; then ceil(row_length/8) mask bytes",
+      "masked_score": 0,
+      "total_bytes": "24 + 8*row_length + ceil(row_length/8)"
+    }
+  },
+  "prerequisite_bindings": {
+    "authoritative_softmax_scope": {
+      "path": "design/CHIP_SCOPE.json",
+      "sha256": "a5d61c40c89988a53fd3d039da48bd3de26d60f5d6d0bf5cce1e60176d4dcb2f"
+    },
+    "pure_reference": {
+      "path": "reference/qk_bfp8_e16_head64_v1.py",
+      "sha256": "bfb8b0d95ef8a8b939694fe8fec710d4acb1abff8b38b4bbbb4a43bdea5bb704"
+    },
+    "qualifying_fresh_l2_review": {
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/c4be36371316/round-0002.json",
+      "sha256": "c76b51059c853d361d00e72ccbc8af9216175bb1be6471811efe5f74ee3ed046"
+    },
+    "readiness_package": {
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_READINESS.json",
+      "sha256": "400d4a4a8b627cd71e930f670852b89e5deead83f14be3f528e752f6d1705fa7"
+    },
+    "static_verifier": {
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_readiness.py",
+      "sha256": "ea40e12f39351fe6240d861a68488a4bc22517dab72434762f05a8bdf88fdd2e"
+    }
+  },
+  "prohibited_actions": [
+    "Load a model or run fixed inputs, inference, calibration, scoring, rank-margin evaluation, generation, or repair replay.",
+    "Create or execute a candidate, workload package, command bundle, or execution namespace.",
+    "Edit RTL, design specifications, manifests, U280 files, constraints, or pipeline stage state.",
+    "Claim RTL correctness, benchmark PASS, timing, area, coverage, quality, or stage completion from this static package."
+  ],
+  "proof_widths": {
+    "aligned_score": "signed 543 bits: signed-21 score_mantissa shifted left by at most 522",
+    "centered_score": "signed 544 bits or wider for subtraction of two signed-543 aligned operands",
+    "common_exponent": "signed 10 bits, stored in signed 16 bits",
+    "exponent_delta": "unsigned 10 bits for 0 through 522",
+    "realization_intermediate": "signed 805 bits or wider: signed-544 centered value shifted left by at most 261 when common_exponent+17 is nonnegative",
+    "row_length_and_argmax": "unsigned 10-bit values, stored in unsigned 16 bits",
+    "score_exponent_span": 522
+  },
+  "realization": {
+    "authoritative_binding": "design/CHIP_SCOPE.json SHA-256 a5d61c40c89988a53fd3d039da48bd3de26d60f5d6d0bf5cce1e60176d4dcb2f at numerical_behavior.attention_softmax.logit_format_after_scale = signed_int64_container_for_Q12_20; its Q6.9 materialized-score path is historical and rejected.",
+    "format": "signed-int64-container Q12.20 attention-softmax logit",
+    "formula": "real_q12_20_i = centered_i * 2^(common_exponent+20-3) = centered_i * 2^(common_exponent+17)",
+    "guard_round_sticky": "For a right shift s>0, round the nonnegative magnitude. guard is discarded bit s-1; round is bit s-2 or zero when absent; sticky is OR of lower discarded bits; increment the retained magnitude iff guard and (round or sticky or retained_lsb). Restore the original sign afterward.",
+    "masked_output": "After valid entries are realized, every masked packed slot is deterministic zero filler. The bitmap is authoritative and the checksum-bound attention-softmax consumer must suppress masked keys before recurrence or lookup.",
+    "negative_overflow": "A valid rounded result below signed-int64 minimum deterministically saturates to -9223372036854775808, preserving a legal Q12.20 container value.",
+    "positive_overflow": "A positive centered or realized valid result is an internal contract violation and rejects the row; it is never clamped to zero.",
+    "rounding_boundary": "This Q12.20 realization is the sole rounding boundary. Alignment, comparison, maximum selection, and centering are exact.",
+    "underflow_and_zero": "A magnitude below one-half output LSB rounds to +0; an exact half with even retained zero also rounds to +0. Post-round zero is canonical integer +0.",
+    "valid_output_range": [
+      -9223372036854775808,
+      0
+    ]
+  },
+  "schema_version": 2
+}

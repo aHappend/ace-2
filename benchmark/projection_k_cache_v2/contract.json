@@ -1,0 +1,127 @@
+{
+  "created_at_utc": "2026-08-18T14:24:16.153698+00:00",
+  "fixed_external_benchmark": false,
+  "frozen_baseline": {
+    "bytes": 221673,
+    "path": "build/projection-k-cache-v2/frozen-baseline/rtl/ace2_shell.sv",
+    "sha256": "febccf8762a43149eb1964796ff0c842a791cfcdeca106150efcd6d6147ad216"
+  },
+  "limitations": [
+    "This is a deterministic synthetic layer-0 K projection, not a full model or chat attempt.",
+    "The benchmark measures one shell descriptor and the abstract streaming-memory boundary; it does not model a physical DRAM controller.",
+    "The score is cycle reduction with exact output agreement; wall time is reported but not a pass gate."
+  ],
+  "name": "projection-k-cache-v2",
+  "official_full_chat_invoked": false,
+  "protected_or_sealed_inputs_used": false,
+  "public_rtl_contract": {
+    "clock": "clk_i, 10 ns period",
+    "command_protocol": "one ready/valid descriptor and one tagged completion",
+    "memory_protocol": "one-beat abstract streaming requests with deterministic ready stalls and one-cycle read response",
+    "parameters": "unchanged defaults",
+    "ports_frozen_by": {
+      "bytes": 45203,
+      "sha256": "8999bd83187451e97483df387a9978921e1d8ae858ad41ce8b2d223e6b6651ad"
+    },
+    "reset": "rst_ni active-low for five rising edges",
+    "top_module": "ace2_shell"
+  },
+  "schema_version": 1,
+  "score_policy": {
+    "command_accounting": "report host descriptor, external memory read, and external memory write request counts",
+    "correctness": "all 128 RTL output bytes exactly equal the Python fixed-point reference",
+    "primary": "candidate simulator cycles <= 75% of frozen baseline",
+    "secondary": "report median simulator wall time over three measured trials"
+  },
+  "sources_and_constraint_hashes": {
+    "constraints/ace2_rmsnorm_core.sdc": {
+      "bytes": 250,
+      "sha256": "b21f8da39a0bdc5bf4db70b82013efb3d06a686347749c0070f37f37eca9e9ea"
+    },
+    "rtl/ace2_attention_compose_core.sv": {
+      "bytes": 26322,
+      "sha256": "33ca20e48a6f9eb8f93874e95c8e8b73a48c00e435693b84d4a5915da7ca78ff"
+    },
+    "rtl/ace2_attention_score_core.sv": {
+      "bytes": 6361,
+      "sha256": "400234b1f5b28f379792d5c1e023adc3f2c81e7bea825d5f7683bdc6ccd1dd55"
+    },
+    "rtl/ace2_dynamic_rope_head_core.sv": {
+      "bytes": 13414,
+      "sha256": "938ab70d2ccef3e1dc03177c4e281a27d33307464d7ecee8c6ff1ca295e32f77"
+    },
+    "rtl/ace2_dynamic_scale32_core.sv": {
+      "bytes": 36196,
+      "sha256": "0d6d75ccaa630fb5444b5bc00c6375c808a1624ebeaa06f4a82bd978b8384334"
+    },
+    "rtl/ace2_fixed_q7_rope_score_core.sv": {
+      "bytes": 14705,
+      "sha256": "fc7b8590a0a16257392f3483581744a28a03c9b47d55fc7e48bf389ad48a398d"
+    },
+    "rtl/ace2_pkg.sv": {
+      "bytes": 3312,
+      "sha256": "17f081f1645d66a88f9c964a49ee4e402b66df0fadc3c6b59189928cca78b112"
+    },
+    "rtl/ace2_relative_rope_score_fusion_core.sv": {
+      "bytes": 18952,
+      "sha256": "d3d6b5d7458b53cfba7359ff3fa1216a2aa88f9b2eb45f8134caf1da716901cd"
+    },
+    "rtl/ace2_rmsnorm_core.sv": {
+      "bytes": 23260,
+      "sha256": "b09fe7073fd6509f0ca83d5b0982b1952aa624d4883631690df35c0bfabb014d"
+    },
+    "rtl/ace2_rope_core.sv": {
+      "bytes": 30023,
+      "sha256": "e5feff02169c5f58b81bfd44350380f6074ca0cbbedf536a0744d8c2f663f3c8"
+    },
+    "rtl/ace2_shell.sv": {
+      "bytes": 221673,
+      "sha256": "febccf8762a43149eb1964796ff0c842a791cfcdeca106150efcd6d6147ad216"
+    },
+    "rtl/ace2_silu_gate_core.sv": {
+      "bytes": 11356,
+      "sha256": "ace98af2654bb2ea0ccb256e55ee6d755ff4bc34d0fe0d2cdeff6dcd581199ae"
+    },
+    "rtl/ace2_softmax_core.sv": {
+      "bytes": 14619,
+      "sha256": "9bd0becbf890c1b83ae626fbdc7bfed51c5cc31e92b076235c4f8302e0b85f14"
+    },
+    "rtl/ace2_w4a8_proj_core.sv": {
+      "bytes": 14914,
+      "sha256": "e4e7ff9d458ae823728669ae0a53ba650dbb0633d28c613347e4af2e1e198dfe"
+    },
+    "tools/run_projection_k_cache_benchmark.py": {
+      "bytes": 18692,
+      "sha256": "eb0b8719526235be6582423e159f10aa3bf647bcf5c232dd600525df58e600e7"
+    },
+    "verification/tb/ace2_projection_k_cache_benchmark_tb.sv": {
+      "bytes": 13327,
+      "sha256": "52c187b7e2f00e932234659ff2d0ec7db1cd0b415353ff2b26bfa674a1e1170e"
+    }
+  },
+  "tools": {
+    "iverilog": "Icarus Verilog version 11.0 (stable) ()",
+    "python": "3.13.5",
+    "vvp": "Icarus Verilog runtime version 11.0 (stable) ()"
+  },
+  "workload": {
+    "activation_formula": "((element*13+7)%255)-127",
+    "bias_formula": "output*31-1984",
+    "expected_output": {
+      "bytes": 128,
+      "sha256": "a839c2fe15d9511b86137bec2dca4b035ab12fbefa3685db90e459dd6e446bf0"
+    },
+    "flags": 0,
+    "host_descriptor_commands": 1,
+    "k": 896,
+    "m": 1,
+    "multiplier_formula": "1000003+output*97",
+    "n": 128,
+    "opcode": 1,
+    "operator": "layer-0 K projection",
+    "output_zero_point": 0,
+    "outputs_checked": 128,
+    "right_shift": 25,
+    "weight_formula": "((output*5+element*3+1)%15)-7"
+  }
+}

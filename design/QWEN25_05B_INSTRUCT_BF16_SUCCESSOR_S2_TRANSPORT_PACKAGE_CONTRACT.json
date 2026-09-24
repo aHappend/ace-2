@@ -1,0 +1,81 @@
+{
+  "authority": {
+    "granted": false,
+    "path": "research/raw/specification/qwen25-bf16-successor-s2-transport-attempt-operator-authority.json",
+    "required_status_if_later_granted": "AUTHORIZE_SINGLE_BF16_SUCCESSOR_S2_TRANSPORT_ATTEMPT",
+    "separate_fresh_operator_authority_required": true
+  },
+  "claim_boundary": "Explicitly new marker-free BF16 successor S2 transport success-path package only. It creates or consumes no S1 replay, authority, submission intent, backend job, marker, model execution, evaluator execution, checkpoint, quality result, W4A8, RTL, synthesis/PPA, FPGA, or U280 state.",
+  "forbidden_consumption": {
+    "evaluator_inputs_or_outputs": true,
+    "s1_authority_intent_job_or_output": true,
+    "v7_authority_intent_job_checkpoint_or_output": true,
+    "v8_authority_intent_job_checkpoint_or_output": true
+  },
+  "hygiene_acceptance": {
+    "complete_byte_coverage_required": true,
+    "credential_signature_findings_allowed": 0,
+    "size_limit_bytes": null,
+    "skipped_files_allowed": 0
+  },
+  "package_files": {
+    "amlt_ignore": {
+      "path": "research/execution/qwen25_bf16_successor_s2_transport_20260808/.amltignore",
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793"
+    },
+    "amlt_config": {
+      "path": "research/execution/qwen25_bf16_successor_s2_transport_20260808/amlt.yaml",
+      "sha256": "81e23eaa6637cc073d5588874d30529d95d6fab2c9b33e6987d4f084dce3a21b"
+    },
+    "audit": {
+      "path": "research/execution/qwen25_bf16_successor_s2_transport_20260808/audit_package.py",
+      "sha256": "eec82374a5378d006b6b9bd50c8b84bd19aa243e360021142b464e6487b0f302"
+    },
+    "inert_payload": {
+      "path": "research/execution/qwen25_bf16_successor_s2_transport_20260808/transport_probe.py",
+      "sha256": "485f065eff505d1e88154532a359159b80f662774953ab462e7694815f12cfff"
+    },
+    "submit_guard": {
+      "path": "research/execution/qwen25_bf16_successor_s2_transport_20260808/submit_guard.py",
+      "sha256": "5831bface5a07f25a0b42177c319ec700a2d0d7c48748ad47e0db792b2850b47"
+    }
+  },
+  "package_id": "qwen2.5-0.5b-instruct-ace2-bf16-successor-s2-transport-package-v1",
+  "predecessor_boundary": {
+    "s1_package_identity_sha256": "3b8d5c3b337701bdc318782d01abebd24d7ad5ee050ea76d42bfb6049bdaf7fb",
+    "s1_replay_allowed": false,
+    "s1_terminal_audit_sha256": "d9f42c71ef39fc5077659da29ab2a95f8c5f4f4fca28e4acc7170a40abbf0e2b",
+    "s1_terminal_disposition": "INERT_TRANSPORT_GATE_EXECUTED_TERMINAL_FAILED",
+    "s1_terminal_fresh_review_sha256": "8086aa32da404468159b051265acaf4ee82848353aa48557bb91692ef9b7a462"
+  },
+  "remote_probe": {
+    "expected_exit_code": 0,
+    "expected_stdout_line": "ACE2_BF16_SUCCESSOR_S2_TRANSPORT_OK no_training_no_evaluator_no_checkpoint",
+    "purpose": "Validate a clean terminal success path after S1 proved code execution with a deliberately failing payload; this remains transport-only evidence."
+  },
+  "schema_version": 1,
+  "status": "MARKER_FREE_PREAUTHORITY_TRANSPORT_PACKAGE",
+  "submission": {
+    "amlt_version": "11.17.0",
+    "client_timeout_seconds": 180,
+    "dry_run_suffix": [
+      "--dump"
+    ],
+    "exact_logical_argv": [
+      "amlt",
+      "run",
+      "research/execution/qwen25_bf16_successor_s2_transport_20260808/amlt.yaml",
+      ":ace2-bf16-successor-s2-transport-gate",
+      "ace2-bf16-successor-s2-transport-20260808-preauthority",
+      "--yes",
+      "--description",
+      "ACE-2 marker-free BF16 successor S2 transport success-path gate; no training or evaluator execution"
+    ],
+    "explicit_project_required": true,
+    "fail_closed_on_timeout": true,
+    "maximum_backend_jobs_if_later_authorized": 1,
+    "nonempty_description_required": true,
+    "normal_terminal_description_summary_is_not_an_interactive_prompt": true,
+    "stdin_policy": "DEVNULL"
+  }
+}

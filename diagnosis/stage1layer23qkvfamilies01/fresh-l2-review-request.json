@@ -1,0 +1,24 @@
+{
+  "mission_id": "stage1layer23qkvfamilies01",
+  "requested_checks": [
+    "Recompute the frozen prompt, token, model, adapter, and checkpoint bindings.",
+    "Confirm Q, K, and V were isolated individually by bypassing W4/A8 input with A8 output retained.",
+    "Recompute token-39814 rank, top-8 overlap, and JSD from every logits file.",
+    "Confirm W4-weight and A8-input families were separated without L2 selection.",
+    "Confirm exactly one repair recommendation follows the causal metrics.",
+    "Confirm attempt-0002 and official namespaces remain unchanged."
+  ],
+  "result": {
+    "bytes": 30392,
+    "path": "diagnosis/stage1layer23qkvfamilies01/result.json",
+    "sha256": "4e6fa9c101f2d2a4c09a80fb1883665043a5d8126ebaa7d4fa862bf602aa4856"
+  },
+  "review_type": "Fresh-L2",
+  "schema_version": 1,
+  "source": {
+    "bytes": 34656,
+    "path": "tools/diagnose_stage1_layer23_qkv_families.py",
+    "sha256": "5b41665c5018183ab88ab3825e5d31c3301f97d7baa49327b0244efe08796402"
+  },
+  "status": "PENDING_INDEPENDENT_REVIEW"
+}

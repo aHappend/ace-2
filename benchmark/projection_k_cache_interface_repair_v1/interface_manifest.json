@@ -1,0 +1,472 @@
+{
+  "benchmark": "projection-k-cache-interface-repair-v1",
+  "clock_semantics": {
+    "accepting_edge": "rising",
+    "half_period_ns": 5,
+    "period_ns": 10,
+    "port": "clk_i",
+    "testbench_initial_value": 0
+  },
+  "immutability": "freeze and measurement require absent output paths; existing manifest, contract, snapshots, result directories, or comparison result are never overwritten",
+  "interface_authority": "This mission-local manifest binds both evaluated source snapshots; the stale design/BENCHMARK_INTERFACE.json source hash is not used.",
+  "mission_id": "35b17ba3b226",
+  "output_paths": {
+    "baseline_measurement_directory": "build/projection-k-cache-interface-repair-v1/round-0001-baseline",
+    "baseline_result": "build/projection-k-cache-interface-repair-v1/round-0001-baseline/result.json",
+    "baseline_source_snapshot": "build/projection-k-cache-interface-repair-v1/frozen-baseline/rtl/ace2_shell.sv",
+    "candidate_measurement_directory": "build/projection-k-cache-interface-repair-v1/round-0001-candidate",
+    "candidate_result": "build/projection-k-cache-interface-repair-v1/round-0001-candidate/result.json",
+    "candidate_source_snapshot": "build/projection-k-cache-interface-repair-v1/frozen-candidate/rtl/ace2_shell.sv",
+    "comparison_result": "benchmark/projection_k_cache_interface_repair_v1/results.json",
+    "contract": "benchmark/projection_k_cache_interface_repair_v1/contract.json",
+    "interface_manifest": "benchmark/projection_k_cache_interface_repair_v1/interface_manifest.json",
+    "measurement_files": [
+      "ace2_projection_k_cache_benchmark.vvp",
+      "compile.stdout.log",
+      "compile.stderr.log",
+      "expected.hex",
+      "warmup.stdout.log",
+      "warmup.stderr.log",
+      "measured-01.stdout.log",
+      "measured-01.stderr.log",
+      "measured-02.stdout.log",
+      "measured-02.stderr.log",
+      "measured-03.stdout.log",
+      "measured-03.stderr.log",
+      "result.json"
+    ]
+  },
+  "parameter_count": 12,
+  "parameters": [
+    {
+      "declaration": "parameter integer HIDDEN_SIZE = ACE2_HIDDEN_SIZE",
+      "effective_value": 896,
+      "value_source": "rtl/ace2_pkg.sv:ACE2_HIDDEN_SIZE"
+    },
+    {
+      "declaration": "parameter integer LANES = ACE2_VECTOR_LANES",
+      "effective_value": 16,
+      "value_source": "rtl/ace2_pkg.sv:ACE2_VECTOR_LANES"
+    },
+    {
+      "declaration": "parameter integer ACT_WIDTH = 8",
+      "effective_value": 8,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer GAIN_WIDTH = 16",
+      "effective_value": 16,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer ACC_WIDTH = 48",
+      "effective_value": 48,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer INV_RMS_FRAC = 30",
+      "effective_value": 30,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer GAIN_FRAC = 8",
+      "effective_value": 8,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer PROJ_MAC_LANES = 4",
+      "effective_value": 4,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer PROJ_ACC_WIDTH = 32",
+      "effective_value": 32,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer PROJ_M_MAX = 16",
+      "effective_value": 16,
+      "value_source": "ace2_shell default"
+    },
+    {
+      "declaration": "parameter integer SRAM_BANKS = ACE2_SRAM_BANKS",
+      "effective_value": 8,
+      "value_source": "rtl/ace2_pkg.sv:ACE2_SRAM_BANKS"
+    },
+    {
+      "declaration": "parameter integer SRAM_ADDR_WIDTH = ACE2_SRAM_ADDR_WIDTH",
+      "effective_value": 12,
+      "value_source": "rtl/ace2_pkg.sv:ACE2_SRAM_ADDR_WIDTH"
+    }
+  ],
+  "port_count": 64,
+  "ports": [
+    {
+      "declaration": "input wire clk_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire rst_ni",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire csr_valid_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire csr_ready_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire csr_write_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire [31:0] csr_addr_i",
+      "effective_width_bits": 32
+    },
+    {
+      "declaration": "input wire [63:0] csr_wdata_i",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "input wire [7:0] csr_wstrb_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "output reg csr_rvalid_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire csr_rready_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output reg [63:0] csr_rdata_o",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "output reg csr_error_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire irq_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire cmd_valid_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire cmd_ready_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire [7:0] cmd_opcode_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "input wire [7:0] cmd_flags_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "input wire [7:0] cmd_layer_id_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "input wire [15:0] cmd_m_i",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "input wire [15:0] cmd_n_i",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "input wire [15:0] cmd_k_i",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "input wire [15:0] cmd_sequence_position_i",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "input wire [15:0] cmd_completion_tag_i",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "input wire [63:0] cmd_src0_addr_i",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "input wire [63:0] cmd_src1_addr_i",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "input wire [63:0] cmd_dst_addr_i",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "input wire [63:0] cmd_scale_addr_i",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "input wire [63:0] cmd_scratch_addr_i",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "output wire mem_req_valid_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire mem_req_ready_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire mem_req_write_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire [63:0] mem_req_addr_o",
+      "effective_width_bits": 64
+    },
+    {
+      "declaration": "output wire [15:0] mem_req_len_o",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "output wire [7:0] mem_req_tag_o",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "output wire mem_wvalid_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire mem_wready_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire [LANES*ACT_WIDTH-1:0] mem_wdata_o",
+      "effective_width_bits": 128
+    },
+    {
+      "declaration": "output wire [15:0] mem_wstrb_o",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "output wire [7:0] mem_wtag_o",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "input wire mem_rvalid_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire mem_rready_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire [LANES*ACT_WIDTH-1:0] mem_rdata_i",
+      "effective_width_bits": 128
+    },
+    {
+      "declaration": "input wire [7:0] mem_rtag_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "input wire mem_rerror_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire mem_bvalid_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire mem_bready_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire [7:0] mem_btag_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "input wire mem_berror_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire [SRAM_BANKS-1:0] sram_req_valid_o",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "input wire [SRAM_BANKS-1:0] sram_req_ready_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "output wire [SRAM_BANKS-1:0] sram_write_o",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "output wire [SRAM_BANKS*SRAM_ADDR_WIDTH-1:0] sram_addr_o",
+      "effective_width_bits": 96
+    },
+    {
+      "declaration": "output wire [SRAM_BANKS*LANES*ACT_WIDTH-1:0] sram_wdata_o",
+      "effective_width_bits": 1024
+    },
+    {
+      "declaration": "output wire [SRAM_BANKS*16-1:0] sram_wstrb_o",
+      "effective_width_bits": 128
+    },
+    {
+      "declaration": "input wire [SRAM_BANKS*LANES*ACT_WIDTH-1:0] sram_rdata_i",
+      "effective_width_bits": 1024
+    },
+    {
+      "declaration": "input wire [SRAM_BANKS-1:0] sram_rvalid_i",
+      "effective_width_bits": 8
+    },
+    {
+      "declaration": "output wire busy_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire cmd_done_valid_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "input wire cmd_done_ready_i",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire [15:0] cmd_done_tag_o",
+      "effective_width_bits": 16
+    },
+    {
+      "declaration": "output wire cmd_done_error_o",
+      "effective_width_bits": 1
+    },
+    {
+      "declaration": "output wire [ACC_WIDTH-1:0] cmd_done_sumsq_o",
+      "effective_width_bits": 48
+    },
+    {
+      "declaration": "output wire [INV_RMS_FRAC+1:0] cmd_done_inv_rms_q30_o",
+      "effective_width_bits": 32
+    },
+    {
+      "declaration": "output wire cmd_done_saturation_seen_o",
+      "effective_width_bits": 1
+    }
+  ],
+  "protocol_semantics": {
+    "command": {
+      "accepted_descriptor_count": 1,
+      "descriptor": {
+        "cmd_completion_tag_i": "0x4b01",
+        "cmd_dst_addr_i": "0x0000000000011000",
+        "cmd_flags_i": 0,
+        "cmd_k_i": 896,
+        "cmd_layer_id_i": 0,
+        "cmd_m_i": 1,
+        "cmd_n_i": 128,
+        "cmd_opcode_i": 1,
+        "cmd_scale_addr_i": "0x0000000000010000",
+        "cmd_scratch_addr_i": "0x0000000000000000",
+        "cmd_sequence_position_i": 0,
+        "cmd_src0_addr_i": "0x0000000000001000",
+        "cmd_src1_addr_i": "0x0000000000002000"
+      },
+      "source_rule": "wait for cmd_ready_o, assert cmd_valid_i on a falling edge with all descriptor fields stable through the accepting rising edge",
+      "transfer": "rising edge with cmd_valid_i && cmd_ready_o"
+    },
+    "completion": {
+      "required_error_relation": "cmd_done_error_o == cmd_done_saturation_seen_o",
+      "required_tag": "0x4b01",
+      "sink_rule": "hold cmd_done_ready_i low until completion and output checks finish, then assert it for the accepting rising edge",
+      "timeout_cycles_after_command_acceptance": 2000000,
+      "transfer": "rising edge with cmd_done_valid_o && cmd_done_ready_i"
+    },
+    "csr_enable": {
+      "source_rule": "assert on a falling edge after reset settling, hold through the accepting rising edge, deassert on the following falling edge",
+      "transfer": "rising edge with csr_valid_i && csr_ready_o",
+      "write": {
+        "csr_addr_i": "0x00000018",
+        "csr_wdata_i": "0x0000000000000001",
+        "csr_write_i": 1,
+        "csr_wstrb_i": "0xff"
+      }
+    },
+    "memory_read_response": {
+      "error": 0,
+      "hold_rule": "hold mem_rvalid_i and payload until mem_rready_o",
+      "latency": "one cycle after accepted read request",
+      "payload": "deterministic benchmark memory_beat(mem_req_addr_o)",
+      "tag": "echo accepted mem_req_tag_o"
+    },
+    "memory_request": {
+      "one_request_may_be_outstanding_per_response_channel": true,
+      "ready_rule": "rst_ni && ((cycle_count % 17) != 3)",
+      "required_mem_req_len_o": 1,
+      "transfer": "rising edge with mem_req_valid_o && mem_req_ready_i"
+    },
+    "memory_write_data": {
+      "destination_range": "0x0000000000011000..0x000000000001107f",
+      "ready_rule": "rst_ni && ((cycle_count % 19) != 5)",
+      "required_strobe": "0xffff",
+      "required_tag": "match the pending write-request tag",
+      "transfer": "rising edge with mem_wvalid_o && mem_wready_i"
+    },
+    "memory_write_response": {
+      "error": 0,
+      "hold_rule": "hold mem_bvalid_i and tag until mem_bready_o",
+      "latency": "assert after accepted matching write data",
+      "tag": "echo accepted mem_wtag_o"
+    },
+    "sram": {
+      "outputs_scored": false,
+      "sram_rdata_i": "1024'b0",
+      "sram_req_ready_i": "0xff",
+      "sram_rvalid_i": "0x00"
+    }
+  },
+  "reset_semantics": {
+    "asserted_rising_edges": 5,
+    "deassertion_edge": "falling edge after the fifth rising edge",
+    "initial_value": 0,
+    "mid_command_reset_tested": false,
+    "polarity": "active_low",
+    "port": "rst_ni",
+    "post_deassert_settle_rising_edges": 2,
+    "rtl_assertion": "asynchronous"
+  },
+  "schema_version": 1,
+  "source_identities": {
+    "baseline": {
+      "identity": "frozen-v3-pre-cache-shell",
+      "immutable_snapshot": {
+        "bytes": 221673,
+        "path": "build/projection-k-cache-interface-repair-v1/frozen-baseline/rtl/ace2_shell.sv",
+        "sha256": "febccf8762a43149eb1964796ff0c842a791cfcdeca106150efcd6d6147ad216"
+      },
+      "origin": {
+        "bytes": 221673,
+        "path": "build/projection-k-cache-v3/frozen-baseline/rtl/ace2_shell.sv",
+        "sha256": "febccf8762a43149eb1964796ff0c842a791cfcdeca106150efcd6d6147ad216"
+      }
+    },
+    "candidate": {
+      "identity": "activation-and-weight-beat-cache-shell",
+      "immutable_snapshot": {
+        "bytes": 225105,
+        "path": "build/projection-k-cache-interface-repair-v1/frozen-candidate/rtl/ace2_shell.sv",
+        "sha256": "6a3db778c0c5e8b410bd4a8c19fbdac738c5cd3dbbbfa7d4ca9b4853a5b51d84"
+      },
+      "origin": {
+        "bytes": 225105,
+        "path": "rtl/ace2_shell.sv",
+        "sha256": "6a3db778c0c5e8b410bd4a8c19fbdac738c5cd3dbbbfa7d4ca9b4853a5b51d84"
+      }
+    }
+  },
+  "top_module": "ace2_shell"
+}

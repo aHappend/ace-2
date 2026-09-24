@@ -1,0 +1,312 @@
+{
+  "acceptance_contract": {
+    "allowed_verdicts": [
+      "CONTRACT_ACCEPTED_NO_EXECUTION_AUTHORITY",
+      "CONTRACT_REJECTED_NO_EXECUTION_AUTHORITY"
+    ],
+    "fail_closed_checks": [
+      "Every frozen binding path exists and has the exact declared SHA-256 before any later implementation or execution is considered.",
+      "Base and checkpoint-176 use the identical QK_BFP8_E16_HEAD64_V1 encoding, packing, rounding, and dot-product rules; model-specific Q/K representation parameters are forbidden.",
+      "Every nonzero finite BF16 head is assigned the least exponent e satisfying max_abs <= 127 * 2^e; zero heads use e=0.",
+      "Every encoded mantissa is in [-127,+127], payload -128 is forbidden, and no saturating or clamping operation exists in the Q/K encode, cache, decode, multiply, or 64-lane reduction path.",
+      "Any non-finite source value, non-canonical exponent, reserved payload, arithmetic overflow, input drift, packing drift, or cost mismatch rejects the contract or a future realization without scoring.",
+      "Review is static and non-scoring: it must not load a model, inspect hidden outputs, run inference, generate text, calculate evaluator metrics, replay repair work, or create a candidate/package."
+    ],
+    "required_static_proofs": {
+      "bf16_finite_domain": {
+        "maximum_absolute_value": "255 * 2^120",
+        "minimum_positive_subnormal": "2^-133"
+      },
+      "dot_product": {
+        "exact_signed_15_product_range": [
+          -16129,
+          16129
+        ],
+        "exact_signed_21_sum_range_for_64_lanes": [
+          -1032256,
+          1032256
+        ]
+      },
+      "exponent": {
+        "canonical_nonzero_range": [
+          -139,
+          122
+        ],
+        "exact_signed_10_pair_sum_range": [
+          -278,
+          244
+        ]
+      },
+      "kv_cost": {
+        "c01_bytes_per_token_per_layer": 264,
+        "contract_bytes_per_token_per_layer": 260,
+        "delta_bytes_per_token_per_layer": -4,
+        "delta_bytes_for_24_layers_and_512_tokens": -49152
+      }
+    }
+  },
+  "artifact_kind": "w4a8_c02_saturation_free_joint_qk_representation_structural_prerequisite_contract",
+  "authority_boundary": {
+    "claim": "This artifact defines and statically reviews one software representation contract only. It is not a candidate, alternative selection, implementation package, executable action, score, stage transition, or RTL authority.",
+    "pipeline_state_is_execution_authority": false,
+    "requires_separate_fresh_authority_for": [
+      "software implementation",
+      "model loading or inference",
+      "calibration or validation capture",
+      "quality or rank-margin scoring",
+      "candidate or attempt creation",
+      "generation or retraining",
+      "repair replay",
+      "RTL, specification, manifest, synthesis, PPA, FPGA, or U280 work",
+      "stage transition"
+    ],
+    "stage1_complete": false,
+    "stale_planner_item": {
+      "disposition": "TERMINATED_SUPERSEDED_NO_RTL_AUTHORITY",
+      "mission_id": "db6f7d18abf1"
+    }
+  },
+  "contract_id": "QK_BFP8_E16_HEAD64_V1",
+  "created_at_utc": "2026-08-13T02:39:08Z",
+  "evidence_basis": {
+    "accepted_localization_verdict": "LOCALIZATION_INCOMPLETE_NO_EXECUTION_AUTHORITY",
+    "accepted_structural_disposition": "ELIMINATE_SATURATION_AND_CHANGE_QK_REPRESENTATION_JOINTLY",
+    "candidate_or_package_selected": false,
+    "known_limit": "The sealed repair-0003 artifacts omit clamp-event coordinates for six nonzero cases. This contract does not reconstruct them and does not claim that the representation passes rank-margin or quality gates."
+  },
+  "frozen_bindings": {
+    "accepted_localization_reviewer_handoff": {
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/1b03f7d9a0aa/round-0001.json",
+      "sha256": "44986d0dd41bcf30c4284c8e24f173a6b35d420abbcc6c25ba11344ad29d678f",
+      "status": "done"
+    },
+    "c01": {
+      "base": {
+        "calibration_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001/calibration-observations.json",
+          "sha256": "b335a93738e7c12ab9e3fd38c123b488126547a4abed95c319e1a4b2ded3567f"
+        },
+        "command": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001-command-scale32-corrected-v1/command.json",
+          "sha256": "7b79612a5ab14a5f7af64872b107b7e32ca70e8858f913d61f4b458d7b6d4c68"
+        },
+        "input_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001/input-observations.json",
+          "sha256": "1c7844d1e17c56031d055f8ec893b3ac0c5f58af2dd90c57a1f8030140b76c4b"
+        },
+        "manifest": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001/manifest.json",
+          "sha256": "130431a0e5f681a5947b5baae7ae9aa0db4d6ce501f23fe6ab4b7ce952b066cf"
+        },
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7"
+      },
+      "checkpoint-176": {
+        "calibration_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001/calibration-observations.json",
+          "sha256": "86a1f0d80b0250314961fea9879bb11ddbc957aec2c174e1a4b5153c8c766303"
+        },
+        "command": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001-command-scale32-corrected-v1/command.json",
+          "sha256": "5737b0e0c374fecd77515370346d0fb4db423d337a08d6d122a95798f6b7c822"
+        },
+        "input_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001/input-observations.json",
+          "sha256": "1c7844d1e17c56031d055f8ec893b3ac0c5f58af2dd90c57a1f8030140b76c4b"
+        },
+        "manifest": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001/manifest.json",
+          "sha256": "3b1e8f8cd15d481c40fc9cb7f73c20ebb754a80bcdeebcaf3cf422574c96b2c7"
+        },
+        "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98"
+      }
+    },
+    "c02_attention_substage": {
+      "aggregate_result": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/result.json",
+        "sha256": "935b079f3ea5328c38d65c978e94ba2c8dcff6ab384f3943e9869eabb9f59343"
+      },
+      "base_result": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/result.json",
+        "sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a"
+      },
+      "base_tensors": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/attention-substage-tensors.bin",
+        "sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"
+      },
+      "checkpoint_176_result": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/result.json",
+        "sha256": "3f73b5359e021ddb6183ec468ae154b3cda0807365b248773d80466e477b4e86"
+      },
+      "checkpoint_176_tensors": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/attention-substage-tensors.bin",
+        "sha256": "07743a5df6bfa00d5e977dc622b70e90af9b6789feaeb5ae689448ac803ceb59"
+      }
+    },
+    "localization": {
+      "output": {
+        "path": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0003-failed-gate-localization-v1/localization.json",
+        "sha256": "9b44ddfe21c1ab1198a9db656d80cd39b4953020c6d8005e0167609ae1bdd23b"
+      },
+      "output_manifest": {
+        "path": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0003-failed-gate-localization-v1/SHA256SUMS",
+        "sha256": "acd2538d65aba58187792ed78be228d5b41589e39d445cb832fda0d601c90af1"
+      },
+      "prerequisite": {
+        "path": "design/W4A8_C02_REPAIR_0003_FAILED_GATE_LOCALIZATION_PREREQUISITE_V1.json",
+        "sha256": "42b3708806a73a8563100fc4cc97ae2784ef74a74cd0bb8725036701e015b0b8"
+      },
+      "run_contract": {
+        "path": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0003-failed-gate-localization-v1/run-contract.json",
+        "sha256": "bb370040c0edbfde011b50f0cecfcbb9e60eba1337bb9ee94c8cdcec144f5e40"
+      }
+    },
+    "pipeline_state_observation": {
+      "authority": false,
+      "current_stage": "rtl",
+      "path": "research/PIPELINE_STATE.json",
+      "sha256": "e1638668904f54b3eb46c209cc91390c27b0c9676cb5d917f28f06f26be43358"
+    },
+    "repair_design_task": {
+      "path": "design/W4A8_C02_QK_SCORE_RANK_MARGIN_REPAIR_DESIGN_V1_TASK.json",
+      "sha256": "4bb6d81cb21705fd42642cc4c3029f05be5c0d3d86be56d72d272dd9e20c2fad"
+    },
+    "software_contract": {
+      "path": "design/QWEN25_05B_W4A8_FULL_MODEL_SOFTWARE_CONTRACT_V1.json",
+      "sha256": "8f037b438f53bb378c60eded9cf15593a8173b11dd42130b40ea7658939140ef"
+    }
+  },
+  "model_topology": {
+    "head_dim": 64,
+    "hidden_size": 896,
+    "maximum_bound_sequence_length": 512,
+    "num_attention_heads": 14,
+    "num_hidden_layers": 24,
+    "num_key_value_heads": 2,
+    "representation_bindings": {
+      "Base": "QK_BFP8_E16_HEAD64_V1",
+      "checkpoint-176": "QK_BFP8_E16_HEAD64_V1"
+    }
+  },
+  "objective": "Freeze one deterministic, saturation-free software representation shared by Q and K for Base and checkpoint-176, with exact integer bounds and storage costs, before any separately authorized implementation or quality evaluation.",
+  "prohibited_actions": [
+    "Create or name a candidate, alternative selection, attempt, package, command bundle, execution namespace, marker, submission, or process.",
+    "Load either model; run inference, calibration, validation, evaluator scoring, continuation generation, repair replay, retraining, or hidden-output inspection.",
+    "Change frozen inputs, thresholds, scores, model weights, prior repair evidence, design/SPEC.md, benchmark or RTL manifests, RTL, constraints, research/PIPELINE_STATE.json, or U280 files.",
+    "Run elaboration, lint, simulation, regression, formal, synthesis, timing, area, PPA, FPGA emulation, bitstream generation, or board execution.",
+    "Claim rank-margin, readability, chat quality, candidate viability, Stage 1 completion, or a pipeline-stage transition."
+  ],
+  "representation": {
+    "decoder": "For every lane i, reconstructed_value[i] = signed_mantissa[i] * 2^signed_exponent. The same rule applies to Q and K for both bound models.",
+    "encoder": {
+      "all_zero_head": {
+        "exponent": 0,
+        "mantissas": "64 zero bytes"
+      },
+      "exponent_selection": "For a nonzero 64-lane head of finite BF16 values, choose the least integer e such that max_i(abs(x_i)) <= 127 * 2^e. This definition is exact and must be implemented from BF16 sign/exponent/fraction fields without host-libm dependence.",
+      "mantissa_quantization": "m_i = round_to_nearest_ties_to_even(x_i * 2^-e). Clamping and saturation are forbidden; the exponent rule guarantees m_i is in [-127,+127].",
+      "non_finite_policy": "Any NaN or infinity rejects the record before payload creation.",
+      "source_domain": "The finite BF16 post-RoPE Q or K head values defined by the bound c02 fixed software reference; upstream projection, RoPE coefficient, and model weights are not changed by this contract."
+    },
+    "integer_fields": {
+      "dot_product_exponent": {
+        "canonical_range": [
+          -278,
+          244
+        ],
+        "minimum_exact_signed_width": 10,
+        "storage_width": 16
+      },
+      "head_exponent": {
+        "canonical_nonzero_range": [
+          -139,
+          122
+        ],
+        "encoding": "little-endian signed two's-complement",
+        "storage_width": 16
+      },
+      "lane_mantissa": {
+        "canonical_range": [
+          -127,
+          127
+        ],
+        "reserved_values": [
+          -128
+        ],
+        "storage_width": 8,
+        "zero_point": 0
+      },
+      "lane_product": {
+        "exact_range": [
+          -16129,
+          16129
+        ],
+        "minimum_exact_signed_width": 15
+      },
+      "score_mantissa": {
+        "exact_range_for_64_lanes": [
+          -1032256,
+          1032256
+        ],
+        "minimum_exact_signed_width": 21
+      }
+    },
+    "joint_score_rule": "For one query head and its mapped key head, score_mantissa = sum over 64 lanes of q_mantissa[i] * k_mantissa[i], score_exponent = q_exponent + k_exponent, and the exact represented pre-scale dot product is score_mantissa * 2^score_exponent. No intermediate requantization, residual sideband, diagonal gain, saturation, or clamp is permitted.",
+    "packing": {
+      "key_head_record": {
+        "bytes": 66,
+        "layout": "bytes 0..63 are lane 0..63 signed int8 mantissas; bytes 64..65 are the signed int16 little-endian head exponent; no padding"
+      },
+      "key_record_order": "layer, token, kv_head, then the 66-byte key-head record",
+      "query_head_record": {
+        "bytes": 66,
+        "lifetime": "transient software working storage only; never persisted in KV cache"
+      },
+      "value_cache": "Unchanged signed-int8 V payload and frozen model-specific V scale from the bound software contract."
+    },
+    "scope_end": "The exact (score_mantissa, score_exponent) pair is the contract output. Causal masking, row centering, Q6.9 conversion, softmax, and quality/rank-margin evaluation are outside this bounded prerequisite and require separate fresh authority."
+  },
+  "static_review": {
+    "checks": {
+      "accepted_localization_binding": "PASS",
+      "arithmetic_range_proof": "PASS",
+      "candidate_or_execution_created": "PASS_FALSE",
+      "frozen_input_hashes": "PASS",
+      "joint_base_checkpoint_binding": "PASS",
+      "metadata_and_kv_cost_arithmetic": "PASS",
+      "non_scoring_boundary": "PASS",
+      "saturating_operation_present": "PASS_FALSE"
+    },
+    "method": "Static contract and checksum review only; no model, repair, evaluator, generation, RTL, or pipeline execution.",
+    "reviewed_at_utc": "2026-08-13T02:39:08Z",
+    "verdict": "CONTRACT_ACCEPTED_NO_EXECUTION_AUTHORITY"
+  },
+  "storage_cost": {
+    "c01_baseline": {
+      "key_bytes_per_kv_head": 68,
+      "key_bytes_per_token_per_layer": 136,
+      "key_payload_bytes_per_kv_head": 64,
+      "producer_scale32_metadata_bytes_per_kv_head": 4,
+      "total_key_and_value_bytes_for_24_layers_and_512_tokens": 3244032,
+      "total_key_and_value_bytes_per_token_per_layer": 264,
+      "unchanged_value_bytes_per_token_per_layer": 128
+    },
+    "contract": {
+      "dynamic_metadata_bytes_per_key_head": 2,
+      "dynamic_metadata_bytes_per_token_per_layer": 4,
+      "key_bytes_per_kv_head": 66,
+      "key_bytes_per_token_per_layer": 132,
+      "key_payload_bytes_per_kv_head": 64,
+      "model_specific_qk_metadata_bytes": 0,
+      "query_transient_bytes_per_token_per_layer": 924,
+      "total_key_and_value_bytes_for_24_layers_and_512_tokens": 3194880,
+      "total_key_and_value_bytes_per_token_per_layer": 260,
+      "unchanged_value_bytes_per_token_per_layer": 128
+    },
+    "delta_from_c01": {
+      "bytes_for_24_layers_and_512_tokens": -49152,
+      "bytes_per_token_across_24_layers": -96,
+      "bytes_per_token_per_layer": -4,
+      "query_transient_bytes_per_token_per_layer": -28
+    }
+  }
+}

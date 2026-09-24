@@ -1,0 +1,80 @@
+{
+  "claim_boundary": "First-party project provenance declaration for the standalone shared_token_group_dynamic_scale32_v1 RTL packet. This is not an external redistribution license or a claim about unrelated repository content.",
+  "contract_id": "shared_token_group_dynamic_scale32_v1",
+  "implementation_recovery": {
+    "actor": "engineer",
+    "incident_inventory": {
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/recovery/planner_cycle0_bypass/INCIDENT_INVENTORY.json",
+      "sha256": "0b56bfc5916967c257e448c1fa5de0764843abb777c5100e62d4ea2b4ef769d9"
+    },
+    "planner_draft_archive": "evidence/shared_token_group_dynamic_scale32_v1/recovery/planner_cycle0_bypass/archive",
+    "review_method": "line_by_line_engineer_validation_with_explicit_adopt_rewrite_or_regenerate_disposition",
+    "session_id": "s-c8ae985b",
+    "stage_closing": false,
+    "status": "engineer_owned_recovery_from_unaudited_planner_cycle0_drafts",
+    "thread_id": "019fc16c-20c2-77a3-9555-356bbbc004f2"
+  },
+  "license_policy": {
+    "external_redistribution_grant_claimed": false,
+    "license_file_present_for_project_root": false,
+    "status": "first_party_operator_directed_project_internal_work_product",
+    "third_party_dependency_introduced": false,
+    "use_scope": "project-local implementation, modification, simulation, formal checking, and pre-tapeout evidence generation under the operator's direct-execution request"
+  },
+  "schema_version": 1,
+  "sources": [
+    {
+      "kind": "first_party_synthesizable_rtl",
+      "path": "rtl/ace2_dynamic_scale32_core.sv"
+    },
+    {
+      "kind": "first_party_independent_integer_reference",
+      "path": "tools/ace2_dynamic_scale32_reference.py"
+    },
+    {
+      "kind": "first_party_deterministic_generator",
+      "path": "tools/gen_dynamic_scale32_vectors.py"
+    },
+    {
+      "generated_from": [
+        "tools/gen_dynamic_scale32_vectors.py",
+        "tools/ace2_dynamic_scale32_reference.py"
+      ],
+      "kind": "generated_first_party_verification_source",
+      "path": "verification/generated/dynamic_scale32_vectors.json"
+    },
+    {
+      "generated_from": [
+        "tools/gen_dynamic_scale32_vectors.py",
+        "tools/ace2_dynamic_scale32_reference.py"
+      ],
+      "kind": "generated_first_party_verification_include",
+      "path": "verification/generated/dynamic_scale32_vectors.svh"
+    },
+    {
+      "kind": "first_party_reference_unit_test",
+      "path": "verification/test_dynamic_scale32.py"
+    },
+    {
+      "kind": "first_party_rtl_testbench",
+      "path": "verification/tb/ace2_dynamic_scale32_tb.sv"
+    },
+    {
+      "kind": "first_party_formal_harness",
+      "path": "formal/ace2_dynamic_scale32_formal.sv"
+    },
+    {
+      "kind": "first_party_formal_script",
+      "path": "formal/ace2_dynamic_scale32_formal.ys"
+    },
+    {
+      "kind": "first_party_formal_runner",
+      "path": "tools/run_dynamic_scale32_formal.py"
+    },
+    {
+      "kind": "first_party_project_build_configuration",
+      "path": "Makefile"
+    }
+  ],
+  "third_party_ip": []
+}

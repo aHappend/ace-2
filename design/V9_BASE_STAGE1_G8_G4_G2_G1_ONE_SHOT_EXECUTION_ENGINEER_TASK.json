@@ -1,0 +1,105 @@
+{
+  "acceptance_check": "A Fresh independent L2 Reviewer verifies exactly one authentic Base V9 request consumption and one immutable terminal publication with the bound action identity and provenance: success only when the first G8, G4, G2, G1 candidate in fixed order passes every frozen hard gate, otherwise the contract-defined consumed terminal failure/crash/unknown result; no retry, replay, replacement, resume, checkpoint-176, RTL, XRT, or U280 action occurred.",
+  "accepted_inputs": {
+    "execution_authority_successor": {
+      "acceptance_boundary": "V9_SINGLE_REQUEST_EXECUTION_AUTHORITY_SUCCESSOR_PACKAGE_READY_NO_AUTHORITY_CONSUMED",
+      "package_content_sha256": "f5388f2fdf9db715f0696020adc6b2303bdaeec08bcd8e334c03cbf930cce4b6",
+      "path": "build/v9-single-request-execution-authority-successor-package-v1-candidate-0004/V9_SINGLE_REQUEST_EXECUTION_AUTHORITY_SUCCESSOR_PACKAGE.json",
+      "raw_sha256": "6e8579f4c371c9a5da6be3346c2155cf3587f2bca34ce6db3b729aa4975a4dc3"
+    },
+    "execution_domain_attempt_0004": {
+      "path": "build/v9-kernel-verifiable-execution-domain-package-v3-repair-attempt-0004/V9_KERNEL_VERIFIABLE_EXECUTION_DOMAIN_PACKAGE_V3.json",
+      "raw_sha256": "1b7d73ffef214dffa20f0b2a9a70c65ac04f75b152fdcabd378970260b1e071b"
+    },
+    "fresh_l2_successor_review": {
+      "accepted": true,
+      "disposition": "V9_SINGLE_REQUEST_EXECUTION_AUTHORITY_SUCCESSOR_PACKAGE_READY_NO_AUTHORITY_CONSUMED",
+      "path": "build/v9-single-request-execution-authority-successor-package-v1-candidate-0004-review/FRESH_L2_REVIEW.json",
+      "producer_role": "reviewer",
+      "raw_sha256": "2d74394e9a091826af84d32f270488eddbecd94fc6bcd7244c68bc81e6b6e9f7",
+      "reviewer_status": "done"
+    },
+    "provenance_rule": "Revalidate every execution-domain, direct-spawn, activation, broker, canonical-V9, policy, and predecessor identity exactly as recorded by the accepted successor manifest; do not substitute a summarized or reconstructed chain."
+  },
+  "authority_boundary": {
+    "action_id": "ace2:qk-gbfp8-base-v9:execute-once:2254dd91:20260813T2013Z",
+    "consumption_cardinality_maximum": 1,
+    "engineer_may_consume_exactly_once": true,
+    "planner_consumed_authority": false,
+    "source": "Live Manager execution directive after aborting out-of-order Goal Gate 7eb24c6542e0",
+    "status": "AUTHORIZED_FOR_ONE_DISTINCT_ENGINEER_EXECUTION_MISSION"
+  },
+  "claim_boundary": "Exactly one Base-only V9 G8->G4->G2->G1 sweep request and its authentic terminal publication. This task does not authorize checkpoint-176, a second request, retry/replay/resume/repair/replacement, threshold changes, software-only success, RTL changes, simulation/formal/synthesis/PPA, XRT, FPGA, U280, stage advancement, or product-completion claims.",
+  "created_at_utc": "2026-08-14T07:22:51Z",
+  "execution_requirements": [
+    "Before any destructive receive or state creation, rerun only the accepted inert candidate-0004 verifier from the exact empty environment LANG=C, LC_ALL=C, PYTHONHASHSEED=0, TZ=UTC and require its package/content/review/provenance, absent-path, and zero-target-start checks to pass.",
+    "Recompute and require the successor raw SHA-256 6e8579f4c371c9a5da6be3346c2155cf3587f2bca34ce6db3b729aa4975a4dc3, successor package-content SHA-256 f5388f2fdf9db715f0696020adc6b2303bdaeec08bcd8e334c03cbf930cce4b6, Fresh-L2 review raw SHA-256 2d74394e9a091826af84d32f270488eddbecd94fc6bcd7244c68bc81e6b6e9f7, and execution-domain attempt-0004 manifest raw SHA-256 1b7d73ffef214dffa20f0b2a9a70c65ac04f75b152fdcabd378970260b1e071b.",
+    "Require no pre-existing authority, credential, claim, request, socket, cgroup, PID namespace, live, production, consumption, result, or terminal state and no target process from the accepted chain. If any exists, stop before consumption and preserve conflict evidence.",
+    "Submit exactly the frozen direct argv vector, never a shell string, with cwd exactly /home/argustest/ace-2/reference/qk_gbfp8_head64_granularity_sweep_execution_v9_shellfree_action_root, shell=false, and an environment containing exactly LANG=C, LC_ALL=C, PYTHONHASHSEED=0, TZ=UTC with no inheritance. Require invocation SHA-256 e329556cae9d7903705c03ded4e3b347ed52007fa6e2c175887af820041e1c83.",
+    "After destructive receive begins, consume the accepted request exactly once. Execute candidates strictly G8, G4, G2, G1 and select the first candidate that passes every frozen hard gate. Do not inspect or expose hidden/golden evaluator material.",
+    "Any invocation, transport, execution-domain, evaluator, model, process, publication, or terminal-handling failure after consumption permanently retires this action. Publish the exact contract-defined sealed terminal failure/crash/unknown evidence and do not retry, replay, replace, resume, repair, or launch a second action.",
+    "On success, preserve one authentic Base sweep terminal/result artifact containing exact action, request, model/input, candidate-order, hard-gate, selected-candidate, process, and publication provenance. Do not translate compile/process start or software fallback into success.",
+    "Request independent Fresh-L2 review of the immutable terminal evidence. The Reviewer must validate both the outer execution-domain publication vocabulary and the distinct inner canonical V9 first-terminal/result vocabulary without renaming or merging statuses.",
+    "Do not edit research/PIPELINE_STATE.json; only the Manager changes current_stage. Do not touch checkpoint-176 and do not begin RTL, XRT, FPGA, or U280 work."
+  ],
+  "frozen_invocation": {
+    "argv": [
+      "/home/argustest/miniconda3/bin/python3.13",
+      "/home/argustest/ace-2/reference/qk_gbfp8_head64_granularity_sweep_execution_v9_shellfree_action_root/tools/qk_gbfp8_head64_granularity_sweep_transport_shellfree_v9.py",
+      "--package",
+      "/home/argustest/ace-2/reference/qk_gbfp8_head64_granularity_sweep_execution_v9_shellfree_action_root/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_EXECUTION_V9_SHELLFREE_PACKAGE.json",
+      "--acceptance",
+      "/home/argustest/ace-2/reference/qk_gbfp8_head64_granularity_sweep_execution_v9_shellfree_action_root/review/FRESH_L2_STATIC_ACCEPTANCE.json",
+      "--irreversible-action-id",
+      "ace2:qk-gbfp8-base-v9:execute-once:2254dd91:20260813T2013Z"
+    ],
+    "candidate_order": [
+      "G8",
+      "G4",
+      "G2",
+      "G1"
+    ],
+    "command_representation": "ARGV_VECTOR_ONLY",
+    "cwd": "/home/argustest/ace-2/reference/qk_gbfp8_head64_granularity_sweep_execution_v9_shellfree_action_root",
+    "environment": {
+      "LANG": "C",
+      "LC_ALL": "C",
+      "PYTHONHASHSEED": "0",
+      "TZ": "UTC"
+    },
+    "environment_inheritance_permitted": false,
+    "every_hard_gate_required": true,
+    "invocation_sha256": "e329556cae9d7903705c03ded4e3b347ed52007fa6e2c175887af820041e1c83",
+    "request_cardinality": 1,
+    "selection_policy": "FIRST_ALL_HARD_GATES_PASS_IN_FIXED_ORDER",
+    "shell": false,
+    "sweep_scope": "BASE_GRANULARITY_ONLY"
+  },
+  "planner_preexecution_observation": {
+    "authority_consumed": false,
+    "current_stage": "specification",
+    "inert_verifier_adversarial_cases": 23,
+    "inert_verifier_status": "PASS_V9_SUCCESSOR_INDEPENDENT_STATIC_VERIFICATION",
+    "pipeline_checksum_companion_matches": false,
+    "production_and_live_state_absent": true,
+    "specification_checklist_items_pass": true,
+    "target_process_starts": 0
+  },
+  "prohibited_actions": [
+    "consume or invoke from a Planner cycle",
+    "create more than one request or consumption",
+    "retry, replay, resume, repair, replace, or relaunch after any consumed outcome",
+    "change candidate order, hard gates, evaluator, model, official inputs, score policy, or tool identities",
+    "use a shell command string, inherited environment, alternate cwd, alternate interpreter, or alternate action id",
+    "inspect or expose hidden harness sources or golden outputs",
+    "touch checkpoint-176",
+    "claim success from compile-only, process-start-only, evaluator-no-execution, or software-only behavior",
+    "modify sealed predecessor or candidate-0004 package/review evidence",
+    "edit Manager-owned current_stage or begin RTL, verification, synthesis, XRT, FPGA, or U280 work"
+  ],
+  "schema_version": 1,
+  "scope": "bounded",
+  "stage": "specification",
+  "status": "READY_FOR_DISTINCT_ENGINEER_EXECUTION_MISSION_NO_AUTHORITY_CONSUMED",
+  "task_title": "Execute the authorized Base V9 G8-G4-G2-G1 sweep exactly once"
+}

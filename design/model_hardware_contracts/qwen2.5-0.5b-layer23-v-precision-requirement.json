@@ -1,0 +1,111 @@
+{
+  "claim_boundary": "Requirements-only binding from one bounded nonofficial software matrix plus a metadata/evidence-only output-scale provenance repair. No candidate was rerun and no retained logit or tensor changed. This does not add an RTL-supported precision mode or claim simulation, synthesis, timing, area, power, PPA, official generation, Stage 2, or FPGA evidence.",
+  "current_rtl_support": false,
+  "decision": {
+    "material_improvement_rule": "token 39814 is rank 1 with top-8 overlap and JSD no worse than W4A8, OR rank is <= max(8, W4A8_rank//10), top-8 overlap strictly increases, and JSD decreases by at least 0.05 nats",
+    "negative_result": true,
+    "selection_order": [
+      "w8a8",
+      "w4a16",
+      "w8a16"
+    ]
+  },
+  "evidence": {
+    "accepted_diagnosis_result_sha256": "4e6fa9c101f2d2a4c09a80fb1883665043a5d8126ebaa7d4fa862bf602aa4856",
+    "candidate_freeze_sha256": "b663abb12be9a82d2154dbfba2ebca5dc8af991fa4f2672965f6c8c2f3c5819b",
+    "matrix_execution_runner": {
+      "bytes": 39957,
+      "path": "evidence/candidates/stage1-layer23-v-precision-matrix-v1/nonofficial-matrix-0001/matrix-execution-runner.py",
+      "sha256": "5e04ca938a518e77275d59d01ed1f664d820fb8173ddbac815d31a2bb7848855"
+    },
+    "matrix_result_path": "evidence/candidates/stage1-layer23-v-precision-matrix-v1/nonofficial-matrix-0001/result.json",
+    "matrix_result_sha256": "ef6b1a37c9ea8df211f93358e05f1d3468e791084f7f8bb31c9c6c8fa9de38c9",
+    "output_scale_provenance_repair": {
+      "bytes": 4286,
+      "path": "evidence/candidates/stage1-layer23-v-precision-matrix-v1/nonofficial-matrix-0001/output-scale-provenance-repair.json",
+      "sha256": "c57b41fb367cf4699e863e54a94702c67f3d2a17afd67480f3bb751ff5fa57f3"
+    },
+    "oracle_bf16_logits_sha256": "1910fe7196b34ac858b2d5b8406ee94df00ef39e5f285ba7ed56381de66b7614",
+    "oracle_bf16_v_projection_sha256": "44122f1d7938b82fca1203557cd0ffa85f5d6516f36dd8e9d3e5c427cce37f2e"
+  },
+  "matrix": {
+    "w4a16": {
+      "cost_delta_vs_w4a8": {
+        "accumulator_bits": 8,
+        "activation_bytes_per_v_input": 896,
+        "mac_count": 0,
+        "operand_bit_product": 32,
+        "projection_output_bytes": 0,
+        "weight_bytes": 0
+      },
+      "jensen_shannon_divergence_nats": 0.6748196873448639,
+      "materially_improves": false,
+      "relative_l2": 0.9641112044141875,
+      "target_token_39814_rank": 33,
+      "target_token_39814_top1": false,
+      "top8_overlap_count": 0
+    },
+    "w4a8": {
+      "cost_baseline": {
+        "accumulator_bits": 21,
+        "activation_bytes_per_v_input": 896,
+        "macs_per_v_projection": 114688,
+        "operand_bit_product": 32,
+        "projection_output_bytes": 128,
+        "weight_bytes": 57344
+      },
+      "jensen_shannon_divergence_nats": 0.6701229933515445,
+      "relative_l2": 0.9423817179633847,
+      "target_token_39814_rank": 15,
+      "target_token_39814_top1": false,
+      "top8_overlap_count": 0
+    },
+    "w8a16": {
+      "cost_delta_vs_w4a8": {
+        "accumulator_bits": 12,
+        "activation_bytes_per_v_input": 896,
+        "mac_count": 0,
+        "operand_bit_product": 96,
+        "projection_output_bytes": 0,
+        "weight_bytes": 57344
+      },
+      "jensen_shannon_divergence_nats": 0.6762943942440827,
+      "materially_improves": false,
+      "relative_l2": 1.012144810883059,
+      "target_token_39814_rank": 27,
+      "target_token_39814_top1": false,
+      "top8_overlap_count": 0
+    },
+    "w8a8": {
+      "cost_delta_vs_w4a8": {
+        "accumulator_bits": 4,
+        "activation_bytes_per_v_input": 0,
+        "mac_count": 0,
+        "operand_bit_product": 32,
+        "projection_output_bytes": 0,
+        "weight_bytes": 57344
+      },
+      "jensen_shannon_divergence_nats": 0.6720293254776581,
+      "materially_improves": false,
+      "relative_l2": 0.9962767768837498,
+      "target_token_39814_rank": 10,
+      "target_token_39814_top1": false,
+      "top8_overlap_count": 0
+    }
+  },
+  "model_id": "qwen2.5-0.5b",
+  "next_required_work": "Do not promote W8A8, W4A16, or W8A16 for layer-23 V. Schedule a separate bounded, structurally different V weight/input quantizer or compression capability only after Fresh-L2 accepts this negative result.",
+  "required_v_projection_format": null,
+  "requirement_id": "ace2-qwen2.5-0.5b-layer23-v-precision-negative-v1",
+  "requirement_status": "negative_result_pending_fresh_l2_acceptance",
+  "retained_projection_output": {
+    "bits": 8,
+    "captured_bf16_v_oracle_role": "frozen comparison oracle only; not the source of the retained A8 requantization scale",
+    "captured_bf16_v_oracle_scale": 0.06348425196850394,
+    "format": "signed_int8",
+    "output_scale": 0.06586176203930472,
+    "output_scale_provenance": "unchanged canonical W4A8 merged-FP32 V-projection at position 0",
+    "scale_semantics": "frozen tensor-wide position-0 canonical W4A8 merged-FP32 output absmax/127 scale held for all 34 positions and all four formats; per-row signed-int32 multiplier and unsigned 6-bit right shift; ties-to-even saturation to [-128,127]"
+  },
+  "schema_version": 2
+}

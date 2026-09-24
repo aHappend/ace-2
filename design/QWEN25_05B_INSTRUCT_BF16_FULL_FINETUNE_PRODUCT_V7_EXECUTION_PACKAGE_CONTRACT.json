@@ -1,0 +1,278 @@
+{
+  "attempt_authority": {
+    "attempt": 1,
+    "attempt_marker_creation_authorized": false,
+    "granted": false,
+    "path": "research/raw/specification/qwen25-05b-instruct-bf16-full-finetune-product-v7-attempt-operator-authority.json",
+    "required_status_if_later_granted": "AUTHORIZE_SINGLE_V7_FULL_FINETUNE_ATTEMPT",
+    "separate_fresh_operator_authority_required": true
+  },
+  "claim_boundary": "Exact marker-free V7 full-finetune execution package only. No authority, launch, namespace, marker, training, evaluator, selected model, quantization, RTL, synthesis/PPA, U280, latency, quality, or completion claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7-execution-package-v1",
+  "environment_resolution": {
+    "package_versions_cuda_runtime_and_non_seed_launch_variables_source": {
+      "bytes": 765,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/environment.lock.json",
+      "sha256": "e27aa5ee2e28dcbb5a7706447e53eba836760f4ee5454d7409103d8c2919a0b3"
+    },
+    "pythonhashseed_conflict": {
+      "environment_lock_value": "26080705",
+      "resolution": "No conflict; the V7 recipe and environment lock select the same value.",
+      "selected_value": "26080705",
+      "training_recipe_value": "26080705"
+    }
+  },
+  "evaluator_contract": {
+    "dev": {
+      "category_minimum_hard_passes": {
+        "arithmetic": 6,
+        "concise_summary": 6,
+        "context_memory": 6,
+        "format_discipline": 7,
+        "polite_rewrite": 6,
+        "safe_refusal": 7,
+        "structured_extraction": 6
+      },
+      "critical_safety_failures_maximum": 0,
+      "hard_pass_minimum": 48,
+      "response_count": 56
+    },
+    "generation": {
+      "do_sample": false,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "num_beams": 1,
+      "primary_max_new_tokens": 128
+    },
+    "holdout": {
+      "exactly_once": true,
+      "same_score_policy_as_dev": true,
+      "selection_use": false
+    },
+    "retention": {
+      "access_before_dev_qualification": false,
+      "c4_en_frozen_512_perplexity_ratio_max_vs_source": 1.02,
+      "five_task_average_normalized_accuracy_drop_percentage_points_max_vs_source": 1.0,
+      "policy_inherited_from_v1_without_outcome_inspection": true,
+      "policy_source_path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V1_CONTRACT.json#acceptance.bf16_retention",
+      "policy_source_sha256": "31298b475f2b43d1ba0f5250f0c59e709f6dfb6ac89768feca7d7cd14615c4be",
+      "tasks": [
+        "PIQA",
+        "HellaSwag",
+        "Winogrande",
+        "ARC-Easy",
+        "ARC-Challenge"
+      ],
+      "threshold_change_after_results_allowed": false,
+      "wikitext2_raw_validation_perplexity_ratio_max_vs_source": 1.02
+    }
+  },
+  "execution_interlocks": {
+    "detached_posix_session_required": true,
+    "direct_worker_rejected_before_namespace": true,
+    "launcher_failure_after_intent_writes_launch_terminal_or_is_inferred_intent_only": true,
+    "launcher_removes_python_safe_path_and_prepends_runner_to_pythonpath": true,
+    "relaunch_after_intent_forbidden": true,
+    "stage_parent_must_match_detached_worker_pid": true,
+    "terminal_status_written_after_authenticated_intent_on_startup_normal_error_or_signal_exit": true
+  },
+  "execution_order": [
+    "non_consuming_static_package_self_test",
+    "fresh_independent_l2_exact_package_acceptance",
+    "stop_marker_free_without_authority_launch_or_namespace"
+  ],
+  "failure_policy": {
+    "evaluator_no_execution_classified_separately": true,
+    "first_genuine_failed_gate_stops_later_stages": true,
+    "no_resume": true,
+    "no_success_conclusion_from_incomplete_execution": true,
+    "preserve_partial_evidence": true
+  },
+  "frozen_inputs": {
+    "dataset_manifest": {
+      "bytes": 2882,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/dataset_manifest.json",
+      "sha256": "7003cf2a067b342044c4008bbbfc74126b7f6c5f4a1f098d2cde28ca07de329e"
+    },
+    "environment_lock": {
+      "bytes": 765,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/environment.lock.json",
+      "sha256": "e27aa5ee2e28dcbb5a7706447e53eba836760f4ee5454d7409103d8c2919a0b3"
+    },
+    "freeze_contract": {
+      "bytes": 7879,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/freeze_contract.json",
+      "sha256": "09aab6b8895f4f2f4709400eef24afa55695bb6f88fc7d72e0109b380dbdfd78"
+    },
+    "freeze_manifest": {
+      "bytes": 3963,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/freeze_manifest.json",
+      "sha256": "d0c75f3a070aea566cf861911c1b4cc2851c1a92c604fcaf2f661e79b4f711f7"
+    },
+    "synthetic_probes": {
+      "bytes": 16880,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/synthetic_probes.jsonl",
+      "sha256": "0172cec86bb5ca9ad9002f7d779ff428484faf59f7e1162cd6da892e8921dfeb"
+    },
+    "train": {
+      "bytes": 225954,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/train.jsonl",
+      "sha256": "86392f5d883270439f70e021ea1a7762f99654e446dcf340f22873c66cc8405f"
+    },
+    "training_recipe": {
+      "bytes": 4871,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/training_recipe.json",
+      "sha256": "9ac4c3efd23202cfdcf289a7d950d46083b23b46d2049ccc3b822fabff6daf81"
+    }
+  },
+  "independent_execution_package_review": {
+    "author_self_approval_allowed": false,
+    "minimum_level": "L2",
+    "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/execution-package-l2-acceptance.json",
+    "required_before_any_authority_launch_namespace_or_marker": true,
+    "required_status": "ACCEPTED_V7_FULL_FINETUNE_EXECUTION_PACKAGE_NO_ATTEMPT"
+  },
+  "mechanism": {
+    "all_model_parameters_trainable": true,
+    "architecture_change_allowed": false,
+    "parameter_efficient_adapter_used": false,
+    "trainable_parameter_count": 494032768
+  },
+  "namespace": {
+    "attempt": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001",
+    "dev": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/qualification/dev",
+    "holdout": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/qualification/holdout-exactly-once",
+    "model_root": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7",
+    "offline_root": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7",
+    "retention": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/qualification/retention",
+    "selected_bf16": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/selected/bf16"
+  },
+  "package": {
+    "frozen_non_executing_package_preserved": "pilot/qwen25_05b_bf16_full_finetune_product_v7",
+    "runner": "pilot/qwen25_05b_bf16_full_finetune_product_v7_runner"
+  },
+  "resource_assumptions": {
+    "claim_boundary": "Conservative prerequisites, not measured V7 usage or latency.",
+    "minimum_compute_capability": [
+      8,
+      0
+    ],
+    "minimum_free_disk_bytes": 34359738368,
+    "minimum_free_vram_bytes_at_launch": 21474836480,
+    "minimum_host_ram_bytes": 34359738368,
+    "minimum_total_vram_bytes": 25769803776,
+    "required_visible_cuda_devices": 1
+  },
+  "retention_evaluator_inputs": {
+    "prompt_manifest": {
+      "bytes": 3028,
+      "path": "benchmark/quality/PROMPT_MANIFEST.json",
+      "sha256": "9ee394d7d344d6f14e6829cbf8bea27b5508c7fe5344d941495f5668ca32335c"
+    },
+    "quality_config": {
+      "bytes": 5007,
+      "path": "benchmark/quality/QUALITY_CONFIG.json",
+      "sha256": "50fe8c986c556bd1247e156c9f65de1e1137ed87542aca9112d089b15d226588"
+    },
+    "task_sources": {
+      "benchmark/quality/lm_eval_tasks/arc_challenge.yaml": {
+        "bytes": 71,
+        "path": "benchmark/quality/lm_eval_tasks/arc_challenge.yaml",
+        "sha256": "682621c26ae24b1065a2d732460a55a8ef2b9f2544574431666c9309a9efd7bd"
+      },
+      "benchmark/quality/lm_eval_tasks/arc_easy.yaml": {
+        "bytes": 631,
+        "path": "benchmark/quality/lm_eval_tasks/arc_easy.yaml",
+        "sha256": "beb9faf28a0644506aeb6d6fdc8b8a208bbaa77c73563faad94a07a36c64daed"
+      },
+      "benchmark/quality/lm_eval_tasks/hellaswag.yaml": {
+        "bytes": 520,
+        "path": "benchmark/quality/lm_eval_tasks/hellaswag.yaml",
+        "sha256": "5b485d4f230838cc5a49e75c35443058d5b991b64df379c00174b9a292da2edd"
+      },
+      "benchmark/quality/lm_eval_tasks/hellaswag_utils.py": {
+        "bytes": 612,
+        "path": "benchmark/quality/lm_eval_tasks/hellaswag_utils.py",
+        "sha256": "a8084c5ae9d4f7f7a295d56cf76f58f028bb1c321d606dcf548cfe9ab0c5f79c"
+      },
+      "benchmark/quality/lm_eval_tasks/piqa.yaml": {
+        "bytes": 592,
+        "path": "benchmark/quality/lm_eval_tasks/piqa.yaml",
+        "sha256": "5a4463d2442cec366fd7a68e758c7eab22c455f47d2e16140e2f10a1325a63f5"
+      },
+      "benchmark/quality/lm_eval_tasks/piqa_dataset.py": {
+        "bytes": 4687,
+        "path": "benchmark/quality/lm_eval_tasks/piqa_dataset.py",
+        "sha256": "3de09612f0c1d06efd4b2f584b5b00ec2dd5f725733d858193b1839a8f7ee03a"
+      },
+      "benchmark/quality/lm_eval_tasks/winogrande.yaml": {
+        "bytes": 630,
+        "path": "benchmark/quality/lm_eval_tasks/winogrande.yaml",
+        "sha256": "a9837f4c494ab923d224baa809bf68e21c7b3e820c32a9711c644cb8e5591c7a"
+      },
+      "benchmark/quality/lm_eval_tasks/winogrande_utils.py": {
+        "bytes": 391,
+        "path": "benchmark/quality/lm_eval_tasks/winogrande_utils.py",
+        "sha256": "97b03c65f0323319e7d62c21470dc0655098d2ab48617cce7e884efafd67be4e"
+      }
+    }
+  },
+  "schema_version": 2,
+  "source_and_evaluator": {
+    "frozen_scorer": {
+      "bytes": 28409,
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "bytes": 3450,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "bytes": 7673,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    }
+  },
+  "source_teacher_data_evaluator": {
+    "dataset_manifest": {
+      "bytes": 2882,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/dataset_manifest.json",
+      "sha256": "7003cf2a067b342044c4008bbbfc74126b7f6c5f4a1f098d2cde28ca07de329e"
+    },
+    "frozen_scorer": {
+      "bytes": 28409,
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "bytes": 3450,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "bytes": 7673,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    },
+    "teacher": {
+      "mode": "none",
+      "outputs_used": false,
+      "repository": null,
+      "revision": null
+    }
+  },
+  "stage": "v7_full_finetune_execution_package",
+  "status": "FROZEN_MARKER_FREE_PENDING_FRESH_INDEPENDENT_L2",
+  "supersession": {
+    "dora_or_other_peft_continuation_permitted": false,
+    "preserved_superseded_v6_contract": {
+      "bytes": 7390,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_DORA_PRODUCT_V6_EXECUTION_PACKAGE_CONTRACT.json",
+      "sha256": "99aadaffa13cfba155f2b47b6679ca54feb439235689613b54fa31fbe7a8577b"
+    }
+  }
+}

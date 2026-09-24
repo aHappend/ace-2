@@ -3210,6 +3210,125 @@ def _independent_down_projection_fusion_layer(
     }
 
 
+class AllProjectionResidualFusionRuntime:
+    """Ordered all-layer oracle for authoritative projection/residual fusion."""
+
+    FAMILIES = ("attention", "mlp")
+
+    def __init__(self) -> None:
+        self._active = False
+        self._next_layer = 0
+        self._next_family = "attention"
+        self._pass_records: list[dict[str, Any]] = []
+        self._completed: list[dict[str, Any]] = []
+
+    def _begin_pass(self) -> None:
+        self._active = True
+        self._next_layer = 0
+        self._next_family = "attention"
+        self._pass_records = []
+
+    def apply(
+        self,
+        family: str,
+        layer_index: int,
+        accumulator: Tensor,
+        residual: Tensor,
+        accumulator_scale32: Tensor,
+        residual_scale: float,
+        destination_scale: float,
+    ) -> Tensor:
+        if family not in self.FAMILIES:
+            raise ValueError(f"unknown residual fusion family: {family}")
+        if family == "attention" and layer_index == 0:
+            if self._active:
+                raise RuntimeError("residual fusion pass restarted before all 48 joins")
+            self._begin_pass()
+        if not self._active:
+            raise RuntimeError("residual fusion pass did not begin at layer-0 attention")
+        if layer_index != self._next_layer or family != self._next_family:
+            raise RuntimeError(
+                "residual fusion order differs: "
+                f"expected layer {self._next_layer} {self._next_family}, "
+                f"got layer {layer_index} {family}"
+            )
+        if accumulator_scale32.shape != (RMS_HIDDEN_SIZE,):
+            raise ValueError("projection accumulator Scale32 records do not cover 896 lanes")
+        expected_accumulator_scale32 = tuple(
+            int(value) for value in accumulator_scale32.detach().cpu().tolist()
+        )
+        residual_scale32 = ceil_scale32_from_float(residual_scale)
+        destination_scale32 = ceil_scale32_from_float(destination_scale)
+        output, trace = _independent_down_projection_fusion_layer(
+            accumulator,
+            residual,
+            expected_accumulator_scale32,
+            residual_scale32,
+            destination_scale32,
+        )
+        self._pass_records.append(
+            {
+                "family": family,
+                "layer_index": layer_index,
+                "accumulator_s32_sha256": sha256_tensor(accumulator),
+                "residual_s8_sha256": sha256_tensor(residual),
+                "output_s8_sha256": sha256_tensor(output),
+                "accumulator_scale32_sha256": sha256_tensor(
+                    accumulator_scale32.to(torch.int64)
+                ),
+                "residual_scale_source": residual_scale,
+                "residual_scale32": residual_scale32,
+                "destination_scale_source": destination_scale,
+                "destination_scale32": destination_scale32,
+                "independent_trace": trace,
+            }
+        )
+        if family == "attention":
+            self._next_family = "mlp"
+        elif layer_index < 23:
+            self._next_layer += 1
+            self._next_family = "attention"
+        else:
+            if len(self._pass_records) != 48:
+                raise RuntimeError("residual fusion pass did not execute all 48 joins")
+            self._completed.append(
+                {
+                    "pass_index": len(self._completed),
+                    "attention_joins": sum(
+                        record["family"] == "attention"
+                        for record in self._pass_records
+                    ),
+                    "mlp_joins": sum(
+                        record["family"] == "mlp" for record in self._pass_records
+                    ),
+                    "joins": list(self._pass_records),
+                }
+            )
+            self._active = False
+        return output
+
+    def summary(self) -> dict[str, Any]:
+        if self._active:
+            raise RuntimeError("residual fusion summary requested during an incomplete pass")
+        return {
+            "semantics": {
+                "attention": (
+                    "signed32_o_projection_accumulator_plus_signed8_layer_input_"
+                    "residual_to_post_attention_destination"
+                ),
+                "mlp": (
+                    "signed32_down_projection_accumulator_plus_signed8_post_attention_"
+                    "residual_to_post_mlp_destination"
+                ),
+                "rounding": "one_common_domain_round_to_nearest_ties_to_even",
+                "saturation": "signed_int8_after_the_single_common_domain_round",
+                "scale_encoding": "normalized_nonzero_Scale32",
+            },
+            "completed_passes": len(self._completed),
+            "passes": list(self._completed),
+        }
+
+
 class DownProjectionResidualFusionRuntime:
     """Hash-bound composed hook plus independent all-lane replay checking."""
 
@@ -3650,6 +3769,24 @@ class FixedAttention(nn.Module):
                 "base_score_before_residual_correction": 0,
             }
         )
+        self.last_o_projection_accumulator: Tensor | None = None
+        self.last_o_projection_s8: Tensor | None = None
+
+    def _project_attention_output(
+        self,
+        output: Tensor,
+        hidden_states: Tensor,
+    ) -> Tensor:
+        if output.dtype != torch.int8:
+            raise TypeError("attention output entering o_proj must be signed int8")
+        original_shape = output.shape[:-1]
+        accumulator = self.o_proj.accumulator_quantized(output)
+        projected = self.o_proj.requantize_accumulator(accumulator, original_shape)
+        self.last_o_projection_accumulator = accumulator.to(torch.int32).reshape(
+            *original_shape, -1
+        )
+        self.last_o_projection_s8 = projected
+        return projected.to(hidden_states.dtype) * self.o_proj.output_scale
 
     def forward(
         self,
@@ -3887,8 +4024,7 @@ class FixedAttention(nn.Module):
                 self.key_producer_scale32,
             )
             output = output.transpose(1, 2).contiguous().reshape(*input_shape, -1)
-            projected = self.o_proj.forward_hardware_input(output)
-            return projected.to(hidden_states.dtype) * self.o_proj.output_scale, None
+            return self._project_attention_output(output, hidden_states), None
         if self.layer0_relative_rope_score_fusion:
             scores = relative_rope_attention_scores_raw(
                 query,
@@ -4037,8 +4173,7 @@ class FixedAttention(nn.Module):
             )
             output = fixed_attention_value_raw(probabilities, value)
         output = output.transpose(1, 2).contiguous().reshape(*input_shape, -1)
-        projected = self.o_proj.forward_hardware_input(output)
-        return projected.to(hidden_states.dtype) * self.o_proj.output_scale, None
+        return self._project_attention_output(output, hidden_states), None
 
 
 class FixedMLP(nn.Module):
@@ -4099,10 +4234,15 @@ class FixedDecoderLayer(nn.Module):
         rope_diagnostic_mechanism: str | None = None,
         down_projection_fusion_runtime: DownProjectionResidualFusionRuntime | None = None,
         cross_layer_error_carry_runtime: CrossLayerErrorCarryRuntime | None = None,
+        all_projection_residual_fusion_runtime: AllProjectionResidualFusionRuntime | None = None,
     ) -> None:
         super().__init__()
         self.attention_type = source.attention_type
         layer_index = source.self_attn.layer_idx
+        self.input_scale = input_scale
+        self.all_projection_residual_fusion_runtime = (
+            all_projection_residual_fusion_runtime
+        )
         self.cross_layer_error_carry_runtime = cross_layer_error_carry_runtime
         self.cross_layer_error_carry_candidate = (
             rope_diagnostic_mechanism
@@ -4154,6 +4294,12 @@ class FixedDecoderLayer(nn.Module):
             or self.down_projection_fusion_baseline
         ) and down_projection_fusion_runtime is None:
             raise ValueError("down-projection fusion mechanism lacks shared runtime")
+        if all_projection_residual_fusion_runtime is not None and (
+            self.down_projection_fusion_candidate
+            or self.down_projection_fusion_baseline
+            or self.cross_layer_error_carry_candidate
+        ):
+            raise ValueError("all-projection residual fusion cannot compose with legacy hooks")
         if self.down_projection_fusion_candidate or self.down_projection_fusion_baseline:
             frozen_layer = load_down_projection_residual_fusion_metadata()["layers"][
                 self.self_attn.layer_idx
@@ -4216,13 +4362,44 @@ class FixedDecoderLayer(nn.Module):
             position_embeddings=position_embeddings,
             **kwargs,
         )
-        hidden_states = fixed_residual_add(
-            residual,
-            hidden_states,
-            self.post_attention_scale,
-        )
+        if self.all_projection_residual_fusion_runtime is None:
+            hidden_states = fixed_residual_add(
+                residual,
+                hidden_states,
+                self.post_attention_scale,
+            )
+        else:
+            attention_accumulator = self.self_attn.last_o_projection_accumulator
+            if attention_accumulator is None:
+                raise RuntimeError("attention residual fusion lacks the o_proj accumulator")
+            residual_s8 = quantize_int8(residual, self.input_scale)
+            fused_s8 = self.all_projection_residual_fusion_runtime.apply(
+                "attention",
+                self.self_attn.layer_idx,
+                attention_accumulator,
+                residual_s8,
+                self.self_attn.o_proj.native_scale32_records,
+                self.input_scale,
+                self.post_attention_scale,
+            )
+            hidden_states = fused_s8.to(hidden_states.dtype) * self.post_attention_scale
         residual = hidden_states
         hidden_states = self.post_attention_layernorm(hidden_states)
+        if self.all_projection_residual_fusion_runtime is not None:
+            accumulator, _baseline_down_projection_s8 = self.mlp.forward_components(
+                hidden_states
+            )
+            residual_s8 = quantize_int8(residual, self.post_attention_scale)
+            fused_s8 = self.all_projection_residual_fusion_runtime.apply(
+                "mlp",
+                self.self_attn.layer_idx,
+                accumulator,
+                residual_s8,
+                self.mlp.down_proj.native_scale32_records,
+                self.post_attention_scale,
+                self.post_mlp_scale,
+            )
+            return fused_s8.to(hidden_states.dtype) * self.post_mlp_scale
         if not (
             self.down_projection_fusion_candidate
             or self.down_projection_fusion_baseline
@@ -4621,6 +4798,7 @@ def replace_fixed_operators(
     diagnostic_attention_score_scale: float | None = None,
     diagnostic_rmsnorm_output_scale: float | None = None,
     rope_diagnostic_mechanism: str | None = None,
+    all_projection_residual_fusion: bool = False,
 ) -> None:
     def selected_absmax(name: str) -> float:
         observed = operator_ranges[name]
@@ -4651,6 +4829,11 @@ def replace_fixed_operators(
         cross_layer_error_carry_runtime = CrossLayerErrorCarryRuntime(
             cross_layer_error_carry_metadata()
         )
+    all_projection_residual_fusion_runtime = (
+        AllProjectionResidualFusionRuntime()
+        if all_projection_residual_fusion
+        else None
+    )
     fixed_layers = []
     for index, layer in enumerate(model.model.layers):
         input_scale = positive_scale(
@@ -4714,11 +4897,15 @@ def replace_fixed_operators(
                 rope_mechanism_for_layer(index, rope_diagnostic_mechanism),
                 fusion_runtime,
                 cross_layer_error_carry_runtime,
+                all_projection_residual_fusion_runtime,
             )
         )
     model.model.layers = nn.ModuleList(fixed_layers)
     model.ace2_down_projection_fusion_runtime = fusion_runtime
     model.ace2_cross_layer_error_carry_runtime = cross_layer_error_carry_runtime
+    model.ace2_all_projection_residual_fusion_runtime = (
+        all_projection_residual_fusion_runtime
+    )
     final_norm_source = model.model.norm
     final_norm_input_scale = positive_scale(
         selected_absmax("model.norm.input"),

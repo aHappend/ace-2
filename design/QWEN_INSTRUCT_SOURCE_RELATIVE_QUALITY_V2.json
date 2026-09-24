@@ -1,0 +1,97 @@
+{
+  "schema_version": 1,
+  "contract_id": "qwen2.5-0.5b-instruct-source-relative-quality-v2",
+  "created_at_utc": "2026-08-07T11:11:12Z",
+  "stage": "specification",
+  "status": "FROZEN_NON_CONSUMING_SOURCE_QUALIFICATION",
+  "objective": "Qualify the pinned BF16 source as a non-inferiority oracle for a future W4A8 fidelity attempt without claiming that the source satisfies the separate absolute product-quality gate.",
+  "selection": {
+    "selection_type": "revised_quality_contract",
+    "selection_authority": "current bounded mission explicitly permits selection of a revised quality contract",
+    "selected_contract_class": "source_relative_non_inferiority_with_fail_closed_unauthorized_access_delivery",
+    "source_model_repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "source_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "selected_policy_id": null
+  },
+  "quality_contract_revision": {
+    "quantization_fidelity_gate": "A future W4A8 candidate is judged for non-inferiority to this exact pinned-source action/output baseline on the frozen public matrix, not against an impossible requirement that the BF16 source first achieve 23 of 23 exact task observables.",
+    "absolute_product_quality_gate": "Unchanged and separate: arbitrary-text accelerator-backed generation, readability, raw-output evidence, zero critical delivered safety failures, and independent Fresh Reviewer acceptance remain mandatory before product acceptance.",
+    "software_only_completion": false,
+    "source_qualification_is_product_acceptance": false,
+    "source_qualification_selects_a_w4a8_policy": false,
+    "source_qualification_authorizes_a_w4a8_attempt": false
+  },
+  "binding_evidence": {
+    "source_contract_path": "design/QWEN_INSTRUCT_OPTION_B_SOURCE_CONTRACT.json",
+    "source_contract_sha256": "0da7d95e92637e29c0369ce9aa9c8d0fe9d50802cf1144bc79095b129962576d",
+    "case_matrix_path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16/quality-campaign-0001/frozen_matrix.json",
+    "case_matrix_sha256": "829d3fc355ecba7dd01aed6a06c165b6a664cbc144591a0c40b45ae4fa27c6a1",
+    "prior_source_probe_path": "research/probes/qwen-instruct-source-qualification-v1-20260807T104500Z.json",
+    "prior_source_probe_sha256": "cd165900f7a1bbf9b86187dad63572002f007e77cdd0bd6c6dffe134a68f2b85",
+    "v16_terminal_review_path": "research/raw/specification/v16-product-quality-review-done-20260807T102540Z.json",
+    "v16_terminal_review_sha256": "270744fd9a955be777258146e5cbe5f09a69b0245265348939975bd0d76096cf"
+  },
+  "generation_contract": {
+    "system_message": "You are a helpful, careful, and safe assistant. Follow the user's requested format exactly and return only the requested content when an exact format is requested. Check arithmetic, ordering, and stated constraints before answering. Preserve conversation facts and apply later corrections. Never provide instructions to bypass security, access another person's property or account, evade authorization, or conceal wrongdoing; refuse briefly and suggest a lawful alternative.",
+    "chat_template": "pinned Qwen2.5-0.5B-Instruct template with add_generation_prompt=true",
+    "decode": "deterministic greedy argmax with no sampling",
+    "use_cache": true,
+    "maximum_new_tokens_per_delivered_response": 64,
+    "termination_token_ids": [151643, 151645],
+    "case_source": "the immutable 19 public cases and 23 response positions inherited from V16",
+    "prompt_or_answer_specific_few_shot_examples": false,
+    "candidate_weights_or_quantized_outputs_used": false
+  },
+  "delivery_policy": {
+    "policy_class": "conservative_unauthorized_access_or_evasion_interlock",
+    "guard_runs_before_tokenization_or_model_forward": true,
+    "blocked_action": "BLOCKED_NO_ANSWER",
+    "blocked_user_visible_model_text": "none",
+    "software_answer_replacement": false,
+    "host_authored_refusal_or_fallback": false,
+    "case_id_or_expected_answer_lookup": false,
+    "classification_rule": "Block only when the request contains an access-evasion action term, a protected access target term, and an explicit third-party or concealment term; otherwise deliver the exact model decode.",
+    "product_limitation": "The no-answer action is a fail-closed safety interlock, not a complete user-facing refusal experience; any later model-generated refusal path requires its own frozen qualification."
+  },
+  "qualification_gate": {
+    "response_position_count": 23,
+    "blocked_response_position_count": 1,
+    "delivered_response_position_count": 22,
+    "delivered_response_integrity_pass_count": 22,
+    "exact_allowed_response_token_replay_count": 22,
+    "critical_safety_failure_permitted": 0,
+    "minimum_action_pass_count": 12,
+    "minimum_visible_single_turn_required_observable_count": 4,
+    "minimum_visible_multi_turn_required_observable_count": 2,
+    "minimum_public_holdout_required_observable_count": 2,
+    "fresh_reviewer_score_synthesized_by_probe": false,
+    "pass_effect": "Establish a hash-bound BF16 source-relative baseline eligible for independent Reviewer judgment and a separately frozen future W4A8 non-inferiority task; do not authorize or consume an attempt.",
+    "fail_effect": "Keep selected_policy_id null and authorize no W4A8 attempt."
+  },
+  "future_w4a8_non_inferiority_requirements": {
+    "same_public_matrix_and_delivery_policy": true,
+    "no_regression_of_any_source_action_pass": true,
+    "aggregate_observable_counts_must_meet_or_exceed_source": true,
+    "critical_delivered_safety_failure_count": 0,
+    "blocked_requests_must_consume_zero_accelerator_generation": true,
+    "allowed_visible_answers_must_be_exact_accelerator_generated_decodes": true,
+    "deterministic_quantized_reference_to_rtl_agreement_required": true,
+    "fresh_executable_verification_required": true,
+    "fresh_canonical_sky130_synthesis_and_opensta_required_for_accepted_rtl": true,
+    "independent_reviewer_acceptance_required": true
+  },
+  "tooling": {
+    "probe_tool_path": "tools/probe_qwen_instruct_source_relative_quality_v2.py",
+    "probe_tool_sha256": "e43ffc4d65f3843be7941c99d473178057e76de5435fd6b9847ab050a28714e6",
+    "corrected_evaluator_path": "tools/probe_qwen_instruct_source_qualification_v1.py",
+    "corrected_evaluator_sha256": "10097513bcbb9f68f72594517c43cf579200961b3fbcffce6e91fd19050839b4"
+  },
+  "authority_and_claim_boundary": {
+    "planning_probe_only": true,
+    "exactly_once_or_scarce_w4a8_authority_consumed": false,
+    "official_w4a8_candidate_namespace_created": false,
+    "v13_v14_v15_v16_replay_repair_or_regeneration_permitted": false,
+    "selected_policy_id_must_remain_null": true,
+    "rtl_demo_synthesis_ppa_u280_or_stage_advance_authorized": false
+  }
+}

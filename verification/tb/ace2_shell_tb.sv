@@ -69,6 +69,30 @@ module ace2_shell_tb;
     localparam integer KV_BYTES_PER_TOKEN = 272;
     localparam integer ATTN_SCORE_BEATS = 4;
     localparam integer OBSERVED_MAX_WRITES = 1024;
+    localparam integer LM_HEAD_ACT_ELEMENTS_PER_BEAT =
+        ACE2_MEM_DATA_WIDTH / ACT_WIDTH;
+    localparam integer LM_HEAD_WGT_ELEMENTS_PER_BEAT =
+        ACE2_MEM_DATA_WIDTH / 4;
+    localparam integer LM_HEAD_EXPECTED_ACT_READS =
+        ACE2_LM_HEAD_TILE_SIZE *
+        ((ACE2_HIDDEN_SIZE + LM_HEAD_ACT_ELEMENTS_PER_BEAT - 1) /
+         LM_HEAD_ACT_ELEMENTS_PER_BEAT);
+    localparam integer LM_HEAD_EXPECTED_WGT_READS =
+        ACE2_LM_HEAD_TILE_SIZE *
+        ((ACE2_HIDDEN_SIZE + LM_HEAD_WGT_ELEMENTS_PER_BEAT - 1) /
+         LM_HEAD_WGT_ELEMENTS_PER_BEAT);
+    localparam integer LM_HEAD_EXPECTED_META_READS =
+        ACE2_LM_HEAD_TILE_SIZE;
+    localparam integer LM_HEAD_EXPECTED_WRITES =
+        (ACE2_LM_HEAD_TILE_SIZE * ACT_WIDTH + ACE2_MEM_DATA_WIDTH - 1) /
+        ACE2_MEM_DATA_WIDTH;
+    localparam integer LM_HEAD_WEIGHT_SPAN_BYTES =
+        LM_HEAD_EXPECTED_WGT_READS * ACE2_MEM_STRB_WIDTH;
+    localparam integer LM_HEAD_WEIGHT_HIGH_WATER_OFFSET =
+        LM_HEAD_WEIGHT_SPAN_BYTES - ACE2_MEM_STRB_WIDTH;
+    localparam integer LM_HEAD_EXPECTED_TOTAL_READS =
+        LM_HEAD_EXPECTED_ACT_READS + LM_HEAD_EXPECTED_WGT_READS +
+        LM_HEAD_EXPECTED_META_READS;
     localparam [3:0] ATTN_COMPOSE_CORE_VALUE_ACCUM_STATE = 4'd8;
 
     reg clk;
@@ -209,12 +233,6 @@ module ace2_shell_tb;
     integer post_rms_cases_seen;
     integer smoke_opcode;
     integer qproj_stride_only_mode;
-    integer kproj_only_mode;
-    integer vproj_only_mode;
-    integer kv_write_only_mode;
-    integer softmax_only_mode;
-    integer attn_value_only_mode;
-    integer mlp_gate_only_mode;
     integer mlp_up_only_mode;
     integer mlp_down_only_mode;
     integer mlp_residual_only_mode;
@@ -236,6 +254,7 @@ module ace2_shell_tb;
     reg [63:0] current_proj_dst_addr;
     reg smoke_mode;
     reg oproj_active;
+    reg oproj_trace_mode;
     reg [63:0] oproj_signature;
     reg [63:0] pending_addr;
     reg [63:0] pending_write_addr;
@@ -662,6 +681,11 @@ module ace2_shell_tb;
             end
             if (oproj_active && cmd_valid && cmd_ready) begin
                 oproj_command_accept_cycle <= cycle_count;
+                if (oproj_trace_mode) begin
+                    $display("OPROJ_TRACE simulator=icarus event=command_accept vector=%0d cycle=%0d phase=%0d mem_req_ready=%0d mem_wready=%0d",
+                             current_proj_case, cycle_count,
+                             oproj_phase_cycle, mem_req_ready, mem_wready);
+                end
             end
             mem_req_ready <= force_mem_req_stall ? 1'b0 :
                              (oproj_active ?
@@ -689,6 +713,14 @@ module ace2_shell_tb;
                 end
             end
             if (mem_req_valid && mem_req_ready && !mem_req_write) begin
+                if (oproj_active && oproj_trace_mode &&
+                    (current_proj_case == 0) &&
+                    (mem_req_addr == OPROJ_ACT_BASE) &&
+                    ((cycle_count - oproj_command_accept_cycle) < 20)) begin
+                    $display("OPROJ_TRACE simulator=icarus event=first_read_accept vector=%0d cycle=%0d phase=%0d tag=%02x addr=%016x",
+                             current_proj_case, cycle_count,
+                             oproj_phase_cycle, mem_req_tag, mem_req_addr);
+                end
                 pending_read <= 1;
                 pending_addr <= mem_req_addr;
                 pending_tag <= inject_read_wrong_tag ? (mem_req_tag ^ 8'h01) : mem_req_tag;
@@ -749,6 +781,14 @@ module ace2_shell_tb;
                 end
             end
             if (mem_wvalid && mem_wready) begin
+                if (oproj_active && oproj_trace_mode &&
+                    ((observed_count == 0) ||
+                     (observed_count ==
+                      current_proj_m*((current_proj_n + 15)/16) - 1))) begin
+                    $display("OPROJ_TRACE simulator=icarus event=write_accept vector=%0d ordinal=%0d cycle=%0d phase=%0d",
+                             current_proj_case, observed_count, cycle_count,
+                             oproj_phase_cycle);
+                end
                 if (observed_count < OBSERVED_MAX_WRITES) begin
                     observed_output[observed_count] <= mem_wdata;
                     observed_write_addr[observed_count] <= pending_write_addr;
@@ -1678,6 +1718,11 @@ module ace2_shell_tb;
                     end
                     if (oproj_active) begin
                         oproj_completion_accept_cycle = cycle_count;
+                        if (oproj_trace_mode) begin
+                            $display("OPROJ_TRACE simulator=icarus event=completion_accept vector=%0d cycle=%0d phase=%0d",
+                                     selected_case, cycle_count,
+                                     oproj_phase_cycle);
+                        end
                         last_command_cycles =
                             oproj_completion_accept_cycle -
                             oproj_command_accept_cycle;
@@ -3190,6 +3235,52 @@ module ace2_shell_tb;
         end
     endtask
 
+    task check_lm_head_access_contract;
+        input integer case_id;
+        begin
+            if (proj_act_read_count != LM_HEAD_EXPECTED_ACT_READS ||
+                proj_weight_read_count != LM_HEAD_EXPECTED_WGT_READS ||
+                proj_meta_read_count != LM_HEAD_EXPECTED_META_READS ||
+                proj_write_req_count != LM_HEAD_EXPECTED_WRITES ||
+                proj_min_weight_read_addr !== PROJ_WEIGHT_BASE ||
+                proj_max_weight_read_addr !==
+                    (PROJ_WEIGHT_BASE + LM_HEAD_WEIGHT_HIGH_WATER_OFFSET) ||
+                proj_max_weight_read_addr >=
+                    (PROJ_WEIGHT_BASE + LM_HEAD_WEIGHT_SPAN_BYTES)) begin
+                $display("LM_HEAD_ACCESS_CONTRACT_MISMATCH case=%0d act_reads=%0d expected_act_reads=%0d weight_reads=%0d expected_weight_reads=%0d meta_reads=%0d expected_meta_reads=%0d writes=%0d expected_writes=%0d min_weight=%016x max_weight=%016x expected_min=%016x expected_max=%016x region_end=%016x",
+                         case_id, proj_act_read_count,
+                         LM_HEAD_EXPECTED_ACT_READS,
+                         proj_weight_read_count,
+                         LM_HEAD_EXPECTED_WGT_READS,
+                         proj_meta_read_count,
+                         LM_HEAD_EXPECTED_META_READS,
+                         proj_write_req_count,
+                         LM_HEAD_EXPECTED_WRITES,
+                         proj_min_weight_read_addr, proj_max_weight_read_addr,
+                         PROJ_WEIGHT_BASE,
+                         PROJ_WEIGHT_BASE + LM_HEAD_WEIGHT_HIGH_WATER_OFFSET,
+                         PROJ_WEIGHT_BASE + LM_HEAD_WEIGHT_SPAN_BYTES);
+                failures = failures + 1;
+            end
+        end
+    endtask
+
+    task report_lm_head_pass;
+        begin
+            $display("ACE2_SHELL_LM_HEAD_TB_PASS layer=%0d tile_outputs=%0d vocab=%0d tiles=%0d cases=2 activation_read_beats=%0d packed_weight_read_beats=%0d metadata_read_beats=%0d total_read_beats=%0d write_beats=%0d weight_span_bytes=%0d weight_high_water_offset=%0d rejected_layer=23 rejected_m=2 rejected_n=64 rejected_k=768 descriptor_errors=4 cycles=%0d",
+                     ACE2_NUM_LAYERS, ACE2_LM_HEAD_TILE_SIZE,
+                     ACE2_VOCAB_SIZE, ACE2_LM_HEAD_TILE_COUNT,
+                     LM_HEAD_EXPECTED_ACT_READS,
+                     LM_HEAD_EXPECTED_WGT_READS,
+                     LM_HEAD_EXPECTED_META_READS,
+                     LM_HEAD_EXPECTED_TOTAL_READS,
+                     LM_HEAD_EXPECTED_WRITES,
+                     LM_HEAD_WEIGHT_SPAN_BYTES,
+                     LM_HEAD_WEIGHT_HIGH_WATER_OFFSET,
+                     total_success_cycles);
+        end
+    endtask
+
     task run_lm_head;
         reg [63:0] status_value;
         begin
@@ -3203,21 +3294,7 @@ module ace2_shell_tb;
             proj_max_weight_read_addr = 64'd0;
             send_lm_head_cmd(PROJ_CASE_BALANCED, 16'h6200);
             wait_qproj_done_and_compare(PROJ_CASE_BALANCED, 0, 16'h6200);
-            if (proj_act_read_count != 7168 ||
-                proj_weight_read_count != 7168 ||
-                proj_meta_read_count != 32 ||
-                proj_write_req_count != 2 ||
-                proj_min_weight_read_addr !== PROJ_WEIGHT_BASE ||
-                proj_max_weight_read_addr !== (PROJ_WEIGHT_BASE + 64'd14320) ||
-                proj_max_weight_read_addr >= (PROJ_WEIGHT_BASE + 64'd14336)) begin
-                $display("LM_HEAD_ACCESS_CONTRACT_MISMATCH act_reads=%0d weight_reads=%0d meta_reads=%0d writes=%0d min_weight=%016x max_weight=%016x expected_min=%016x expected_max=%016x region_end=%016x",
-                         proj_act_read_count, proj_weight_read_count,
-                         proj_meta_read_count, proj_write_req_count,
-                         proj_min_weight_read_addr, proj_max_weight_read_addr,
-                         PROJ_WEIGHT_BASE, PROJ_WEIGHT_BASE + 64'd14320,
-                         PROJ_WEIGHT_BASE + 64'd14336);
-                failures = failures + 1;
-            end
+            check_lm_head_access_contract(PROJ_CASE_BALANCED);
 
             proj_act_read_count = 0;
             proj_weight_read_count = 0;
@@ -3231,21 +3308,7 @@ module ace2_shell_tb;
                 proj_expected_saturation[PROJ_CASE_SATURATION],
                 16'h6201
             );
-            if (proj_act_read_count != 7168 ||
-                proj_weight_read_count != 7168 ||
-                proj_meta_read_count != 32 ||
-                proj_write_req_count != 2 ||
-                proj_min_weight_read_addr !== PROJ_WEIGHT_BASE ||
-                proj_max_weight_read_addr !== (PROJ_WEIGHT_BASE + 64'd14320) ||
-                proj_max_weight_read_addr >= (PROJ_WEIGHT_BASE + 64'd14336)) begin
-                $display("LM_HEAD_SATURATION_ACCESS_CONTRACT_MISMATCH act_reads=%0d weight_reads=%0d meta_reads=%0d writes=%0d min_weight=%016x max_weight=%016x expected_min=%016x expected_max=%016x region_end=%016x",
-                         proj_act_read_count, proj_weight_read_count,
-                         proj_meta_read_count, proj_write_req_count,
-                         proj_min_weight_read_addr, proj_max_weight_read_addr,
-                         PROJ_WEIGHT_BASE, PROJ_WEIGHT_BASE + 64'd14320,
-                         PROJ_WEIGHT_BASE + 64'd14336);
-                failures = failures + 1;
-            end
+            check_lm_head_access_contract(PROJ_CASE_SATURATION);
             csr_write64(ACE2_CSR_ERROR_STATUS, 64'hffff_ffff_ffff_ffff);
 
             send_qproj_cmd_full(PROJ_CASE_BALANCED, 23, 16'd1, 16'd32,
@@ -3291,9 +3354,6 @@ module ace2_shell_tb;
                 failures = failures + 1;
             end
             csr_write64(ACE2_CSR_ERROR_STATUS, 64'hffff_ffff_ffff_ffff);
-
-            $display("ACE2_SHELL_LM_HEAD_TB_PASS layer=24 tile_outputs=32 vocab=151936 tiles=4748 cases=2 read_beats=14368 write_beats=2 weight_span_bytes=14336 weight_high_water_offset=14320 rejected_layer=23 rejected_m=2 rejected_n=64 rejected_k=768 descriptor_errors=4 cycles=%0d",
-                     total_success_cycles);
         end
     endtask
 
@@ -3358,14 +3418,9 @@ module ace2_shell_tb;
         oproj_signature = 64'd0;
         oproj_phase_cycle = 0;
         oproj_active = 1'b0;
+        oproj_trace_mode = ($test$plusargs("OPROJ_TRACE") != 0);
         smoke_opcode = 0;
         qproj_stride_only_mode = $test$plusargs("QPROJ_STRIDE_ONLY");
-        kproj_only_mode = $test$plusargs("KPROJ_ONLY");
-        vproj_only_mode = $test$plusargs("VPROJ_ONLY");
-        kv_write_only_mode = $test$plusargs("KV_WRITE_ONLY");
-        softmax_only_mode = $test$plusargs("SOFTMAX_ONLY");
-        attn_value_only_mode = $test$plusargs("ATTN_VALUE_ONLY");
-        mlp_gate_only_mode = $test$plusargs("MLP_GATE_ONLY");
         mlp_up_only_mode = $test$plusargs("MLP_UP_ONLY");
         mlp_down_only_mode = $test$plusargs("MLP_DOWN_ONLY");
         mlp_residual_only_mode = $test$plusargs("MLP_RESIDUAL_ONLY");
@@ -3417,89 +3472,6 @@ module ace2_shell_tb;
             $display("ACE2_SHELL_QPROJ_STRIDE_TB_PASS cases=%0d rows=%0d input_beats_per_row=%0d writes=%0d cycles=%0d c4_bias_channel=30 c4_output=127",
                      qproj_cases_seen, proj_case_rows[PROJ_CASE_BALANCED],
                      proj_case_input_beats[PROJ_CASE_BALANCED], observed_count,
-                     last_command_cycles);
-            $finish;
-        end
-
-        if (kproj_only_mode || vproj_only_mode) begin
-            send_qproj_cmd_full(
-                PROJ_CASE_BALANCED, 0, proj_case_rows[PROJ_CASE_BALANCED],
-                16'd128, 16'd896, PROJ_ACT_BASE, PROJ_WEIGHT_BASE,
-                PROJ_OUT_BASE, PROJ_META_BASE,
-                kproj_only_mode ? 16'h3200 : 16'h3300
-            );
-            wait_qproj_done_and_compare(
-                PROJ_CASE_BALANCED, 0,
-                kproj_only_mode ? 16'h3200 : 16'h3300
-            );
-            if (failures != 0) begin
-                $fatal(1, "ACE2_SHELL_KV_PROJECTION_ONLY_TB_FAIL");
-            end
-            if (kproj_only_mode)
-                $display("ACE2_SHELL_KPROJ_TB_PASS cases=1 writes=%0d cycles=%0d",
-                         observed_count, last_command_cycles);
-            else
-                $display("ACE2_SHELL_VPROJ_TB_PASS cases=1 writes=%0d cycles=%0d",
-                         observed_count, last_command_cycles);
-            $finish;
-        end
-
-        if (kv_write_only_mode) begin
-            for (case_index = 0; case_index < 3; case_index = case_index + 1) begin
-                send_kv_write_cmd(
-                    case_index, 0, 16'(case_index * 257 + 3),
-                    16'h3800 + case_index
-                );
-                wait_kv_write_done_and_compare(
-                    case_index, 0, 16'h3800 + case_index
-                );
-            end
-            if (failures != 0)
-                $fatal(1, "ACE2_SHELL_KV_WRITE_ONLY_TB_FAIL");
-            $display("ACE2_SHELL_KV_WRITE_TB_PASS cases=%0d", kv_write_cases_seen);
-            $finish;
-        end
-
-        if (softmax_only_mode) begin
-            for (case_index = 0; case_index < SOFTMAX_CASE_COUNT;
-                 case_index = case_index + 1) begin
-                send_softmax_cmd(case_index, 0, 16'h3c00 + case_index);
-                wait_softmax_done_and_compare(
-                    case_index, 0, 16'h3c00 + case_index
-                );
-            end
-            if (failures != 0)
-                $fatal(1, "ACE2_SHELL_SOFTMAX_ONLY_TB_FAIL");
-            $display("ACE2_SHELL_SOFTMAX_TB_PASS cases=%0d", softmax_cases_seen);
-            $finish;
-        end
-
-        if (attn_value_only_mode) begin
-            for (case_index = 0; case_index < ATTN_VALUE_CASE_COUNT;
-                 case_index = case_index + 1) begin
-                send_attn_value_cmd(case_index, 0, 16'h3e00 + case_index);
-                wait_attn_value_done_and_compare(
-                    case_index, attn_value_expected_saturation[case_index],
-                    16'h3e00 + case_index
-                );
-                if (attn_value_expected_saturation[case_index])
-                    csr_write64(
-                        ACE2_CSR_ERROR_STATUS, 64'hffff_ffff_ffff_ffff
-                    );
-            end
-            if (failures != 0)
-                $fatal(1, "ACE2_SHELL_ATTN_VALUE_ONLY_TB_FAIL");
-            $display("ACE2_SHELL_ATTN_VALUE_TB_PASS cases=%0d",
-                     attn_value_cases_seen);
-            $finish;
-        end
-
-        if (mlp_gate_only_mode) begin
-            run_mlp_projection_cases();
-            if (failures != 0)
-                $fatal(1, "ACE2_SHELL_MLP_GATE_ONLY_TB_FAIL");
-            $display("ACE2_SHELL_MLP_GATE_TB_PASS cases=%0d writes=%0d cycles=%0d",
-                     mlp_gate_proj_cases_seen, observed_count,
                      last_command_cycles);
             $finish;
         end
@@ -3565,6 +3537,7 @@ module ace2_shell_tb;
                 $display("ACE2_SHELL_LM_HEAD_TB_FAIL failures=%0d", failures);
                 $fatal(1, "ACE2_SHELL_LM_HEAD_TB_FAIL");
             end
+            report_lm_head_pass();
             $finish;
         end
 
@@ -4189,6 +4162,7 @@ module ace2_shell_tb;
             $display("ACE2_SHELL_TB_FAIL failures=%0d", failures);
             $fatal(1, "ACE2_SHELL_TB_FAIL");
         end
+        report_lm_head_pass();
         report_oproj_result();
         $display("ACE2_SHELL_CYCLES success_runs=%0d max_cycles=%0d total_cycles=%0d last_cycles=%0d",
                  success_runs, max_command_cycles, total_success_cycles, last_command_cycles);

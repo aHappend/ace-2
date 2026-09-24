@@ -1,0 +1,179 @@
+{
+  "contract": {
+    "schema_version": 1,
+    "contract_id": "option_b_grouped_scale32_w4a8_v1",
+    "selected_policy_id": "option_b_grouped_scale32_w4a8_v1",
+    "status": "authorized_bounded_successor_pending_execution_and_fresh_review",
+    "authority": "operator_objective_aaa05dee3743",
+    "created_at_utc": "2026-08-06T11:26:24Z",
+    "model": {
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "identity_manifest": {
+        "path": "evidence/verification/build-qwen2.5-0.5b-instruct-w4a8-image-v1/option_b_identity_manifest.json",
+        "sha256": "8b84800f50d0c6251a1df906cfda3b5a2e4e8f5fd137a8abdb19404ae37e85ad"
+      }
+    },
+    "policy_basis": {
+      "architecture_contract_id": "shared_token_group_dynamic_scale32_v1",
+      "weight_policy": "authenticated signed-W4 payload with one normalized 32-bit Scale32 record per output row",
+      "activation_policy": "signed-A8 payload with one normalized 32-bit Scale32 record per contiguous 64-lane Q/K/V head group or 128-lane hidden/MLP group",
+      "distinct_from_rejected_policy": "metadata is group-shared and bounded; no 32-bit per-weight or per-activation scalar sidecar is permitted"
+    },
+    "limits": {
+      "bits_per_weight": {
+        "payload_bits": 4,
+        "scale_record_bits": 32,
+        "minimum_weights_sharing_one_scale": 896,
+        "maximum_metadata_bits_per_weight": 0.036,
+        "maximum_total_stored_bits_per_weight": 4.036,
+        "standard_decoder_layer_weight_count": 14909440,
+        "standard_decoder_layer_scale_record_count": 12672,
+        "standard_decoder_layer_total_weight_bytes": 7505408,
+        "standard_decoder_layer_exact_bits_per_weight": 4.0271978021978025,
+        "per_scalar_weight_metadata_forbidden": true
+      },
+      "activation_metadata": {
+        "activation_payload_bits": 8,
+        "scale_record_bits": 32,
+        "legal_group_lanes": [
+          64,
+          128
+        ],
+        "maximum_scale_metadata_bits_per_activation": 0.5,
+        "fixed_transport_sidecar_bytes_per_tensor": 64,
+        "maximum_tensor_sidecars_per_decoder_layer_token": 13,
+        "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+        "bounded_activation_values_per_decoder_layer_token": 13568,
+        "maximum_average_total_activation_metadata_bits_per_activation": 0.5,
+        "exact_bounded_average_total_activation_metadata_bits_per_activation": 0.49056603773584906,
+        "maximum_exponent_deltas_per_sidecar": 38,
+        "per_scalar_activation_metadata_forbidden": true
+      },
+      "bandwidth": {
+        "abstract_streaming_memory_boundary_bits": 128,
+        "maximum_payload_bytes_per_cycle": 16,
+        "standard_decoder_layer_packed_w4_payload_bytes": 7454720,
+        "standard_decoder_layer_weight_scale_bytes": 50688,
+        "maximum_standard_decoder_layer_weight_stream_bytes": 7505408,
+        "maximum_incremental_external_activation_metadata_bytes_per_decoder_layer_token": 832,
+        "maximum_incremental_kv_metadata_bytes_per_token": 0,
+        "unbounded_backpressure_remains_legal": true,
+        "throughput_or_latency_claimed": false
+      },
+      "rtl_realizability": {
+        "synthesizable_integer_only": true,
+        "floating_point_rtl_permitted": false,
+        "new_public_ace2_shell_ports_permitted": false,
+        "maximum_group_lanes": 128,
+        "maximum_group_events": 38,
+        "maximum_incremental_sram_bytes": 2368,
+        "non_sram_area_cap_mm2": 2.0,
+        "frequency_floor_mhz": 100.0,
+        "required_rounding": "round_to_nearest_ties_to_even",
+        "saturation_or_silent_exponent_clipping_permitted": false,
+        "fresh_executable_rtl_verification_required_before_capability_acceptance": true,
+        "fresh_canonical_sky130_synthesis_opensta_required_before_capability_acceptance": true,
+        "fresh_source_and_constraint_hashes_required_before_capability_acceptance": true,
+        "independent_reviewer_acceptance_required_before_capability_acceptance": true,
+        "existing_rtl_evidence_is_feasibility_provenance_not_option_b_acceptance": true
+      }
+    },
+    "candidate_scope": {
+      "decoder_layers": {
+        "first": 0,
+        "last": 23,
+        "count": 24
+      },
+      "transformer_linear_weight_tensors": 168,
+      "transformer_and_lm_head_weight_rule": "preserve authenticated per-output-row signed-W4 payload and Scale32 records; do not add per-group or per-scalar weight scales",
+      "activation_tensor_families": [
+        "input_rmsnorm",
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "rope_q",
+        "rope_k",
+        "attention_value",
+        "o_proj",
+        "post_attention_rmsnorm",
+        "mlp_gate_proj",
+        "mlp_up_proj",
+        "silu_gate",
+        "mlp_down_proj"
+      ],
+      "final_rmsnorm_and_lm_head": "authenticated baseline arithmetic and W4 policy remain unchanged",
+      "embedding_tokenizer_prompt_matrix_and_response_gate": "frozen unchanged",
+      "dataset_prompt_token_or_gate_control_permitted": false,
+      "alternate_policy_or_scope_substitution_permitted": false
+    },
+    "attempt_budget": {
+      "exact_authorized_candidate_attempts": 1,
+      "attempt_id": "attempt-0001",
+      "attempt_directory": "build/stage1-option-b-grouped-scale32-w4a8-v1/attempt-0001",
+      "frozen_matrix": {
+        "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+        "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+        "prompt_count": 9
+      },
+      "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+      "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+      "runner_requirement": "a contract-specific executable runner must verify this contract and all hash bindings before creating execution_started.json",
+      "runner_hash_must_be_frozen_before_execution": true,
+      "replay_tuning_ranking_bisection_sweep_or_gate_relaxation_permitted": false,
+      "network_access_permitted": false,
+      "rtl_demo_ppa_u280_or_stage_transition_permitted": false,
+      "on_success": "prepare immutable Fresh Reviewer input; do not retarget the demo or advance stage",
+      "on_numerical_failure": "preserve the consumed attempt and clear active selection in a subsequent reviewed state update",
+      "on_evaluator_no_execution": "classify separately and draw no numerical correctness conclusion"
+    },
+    "hash_bindings": {
+      "architecture_proposal": {
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+        "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+      },
+      "architecture_review": {
+        "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+        "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+      },
+      "manager_freeze": {
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+        "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+      },
+      "dynamic_scale32_rtl": {
+        "path": "rtl/ace2_dynamic_scale32_core.sv",
+        "sha256": "0d6d75ccaa630fb5444b5bc00c6375c808a1624ebeaa06f4a82bd978b8384334"
+      },
+      "rtl_manifest": {
+        "path": "design/RTL_MANIFEST.json",
+        "sha256": "5eac537f2e07d375bc2c72e7098ddb48250cd241c5d3000369bd209f5a781586"
+      },
+      "fixed_point_reference": {
+        "path": "tools/ace2_full_model_fixed_point.py",
+        "sha256": "daec4fdfda7f04be70bb99bf7e2c15dad2d42438cc7491721fc5447cd92f909f"
+      },
+      "quality_contracts": {
+        "path": "tools/ace2_quality_contracts.py",
+        "sha256": "be80d612786d1623d211d69302125db7568cec026d6e5ed500fbb90b39924368"
+      },
+      "oracle": {
+        "path": "tools/qwen_instruct_w4a8_oracle.py",
+        "sha256": "d9c5aaf0f4f87d85d7a29bdb94b69d82f50033acb5a90da0a39e9ffa2c13b591"
+      },
+      "response_gate": {
+        "path": "tools/qwen_instruct_response_gate.py",
+        "sha256": "5906f85f461b379249aee23efb00c5bc5d677d53dafbe84af7e8a9fe54398226"
+      }
+    },
+    "claim_boundary": {
+      "product_policy_accepted": false,
+      "numerical_attempt_executed": false,
+      "rtl_capability_accepted": false,
+      "ppa_or_timing_accepted": false,
+      "demo_retargeted": false,
+      "u280_or_stage2_authorized": false,
+      "current_stage_remains": "specification"
+    }
+  },
+  "contract_sha256": "ca7f6291bf073a497db142c4c438211a16ee3649e6662e3a682893585d6eae9b"
+}

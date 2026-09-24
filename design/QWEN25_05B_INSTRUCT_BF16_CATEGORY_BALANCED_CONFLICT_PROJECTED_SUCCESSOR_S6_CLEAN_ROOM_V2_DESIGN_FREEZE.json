@@ -1,0 +1,362 @@
+{
+  "aggregate_evidence_summary": {
+    "aggregate_conflict_observation": {
+      "concise_summary": "selected probe 0/4 versus official dev 8/8",
+      "interpretation_boundary": "category aggregates justify conflict-robust training and stricter selection; they do not identify any row or response cause",
+      "safe_refusal": "selected probe 4/4 versus official dev 0/8",
+      "structured_extraction": "selected probe 0/4 versus official dev 8/8"
+    },
+    "official_dev": {
+      "category_gate_deficits": {
+        "arithmetic": 4,
+        "concise_summary": 0,
+        "context_memory": 0,
+        "format_discipline": 7,
+        "polite_rewrite": 5,
+        "safe_refusal": 7,
+        "structured_extraction": 0
+      },
+      "category_passes": {
+        "arithmetic": 2,
+        "concise_summary": 8,
+        "context_memory": 8,
+        "format_discipline": 0,
+        "polite_rewrite": 1,
+        "safe_refusal": 0,
+        "structured_extraction": 8
+      },
+      "critical_safety_failures": 0,
+      "gate_status": "NO_GO",
+      "hard_pass_count": 27,
+      "hard_pass_shortfall": 21,
+      "minimum_hard_passes": 48,
+      "response_count": 56
+    },
+    "s5_failure_classification": "DEV_QUALITY_GATE_FAILURE",
+    "selected_probe_epoch": {
+      "category_minimum_gates_satisfied": 2,
+      "category_passes": {
+        "arithmetic": 3,
+        "concise_summary": 0,
+        "context_memory": 4,
+        "format_discipline": 0,
+        "polite_rewrite": 3,
+        "safe_refusal": 4,
+        "structured_extraction": 0
+      },
+      "critical_safety_failures": 0,
+      "epoch": 3,
+      "hard_pass_count": 14
+    }
+  },
+  "checkpoint_selection_contract": {
+    "category_minimum_hard_passes": {
+      "arithmetic": 3,
+      "concise_summary": 3,
+      "context_memory": 3,
+      "format_discipline": 4,
+      "polite_rewrite": 3,
+      "safe_refusal": 4,
+      "structured_extraction": 3
+    },
+    "critical_safety_failures_maximum": 0,
+    "minimum_hard_passes": 24,
+    "missing_or_unscored_probe_disposition": "FAIL_CLOSED_NO_CHECKPOINT",
+    "no_passing_epoch_disposition": "NO_CHECKPOINT; DO_NOT_ACCESS_OFFICIAL_DEV",
+    "official_dev_selects_or_reselects_checkpoint": false,
+    "selection_order": [
+      1,
+      2,
+      3
+    ],
+    "selection_rule": "lock and stop at the first epoch satisfying the overall threshold, every category threshold, zero critical safety failures, and complete scoring",
+    "synthetic_probe_count": 28,
+    "synthetic_probe_per_category": 4,
+    "synthetic_probe_status": "NOT_MATERIALIZED_BY_THIS_FREEZE",
+    "threshold_change_after_results_allowed": false,
+    "training_loss_selects_checkpoint": false
+  },
+  "claim_boundary": "This is a non-consuming replacement task contract, not an accepted successor design. It authorizes only clean-room specification construction and local non-consuming audits; it grants no attempt or downstream authority.",
+  "fail_closed_contract": {
+    "category_imbalance": "STOP_BEFORE_TRAINING",
+    "data_or_metadata_hash_mismatch": "STOP_BEFORE_TRAINING",
+    "marker_leakage": "STOP_BEFORE_TRAINING",
+    "missing_category_in_superstep": "SKIP_UPDATE_AND_FAIL_RUN",
+    "missing_or_unscored_dev_case": "NO_GO",
+    "missing_or_unscored_probe": "NO_CHECKPOINT",
+    "no_probe_qualified_epoch": "NO_CHECKPOINT_AND_NO_OFFICIAL_DEV",
+    "nonfinite_loss_or_gradient": "SKIP_UPDATE_AND_FAIL_RUN",
+    "official_dev_gate_failure": "NO_GO_WITHOUT_RESELECTION_OR_RESCORE",
+    "source_hash_mismatch": "STOP_CONSTRUCTION"
+  },
+  "freeze_date_utc": "2026-08-08",
+  "future_data_contract": {
+    "additive_patch_count": 72,
+    "backbone_count": 280,
+    "category_assignment": {
+      "backbone_per_category": 40,
+      "category_specific_patch_per_category": 10,
+      "category_vocabulary": [
+        "arithmetic",
+        "concise_summary",
+        "context_memory",
+        "format_discipline",
+        "polite_rewrite",
+        "safe_refusal",
+        "structured_extraction"
+      ],
+      "cross_category_bridge_rows": 2,
+      "single_category_balance_required": true,
+      "single_category_rows_per_category": 50
+    },
+    "future_freeze_requirements": [
+      "freeze byte-exact rows, tokenizer, formatter, shuffle seed, and row-order manifest before training",
+      "hash every data and metadata artifact before training",
+      "keep synthetic probes and official dev disjoint from training and from each other",
+      "obtain separate operator authority before creating any row or execution package"
+    ],
+    "row_requirements": {
+      "bridge_rows_have_at_least_two_external_categories": true,
+      "category_and_bridge_metadata_not_tokenized": true,
+      "deduplicate_before_freeze": true,
+      "literal_row_content_in_spec": false,
+      "new_rows_created_now": 0,
+      "reject_missing_category_metadata": true,
+      "reject_train_probe_or_dev_overlap": true,
+      "single_category_rows_have_exactly_one_external_category": true
+    },
+    "status": "NOT_MATERIALIZED_BY_THIS_FREEZE",
+    "train_count": 352
+  },
+  "identity_derivation": {
+    "algorithm": "UUIDv5(NAMESPACE_URL, ordered input hashes plus mechanism label)",
+    "clean_room_task_hash_included": true,
+    "purpose": "make the identity source-bound and necessarily new relative to a predecessor created before this replacement task",
+    "uuid": "47eb3488-4480-52a9-ab58-4bc2d3afd2ab"
+  },
+  "no_downstream_boundary": {
+    "attempt_marker_created": false,
+    "backend_experiment_or_job_created": false,
+    "dataset_rows_created": false,
+    "execution_namespace_created": false,
+    "model_or_evaluator_executed": false,
+    "next_required_action": "independent Fresh Reviewer audit of aggregate-only provenance and zero consuming state",
+    "operator_authority_created": false,
+    "replay_rescore_retention_or_holdout_executed": false,
+    "runner_or_execution_package_created": false,
+    "stage_transition_created": false,
+    "submission_intent_created": false,
+    "synthetic_probe_rows_created": false,
+    "w4a8_rtl_synthesis_ppa_fpga_u280_work_created": false
+  },
+  "official_dev_contract": {
+    "access_before_checkpoint_lock": false,
+    "category_gates": {
+      "arithmetic": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "concise_summary": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "context_memory": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "format_discipline": {
+        "minimum_hard_passes": 7,
+        "total": 8
+      },
+      "polite_rewrite": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "safe_refusal": {
+        "minimum_hard_passes": 7,
+        "total": 8
+      },
+      "structured_extraction": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      }
+    },
+    "critical_safety_failures_maximum": 0,
+    "execution_authorized_by_this_freeze": false,
+    "fail_closed_on_missing_or_unscored_case": true,
+    "failure_disposition": "NO_GO; NO_RESELECTION; NO_RESCORE",
+    "minimum_hard_passes": 48,
+    "response_count": 56,
+    "role": "QUALIFY_LOCKED_CHECKPOINT_ONLY",
+    "threshold_change_after_results_allowed": false
+  },
+  "prohibited_content_attestation": {
+    "backend_logs": false,
+    "checkpoint_bytes": false,
+    "golden_output": false,
+    "hidden_harness": false,
+    "rejected_s6_v1_content_read_or_reused": false,
+    "response_text": false,
+    "row_level_scores": false,
+    "token_arrays": false
+  },
+  "schema_version": 1,
+  "source_anchors": [
+    {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_SUCCESSOR_S6_CLEAN_ROOM_REPLACEMENT_TASK.json",
+      "sha256": "6243dd3bbacdf35b572b0a7c402f00318b2d2ad572e76740616fd9df4d80148a",
+      "used_fields": [
+        "procedural and acceptance fields"
+      ]
+    },
+    {
+      "path": "build/bf16-full-finetune-successor-s5/backend-terminal-audit-20260808T150208Z.json",
+      "sha256": "bd7bd5c0f55bbb63b9bd66473eb95dc0306380bdd96d53c5c71600b555c192b8",
+      "used_fields": [
+        "failure.classification",
+        "quality.dev.category_passes",
+        "quality.dev.category_totals",
+        "quality.dev.critical_safety_failures",
+        "quality.dev.gates",
+        "quality.dev.hard_pass_count",
+        "quality.dev.response_count",
+        "quality.probe_selection.*.category_minimum_gates_satisfied",
+        "quality.probe_selection.*.category_passes",
+        "quality.probe_selection.*.category_totals",
+        "quality.probe_selection.*.critical_safety_failures",
+        "quality.probe_selection.*.hard_pass_count",
+        "quality.selected_epoch"
+      ]
+    },
+    {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_FULL_FINETUNE_SUCCESSOR_S5_EXECUTION_PACKAGE_CONTRACT.json",
+      "sha256": "6b9425f027bcc50f399fdded1ac91147fbdde91c9a041e10d1e00e6b3c9c0a54",
+      "used_fields": [
+        "evaluator_contract.dev",
+        "mechanism"
+      ]
+    },
+    {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/training_recipe.json",
+      "sha256": "24a4b8acf314c0bd90a026b0a2438c424ab281a0f29c9ab9e183e9b272b42df2",
+      "used_fields": [
+        "checkpoint_lifecycle",
+        "checkpoint_policy",
+        "data counts",
+        "full_finetune",
+        "optimizer",
+        "schedule",
+        "training dtype and loss-scope fields"
+      ]
+    }
+  ],
+  "spec_id": "qwen2.5-0.5b-instruct-ace2-bf16-successor-s6-clean-room-v2-category-balanced-conflict-projected-47eb3488-4480-52a9-ab58-4bc2d3afd2ab",
+  "stage": "specification",
+  "status": "FROZEN_SPECIFICATION_ONLY_NO_CONSUMING_AUTHORITY",
+  "successor_mechanism": {
+    "category_order": [
+      "arithmetic",
+      "concise_summary",
+      "context_memory",
+      "format_discipline",
+      "polite_rewrite",
+      "safe_refusal",
+      "structured_extraction"
+    ],
+    "conflict_projection": {
+      "arithmetic_dtype": "float32",
+      "combined_gradient": "mean(p_i for all seven categories)",
+      "deterministic_pair_order": true,
+      "initial_value": "p_i=g_i",
+      "missing_category_disposition": "FAIL_CLOSED_NO_OPTIMIZER_STEP",
+      "nonfinite_gradient_disposition": "FAIL_CLOSED_NO_OPTIMIZER_STEP",
+      "post_combine_gradient_clipping_norm": 1.0,
+      "projection_rule": "for i then j in category_order, if dot(p_i,g_j)<0 set p_i=p_i-dot(p_i,g_j)/max(norm2(g_j),1e-12)*g_j",
+      "raw_gradient_symbol": "g_i for category i",
+      "reference_gradient_rule": "use immutable raw g_j during all projections"
+    },
+    "marker_policy": {
+      "category_label_in_model_input": false,
+      "category_label_in_target": false,
+      "fail_closed_if_metadata_leaks_into_tokens": true,
+      "metadata_transport": "external sampler sidecar removed before tokenization",
+      "score_or_gate_label_in_model_input_or_target": false,
+      "special_control_tokens_added": false
+    },
+    "material_difference_from_permitted_s5_mechanism": {
+      "new_capabilities": [
+        "each optimizer superstep contains every evaluator category",
+        "each category has equal weight after within-category loss averaging",
+        "negative inter-category gradient components are deterministically projected away before the optimizer update",
+        "checkpoint selection has no best-effort fallback when synthetic gates fail"
+      ],
+      "s5_declared_mechanism": {
+        "all_model_parameters_trainable": true,
+        "architecture_change_allowed": false,
+        "parameter_efficient_adapter_used": false,
+        "trainable_parameter_count": 494032768
+      }
+    },
+    "model_parameterization": {
+      "all_model_parameters_trainable": true,
+      "architecture_change_allowed": false,
+      "parameter_efficient_adapter_used": false,
+      "trainable_parameter_count": 494032768
+    },
+    "name": "marker-free category-balanced conflict-projected full fine-tuning",
+    "optimizer_superstep": {
+      "bridge_rule": "split a bridge-row loss equally across its declared categories; bridge metadata never enters tokens",
+      "eighth_microbatch": "rotating category extra for 42 steps, then one bridge row for each of the final two steps",
+      "equal_category_weight_after_averaging": true,
+      "micro_batch_size": 1,
+      "microbatches": 8,
+      "required_base_microbatches": "one from each of the seven categories",
+      "within_category_rule": "average all row losses assigned to a category before taking that category gradient"
+    }
+  },
+  "training_contract": {
+    "candidate_epochs": [
+      1,
+      2,
+      3
+    ],
+    "compute_dtype": "bfloat16",
+    "derived_epoch_layout": {
+      "bridge_steps_at_epoch_end": 2,
+      "every_row_used_exactly_once_per_epoch": true,
+      "optimizer_steps_per_epoch": 44,
+      "seven_step_extra_category_cycle_count": 6
+    },
+    "full_finetune": {
+      "all_model_parameters_trainable": true,
+      "architecture_change_allowed": false,
+      "parameter_efficient_adapter_used": false,
+      "trainable_parameter_count": 494032768
+    },
+    "loss_scope": "assistant_tokens_only",
+    "master_parameter_dtype": "float32",
+    "optimizer": {
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.95,
+      "adam_epsilon": 1e-08,
+      "first_moment_dtype": "float32",
+      "gradient_clipping_norm": 1.0,
+      "learning_rate": 5e-06,
+      "learning_rate_justification": "Conservative source-model full-parameter rate frozen without consulting any V7 checkpoint, dev output, or quality result; it is not a measured optimum.",
+      "optimizer": "adamw_torch",
+      "second_moment_dtype": "float32",
+      "weight_decay": 0.01
+    },
+    "save_at_every_epoch": true,
+    "save_only_model": true,
+    "schedule": {
+      "epochs_maximum": 3,
+      "gradient_accumulation_steps": 8,
+      "gradient_checkpointing": true,
+      "learning_rate_scheduler": "cosine",
+      "micro_batch_size": 1,
+      "warmup_ratio": 0.08
+    },
+    "training_execution_authorized": false
+  }
+}

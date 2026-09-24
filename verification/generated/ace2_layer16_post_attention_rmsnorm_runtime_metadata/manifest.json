@@ -1,0 +1,85 @@
+{
+  "bindings": {
+    "layer16_post_attention_gain_f32_sha256": "ab24abdcc4957895e434c6bb3a5237a71ff5044efb9f76c1a9e76e280c128410",
+    "source_candidate_result": {
+      "bytes": 36917,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/result.json",
+      "sha256": "f734ae5e80bafed36fd434d65d1caec1794d6fa28ec6756c88092227726e6a18"
+    },
+    "source_candidate_sha256s": {
+      "bytes": 25541,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/SHA256SUMS",
+      "sha256": "5ce1654ce0ea9d2164eadfee04c2dded00a0ba4bd18d9246a14e0e96016a1b44"
+    },
+    "source_post_attention_scale32": {
+      "bytes": 215040,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/contracts/00-control/post_attention_output_group_scale32.bin",
+      "sha256": "5de7b5d6f26fb6690202e15f90a23808d4633346299671ec7d319ee9d98f9caf"
+    },
+    "source_post_attention_sum_s8": {
+      "bytes": 26880,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/contracts/00-control/post_attention_sum_s8.bin",
+      "sha256": "4f129de929030ee6a0f877092b90fb5f8d8a2265554c31793ef76acc8cde9317"
+    }
+  },
+  "boundary": "model.layers.16.post_attention_layernorm.output_to_signed_a8",
+  "classification": "bounded_runtime_metadata_core_increment_no_official_attempt",
+  "control": {
+    "exact_repeat_passed": true,
+    "rank_replay_performed": false,
+    "reference_rank": 3252,
+    "top_token_id": 12
+  },
+  "executed_contract": "group-128-power2-scale32",
+  "forbidden_runtime_sidecars_absent": [
+    "aligned_activation",
+    "rebase_shift",
+    "sumsq",
+    "inv_rms",
+    "q7_8_gain",
+    "output_scale32",
+    "expected_output"
+  ],
+  "numeric_contract": {
+    "alignment": "minimum live input Scale32 exponent, bounded ties-to-even rebase",
+    "gain": "signed Q7.8 derived from immutable signed-16 plus Scale32 metadata",
+    "mean_square": "ties-to-even sumsq/896",
+    "output_scale": "smallest power-of-two Scale32 satisfying live group dynamic range and signed-Q7.8 gain floor",
+    "reciprocal": "floor(2^30/rms_ceil), nonzero Q30",
+    "requantization": "single ties-to-even shift by 38 with signed-A8 saturation",
+    "rms": "ceil integer square root"
+  },
+  "observed": {
+    "maximum_inv_rms_q30": 22369621,
+    "maximum_output_scale32": "0x00fe8000",
+    "maximum_rebased_magnitude": 1986,
+    "minimum_inv_rms_q30": 1984735,
+    "minimum_output_scale32": "0x00fa8000",
+    "nonzero_outputs": 25463,
+    "saturation_count": 0
+  },
+  "runtime_inputs": [
+    "signed A8 activation",
+    "per-channel input Scale32",
+    "immutable signed-16 layernorm gain integer",
+    "immutable per-channel gain Scale32"
+  ],
+  "schema_version": 1,
+  "scope_guards": {
+    "carried_activation_wider_than_a8": false,
+    "official_attempt_consumed": false,
+    "official_run_launched": false,
+    "protected_candidate_mutated": false,
+    "rank_selection_completed": false,
+    "runtime_bf16_sidecar": false,
+    "runtime_precomputed_metadata_sidecar": false,
+    "u280_or_stage2_entered": false
+  },
+  "shape": {
+    "channels": 896,
+    "output_group_size": 128,
+    "output_groups_per_position": 7,
+    "positions": 30,
+    "samples": 26880
+  }
+}

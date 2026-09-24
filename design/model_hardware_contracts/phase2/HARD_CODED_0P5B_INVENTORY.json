@@ -1,0 +1,574 @@
+{
+  "bindings": [
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "localparam integer ACE2_HIDDEN_SIZE = 896;",
+      "id": "rtl.pkg.hidden_size",
+      "line": 6,
+      "observed_line": "localparam integer ACE2_HIDDEN_SIZE = 896;",
+      "path": "rtl/generated/ace2_model_parameters.svh",
+      "source_sha256": "f29f86ea6f951726c010c6690818f4f594fc2a50600402f9c51d06a2c75a5996",
+      "successor_action": "Generated from the selected descriptor with 896 retained as the 0.5B value.",
+      "surface": "rtl",
+      "symbol": "ACE2_HIDDEN_SIZE"
+    },
+    {
+      "contract_fields": [
+        "vocab_size",
+        "lm_head_tile_count"
+      ],
+      "current_0p5b_binding": "151936",
+      "evidence_fragment": "localparam integer ACE2_VOCAB_SIZE = 151936;",
+      "id": "rtl.pkg.vocab_size",
+      "line": 12,
+      "observed_line": "localparam integer ACE2_VOCAB_SIZE = 151936;",
+      "path": "rtl/generated/ace2_model_parameters.svh",
+      "source_sha256": "f29f86ea6f951726c010c6690818f4f594fc2a50600402f9c51d06a2c75a5996",
+      "successor_action": "Generated from the selected descriptor and used to derive the LM-head tile count.",
+      "surface": "rtl",
+      "symbol": "ACE2_VOCAB_SIZE"
+    },
+    {
+      "contract_fields": [
+        "intermediate_size"
+      ],
+      "current_0p5b_binding": "4864",
+      "evidence_fragment": "localparam integer MLP_INTERMEDIATE_SIZE = ACE2_INTERMEDIATE_SIZE;",
+      "id": "rtl.shell.intermediate_size",
+      "line": 136,
+      "observed_line": "localparam integer MLP_INTERMEDIATE_SIZE = ACE2_INTERMEDIATE_SIZE;",
+      "path": "rtl/ace2_shell.sv",
+      "source_sha256": "77eadf2546f36672a3b76c67ab536e7962de5fbed1069804befc7f96627281bc",
+      "successor_action": "Resolved through the descriptor-generated package parameter used by projection and SiLU loops.",
+      "surface": "rtl",
+      "symbol": "MLP_INTERMEDIATE_SIZE"
+    },
+    {
+      "contract_fields": [
+        "kv_heads",
+        "head_dim",
+        "kv_width_elements",
+        "weight_tiling"
+      ],
+      "current_0p5b_binding": "128",
+      "evidence_fragment": "localparam integer QKV_KV_OUTPUTS = ACE2_KV_WIDTH;",
+      "id": "rtl.shell.kv_width",
+      "line": 157,
+      "observed_line": "localparam integer QKV_KV_OUTPUTS = ACE2_KV_WIDTH;",
+      "path": "rtl/ace2_shell.sv",
+      "source_sha256": "77eadf2546f36672a3b76c67ab536e7962de5fbed1069804befc7f96627281bc",
+      "successor_action": "Resolved through the descriptor-generated K/V width used by QKV offsets and output spans.",
+      "surface": "rtl",
+      "symbol": "QKV_KV_OUTPUTS"
+    },
+    {
+      "contract_fields": [
+        "head_dim",
+        "attention_heads",
+        "gqa_mapping"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "localparam integer ATTN_HEAD_DIM = ACE2_HEAD_DIM;",
+      "id": "rtl.shell.head_dim",
+      "line": 167,
+      "observed_line": "localparam integer ATTN_HEAD_DIM = ACE2_HEAD_DIM;",
+      "path": "rtl/ace2_shell.sv",
+      "source_sha256": "77eadf2546f36672a3b76c67ab536e7962de5fbed1069804befc7f96627281bc",
+      "successor_action": "Resolved through the descriptor-generated head dimension used by attention loops.",
+      "surface": "rtl",
+      "symbol": "ATTN_HEAD_DIM"
+    },
+    {
+      "contract_fields": [
+        "max_context",
+        "sequence_position_bits"
+      ],
+      "current_0p5b_binding": "32767",
+      "evidence_fragment": "localparam [15:0] ROPE_MAX_SEQUENCE_POSITION = 16'(ACE2_MAX_CONTEXT - 1);",
+      "id": "rtl.shell.max_context",
+      "line": 187,
+      "observed_line": "localparam [15:0] ROPE_MAX_SEQUENCE_POSITION = 16'(ACE2_MAX_CONTEXT - 1);",
+      "path": "rtl/ace2_shell.sv",
+      "source_sha256": "77eadf2546f36672a3b76c67ab536e7962de5fbed1069804befc7f96627281bc",
+      "successor_action": "Resolved for the 0.5B public 16-bit command interface through the descriptor-generated context bound.",
+      "surface": "rtl",
+      "symbol": "ROPE_MAX_SEQUENCE_POSITION"
+    },
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer HIDDEN_SIZE = 896,",
+      "id": "rtl.core.rmsnorm.hidden_default",
+      "line": 4,
+      "observed_line": "parameter integer HIDDEN_SIZE = 896,",
+      "path": "rtl/ace2_rmsnorm_core.sv",
+      "source_sha256": "b09fe7073fd6509f0ca83d5b0982b1952aa624d4883631690df35c0bfabb014d",
+      "successor_action": "Drive the default from the selected model contract while preserving override support.",
+      "surface": "rtl",
+      "symbol": "HIDDEN_SIZE parameter default"
+    },
+    {
+      "contract_fields": [
+        "hidden_size",
+        "intermediate_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer K_SIZE = 896,",
+      "id": "rtl.core.projection.k_default",
+      "line": 4,
+      "observed_line": "parameter integer K_SIZE = 896,",
+      "path": "rtl/ace2_w4a8_proj_core.sv",
+      "source_sha256": "e4e7ff9d458ae823728669ae0a53ba650dbb0633d28c613347e4af2e1e198dfe",
+      "successor_action": "Instantiate projection cores with descriptor-specific reduction widths.",
+      "surface": "rtl",
+      "symbol": "K_SIZE parameter default"
+    },
+    {
+      "contract_fields": [
+        "head_dim"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "parameter integer HEAD_DIM = 64,",
+      "id": "rtl.core.attention_score.head_dim_default",
+      "line": 4,
+      "observed_line": "parameter integer HEAD_DIM = 64,",
+      "path": "rtl/ace2_attention_score_core.sv",
+      "source_sha256": "400234b1f5b28f379792d5c1e023adc3f2c81e7bea825d5f7683bdc6ccd1dd55",
+      "successor_action": "Instantiate score cores with descriptor head_dim.",
+      "surface": "rtl",
+      "symbol": "HEAD_DIM parameter default"
+    },
+    {
+      "contract_fields": [
+        "head_dim"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "parameter integer HEAD_DIM = 64,",
+      "id": "rtl.core.attention_compose.head_dim_default",
+      "line": 5,
+      "observed_line": "parameter integer HEAD_DIM = 64,",
+      "path": "rtl/ace2_attention_compose_core.sv",
+      "source_sha256": "33ca20e48a6f9eb8f93874e95c8e8b73a48c00e435693b84d4a5915da7ca78ff",
+      "successor_action": "Bind compose accumulation width to descriptor head_dim.",
+      "surface": "rtl",
+      "symbol": "HEAD_DIM parameter default"
+    },
+    {
+      "contract_fields": [
+        "max_context"
+      ],
+      "current_0p5b_binding": "32768",
+      "evidence_fragment": "parameter integer CONTEXT_MAX = 32768,",
+      "id": "rtl.core.attention_compose.context_default",
+      "line": 6,
+      "observed_line": "parameter integer CONTEXT_MAX = 32768,",
+      "path": "rtl/ace2_attention_compose_core.sv",
+      "source_sha256": "33ca20e48a6f9eb8f93874e95c8e8b73a48c00e435693b84d4a5915da7ca78ff",
+      "successor_action": "Bind compose context checks to descriptor max_context.",
+      "surface": "rtl",
+      "symbol": "CONTEXT_MAX parameter default"
+    },
+    {
+      "contract_fields": [
+        "head_dim"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "parameter integer HEAD_DIM = 64",
+      "id": "rtl.core.qk_residual_cross_term.head_dim_default",
+      "line": 441,
+      "observed_line": "parameter integer HEAD_DIM = 64",
+      "path": "rtl/ace2_qk_residual_cross_term_core.sv",
+      "source_sha256": "bc4f58dc53d6e1f5bdc0013d73228729562c5ac8db86845dc0112801c3eba637",
+      "successor_action": "Bind residual cross-term score helpers to descriptor head_dim.",
+      "surface": "rtl",
+      "symbol": "HEAD_DIM parameter default"
+    },
+    {
+      "contract_fields": [
+        "max_context"
+      ],
+      "current_0p5b_binding": "32768",
+      "evidence_fragment": "parameter integer CONTEXT_MAX = 32768",
+      "id": "rtl.core.v_residual_value_correction.context_default",
+      "line": 216,
+      "observed_line": "parameter integer CONTEXT_MAX = 32768",
+      "path": "rtl/ace2_v_residual_value_correction_core.sv",
+      "source_sha256": "73e39521e7a21c7ae2594abcc48946cb0efd00bf0be14c5c21a8dbfe5edee87c",
+      "successor_action": "Bind value-correction helper context storage to descriptor max_context.",
+      "surface": "rtl",
+      "symbol": "CONTEXT_MAX parameter default"
+    },
+    {
+      "contract_fields": [
+        "head_dim"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "parameter integer LANE_COUNT = 64",
+      "id": "rtl.core.absolute_rope_online_attention.lane_count_default",
+      "line": 9,
+      "observed_line": "parameter integer LANE_COUNT = 64",
+      "path": "rtl/ace2_absolute_rope_online_attention_core.sv",
+      "source_sha256": "005b6d220eeef3b3538add09834efff4089709fe5b28708bab35932ea119ca26",
+      "successor_action": "Bind absolute-RoPE online attention helpers to descriptor head_dim.",
+      "surface": "rtl",
+      "symbol": "LANE_COUNT parameter default"
+    },
+    {
+      "contract_fields": [
+        "head_dim"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "parameter integer MAX_LANES = 64",
+      "id": "rtl.core.native_accumulator_tagged_attention.max_lanes_default",
+      "line": 283,
+      "observed_line": "parameter integer MAX_LANES = 64",
+      "path": "rtl/ace2_native_accumulator_tagged_attention_core.sv",
+      "source_sha256": "3fcb6100d588f52fb34ad155852ee674d44c15ac0ba83b5e2c21ab4c72569728",
+      "successor_action": "Bind tagged attention helper lane capacity to descriptor head_dim.",
+      "surface": "rtl",
+      "symbol": "MAX_LANES parameter default"
+    },
+    {
+      "contract_fields": [
+        "head_dim"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "parameter integer MAX_KEYS = 64",
+      "id": "rtl.core.tile_bfp_score_attention.max_keys_default",
+      "line": 8,
+      "observed_line": "parameter integer MAX_KEYS = 64",
+      "path": "rtl/ace2_tile_bfp_score_attention_core.sv",
+      "source_sha256": "b415b09423e2d2be5348b916463722d0d83ea6297a3c90a40e29b99888ca1b6e",
+      "successor_action": "Bind tile-BFP score helper capacity to descriptor head_dim or retire it before multi-size RTL acceptance.",
+      "surface": "rtl",
+      "symbol": "MAX_KEYS parameter default"
+    },
+    {
+      "contract_fields": [
+        "head_dim"
+      ],
+      "current_0p5b_binding": "64",
+      "evidence_fragment": "parameter integer MAX_KEYS = 64",
+      "id": "rtl.core.tile_max_delta_attention.max_keys_default",
+      "line": 8,
+      "observed_line": "parameter integer MAX_KEYS = 64",
+      "path": "rtl/ace2_tile_max_delta_attention_core.sv",
+      "source_sha256": "be7f1a2290a47d9d5dba77aff3e11babcfd546e5b99304c65d46987e1bf76c36",
+      "successor_action": "Bind tile-max-delta attention helper capacity to descriptor head_dim or retire it before multi-size RTL acceptance.",
+      "surface": "rtl",
+      "symbol": "MAX_KEYS parameter default"
+    },
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer HIDDEN_SIZE = 896,",
+      "id": "rtl.core.error_carry.hidden_default",
+      "line": 371,
+      "observed_line": "parameter integer HIDDEN_SIZE = 896,",
+      "path": "rtl/ace2_cross_layer_error_carry_core.sv",
+      "source_sha256": "6a8286e95b77cb7b9e4c3d476677f6eac60ae12039a1431cf981fc4deba80e8d",
+      "successor_action": "Make checked-in successor/helper RTL defaults descriptor-bound before admitting multi-size checks.",
+      "surface": "rtl",
+      "symbol": "ace2_error_carry_state_core HIDDEN_SIZE default"
+    },
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer HIDDEN_SIZE = 896",
+      "id": "rtl.core.carry_aware_rmsnorm.hidden_default",
+      "line": 571,
+      "observed_line": "parameter integer HIDDEN_SIZE = 896",
+      "path": "rtl/ace2_cross_layer_error_carry_core.sv",
+      "source_sha256": "6a8286e95b77cb7b9e4c3d476677f6eac60ae12039a1431cf981fc4deba80e8d",
+      "successor_action": "Make carry-aware RMSNorm helper defaults descriptor-bound before admitting multi-size checks.",
+      "surface": "rtl",
+      "symbol": "ace2_carry_aware_rmsnorm_core HIDDEN_SIZE default"
+    },
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer HIDDEN_SIZE = 896,",
+      "id": "rtl.helper.layer16_runtime_metadata.hidden_default",
+      "line": 4,
+      "observed_line": "parameter integer HIDDEN_SIZE = 896,",
+      "path": "rtl/ace2_layer16_post_attention_rmsnorm_runtime_metadata_core.sv",
+      "source_sha256": "a36408373d6400bb52ea6fb06b5d8c4d48f877ab4e122791d076f5e331f413e2",
+      "successor_action": "Retire or descriptor-parameterize layer-specific runtime-metadata helper cores before multi-size RTL acceptance.",
+      "surface": "rtl",
+      "symbol": "HIDDEN_SIZE parameter default"
+    },
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer HIDDEN_SIZE = 896,",
+      "id": "rtl.helper.layer16_group1.hidden_default",
+      "line": 309,
+      "observed_line": "parameter integer HIDDEN_SIZE = 896,",
+      "path": "rtl/ace2_layer16_group1_scale32_core.sv",
+      "source_sha256": "4729ee7bfdd49faba1246f0c9d3fae6090a6aa6e18c9e0800051bdfcd36b3380",
+      "successor_action": "Retire or descriptor-parameterize layer-specific grouped-Scale32 helper cores before multi-size RTL acceptance.",
+      "surface": "rtl",
+      "symbol": "HIDDEN_SIZE parameter default"
+    },
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer HIDDEN_SIZE = 896,",
+      "id": "rtl.helper.layer16_group4.hidden_default",
+      "line": 309,
+      "observed_line": "parameter integer HIDDEN_SIZE = 896,",
+      "path": "rtl/ace2_layer16_group4_scale32_core.sv",
+      "source_sha256": "07ebd30fa24eb3aadec496f9ed35278e454ccda4abc97567136792937c70ade1",
+      "successor_action": "Retire or descriptor-parameterize layer-specific grouped-Scale32 helper cores before multi-size RTL acceptance.",
+      "surface": "rtl",
+      "symbol": "HIDDEN_SIZE parameter default"
+    },
+    {
+      "contract_fields": [
+        "hidden_size"
+      ],
+      "current_0p5b_binding": "896",
+      "evidence_fragment": "parameter integer HIDDEN_SIZE = 896,",
+      "id": "rtl.helper.layer17_rmsnorm_output.hidden_default",
+      "line": 4,
+      "observed_line": "parameter integer HIDDEN_SIZE = 896,",
+      "path": "rtl/ace2_layer17_rmsnorm_output_grouped_scale32_core.sv",
+      "source_sha256": "f893b858e80cdd2278115b99a2dc216888c68dc49f437d2d5b1aea8bfa86a7cc",
+      "successor_action": "Retire or descriptor-parameterize layer-specific grouped-Scale32 helper cores before multi-size RTL acceptance.",
+      "surface": "rtl",
+      "symbol": "HIDDEN_SIZE parameter default"
+    },
+    {
+      "contract_fields": [
+        "num_layers",
+        "hidden_size",
+        "head_dim",
+        "kv_heads"
+      ],
+      "current_0p5b_binding": "Qwen/Qwen2.5-0.5B, hidden=896, head_dim=64, kv_heads=2, layers=24",
+      "evidence_fragment": "    / \"models--Qwen--Qwen2.5-0.5B\"",
+      "id": "packer.base.model_identity",
+      "line": 52,
+      "observed_line": "/ \"models--Qwen--Qwen2.5-0.5B\"",
+      "path": "tools/build_full_qwen_image_v2.py",
+      "source_sha256": "5dee7877b665d399ce4d604b142b77ee0ea669ad6c01d266c923c53f4e425810",
+      "successor_action": "Load source identity and dimensions from the Phase-2 descriptor rather than a single pinned base model path.",
+      "surface": "model_packer",
+      "symbol": "Qwen2.5-0.5B source and core dimensions"
+    },
+    {
+      "contract_fields": [
+        "weight_tiling",
+        "rmsnorm_record_bytes",
+        "operator_aux_metadata_bytes"
+      ],
+      "current_0p5b_binding": "0.5B region byte totals",
+      "evidence_fragment": "    \"packed_w4\": 246_980_608,",
+      "id": "packer.base.region_bytes",
+      "line": 81,
+      "observed_line": "\"packed_w4\": 246_980_608,",
+      "path": "tools/build_full_qwen_image_v2.py",
+      "source_sha256": "5dee7877b665d399ce4d604b142b77ee0ea669ad6c01d266c923c53f4e425810",
+      "successor_action": "Compute packed-W4, projection-metadata, RMSNorm, and operator-aux regions from descriptor-derived rows and record sizes.",
+      "surface": "model_packer",
+      "symbol": "EXPECTED_REGION_BYTES"
+    },
+    {
+      "contract_fields": [
+        "num_layers",
+        "hidden_size",
+        "head_dim",
+        "kv_heads"
+      ],
+      "current_0p5b_binding": "Qwen/Qwen2.5-0.5B, hidden=896, head_dim=64, kv_heads=2, layers=24",
+      "evidence_fragment": "    / \".cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B/snapshots\"",
+      "id": "packer.verify.model_identity",
+      "line": 49,
+      "observed_line": "/ \".cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B/snapshots\"",
+      "path": "tools/verify_full_qwen_image_v2.py",
+      "source_sha256": "6fc5e19bab1998a4ae47e8df44f460b2eb17d94e48972a5f6397a8a56665603c",
+      "successor_action": "Mirror descriptor-derived source and geometry in the independent packer verifier.",
+      "surface": "model_packer",
+      "symbol": "independent verifier source and dimensions"
+    },
+    {
+      "contract_fields": [
+        "hidden_size",
+        "num_layers",
+        "weight_tiling"
+      ],
+      "current_0p5b_binding": "896 gains, 13,914 accepted two-token commands",
+      "evidence_fragment": "gains_per_record = 896",
+      "id": "packer.audit.rmsnorm_layout",
+      "line": 172,
+      "observed_line": "gains_per_record = 896",
+      "path": "tools/audit_full_qwen_image_contract.py",
+      "source_sha256": "34595a4ed3b3015ad00925d13ae91080a968792a1c765460ed7ec9cf0bb28648",
+      "successor_action": "Replace frozen 0.5B audit constants with descriptor-derived structural checks for new packages.",
+      "surface": "model_packer",
+      "symbol": "RMSNorm/gain and accepted command-count audit"
+    },
+    {
+      "contract_fields": [
+        "hidden_size",
+        "vocab_size",
+        "num_layers",
+        "lm_head_tile_count"
+      ],
+      "current_0p5b_binding": "Qwen2.5-0.5B, [151936, 896], layers=24, tiles=4748",
+      "evidence_fragment": "    / \"models--Qwen--Qwen2.5-0.5B\"",
+      "id": "command.accepted_runtime.model_path",
+      "line": 37,
+      "observed_line": "/ \"models--Qwen--Qwen2.5-0.5B\"",
+      "path": "tools/run_full_qwen_command_schedule_runtime.py",
+      "source_sha256": "61b94d528fa256cba53faa398419b2c118b06cca32dbb8531be1bd0dc4c8ebb3",
+      "successor_action": "Make schedule/package construction consume the descriptor and emit model_id plus contract hash.",
+      "surface": "command_generation",
+      "symbol": "accepted runtime model path and package dimensions"
+    },
+    {
+      "contract_fields": [
+        "hidden_size",
+        "max_context",
+        "kv_width_elements",
+        "lm_head_tile_count"
+      ],
+      "current_0p5b_binding": "hidden=896, max_context=32768, kv_bytes=272, LM tiles=4748",
+      "evidence_fragment": "KV_BYTES_PER_TOKEN = 272",
+      "id": "command.chat.constants",
+      "line": 118,
+      "observed_line": "KV_BYTES_PER_TOKEN = 272",
+      "path": "tools/ace2_chat_demo.py",
+      "source_sha256": "2b577a6645ebe8e1b8036dae7a226c820583b54c723c924c6739148418db910b",
+      "successor_action": "Derive ACE2RT package header fields, KV stride, LM-head tile count, and fused-QKV spans from the contract.",
+      "surface": "command_generation",
+      "symbol": "ACE2RT2 package and fused-QKV constants"
+    },
+    {
+      "contract_fields": [
+        "hidden_size",
+        "kv_width_elements",
+        "weight_tiling"
+      ],
+      "current_0p5b_binding": "0.5B Q/K/V byte offsets and 0x71c000 layer stride",
+      "evidence_fragment": "FUSED_QKV_WEIGHT_OFFSETS = (0, 401_408, 458_752)",
+      "id": "command.chat.fused_qkv_offsets",
+      "line": 103,
+      "observed_line": "FUSED_QKV_WEIGHT_OFFSETS = (0, 401_408, 458_752)",
+      "path": "tools/ace2_chat_demo.py",
+      "source_sha256": "2b577a6645ebe8e1b8036dae7a226c820583b54c723c924c6739148418db910b",
+      "successor_action": "Compute Q/K/V weight, metadata, and output offsets from hidden_size and kv_width_elements.",
+      "surface": "command_generation",
+      "symbol": "FUSED_QKV offsets/strides"
+    },
+    {
+      "contract_fields": [
+        "hidden_size",
+        "vocab_size",
+        "max_context",
+        "kv_bytes_per_token_per_layer"
+      ],
+      "current_0p5b_binding": "[151936, 896], max_context=32768, kv_stride=272",
+      "evidence_fragment": "        model_id=\"qwen2.5-0.5b\",",
+      "id": "command.fused_prefix.preflight",
+      "line": 252,
+      "observed_line": "model_id=\"qwen2.5-0.5b\",",
+      "path": "tools/run_fused_qkv_runtime_prefix.py",
+      "source_sha256": "bb87229e368a9ceaa1ff8b38d0de0cb379fa3f5661273a9fdf0461e3eda02d7d",
+      "successor_action": "Turn the prefix runner into a descriptor-selected structural/operator check after RTL parameterization.",
+      "surface": "command_generation",
+      "symbol": "fused-prefix runtime_preflight geometry"
+    },
+    {
+      "contract_fields": [
+        "num_layers",
+        "hidden_size",
+        "vocab_size",
+        "max_context"
+      ],
+      "current_0p5b_binding": "layers=24, hidden=896, vocab=151936, max_context=32768",
+      "evidence_fragment": "constexpr std::uint32_t kHidden = 896;",
+      "id": "host.cpp.runtime_constants",
+      "line": 82,
+      "observed_line": "constexpr std::uint32_t kHidden = 896;",
+      "path": "verification/verilator/ace2_shell_runtime_main.cpp",
+      "source_sha256": "8a7d29576c02d9fd7a8d7cd572483abc88bc791a11caa655a3fea0c49fac5d07",
+      "successor_action": "Parse geometry from the package contract hash instead of compiling one C++ runtime geometry.",
+      "surface": "host_runtime",
+      "symbol": "ACE2RT2 C++ geometry constants"
+    },
+    {
+      "contract_fields": [
+        "attention_heads",
+        "hidden_size",
+        "weight_tiling",
+        "lm_head_tile_count"
+      ],
+      "current_0p5b_binding": "24 layers, 14 heads, fused n/k=896, fixed spans",
+      "evidence_fragment": "for (std::uint8_t layer = 0; layer < 24; ++layer) {",
+      "id": "host.cpp.schedule_loops",
+      "line": 613,
+      "observed_line": "for (std::uint8_t layer = 0; layer < 24; ++layer) {",
+      "path": "verification/verilator/ace2_shell_runtime_main.cpp",
+      "source_sha256": "8a7d29576c02d9fd7a8d7cd572483abc88bc791a11caa655a3fea0c49fac5d07",
+      "successor_action": "Replace schedule validation loops and fused-QKV range checks with descriptor-derived values.",
+      "surface": "host_runtime",
+      "symbol": "C++ schedule loops and fused-QKV legality"
+    },
+    {
+      "contract_fields": [
+        "weight_layout",
+        "embedding_storage"
+      ],
+      "current_0p5b_binding": "0.5B image/model hashes and embedding_offset=32288",
+      "evidence_fragment": "std::uint64_t embedding_offset;",
+      "id": "host.identity_profile.embedding_offset",
+      "line": 29,
+      "observed_line": "std::uint64_t embedding_offset;",
+      "path": "verification/verilator/ace2_runtime_identity_profile.h",
+      "source_sha256": "db95911037dd716330b5313caa213780900dd4485777dbca49f0d67ad1d4a2a0",
+      "successor_action": "Add model_id and descriptor hash to identity matching so offsets are per generated image contract.",
+      "surface": "host_runtime",
+      "symbol": "runtime identity profile embedding offset"
+    }
+  ],
+  "claim_boundary": "This inventory identifies current active 0.5B dimension bindings that must be removed or descriptor-bound by successor work; it does not claim those removals have been implemented.",
+  "classification": "static source inventory; no RTL/model/simulator/formal/synthesis/FPGA/U280 execution",
+  "inventory_id": "ace2-phase2-hard-coded-0p5b-binding-inventory-v1",
+  "schema_version": 1,
+  "scope": {
+    "excluded": [
+      "historical build/, evidence/, reference/, runtime authority packages",
+      "unit tests and one-off diagnosis scripts that are not packer, command generation, host runtime, or public RTL surfaces",
+      "numeric literals that encode protocol widths, fixed-point widths, opcodes, addresses, hashes, or token IDs rather than Qwen model dimensions"
+    ],
+    "included": [
+      "active top-level rtl/*.sv sources",
+      "active model image packers and independent image verifiers under tools/",
+      "active command-package and chat-runtime generation tools",
+      "the Verilated host runtime bridge used by make full-qwen-runtime-build"
+    ]
+  },
+  "status": "PASS_INVENTORY_BOUND",
+  "surface_counts": {
+    "command_generation": 4,
+    "host_runtime": 3,
+    "model_packer": 4,
+    "rtl": 23
+  }
+}

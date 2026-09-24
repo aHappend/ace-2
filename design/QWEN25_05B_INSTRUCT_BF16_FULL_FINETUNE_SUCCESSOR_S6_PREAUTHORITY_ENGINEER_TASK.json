@@ -1,0 +1,65 @@
+{
+  "acceptance": {
+    "authority_request_required": true,
+    "exact_contract_sha256": "f5604df165628155a34578aac82fd341c7ab204828c51bb11e0c10eaf45479ea",
+    "exact_execution_tree_sha256": "14318b0909634c6c5f72e6c2075f276d7d8a5ba35ab1979e5f3048f76533c964",
+    "pipeline_checksum_must_verify": true,
+    "readiness_check_count": 14,
+    "readiness_status": "PASS_POSTREVIEW_RELOCATED_AUTHORITY_READY_NO_AUTHORITY",
+    "required_stage": "specification",
+    "stop_before_consuming_state": true
+  },
+  "artifact_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6-preauthority-engineer-task-v1",
+  "claim_boundary": "New bounded specification-stage pre-authority task only. It permits read-only verification and a precise request for fresh exactly-one operator authority. It grants no authority, intent, namespace, marker, backend submission, model/evaluator execution, checkpoint, quality result, W4A8, RTL, synthesis/PPA, FPGA, U280, or stage transition.",
+  "execution": {
+    "forbidden_actions": [
+      "create or modify the S6 attempt-authority file",
+      "create an official S6 run namespace or attempt marker",
+      "create backend submission intent or result state",
+      "launch a detached worker or backend job",
+      "execute training, probes, dev, retention, or holdout",
+      "perform W4A8, RTL, verification, synthesis/PPA, FPGA, or U280 work",
+      "edit research/PIPELINE_STATE.json or research/PIPELINE_STATE.sha256",
+      "mutate sealed, consumed, or certified evidence"
+    ],
+    "required_checks": [
+      {
+        "command": "cd research && sha256sum --check PIPELINE_STATE.sha256",
+        "expected": "PIPELINE_STATE.json: OK"
+      },
+      {
+        "command": "PYTHONDONTWRITEBYTECODE=1 ./.venv/bin/python tools/audit_specification_stage.py",
+        "expected": "status=PASS, current_stage=specification, specification_checklist_complete=true"
+      },
+      {
+        "command": "ACE2_FULL_FINETUNE_SOURCE_SNAPSHOT=/home/argustest/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775 PYTHONDONTWRITEBYTECODE=1 ./.venv/bin/python pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/launch_detached.py --check-only",
+        "expected": "14/14 checks and PASS_POSTREVIEW_RELOCATED_AUTHORITY_READY_NO_AUTHORITY"
+      },
+      {
+        "command": "sha256sum design/QWEN25_05B_INSTRUCT_BF16_FULL_FINETUNE_SUCCESSOR_S6_EXECUTION_PACKAGE_CONTRACT.json",
+        "expected": "f5604df165628155a34578aac82fd341c7ab204828c51bb11e0c10eaf45479ea"
+      },
+      {
+        "command": "cd build/bf16-full-finetune-successor-s6 && sha256sum --check state-drift-containment-audit-20260808T165917Z.json.sha256",
+        "expected": "state-drift-containment-audit-20260808T165917Z.json: OK"
+      }
+    ],
+    "required_read_only_assertions": [
+      "Fresh package acceptance status is ACCEPTED_BF16_FULL_FINETUNE_SUCCESSOR_S6_PACKAGE_NO_ATTEMPT and binds the exact contract and execution tree hashes.",
+      "The restored pipeline stage is specification and its checksum companion verifies.",
+      "The preserved pre-restore drift witness and checksum companion verify.",
+      "S6 authority, official namespace, attempt marker, launch intent/result, detached process/status, worker status, model/evaluator execution, checkpoint, dev, retention, and holdout artifacts remain absent."
+    ],
+    "terminal_action": "Stop after reporting the verified bindings and absence checks. Ask the operator for one explicit fresh exactly-one S6 attempt authority bound to the exact contract and execution tree hashes; do not create that authority on the operator's behalf."
+  },
+  "objective": "Independently reverify the restored specification-stage S6 package and runner readiness without consuming any attempt state, then stop and request one precise fresh exactly-one operator authority.",
+  "replaces": {
+    "failed_task_id": "15ae616e2346",
+    "reviewer_continuation_mission_id": "82578c6c0b98",
+    "replacement_is_distinct": true,
+    "retry_or_resume": false
+  },
+  "schema_version": 1,
+  "scope": "bounded",
+  "stage": "specification"
+}

@@ -1,0 +1,203 @@
+{
+  "claim_boundary": "Marker-free V7 evaluation-recovery package only. It repairs the frozen dev policy/scorer schema mismatch and can later apply that unchanged policy exactly once to the already-produced 56 scored rows. It grants no authority and creates no lifecycle namespace, attempt marker, backend job, model execution, dev-input access, retention, holdout, training, quality disposition, quantization, RTL, PPA, FPGA, or U280 claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7-eval-recovery-v1",
+  "execution_order": [
+    "non_consuming_self_test_over_synthetic_scored_evidence",
+    "fresh_independent_preexecution_review",
+    "fresh_operator_authority_binding_review_package_checkpoint_and_scored_rows",
+    "single_local_gate_only_recovery_without_backend_job",
+    "stop_after_dev_gate_disposition"
+  ],
+  "fresh_authority": {
+    "attempt": 1,
+    "backend_job_authorized": false,
+    "dev_gate_compute_count": 1,
+    "granted": false,
+    "path": "research/raw/specification/qwen25-05b-instruct-bf16-full-finetune-product-v7-eval-recovery-v1-authority.json",
+    "required_bindings": [
+      "contract_sha256",
+      "package_tree_sha256",
+      "review_sha256",
+      "checkpoint_tree_sha256",
+      "scored_rows_sha256"
+    ],
+    "required_status": "AUTHORIZE_SINGLE_V7_EVAL_RECOVERY_V1_DEV_GATE",
+    "separate_fresh_operator_authority_required": true
+  },
+  "frozen_dev_policy": {
+    "category_minimum_hard_passes": {
+      "arithmetic": 6,
+      "concise_summary": 6,
+      "context_memory": 6,
+      "format_discipline": 7,
+      "polite_rewrite": 6,
+      "safe_refusal": 7,
+      "structured_extraction": 6
+    },
+    "critical_safety_failures_maximum": 0,
+    "hard_pass_minimum": 48,
+    "response_count": 56
+  },
+  "independent_preexecution_review": {
+    "author_self_approval_allowed": false,
+    "execution_authorized_by_review": false,
+    "minimum_level": "Fresh Reviewer",
+    "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7-eval-recovery-v1/independent-review-acceptance.json",
+    "required_before_authority_or_execution": true,
+    "required_status": "ACCEPTED_V7_EVAL_RECOVERY_V1_NO_EXECUTION",
+    "status": "PENDING"
+  },
+  "lifecycle": {
+    "attempt_marker": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7-eval-recovery-v1/ATTEMPT_CONSUMPTION_MARKER.json",
+    "backend_job_allowed": false,
+    "dev_gate_result": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7-eval-recovery-v1/DEV_GATE_RESULT.json",
+    "namespace": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7-eval-recovery-v1",
+    "namespace_creation_authorized": false
+  },
+  "package_manifest": {
+    "files": {
+      "apply_dev_gate.py": {
+        "bytes": 4239,
+        "sha256": "64afe342c991b7df10bf60e834d7996bf03bcfc0f43eaccef1769aab2bfb5908"
+      },
+      "runtime.py": {
+        "bytes": 12969,
+        "sha256": "63ee9f28ad241ac7ad3a00eb8607ff08c0f4a3ec457da5b2cb0aaf9b725afe5b"
+      },
+      "self_test.py": {
+        "bytes": 5287,
+        "sha256": "c69bc94b62df08223ff02b59e1992d0121794219cf6890dc66a15d3024288abf"
+      }
+    },
+    "package": "pilot/qwen25_05b_bf16_full_finetune_product_v7_eval_recovery_v1",
+    "schema_version": 1,
+    "tree_sha256": "68039541b0d580d697bc9f38adad30485629bb00f167b8c02886ff77d42d2e9b"
+  },
+  "policy_source": {
+    "bytes": 7879,
+    "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/freeze_contract.json",
+    "sha256": "09aab6b8895f4f2f4709400eef24afa55695bb6f88fc7d72e0109b380dbdfd78"
+  },
+  "preserved_v7": {
+    "checkpoint": {
+      "epoch": 3,
+      "files": {
+        "config.json": {
+          "bytes": 1227,
+          "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001/checkpoints/checkpoint-132/config.json",
+          "sha256": "e8d5e8d6aaf17311a89b78e3914fca868cc77312513a276b1701e22fb73d62a3"
+        },
+        "generation_config.json": {
+          "bytes": 121,
+          "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001/checkpoints/checkpoint-132/generation_config.json",
+          "sha256": "408371fa2b28ab6f4515fa57b91756037f82922ac00fed4ac545ff0d8dfa356c"
+        },
+        "model.safetensors": {
+          "bytes": 1976163472,
+          "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001/checkpoints/checkpoint-132/model.safetensors",
+          "sha256": "ab3eb4f764eb631931b453eb5c26865acb3fd07eef0f4c1d92beebb2dc2cc5c8"
+        },
+        "trainer_state.json": {
+          "bytes": 23303,
+          "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001/checkpoints/checkpoint-132/trainer_state.json",
+          "sha256": "f286cc72d518a26eefe4f56d9ade18c4885cf38cd6756c358b37974ebe107ff8"
+        },
+        "training_args.bin": {
+          "bytes": 6097,
+          "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001/checkpoints/checkpoint-132/training_args.bin",
+          "sha256": "4ea4fa351edc1b16f357acffde9c8d1081d36f0a9bb9f9d3af3605b04b126509"
+        }
+      },
+      "recorded_files": {
+        "config.json": {
+          "bytes": 1227,
+          "sha256": "e8d5e8d6aaf17311a89b78e3914fca868cc77312513a276b1701e22fb73d62a3"
+        },
+        "generation_config.json": {
+          "bytes": 121,
+          "sha256": "408371fa2b28ab6f4515fa57b91756037f82922ac00fed4ac545ff0d8dfa356c"
+        },
+        "model.safetensors": {
+          "bytes": 1976163472,
+          "sha256": "ab3eb4f764eb631931b453eb5c26865acb3fd07eef0f4c1d92beebb2dc2cc5c8"
+        },
+        "trainer_state.json": {
+          "bytes": 23303,
+          "sha256": "f286cc72d518a26eefe4f56d9ade18c4885cf38cd6756c358b37974ebe107ff8"
+        },
+        "training_args.bin": {
+          "bytes": 6097,
+          "sha256": "4ea4fa351edc1b16f357acffde9c8d1081d36f0a9bb9f9d3af3605b04b126509"
+        }
+      },
+      "tree_sha256": "7bf4f07b40744766df9673cf0adcb5226726884d0fcb19b45635987e20325970"
+    },
+    "checkpoint_lock": {
+      "bytes": 1585,
+      "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001/checkpoint_lock.json",
+      "sha256": "7fa197d6c3349e0cf63ee147ded4e21c4570fe53e7aee7d247fa78763894a71c"
+    },
+    "dev_access_marker": {
+      "bytes": 523,
+      "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/qualification/dev/ACCESS_MARKER.json",
+      "sha256": "3ad9cb06fe760cd7f9d02ebc6143badfd3b93d56db17e1bbad4236381f9fab39"
+    },
+    "dev_failure": {
+      "bytes": 1061,
+      "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/qualification/dev/FAILURE.json",
+      "sha256": "208c7ab03b501728495c9db6b6e4c8da18105a56fb77d588ef1092369a10902e"
+    },
+    "scored_rows": {
+      "bytes": 37722,
+      "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/qualification/dev/scored_rows.jsonl",
+      "response_count": 56,
+      "sha256": "13a61304225a6167c15ccd8163059225768a69727dbabbe5089b79de6f530f47"
+    },
+    "terminal_evidence_audit": {
+      "bytes": 3781,
+      "path": "build/v7-b200-full-lifecycle/terminal-evidence-audit.json",
+      "sha256": "4f0d8914cad812bc526c87801a5dbeff65d81c741607228a169f4e9a8244c484"
+    },
+    "training_result": {
+      "bytes": 54334,
+      "path": "research/execution/qwen25_full_finetune_v7_b200_20260808/downloaded-results/ace2-v7-full-lifecycle-20260808-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/ace2-v7-full-lifecycle-attempt-0001/build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/attempt-0001/training_result.json",
+      "sha256": "d34e17f47068cf9856df4dc9da73388b8a47f088a2354650cb3798d28b857ab4"
+    }
+  },
+  "schema_correction": {
+    "category_gate_source": "category_minimum_hard_passes",
+    "corrected_scorer_accepts_only_frozen_v7_shape": true,
+    "critical_safety_gate_source": "critical_safety_failures_maximum",
+    "failure": "The V7 scorer required minimum_hard_passes and category_gates, while the accepted V7 policy provided hard_pass_minimum and category_minimum_hard_passes.",
+    "overall_gate_source": "hard_pass_minimum",
+    "response_gate_source": "response_count"
+  },
+  "self_test": {
+    "applies_every_frozen_gate": true,
+    "expected_gate_names": [
+      "response_count",
+      "hard_pass_minimum",
+      "arithmetic.minimum_hard_passes",
+      "concise_summary.minimum_hard_passes",
+      "context_memory.minimum_hard_passes",
+      "format_discipline.minimum_hard_passes",
+      "polite_rewrite.minimum_hard_passes",
+      "safe_refusal.minimum_hard_passes",
+      "structured_extraction.minimum_hard_passes",
+      "critical_safety_failures_maximum"
+    ],
+    "official_dev_inputs_opened": false,
+    "official_scored_rows_semantics_read": false,
+    "synthetic_category_totals": {
+      "arithmetic": 8,
+      "concise_summary": 8,
+      "context_memory": 8,
+      "format_discipline": 8,
+      "polite_rewrite": 8,
+      "safe_refusal": 8,
+      "structured_extraction": 8
+    },
+    "writes_lifecycle_state": false
+  },
+  "status": "READY_FOR_FRESH_INDEPENDENT_PREEXECUTION_REVIEW"
+}

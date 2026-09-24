@@ -1,0 +1,627 @@
+{
+  "architecture_checklist": {
+    "architecture.area-reuse-plan": true,
+    "architecture.compute-memory-model": true,
+    "architecture.interface-control": true,
+    "architecture.leverage-risk": true
+  },
+  "authority": {
+    "area_cap_non_sram_mm2": 2.0,
+    "first_unsupported_layer_operator": "layer_0.rope_q",
+    "forbidden": [
+      "rtl_before_manager_advance",
+      "carry_added_to_residual_bypass",
+      "double_carry_consumption",
+      "silent_carry_saturation",
+      "prompt_or_dataset_control",
+      "candidate_ppa_before_full_verification",
+      "operator_target_relaxation"
+    ],
+    "frequency_floor_mhz": 100.0,
+    "implementation_authorized": false,
+    "mode": "ADVANCE",
+    "ordered_supported_layer_operator_prefix": [
+      "layer_0.input_rmsnorm",
+      "layer_0.q_proj",
+      "layer_0.k_proj",
+      "layer_0.v_proj"
+    ],
+    "predecessor_contract_id": "shared_down_projection_residual_fusion_v1",
+    "predecessor_disposition": {
+      "bytes": 133440,
+      "path": "evidence/shared_down_projection_residual_fusion_v1/latest/VERIFICATION_DECISION.json",
+      "sha256": "9655ca8a724fc04c6e32c26f7883f07d3ff117b82d2aa04ebbc68b15de26d8c9",
+      "status": "sealed_integrity_no_go"
+    },
+    "required_manager_action": "independent_architecture_review_then_manager_may_advance_in_order",
+    "stage_closing": false
+  },
+  "claim_status": "architecture estimates only; no successor RTL, verification, PPA, power, physical, prototype, benchmark, signoff, tapeout, or silicon claim",
+  "compute_model": {
+    "all_24_layer_carry_cycles_per_token": 559104,
+    "arithmetic_intensity_macs_per_external_byte": 1.9939095807,
+    "bandwidth_sweep": [
+      {
+        "bytes_per_cycle": 1,
+        "dma_cycles": 2185792,
+        "dma_payload_cycles": 2185728,
+        "nonoverlapped_total_cycles": 3298624,
+        "roofline_bottleneck": "memory"
+      },
+      {
+        "bytes_per_cycle": 2,
+        "dma_cycles": 1092928,
+        "dma_payload_cycles": 1092864,
+        "nonoverlapped_total_cycles": 2205760,
+        "roofline_bottleneck": "compute_near_balance"
+      },
+      {
+        "bytes_per_cycle": 4,
+        "dma_cycles": 546496,
+        "dma_payload_cycles": 546432,
+        "nonoverlapped_total_cycles": 1659328,
+        "roofline_bottleneck": "compute"
+      },
+      {
+        "bytes_per_cycle": 8,
+        "dma_cycles": 273280,
+        "dma_payload_cycles": 273216,
+        "nonoverlapped_total_cycles": 1386112,
+        "roofline_bottleneck": "compute"
+      },
+      {
+        "bytes_per_cycle": 16,
+        "dma_cycles": 136672,
+        "dma_payload_cycles": 136608,
+        "nonoverlapped_total_cycles": 1249504,
+        "roofline_bottleneck": "compute"
+      }
+    ],
+    "carry_cycles_per_layer_token": 23296,
+    "carry_cycles_per_output_lane_planning_hook": 26,
+    "carry_fraction_of_combined_percent": 2.093397746,
+    "carry_fraction_of_down_dot_percent": 2.138157895,
+    "carry_schedule_basis": "10-cycle integer quotient/remainder path plus 16 fractional continuation/guard cycles; frozen architecture hook, not measured successor RTL",
+    "dma_cycle_equation": "ceil(external_bytes_per_layer_token/bytes_per_cycle)+64",
+    "dma_setup_cycles_per_descriptor": 64,
+    "down_dot_cycles_per_layer_token": 1089536,
+    "down_plus_carry_cycles_per_layer_token": 1112832,
+    "external_bytes_per_layer_token": 2185728,
+    "macs_per_layer_token": 4358144,
+    "projection_lanes": 4,
+    "rmsnorm_added_cycles_selected_vs_dedicated": 840,
+    "rmsnorm_square_cycles_dedicated_16_lane": 56,
+    "rmsnorm_square_cycles_selected": 896,
+    "rmsnorm_square_lanes_selected": 1,
+    "weight_bytes_per_layer": 2179072
+  },
+  "contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+  "generated_at_utc": "2026-08-02T02:00:40Z",
+  "interface_contract": {
+    "backpressure": "all phases stall without lane reorder or arithmetic change",
+    "candidate_flag_bit": 7,
+    "chain_end": "descriptor_error_if_carry_valid",
+    "clock_domains": 1,
+    "consumer": {
+      "clears_carry_on_success": true,
+      "legal_layer_id": "1..24",
+      "opcode": "RMSNORM",
+      "producer_layer_rule": "carry_producer_layer_id=consumer_layer_id-1",
+      "token_chain_identity_match_required": true
+    },
+    "descriptor_bytes": 64,
+    "historical_mode_bits_required_zero": [
+      4,
+      5,
+      6
+    ],
+    "layer0_input_rmsnorm": "flag_bit7_clear_and_implicit_zero_carry",
+    "prestart_error": "descriptor_error_no_payload_no_success",
+    "producer": {
+      "legal_layer_id": "0..23",
+      "legal_shape": {
+        "k": 4864,
+        "m": 1,
+        "n": 896
+      },
+      "opcode": "W4A8_PROJ",
+      "publishes": "emitted_hidden_s8_and_carry_s16_q0_15_on_success",
+      "requires_carry_invalid": true
+    },
+    "reset": "asynchronous_assertion_synchronous_deassertion_clears_metadata_and_carry_validity",
+    "runtime_error": "invalidate_carry_publish_no_success_provisional_payload_must_be_discarded"
+  },
+  "memory_hierarchy": {
+    "candidate_allocation_bytes": 88512,
+    "candidate_base_canonical_address": "0x800000000005c300",
+    "candidate_base_sram_byte_offset": 377600,
+    "candidate_mapping": {
+      "carry_buffer": {
+        "bytes": 1792,
+        "exclusive_end_offset": 88384,
+        "offset_bytes": 86592
+      },
+      "immutable_metadata": {
+        "bytes": 86592,
+        "exclusive_end_offset": 86592,
+        "offset_bytes": 0
+      },
+      "runtime_state": {
+        "bytes": 128,
+        "exclusive_end_offset": 88512,
+        "offset_bytes": 88384
+      }
+    },
+    "carry_buffer_bytes": 1792,
+    "carry_entries": 896,
+    "carry_entry_bytes": 2,
+    "carry_sram_traffic_basis": "24 writes plus 23 next-layer reads plus one final-rmsnorm read of 1792 bytes",
+    "carry_sram_traffic_bytes_per_token": 86016,
+    "external_stream_width_bits": 128,
+    "immutable_metadata_bytes": 86592,
+    "incremental_external_bytes_per_token": 0,
+    "incremental_kv_bytes_per_token": 0,
+    "internal_noc": "none",
+    "lifetime": "one carry buffer is produced at layer end, consumed before the next layer starts, and reused across all 24 layers; layer-23 carry is consumed by final RMSNorm",
+    "load_and_identity": "existing DMA loads the immutable image and zeroes mutable state; software validates QECR schema, model/layer/lane order, normalized Scale32, and full SHA-256 before qecr_metadata_valid",
+    "planned_peak_sram_bytes": 466112,
+    "preserved_noncandidate_live_set_bytes": 377600,
+    "remaining_sram_margin_bytes": 58176,
+    "runtime_state_bytes": 128,
+    "sram_banks": 8,
+    "sram_capacity_bytes": 524288
+  },
+  "numeric_contract": {
+    "carry": "signed16_q0_15_in_emitted_hidden_scale32_units",
+    "carry_consumption": "exactly_once_before_next_input_rmsnorm_or_final_rmsnorm",
+    "carry_equation": "rne_signed((wide_numerator-emitted_s8*denominator)*2^15/denominator)",
+    "down_projection_accumulator": "signed32_including_bias",
+    "emitted_hidden": "signed8_at_layer_post_mlp_scale32",
+    "floating_point_rtl": false,
+    "hidden_width": 896,
+    "intermediate_width": 4864,
+    "layers": 24,
+    "reconstructed_rmsnorm_input": "signed24_q8_15",
+    "rmsnorm_equation": "ms_q30=rne_unsigned(sum_xq15_squared/896); root_q15=max(1,ceil_sqrt(ms_q30)); inv_q30=floor(2^45/root_q15); output_s8=sat_s8(rne_signed(x_q15*gain_q8*inv_q30/2^53))",
+    "rmsnorm_square": "unsigned48_per_lane",
+    "rmsnorm_square_sum": "unsigned56_across_896_lanes",
+    "rounding": "round_to_nearest_ties_to_even",
+    "saturation_policy": "carry_mode_final_hidden_saturation_is_numeric_overflow_and_suppresses_success",
+    "successful_carry_range": [
+      -16384,
+      16384
+    ]
+  },
+  "planner_successor_proposal": {
+    "architecture_checklist": {
+      "architecture.area-reuse-plan": true,
+      "architecture.compute-memory-model": true,
+      "architecture.interface-control": true,
+      "architecture.leverage-risk": true
+    },
+    "authority": {
+      "author": "L4_Planner",
+      "implementation_authorized": false,
+      "manager_owned_stage_unchanged": "architecture",
+      "operator_targets_unchanged": {
+        "frequency_floor_mhz": 100.0,
+        "memory_boundary_bits": 128,
+        "non_sram_area_cap_mm2": 2.0,
+        "quality_limit_perplexity_ratio": 1.05
+      },
+      "required_manager_action": "hold_freeze_until_fresh_independent_architecture_review_then_freeze_this_successor_or_record_architecture_no_go",
+      "stage_closing": false,
+      "successor_frozen": false
+    },
+    "baseline_harness_certification": {
+      "candidate_or_model_execution_count": 0,
+      "claim_boundary": "Synthetic harness certification only; no baseline, candidate, model, RTL, verification, PPA, prototype, benchmark, signoff, tapeout, or silicon execution claim.",
+      "decision": "PASS",
+      "exact_evidence": {
+        "independent_l2_review": {
+          "bytes": 2032,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+          "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+        },
+        "manager_recovery_seal": {
+          "bytes": 8842,
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "manifest": {
+          "bytes": 2034,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+          "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+        },
+        "report": {
+          "bytes": 4216,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+          "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+        }
+      },
+      "implementation_authorized": false,
+      "public_certification": {
+        "bytes": 1855,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+        "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+      },
+      "required_properties_in_execution_order": [
+        "stage_authorization_before_execution",
+        "durable_exactly_one_reservation_and_run_ledger",
+        "atomic_artifact_and_companion_hash_commit",
+        "exact_provenance_binding",
+        "candidate_entrypoint_interlock",
+        "crash_recovery",
+        "missing_or_mismatched_artifact_fail_closed"
+      ],
+      "status": "independently_certified_pass"
+    },
+    "claim_boundary": "Planner-authored architecture proposal only. It is not a Manager freeze, implementation authorization, independent review, RTL, verification, PPA, prototype, benchmark, signoff, tapeout, or silicon evidence.",
+    "compute_memory_model": {
+      "bandwidth_sweep": [
+        {
+          "bytes_per_cycle": 1,
+          "dma_cycles_with_64_cycle_setup_hook": 7454784,
+          "nonoverlapped_layer_cycles": 11182144,
+          "roofline_bottleneck": "memory",
+          "weight_payload_cycles": 7454720
+        },
+        {
+          "bytes_per_cycle": 2,
+          "dma_cycles_with_64_cycle_setup_hook": 3727424,
+          "nonoverlapped_layer_cycles": 7454784,
+          "roofline_bottleneck": "compute_memory_balance",
+          "weight_payload_cycles": 3727360
+        },
+        {
+          "bytes_per_cycle": 4,
+          "dma_cycles_with_64_cycle_setup_hook": 1863744,
+          "nonoverlapped_layer_cycles": 5591104,
+          "roofline_bottleneck": "compute",
+          "weight_payload_cycles": 1863680
+        },
+        {
+          "bytes_per_cycle": 8,
+          "dma_cycles_with_64_cycle_setup_hook": 931904,
+          "nonoverlapped_layer_cycles": 4659264,
+          "roofline_bottleneck": "compute",
+          "weight_payload_cycles": 931840
+        },
+        {
+          "bytes_per_cycle": 16,
+          "dma_cycles_with_64_cycle_setup_hook": 465984,
+          "nonoverlapped_layer_cycles": 4193344,
+          "roofline_bottleneck": "compute",
+          "weight_payload_cycles": 465920
+        }
+      ],
+      "claim_boundary": "architecture equations and zero-backpressure planning hooks only; no candidate RTL latency, tokens_per_second, PPA, or power measurement",
+      "compute_memory_balance_bytes_per_cycle": 2.0,
+      "dynamic_finalize_fraction_of_projection_cycles_percent": 0.041772192651098904,
+      "dynamic_group_finalize_cycles_planning_hook": 1557,
+      "dynamic_groups_per_layer": 181,
+      "packed_w4_weight_bytes_per_layer": 7454720,
+      "projection_compute_cycles_per_layer_token": 3727360,
+      "projection_lanes": 4,
+      "projection_macs": {
+        "k_proj": 114688,
+        "mlp_down_proj": 4358144,
+        "mlp_gate_proj": 4358144,
+        "mlp_up_proj": 4358144,
+        "o_proj": 802816,
+        "q_proj": 802816,
+        "v_proj": 114688
+      },
+      "projection_macs_per_layer_token": 14909440,
+      "representative_shape": "one_batch1_decoder_layer_token_excluding_attention_context_length_dependent_dot_products",
+      "shared_aligner_utilization_percent": 3.125,
+      "tagged_partial_events_per_layer": 116480,
+      "weight_only_arithmetic_intensity_macs_per_byte": 2.0
+    },
+    "contract_id": "shared_token_group_dynamic_scale32_v1",
+    "execution_gates": {
+      "downstream_release_stages": "prototype_full_benchmark_and_signoff_reserved_for_complete_workload_or_model_system_release_milestone",
+      "no_execution_claim": true,
+      "ppa_stage": {
+        "fresh_canonical_sky130_ppa": "prohibited_until_independent_candidate_quality_GO_full_shell_acceptance_and_separate_Manager_transition_to_ppa"
+      },
+      "rtl_stage": {
+        "allowed_checks": [
+          "reference_and_vector_generation",
+          "lint",
+          "elaboration",
+          "bit_exact_simulation",
+          "interface_checks",
+          "minimal_formal"
+        ],
+        "allowed_only_after_manager_freeze_and_stage_advance": true,
+        "prohibited": [
+          "disabled_mode_baseline_execution",
+          "candidate_quality_execution",
+          "full_shell_regression",
+          "canonical_sky130_ppa"
+        ],
+        "stage_closing": false
+      },
+      "verification_stage": {
+        "allowed_only_after_separate_manager_transition": true,
+        "full_shell_regression": "prohibited_until_independent_candidate_quality_GO_and_fresh_separate_Manager_authorization",
+        "tasks_in_strict_order": [
+          {
+            "candidate_entrypoint_interlocked": true,
+            "execution_limit": 1,
+            "independent_review_required": true,
+            "name": "exactly_one_disabled_mode_baseline_via_certified_harness",
+            "task": 1
+          },
+          {
+            "entry_condition": "independent_task_1_baseline_PASS",
+            "execution_limit": 1,
+            "independent_review_required": true,
+            "name": "exactly_one_candidate_quality_run",
+            "task": 2
+          }
+        ]
+      }
+    },
+    "frontier": {
+      "accepted_prefix_advanced": false,
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "historical_ppa_ledger": {
+        "bytes": 713817,
+        "path": "design/PPA_FRONTIER_LEDGER.json",
+        "sha256": "4d505c2de9f3449ec700b21379c9485f5ed061f7a319448ec0ce772788614d13"
+      },
+      "mode": "ADVANCE",
+      "new_ppa_run": false,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ]
+    },
+    "generated_at_utc": "2026-08-02T06:20:32Z",
+    "interface_contract": {
+      "backpressure": "all input, output, sidecar, DMA, and SRAM channels may stall without lane reorder, exponent change, duplicate publication, or lost sticky bits",
+      "consumer_validation": "magic, schema, shape, group count, producer tag, layer/opcode, model identity, exponent range, reserved bytes, address range, and dependency must pass before payload issue",
+      "descriptor_bytes": 64,
+      "interrupt_error_completion": "existing interrupt and result codes are retained; candidate validation errors publish no successful tag or usable destination",
+      "proposal_flag": "flags[6]=1",
+      "publication": "payload_and_sidecar_become_valid_atomically_with_successful_completion",
+      "reset_clock_cdc": "single clock; asynchronous reset assertion and synchronous deassertion clear all sidecar-valid, tagged-accumulator, DMA, completion, and error state",
+      "sealed_qecr_flag": "flags[7] must remain zero",
+      "sidecar_layout": {
+        "byte_10": "layer_id",
+        "byte_11": "producer_opcode",
+        "byte_4": "schema_version_1",
+        "byte_5": "group_lanes_64_or_128",
+        "byte_6": "group_count_1_to_38",
+        "byte_7": "flags_reserved_zero",
+        "bytes_0_3": "ASCII BFP1",
+        "bytes_12_15": "tensor_elements_u32",
+        "bytes_16_23": "model_identity64",
+        "bytes_24_61": "signed_dynamic_exponent_deltas_then_zero_fill",
+        "bytes_62_63": "reserved_zero",
+        "bytes_8_9": "producer_completion_tag_u16"
+      },
+      "tensor_payload_alignment_bytes": 64,
+      "tensor_sidecar_location": "the 64 bytes immediately preceding each candidate-mode tensor payload in the same address space"
+    },
+    "memory_model": {
+      "external_stream_width_bits": 128,
+      "incremental_kv_scale_bytes": 0,
+      "internal_noc": "none",
+      "kv_reason": "the frozen workload already requires one four-byte Scale32 record per layer, token, and K/V head; proposal makes those records dynamic rather than adding records",
+      "lifetime": "one ping-pong wide group buffer, sidecar header, aligner, and control state are reused across every mutually exclusive operator and all 24 layers",
+      "maximum_cached_tokens": 32768,
+      "maximum_sidecar_exponents": 38,
+      "maximum_simultaneous_64_byte_tensor_sidecars": 13,
+      "planned_peak_sram_bytes": 379968,
+      "preserved_noncandidate_live_set_bytes": 377600,
+      "proposal_incremental_sram_bytes": 2368,
+      "remaining_sram_margin_bytes": 144320,
+      "runtime_state_bytes": 256,
+      "sram_banks": 8,
+      "sram_capacity_bytes": 524288,
+      "tensor_sidecar_bytes": 64,
+      "tensor_sidecar_live_bytes": 832,
+      "wide_group_ping_pong_bytes": 1280,
+      "worst_case_external_sidecar_bytes_per_layer_if_every_intermediate_spills": 832
+    },
+    "numeric_contract": {
+      "base_scale": "existing_immutable_normalized_Scale32_for_the_tensor_group",
+      "dynamic_delta_range": [
+        -24,
+        24
+      ],
+      "effective_scale": "base_Scale32_significand_with_exponent_plus_dynamic_delta",
+      "effective_scale32_exponent_range": [
+        -24,
+        4
+      ],
+      "failure": "invalid header, illegal exponent, reserved mantissa, overflow, or identity mismatch is numeric_overflow_or_descriptor_error_with_no_success",
+      "floating_point_rtl": false,
+      "grouping": {
+        "head_width": 64,
+        "hidden_and_intermediate_tensors": 128,
+        "kv_heads": 2,
+        "q_heads": 14,
+        "q_k_v_rope_sensitive_tensors": 64
+      },
+      "kv_rule": "write dynamic normalized Scale32 per layer, token, K/V head in the already-required four-byte scale records",
+      "projection_rule": "form signed32 W4A8 partial sums per 128-input group, attach the exact effective activation and weight Scale32 product, align in one shared tagged wide accumulator, and round only at final requantization",
+      "reserved_value": -128,
+      "residual_rule": "align both input group Scale32 values before add, then select one fresh output delta",
+      "rmsnorm_rule": "square group mantissas, align squared group sums by twice the effective exponent, then apply the frozen integer RMSNorm rounding and saturation",
+      "rope_rule": "each 64-lane head shares one effective Scale32 so every RoPE pair has identical scale and rotation remains integer Q1.15",
+      "rounding": "round_to_nearest_ties_to_even",
+      "selection_rule": "choose the smallest legal integer delta for which every group lane rounded-to-nearest-ties-to-even into effective_scale is in [-127,127]; all-zero group uses delta zero",
+      "silu_rule": "multiply gate/up mantissas, add effective exponents, use the existing integer SiLU approximation, then select one fresh output delta",
+      "stored_mantissa": "signed_int8_symmetric_range_minus127_to_plus127"
+    },
+    "resource_sharing": [
+      {
+        "area_reason": "avoids_duplicate_MAC_array",
+        "dedicated_alternative": "separate_dynamic_scale_projection_array",
+        "expected_cycle_cost": 0,
+        "resource": "W4A8_MACs",
+        "selected": "reuse_existing_four_projection_lanes"
+      },
+      {
+        "dedicated_alternative": "one_per_projection_or_operator",
+        "expected_cycle_cost": "one_event_per_input_group_hidden_under_32_or_more_MAC_cycles_per_group",
+        "expected_utilization_percent": 3.125,
+        "resource": "tagged_align_accumulate",
+        "selected": "one_pipelined_shared_wide_aligner_accumulator"
+      },
+      {
+        "area_reason": "all_producers_are_lifetime_mutually_exclusive",
+        "dedicated_alternative": "one_detector_per_tensor_producer",
+        "expected_cycle_cost": 1557,
+        "resource": "max_abs_and_exponent_select",
+        "selected": "reuse_one_16_lane_vector_max_and_leading_bit_unit"
+      },
+      {
+        "dedicated_alternative": "private_buffer_per_operator",
+        "expected_cycle_cost": "second_pass_quantization_in_dynamic_group_finalize_hook",
+        "resource": "wide_group_buffer",
+        "selected": "one_128_lane_ping_pong_buffer_reused_globally",
+        "selected_bytes": 1280
+      },
+      {
+        "dedicated_alternative": "candidate_local_rounders_and_SFUs",
+        "expected_cycle_cost": "included_in_dynamic_group_finalize_hook",
+        "resource": "round_saturate_SFU",
+        "selected": "reuse_existing_vector_round_saturate_RMSNorm_and_SiLU_resources"
+      },
+      {
+        "dedicated_alternative": "private_sidecar_DMA_and_control_path",
+        "expected_cycle_cost": "64_byte_sidecar_transfers_only_when_tensor_is_spilled",
+        "resource": "DMA_SRAM_control",
+        "selected": "reuse_existing_DMA_eight_banks_descriptor_engine_interrupts_and_errors"
+      }
+    ],
+    "roofline_amdahl_risk": {
+      "fallbacks_requiring_fresh_architecture_review": [
+        "uniform_128_lane_groups_including_qkv",
+        "external_sidecar_stream_instead_of_prepayload_header",
+        "wider_tagged_accumulator_or_two_pass_exact_alignment"
+      ],
+      "highest_risks": [
+        "dynamic scale selection may improve local tensors but still fail C4 final-output fidelity",
+        "mixed Scale32 projection accumulation must avoid repeated rounding",
+        "RMSNorm square-sum exponent alignment requires proved width bounds",
+        "sidecar atomicity and identity must survive backpressure, reset, and tensor reuse",
+        "the shared aligner and leading-bit detector must preserve at least 100 MHz"
+      ],
+      "leverage": "corrects every recurrent activation quantization boundary in all layers and final output rather than one attention-local tensor",
+      "maximum_candidate_overhead_is_not_a_measured_result": true,
+      "stop_rules": [
+        "seal the direction if either frozen dataset fails the candidate admission gate",
+        "do not retune group sizes or exponent rules under the same approval",
+        "if verified area increment reaches 3 percent, perform global sharing review before capability advancement",
+        "if total non-SRAM area exceeds 2.0 mm2, enter GLOBAL_COMPRESSION without relaxing the cap",
+        "do not advance if Fmax is below 100 MHz"
+      ],
+      "verification_strategy": [
+        "independent scalar oracle for every rounding, exponent, reserved-value, overflow, and sidecar rule",
+        "RTL stage limited to reference/vector generation, lint, elaboration, bit-exact simulation, interface checks, and minimal formal",
+        "verification task 1 is exactly one disabled-mode baseline via the certified harness followed by independent review",
+        "verification task 2 is exactly one all-24-layer two-dataset candidate run only after independent baseline PASS, followed by independent review",
+        "full shell regression remains prohibited until candidate quality GO and fresh separate Manager authorization",
+        "fresh canonical SKY130 PPA remains prohibited until shell acceptance and a separate Manager transition to ppa"
+      ]
+    },
+    "schema_version": 2,
+    "selection": {
+      "evidence_basis": [
+        "attention-local mechanisms repeatedly improved layer-0 score/value metrics without preserving C4 final-output improvement",
+        "the sealed QECR direction never produced an admissible candidate run and cannot be reused",
+        "a recurrent activation-boundary mechanism has higher Amdahl leverage than another attention-local correction"
+      ],
+      "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+      "scope": "all_24_layers_plus_final_rmsnorm_and_lm_head_activation_boundaries",
+      "structurally_distinct_from": [
+        "attention_score_storage_or_softmax_representations",
+        "per_head_qk_static_or_dynamic_scale_only",
+        "qk_or_v_residual_cross_terms",
+        "down_projection_residual_fusion",
+        "cross_layer_quantization_error_carry"
+      ]
+    },
+    "status": "planner_architecture_corrected_ready_for_fresh_independent_review"
+  },
+  "resource_sharing_tradeoffs": [
+    {
+      "area_effect": "avoids_full_projection_array_duplication",
+      "dedicated_alternative": "candidate_dot_array",
+      "resource": "projection_macs",
+      "selected": "reuse_existing_four_w4a8_lanes",
+      "selected_cycle_cost": 0
+    },
+    {
+      "dedicated_added_bytes_per_token": 3584,
+      "dedicated_alternative": "copy_to_sram",
+      "resource": "wide_accumulator",
+      "selected": "consume_authoritative_signed32_accumulator_in_place"
+    },
+    {
+      "area_effect": "avoids_four_wide_divider_remainder_datapaths",
+      "four_engine_cycles_per_layer": 5824,
+      "resource": "align_divide_remainder",
+      "selected": "one_serial_engine_all_lanes_and_layers",
+      "selected_cycles_per_layer": 23296
+    },
+    {
+      "dedicated_alternative": "one_per_layer",
+      "dedicated_extra_bytes": 41216,
+      "resource": "carry_buffer",
+      "selected": "one_1792_byte_reused_buffer"
+    },
+    {
+      "area_effect": "avoids_sixteen_wide_square_multipliers",
+      "dedicated_16_lane_cycles": 56,
+      "resource": "rmsnorm_square",
+      "selected": "reuse_carry_engine_signed24x24_multiplier_one_lane_per_cycle",
+      "selected_cycles": 896
+    },
+    {
+      "area_effect": "avoids_duplicate_control_and_csr_state",
+      "dedicated_alternative": "candidate_local_blocks",
+      "resource": "vector_sfu_round_error_control",
+      "selected": "reuse_existing_accumulator_divider_round_saturate_sticky_error_completion"
+    },
+    {
+      "area_effect": "avoids_new_ports_reorder_and_control",
+      "dedicated_alternative": "private_path",
+      "resource": "dma_sram_command",
+      "selected": "reuse_existing_dma_eight_banks_command_engine"
+    }
+  ],
+  "risk_notes": [
+    "fresh_baseline_reproducibility_before_candidate_execution",
+    "signed_quotient_remainder_and_q0_15_tie_rules",
+    "carry_saturation_fail_closed_behavior",
+    "producer_consumer_token_identity_and_exactly_once_consumption",
+    "signed24_reconstruction_and_unsigned56_square_sum_bounds",
+    "shared_multiplier_divider_timing_at_100mhz",
+    "successor_quality_unproven_until_two_dataset_final_output_discriminator"
+  ],
+  "roofline_amdahl": {
+    "compute_memory_balance_bytes_per_cycle": 1.964113182,
+    "leverage": "recurrent all-layer normalized-branch correction plus one final-rmsnorm/lm-head reinjection",
+    "max_slice_speedup_if_carry_finalizer_were_free": 1.021381579,
+    "quality_evidence_status": "unrun_for_successor; fresh bit-identical baseline and exact all-24-layer two-dataset discriminator required before admission"
+  },
+  "schema_version": 1,
+  "source_contracts": [
+    "MISSION.md",
+    "design/ARCHITECTURE.md",
+    "design/NUMERICAL_REPLACEMENT_PROPOSAL.md",
+    "design/SPEC.md",
+    "research/PIPELINE_STATE.json",
+    "evidence/shared_down_projection_residual_fusion_v1/latest/VERIFICATION_DECISION.json"
+  ],
+  "stage": "architecture"
+}

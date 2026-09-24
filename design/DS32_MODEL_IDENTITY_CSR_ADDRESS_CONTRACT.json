@@ -1,0 +1,66 @@
+{
+  "schema_version": 1,
+  "contract_id": "ace2-ds32-model-identity-csr-address-v2",
+  "stage": "specification",
+  "status": "FROZEN_SPECIFICATION_ADDRESS_RECONCILIATION",
+  "normative_specification": "design/SPEC.md#csr-register-map",
+  "public_module": "ace2_shell",
+  "public_parameter_or_port_change": false,
+  "csr": {
+    "name": "ACE2_CSR_DS32_MODEL_IDENTITY",
+    "address_hex": "0x0A0",
+    "address_width_bits": 32,
+    "data_width_bits": 64,
+    "access": "RW",
+    "reset_read_value_hex": "0x0000000000000000",
+    "programmed_valid_reset_value": false,
+    "accepted_write_strobe_hex": "0xFF",
+    "accepted_write_state": "fully_idle_no_pending_decode_dispatch_completion_reset_or_same_cycle_command_acceptance",
+    "rejected_write_effect": "csr_error_and_no_state_mutation",
+    "read_behavior": "known_zero_after_reset_then_exact_programmed_value",
+    "non_ds32_dependency": false
+  },
+  "occupied_predecessor_addresses": {
+    "0x088": "DESC_SIZE",
+    "0x090": "LAST_RESULT",
+    "0x098": "LAST_ERROR_INFO"
+  },
+  "address_selection_reason": "0x0A0 is the next unused 8-byte-aligned CSR offset after the frozen 0x098 LAST_ERROR_INFO register and does not renumber an existing architectural CSR.",
+  "ds32_command_rules": {
+    "host_program_and_readback_before_protected_action": true,
+    "unprogrammed_identity": "reject_before_core_projection_memory_write_progress_publication_or_command_dispatch",
+    "mismatched_identity": "reject_before_core_projection_memory_write_progress_publication_or_command_dispatch",
+    "matching_identity": "permit_existing_ds32_command_path_subject_to_all_other_checks",
+    "output_sidecar_identity_source": "programmed_csr_value"
+  },
+  "v1_package_disposition": {
+    "package": "research/raw/specification/ds32-model-identity-csr-repair-v1.patch",
+    "status": "IMMUTABLE_ACCEPTED_BUT_UNAPPLIED_SUPERSEDED_FOR_ADDRESS_COLLISION",
+    "conflicting_address_hex": "0x088",
+    "conflicting_architectural_csr": "DESC_SIZE",
+    "application_authorized": false,
+    "execution_or_stage_authority_created": false
+  },
+  "required_successor_package": {
+    "version": "v2_or_later",
+    "must_bind_current_preimages": true,
+    "must_use_address_hex": "0x0A0",
+    "must_preserve_existing_csr_addresses": true,
+    "must_preserve_public_module_ports_and_parameters": true,
+    "must_receive_independent_fresh_review_before_application": true,
+    "application_requires_later_stage_authority": true
+  },
+  "acceptance_scenarios": [
+    "hard_reset_clears_value_and_valid",
+    "soft_reset_clears_value_and_valid",
+    "full_strobe_idle_write_and_exact_readback",
+    "zero_value_write_sets_valid",
+    "partial_strobe_write_rejected_without_mutation",
+    "busy_or_pending_write_rejected_without_mutation",
+    "unprogrammed_ds32_command_rejected_before_protected_action",
+    "mismatched_ds32_command_rejected_before_protected_action",
+    "matching_ds32_command_propagates_programmed_identity",
+    "non_ds32_command_requires_no_identity_transaction"
+  ],
+  "claim_boundary": "This artifact resolves only the specification-stage CSR-address collision. It does not modify RTL, apply the v1 patch, execute a simulator or model, authorize a consumed attempt, advance the pipeline, or establish Stage-1/U280 completion."
+}

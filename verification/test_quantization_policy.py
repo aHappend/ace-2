@@ -46,6 +46,33 @@ class QuantizationPolicyTest(unittest.TestCase):
                 for record in plan["operators"]
             )
         )
+        self.assertEqual(
+            descriptor["derived"]["projection_metadata_bytes"],
+            descriptor["derived"]["projection_scale_record_count"] * 4,
+        )
+
+    def test_mixed_policy_counts_grouped_metadata_only_for_w4_projections(self) -> None:
+        descriptor = hardware.load_descriptor("qwen2.5-0.5b")
+        plan = policy.build_plan("qwen2.5-0.5b", "mixed_w4a8_a16_bf16")
+        derived = descriptor["derived"]
+        expected_metadata_bytes = (
+            derived["transformer_linear_weight_elements"] // 32 * 4
+        )
+        expected_matrix_bytes = (
+            derived["transformer_linear_weight_elements"] // 2
+            + 2
+            * descriptor["dimensions"]["vocab_size"]
+            * descriptor["dimensions"]["hidden_size"]
+        )
+        expected_fixed_bytes = (
+            derived["rmsnorm_metadata_bytes"]
+            + derived["operator_aux_metadata_bytes"]
+            + derived["bf16_embedding_bytes"]
+        )
+        self.assertEqual(
+            plan["estimates"]["weight_memory_bytes"],
+            expected_matrix_bytes + expected_metadata_bytes + expected_fixed_bytes,
+        )
 
     def test_candidate_formats_never_claim_rtl_execution(self) -> None:
         w8 = policy.build_plan("qwen2.5-1.5b", "w8a8")

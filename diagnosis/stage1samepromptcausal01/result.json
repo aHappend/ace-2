@@ -1,0 +1,1524 @@
+{
+  "bf16_reference": {
+    "logits_sha256": "1910fe7196b34ac858b2d5b8406ee94df00ef39e5f285ba7ed56381de66b7614",
+    "source": {
+      "bytes": 607744,
+      "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-greedy-step-00-f32le.bin",
+      "sha256": "1910fe7196b34ac858b2d5b8406ee94df00ef39e5f285ba7ed56381de66b7614"
+    },
+    "token_id": 39814
+  },
+  "causal_conclusion": {
+    "earliest_recovering_cut": 24,
+    "l2_maximum_used_as_causal_evidence": false,
+    "minimal_repair_recommendation": "Candidate-only: confine a grouped activation-scale experiment to model.layers.23 boundary qkv_projection_outputs; do not change W4 weights or any sealed or official artifact.",
+    "narrowest_supported_operator_boundary": "qkv_projection_outputs",
+    "recovery_kind": "exact_token"
+  },
+  "classification": "candidate_only_diagnosis_no_official_execution",
+  "elapsed_wall_seconds": 214.83357491900097,
+  "frozen_contract": {
+    "bindings": {
+      "hidden_state_localizer": {
+        "bytes": 27124,
+        "path": "tools/ace2_checkpoint176_hidden_state_localizer.py",
+        "sha256": "e6962c5140d6c36a77b692a219bc480e3fd8ad39e9c421f7ab236fb4665f99ab"
+      },
+      "prior_same_prompt_diagnosis": {
+        "bytes": 91537,
+        "path": "diagnosis/stage1qualitydiag01/result.json",
+        "sha256": "9ec27ee399eeaa6780ce7ab0c6f28250f9771d437c1a3953d6994a55fc7c59df"
+      },
+      "runner": {
+        "bytes": 45588,
+        "path": "tools/diagnose_stage1_same_prompt_causal.py",
+        "sha256": "2b1a145083d4510676f348d68bd890b0ef55a7aac52148d07da2500bff0be7b5"
+      },
+      "w4a8_backend": {
+        "bytes": 114493,
+        "path": "tools/rtl_arbitrary_text_generation_backend.py",
+        "sha256": "aadf1628377797d46069706fe57be7d9afbda47def1a94775f2491cf1dc1a42b"
+      }
+    },
+    "classification": "bounded_nonofficial_software_only_causal_diagnostic",
+    "comparison_policy": {
+      "jensen_shannon_divergence": "natural-log softmax probability JSD in nats",
+      "l2_policy": "relative L2 is retained as a descriptive logit metric only and never selects a causal recovery boundary",
+      "material_recovery": "target rank improves by at least 10x to rank <= max(8, baseline_rank//10), top-8 overlap strictly increases, and JSD decreases by at least 0.05 nats",
+      "source": {
+        "bytes": 36190,
+        "path": "tools/diagnose_stage1_quality_attempt0002.py",
+        "sha256": "7b204355d4dea8bce500ce0ae1044f2a01269875f1ecdd69899c5f5e3bcb45d5"
+      },
+      "target_token_rank": "one-based stable descending rank with lower token ID tie-break",
+      "top_k": 8,
+      "top_k_overlap": "set intersection count over stable top-8 token IDs"
+    },
+    "created_at_utc": "2026-08-20T06:28:27.616653+00:00",
+    "generation": {
+      "checkpoint176_bf16_token_id": 39814,
+      "checkpoint176_w4a8_token_id": 26614,
+      "position": 0,
+      "sampling": false,
+      "selection": "greedy over 151936 outputs; lowest token ID wins exact ties"
+    },
+    "mission_id": "stage1samepromptcausal01",
+    "model": {
+      "adapter_config_sha256": "9261b3480065c0d1bdf8b0a33b01279f1cfdb285ca7aaf3aa850fb62ab894664",
+      "adapter_model_sha256": "c9476d6ccc687a4d68de1951eb889b689daaf9c5d3822b4c5acfc26a1cd38a28",
+      "checkpoint": "checkpoint-176",
+      "checkpoint_tree_sha256": "8cee9b9343e49b66ee2ea427578f87335ffa259919356cdd119cd8712ff7eeee",
+      "model_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+    },
+    "prompt": {
+      "sha256": "90eaeeb4312de67b46fda2c43a80f3bfeb0ac20d0dc222a65f390c9407607c36",
+      "text_persisted": false,
+      "token_count": 34,
+      "token_ids_sha256": "dbdff6c533c804f645b0a76b8a44cf85e9b61f52bcce053e81189bd82f009e0d"
+    },
+    "scope_guards": {
+      "attempt_0003_created": false,
+      "full_rtl_generation_run": false,
+      "official_attempt_created": false,
+      "official_preflight_created": false,
+      "stage2_entered": false
+    },
+    "sealed_attempt_before": {
+      "manifest": {
+        "bytes": 22537849,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/manifest.json",
+        "sha256": "0259039f54ecc224a785ada1d4567b34158746fc06b3d3f3e316f5d277ddb470"
+      },
+      "run_summary": {
+        "bytes": 23646652,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/run_summary.json",
+        "sha256": "c496921d5b93f4840ec67c38c1c4d0afab034a8798a9a760c36a639ee80d4159"
+      },
+      "step0_final_rmsnorm_s8": {
+        "bytes": 896,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_s8.bin",
+        "sha256": "c7f29537c929a175b2b3f6751b81977a1881077d688052c7739b382484b124f8"
+      },
+      "step0_final_rmsnorm_scale": {
+        "bytes": 8,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_scale_f64le.bin",
+        "sha256": "10bbbde84a23171378edc09ccd62166da8b4624b9d8cb0cafce769c5a0ea1739"
+      },
+      "step0_lm_head_output_s8": {
+        "bytes": 151936,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_s8.bin",
+        "sha256": "55009f23fafbd106621fec56f349a599612a8c23635fd9fbca7b3bc1645bcc42"
+      },
+      "step0_lm_head_output_scale": {
+        "bytes": 8,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_scale_f64le.bin",
+        "sha256": "7063352c5598e6b359dd09628adcd9c47ca371ca8ff701bf0a379d2b895abb8f"
+      }
+    },
+    "software": {
+      "numpy": "2.5.1",
+      "peft": "0.20.0",
+      "python": "3.13.5",
+      "tokenizers": "0.22.2",
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.6"
+    },
+    "tokenizer": {
+      "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "length": 151665,
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "special_token_ids": [
+        151645,
+        151643,
+        151644,
+        151646,
+        151647,
+        151648,
+        151649,
+        151650,
+        151651,
+        151652,
+        151653,
+        151654,
+        151655,
+        151656
+      ],
+      "tokenizer_config_sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+      "tokenizer_json_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "vocab_size": 151643
+    }
+  },
+  "layer_cut_scan": {
+    "baseline": {
+      "accepted_w4a8_logits": {
+        "bytes": 1215488,
+        "dtype": "float64_le",
+        "path": "diagnosis/stage1samepromptcausal01/logits/baseline-w4a8-f64le.bin",
+        "sha256": "72a95a505314f2e31e5d556443464c1cf24238f1728ed263034892fad598f497",
+        "shape": [
+          151936
+        ]
+      },
+      "comparison_vs_checkpoint176_bf16": {
+        "candidate_top_rank_in_reference": 35822,
+        "candidate_top_token_id": 26614,
+        "centered_cosine_similarity": 0.019028942081907935,
+        "jensen_shannon_divergence_nats": 0.691777078713527,
+        "raw_score_error": {
+          "cosine_similarity": 0.30090868602801685,
+          "maximum_absolute_error": 22.427622532281347,
+          "mean_absolute_error": 3.648725463022417,
+          "relative_l2": 1.057737559975021,
+          "rmse": 4.5609211987176295
+        },
+        "reference_top_rank_in_candidate": 75808,
+        "reference_top_token_id": 39814,
+        "top1_match": false,
+        "top8_overlap_count": 0
+      },
+      "cut": "baseline_w4a8",
+      "elapsed_wall_seconds": 52.81713895499706,
+      "final_rmsnorm_q_sha256": "c7f29537c929a175b2b3f6751b81977a1881077d688052c7739b382484b124f8",
+      "final_rmsnorm_scale": 0.3562992125984252,
+      "layer_output_q_sha256": "df258275e29409d177e757b1248b7a6df907027fc9ea1607dd5b2f93a3019428",
+      "layer_output_scale": 0.07291293707419569,
+      "layers_executed_per_position": 24,
+      "lm_head_output_s8_sha256": "55009f23fafbd106621fec56f349a599612a8c23635fd9fbca7b3bc1645bcc42",
+      "lm_head_output_scale": 0.12287766163743387,
+      "reference_logit": -1.4745319396492065,
+      "reference_rank": 75808,
+      "substitution": "none",
+      "top_candidates": [
+        {
+          "piece": "TI",
+          "score": 11.673377855556218,
+          "token_id": 26614
+        },
+        {
+          "piece": "ilon",
+          "score": 11.42762253228135,
+          "token_id": 16917
+        },
+        {
+          "piece": "_instance",
+          "score": 11.181867209006482,
+          "token_id": 11904
+        },
+        {
+          "piece": "arlo",
+          "score": 10.936111885731615,
+          "token_id": 60928
+        },
+        {
+          "piece": "ton",
+          "score": 10.690356562456747,
+          "token_id": 777
+        },
+        {
+          "piece": "\u4f5c\u7528",
+          "score": 10.690356562456747,
+          "token_id": 100154
+        },
+        {
+          "piece": "erializer",
+          "score": 10.567478900819312,
+          "token_id": 41939
+        },
+        {
+          "piece": "\u7684\u4f5c\u7528",
+          "score": 10.567478900819312,
+          "token_id": 104149
+        }
+      ],
+      "top_logit": 11.673377855556218,
+      "top_piece": "TI",
+      "top_token_id": 26614
+    },
+    "coarse_cuts": [
+      4,
+      8,
+      12,
+      16,
+      20,
+      24
+    ],
+    "coarse_trace": [
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-04-f64le.bin",
+          "sha256": "aec78ea5026d6ea73076f16378e24739b41a15c1f4815597335cade9710cacee",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 140238,
+          "candidate_top_token_id": 64601,
+          "centered_cosine_similarity": -0.009241643989885813,
+          "jensen_shannon_divergence_nats": 0.6923190621968752,
+          "raw_score_error": {
+            "cosine_similarity": -0.2507901681883899,
+            "maximum_absolute_error": 25.941176797461324,
+            "mean_absolute_error": 4.964963315518517,
+            "relative_l2": 1.3765300272518666,
+            "rmse": 5.935541309616217
+          },
+          "reference_top_rank_in_candidate": 34499,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 4,
+        "elapsed_wall_seconds": 43.35481730900938,
+        "final_rmsnorm_q_sha256": "1c7b2243d5881eb4f169cd999792f465984e828051816a2ef9e4d6f97401d651",
+        "final_rmsnorm_scale": 0.25984251968503935,
+        "layer_output_q_sha256": "ac22f1f3cd33d6c080c869e92a0252c9394cd73bf96f19c7a008b39422c47533",
+        "layer_output_scale": 0.07617934670035295,
+        "layers_executed_per_position": 20,
+        "lm_head_output_s8_sha256": "bba520046ad17207db78f080bc2498574dbf070c09375bdbfd835f01568bc7b8",
+        "lm_head_output_scale": 0.11548443291130966,
+        "reference_logit": 3.233564121516671,
+        "reference_rank": 34499,
+        "substitution": "checkpoint-176 BF16 hidden_states[4] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "macen",
+            "score": 14.435554113913708,
+            "token_id": 64601
+          },
+          {
+            "piece": ":numel",
+            "score": 14.320069681002398,
+            "token_id": 91081
+          },
+          {
+            "piece": "alyze",
+            "score": 13.74264751644585,
+            "token_id": 55856
+          },
+          {
+            "piece": "ynn",
+            "score": 13.39619421771192,
+            "token_id": 58260
+          },
+          {
+            "piece": "odka",
+            "score": 13.280709784800612,
+            "token_id": 56540
+          },
+          {
+            "piece": "YTE",
+            "score": 13.165225351889301,
+            "token_id": 41635
+          },
+          {
+            "piece": "\u6d12",
+            "score": 13.165225351889301,
+            "token_id": 102737
+          },
+          {
+            "piece": "echa",
+            "score": 12.934256486066683,
+            "token_id": 17772
+          }
+        ],
+        "top_logit": 14.435554113913708,
+        "top_piece": "macen",
+        "top_token_id": 64601
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-08-f64le.bin",
+          "sha256": "d4490142e8e105ff8068c9d26915b3b8629352324a1e0b8bee2d877bfd651691",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 116210,
+          "candidate_top_token_id": 147202,
+          "centered_cosine_similarity": 0.09252396490905675,
+          "jensen_shannon_divergence_nats": 0.6916756511485607,
+          "raw_score_error": {
+            "cosine_similarity": 0.3266604621989167,
+            "maximum_absolute_error": 21.672717897910772,
+            "mean_absolute_error": 3.575277991889785,
+            "relative_l2": 1.028942089243451,
+            "rmse": 4.4367563038927065
+          },
+          "reference_top_rank_in_candidate": 19777,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 8,
+        "elapsed_wall_seconds": 34.851222160010366,
+        "final_rmsnorm_q_sha256": "78a766287760adde33f90e7f6e919cad010925d56525e89ca524a9148cbbd406",
+        "final_rmsnorm_scale": 0.30118110236220474,
+        "layer_output_q_sha256": "7087cfe505f2f361363334c58f65aba994cac8f15960c7c402e15e1592a78a4d",
+        "layer_output_scale": 0.07001582468588521,
+        "layers_executed_per_position": 16,
+        "lm_head_output_s8_sha256": "cce94d5c44a395dee593da0a81451ab0a6f806d3572d13ad2ec2a8521f24d807",
+        "lm_head_output_scale": 0.11409059659702571,
+        "reference_logit": 2.0536307387464627,
+        "reference_rank": 19777,
+        "substitution": "checkpoint-176 BF16 hidden_states[8] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "\u1d40",
+            "score": 13.462690398449034,
+            "token_id": 147202
+          },
+          {
+            "piece": "\u00dd",
+            "score": 11.751331449493648,
+            "token_id": 133648
+          },
+          {
+            "piece": " Act",
+            "score": 11.40905965970257,
+            "token_id": 3218
+          },
+          {
+            "piece": " ACT",
+            "score": 11.180878466508519,
+            "token_id": 21116
+          },
+          {
+            "piece": " Bot",
+            "score": 10.952697273314469,
+            "token_id": 23007
+          },
+          {
+            "piece": "ACT",
+            "score": 10.724516080120416,
+            "token_id": 6823
+          },
+          {
+            "piece": "\u6bd9",
+            "score": 10.610425483523391,
+            "token_id": 117359
+          },
+          {
+            "piece": "\u578b",
+            "score": 10.38224429032934,
+            "token_id": 24300
+          }
+        ],
+        "top_logit": 13.462690398449034,
+        "top_piece": "\u1d40",
+        "top_token_id": 147202
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-12-f64le.bin",
+          "sha256": "f1d4c10bbcddbffcb1105a90f6db05c24f7954039fd8e2e5b59a787cdb46766c",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 134731,
+          "candidate_top_token_id": 43764,
+          "centered_cosine_similarity": 0.19229335336343403,
+          "jensen_shannon_divergence_nats": 0.6910785634401917,
+          "raw_score_error": {
+            "cosine_similarity": 0.17091964490373698,
+            "maximum_absolute_error": 23.404911078806,
+            "mean_absolute_error": 3.904724112972032,
+            "relative_l2": 1.1054515914395122,
+            "rmse": 4.766662155470473
+          },
+          "reference_top_rank_in_candidate": 56904,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 12,
+        "elapsed_wall_seconds": 25.50879408599576,
+        "final_rmsnorm_q_sha256": "4d36fef5e1eafbd798b18a9cfcb2286a47b8b6b42aace7efbfe493294c25dd4f",
+        "final_rmsnorm_scale": 0.2559055118110236,
+        "layer_output_q_sha256": "fc55af4004b67f51134465a2d8b953b9a0dc31c310fda83a4b8f6f8bc40dc15b",
+        "layer_output_scale": 0.08997250354196143,
+        "layers_executed_per_position": 12,
+        "lm_head_output_s8_sha256": "281bedb3d6ba7eeeea67a80abee4eed6964cc9c5f73ed644ba23cdc2442a5990",
+        "lm_head_output_scale": 0.11693207297738142,
+        "reference_logit": 0.7015924378642886,
+        "reference_rank": 56904,
+        "substitution": "checkpoint-176 BF16 hidden_states[12] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " averaging",
+            "score": 13.91491668430839,
+            "token_id": 43764
+          },
+          {
+            "piece": "atak",
+            "score": 13.91491668430839,
+            "token_id": 68728
+          },
+          {
+            "piece": "GetData",
+            "score": 13.330256319421482,
+            "token_id": 68957
+          },
+          {
+            "piece": "\u895f",
+            "score": 13.2133242464441,
+            "token_id": 117327
+          },
+          {
+            "piece": "\u0437\u043d\u0430\u043a",
+            "score": 12.394799735602431,
+            "token_id": 130811
+          },
+          {
+            "piece": "itudes",
+            "score": 12.044003516670287,
+            "token_id": 20590
+          },
+          {
+            "piece": "elly",
+            "score": 11.810139370715524,
+            "token_id": 11896
+          },
+          {
+            "piece": " Tracker",
+            "score": 11.693207297738143,
+            "token_id": 40179
+          }
+        ],
+        "top_logit": 13.91491668430839,
+        "top_piece": " averaging",
+        "top_token_id": 43764
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-16-f64le.bin",
+          "sha256": "82d46024f9ddaf7a9533f9426b1bc47ee61bd6edbc3ef97d16b99b2bd2325170",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 13821,
+          "candidate_top_token_id": 41299,
+          "centered_cosine_similarity": 0.29153219643608386,
+          "jensen_shannon_divergence_nats": 0.6892155445577002,
+          "raw_score_error": {
+            "cosine_similarity": 0.30080436570395025,
+            "maximum_absolute_error": 18.799812376968504,
+            "mean_absolute_error": 3.6300870700795724,
+            "relative_l2": 1.0222290581671074,
+            "rmse": 4.407809987809851
+          },
+          "reference_top_rank_in_candidate": 5559,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 16,
+        "elapsed_wall_seconds": 17.570274878002238,
+        "final_rmsnorm_q_sha256": "48b2e7ba58d112a54fdf915677aa83b0a84df14096def76bf1d96be41745985f",
+        "final_rmsnorm_scale": 0.2421259842519685,
+        "layer_output_q_sha256": "db6a5153be2c5fbf705859e0b53fc5d3ef7b379a6fbfc6f73867ef467348421d",
+        "layer_output_scale": 0.0922025395190622,
+        "layers_executed_per_position": 8,
+        "lm_head_output_s8_sha256": "bc35c94a3beb14cb40e917531526ae6debf7263eb0fc3459f0ca423c85e7adcc",
+        "lm_head_output_scale": 0.11405956839013287,
+        "reference_logit": 4.790501872385581,
+        "reference_rank": 5559,
+        "substitution": "checkpoint-176 BF16 hidden_states[16] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "\u8fdb",
+            "score": 13.91526734359621,
+            "token_id": 41299
+          },
+          {
+            "piece": "\ufffd",
+            "score": 12.774671659694881,
+            "token_id": 249
+          },
+          {
+            "piece": "\u5b9a\u5411",
+            "score": 12.546552522914617,
+            "token_id": 109631
+          },
+          {
+            "piece": "ber",
+            "score": 12.31843338613435,
+            "token_id": 652
+          },
+          {
+            "piece": " APIs",
+            "score": 12.204373817744218,
+            "token_id": 33356
+          },
+          {
+            "piece": "\u6765",
+            "score": 11.405956839013287,
+            "token_id": 36407
+          },
+          {
+            "piece": "\u064a",
+            "score": 11.291897270623155,
+            "token_id": 14558
+          },
+          {
+            "piece": "\u5e73\u53f0",
+            "score": 11.291897270623155,
+            "token_id": 100133
+          }
+        ],
+        "top_logit": 13.91526734359621,
+        "top_piece": "\u8fdb",
+        "top_token_id": 41299
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-20-f64le.bin",
+          "sha256": "8347ba3381916ec19a8bb69be599a930c013d3d539a266fb930d94a7556349c1",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 5800,
+          "candidate_top_token_id": 99278,
+          "centered_cosine_similarity": 0.5034765652727152,
+          "jensen_shannon_divergence_nats": 0.6857003637422732,
+          "raw_score_error": {
+            "cosine_similarity": 0.6445639676872731,
+            "maximum_absolute_error": 15.84679551011934,
+            "mean_absolute_error": 2.6880648161016234,
+            "relative_l2": 0.7672559169644991,
+            "rmse": 3.30837620686133
+          },
+          "reference_top_rank_in_candidate": 1663,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 20,
+        "elapsed_wall_seconds": 8.105257546994835,
+        "final_rmsnorm_q_sha256": "878171fe2c73bdff35f1436e59ca9cbfc419eff4e183385f6afe52d056781bbd",
+        "final_rmsnorm_scale": 0.2578740157480315,
+        "layer_output_q_sha256": "8abb610a44f534f69ca29f706407fb28655941b155502ffb14f6a02327700e71",
+        "layer_output_scale": 0.20927369125246062,
+        "layers_executed_per_position": 4,
+        "lm_head_output_s8_sha256": "0036f02deaab956b2abd85692a2006efc7c3d928da0000cf7d269034d58fe833",
+        "lm_head_output_scale": 0.11945511224701649,
+        "reference_logit": 4.778204489880659,
+        "reference_rank": 1663,
+        "substitution": "checkpoint-176 BF16 hidden_states[20] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "\u5e26",
+            "score": 10.8704152144785,
+            "token_id": 99278
+          },
+          {
+            "piece": "\u0e09",
+            "score": 10.034229428749386,
+            "token_id": 124430
+          },
+          {
+            "piece": "\u5907",
+            "score": 9.914774316502369,
+            "token_id": 56278
+          },
+          {
+            "piece": "\u5e02\u503c",
+            "score": 9.795319204255353,
+            "token_id": 106900
+          },
+          {
+            "piece": " Grund",
+            "score": 9.675864092008336,
+            "token_id": 47227
+          },
+          {
+            "piece": "uar",
+            "score": 9.436953867514303,
+            "token_id": 18731
+          },
+          {
+            "piece": "errer",
+            "score": 9.436953867514303,
+            "token_id": 30929
+          },
+          {
+            "piece": "\u0633\u0628\u0628",
+            "score": 9.436953867514303,
+            "token_id": 125766
+          }
+        ],
+        "top_logit": 10.8704152144785,
+        "top_piece": "\u5e26",
+        "top_token_id": 99278
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-24-f64le.bin",
+          "sha256": "77a30994de1e0980dc1e8578c7084fb1f077afd25122f9b527f372c9e157812b",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 1,
+          "candidate_top_token_id": 39814,
+          "centered_cosine_similarity": 0.9048490440035868,
+          "jensen_shannon_divergence_nats": 0.08959256188181271,
+          "raw_score_error": {
+            "cosine_similarity": 0.9410070119784796,
+            "maximum_absolute_error": 7.6390931136964815,
+            "mean_absolute_error": 1.1601907482887597,
+            "relative_l2": 0.3402080758874032,
+            "rmse": 1.4669633413853975
+          },
+          "reference_top_rank_in_candidate": 1,
+          "reference_top_token_id": 39814,
+          "top1_match": true,
+          "top8_overlap_count": 7
+        },
+        "cut": 24,
+        "elapsed_wall_seconds": 0.001909778016852215,
+        "final_rmsnorm_q_sha256": "d99ac5803622e0f07efb3cbd9d4c107990beff5f195dbdf2bc55171224bc2074",
+        "final_rmsnorm_scale": 1.4645669291338583,
+        "layer_output_q_sha256": "0b95f8d03fb2f7ef239c0df61b6727c13eecd5e33d924081bdb286b78ec88a01",
+        "layer_output_scale": 0.9606299212598425,
+        "layers_executed_per_position": 0,
+        "lm_head_output_s8_sha256": "f8d82f6adda3e669d21e9511cf53ae99cc2b52131d3505b877e6a36479409f8a",
+        "lm_head_output_scale": 0.15226715568482407,
+        "reference_logit": 18.272058682178887,
+        "reference_rank": 1,
+        "substitution": "checkpoint-176 BF16 hidden_states[24] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "Sure",
+            "score": 18.272058682178887,
+            "token_id": 39814
+          },
+          {
+            "piece": "Why",
+            "score": 17.51072290375477,
+            "token_id": 10234
+          },
+          {
+            "piece": "Here",
+            "score": 16.90165428101547,
+            "token_id": 8420
+          },
+          {
+            "piece": "Of",
+            "score": 16.292585658276177,
+            "token_id": 2124
+          },
+          {
+            "piece": "Absolutely",
+            "score": 16.140318502591352,
+            "token_id": 77045
+          },
+          {
+            "piece": "I",
+            "score": 15.378982724167232,
+            "token_id": 40
+          },
+          {
+            "piece": "Certainly",
+            "score": 15.074448412797583,
+            "token_id": 95456
+          },
+          {
+            "piece": "Sorry",
+            "score": 14.769914101427934,
+            "token_id": 19152
+          }
+        ],
+        "top_logit": 18.272058682178887,
+        "top_piece": "Sure",
+        "top_token_id": 39814
+      }
+    ],
+    "earliest_exact_token_recovering_cut": 24,
+    "earliest_materially_recovering_cut": 24,
+    "implicated_layer": 23,
+    "method": "Run cuts 4,8,12,16,20,24 first; refine every cut after the previous coarse boundary through the earliest exact/material anchor. If no coarse recovery exists, exhaustively test all remaining cuts.",
+    "refinement_anchor": 24,
+    "refinement_anchor_reason": "exact_token_recovery",
+    "refinement_trace": [
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-21-f64le.bin",
+          "sha256": "5ce6c6019a29dfc5053337a5e4b1af544198ceed6259d88a012440c82432d4b6",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 406,
+          "candidate_top_token_id": 124430,
+          "centered_cosine_similarity": 0.46129468638481985,
+          "jensen_shannon_divergence_nats": 0.6849018571775701,
+          "raw_score_error": {
+            "cosine_similarity": 0.2552314755139468,
+            "maximum_absolute_error": 14.989254395792804,
+            "mean_absolute_error": 3.6406974302620325,
+            "relative_l2": 0.9867811387359787,
+            "rmse": 4.2549600056387655
+          },
+          "reference_top_rank_in_candidate": 370,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 21,
+        "elapsed_wall_seconds": 5.756345578003675,
+        "final_rmsnorm_q_sha256": "c4e9a677b5d6a4915703b297bf9c5abb645dc5a624e3262093651e1cf50990a6",
+        "final_rmsnorm_scale": 0.25196850393700787,
+        "layer_output_q_sha256": "2994380deb9d79b8a5617de8759580e0e50ca44ce6568e0a65ae9a8ecacd94a9",
+        "layer_output_scale": 0.33653893057755596,
+        "layers_executed_per_position": 3,
+        "lm_head_output_s8_sha256": "b6526713511ed3eba39a754edd119f8c6a906fd5133f7fc0e000c16c6a66f99a",
+        "lm_head_output_scale": 0.0919241041649045,
+        "reference_logit": 5.699294458224079,
+        "reference_rank": 370,
+        "substitution": "checkpoint-176 BF16 hidden_states[21] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "\u0e09",
+            "score": 9.743955041479877,
+            "token_id": 124430
+          },
+          {
+            "piece": ":-",
+            "score": 8.548941687336118,
+            "token_id": 10944
+          },
+          {
+            "piece": "\u5931\u4e1a",
+            "score": 8.457017583171213,
+            "token_id": 108127
+          },
+          {
+            "piece": "utter",
+            "score": 8.36509347900631,
+            "token_id": 6207
+          },
+          {
+            "piece": "cej",
+            "score": 8.273169374841405,
+            "token_id": 57245
+          },
+          {
+            "piece": "\u0633\u0628\u0628",
+            "score": 8.1812452706765,
+            "token_id": 125766
+          },
+          {
+            "piece": "\u0435\u043b\u0435",
+            "score": 8.089321166511596,
+            "token_id": 80756
+          },
+          {
+            "piece": "\u7528\u6237\u63d0\u4f9b",
+            "score": 7.629700645687073,
+            "token_id": 110782
+          }
+        ],
+        "top_logit": 9.743955041479877,
+        "top_piece": "\u0e09",
+        "top_token_id": 124430
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-22-f64le.bin",
+          "sha256": "07bcfc7e4236bf12a9e2aec32472b26d21d501aceff3ca2f728d1b11cc5e4cc2",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.5837796032242143,
+          "jensen_shannon_divergence_nats": 0.6716123384411292,
+          "raw_score_error": {
+            "cosine_similarity": 0.2829475945770442,
+            "maximum_absolute_error": 14.164084411981538,
+            "mean_absolute_error": 3.6273436958743512,
+            "relative_l2": 0.9661954707417173,
+            "rmse": 4.166195445224547
+          },
+          "reference_top_rank_in_candidate": 37,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 1
+        },
+        "cut": 22,
+        "elapsed_wall_seconds": 4.294990011985647,
+        "final_rmsnorm_q_sha256": "cae11f3c0b2a620061e3c0e7068d2d1e30727ccdbf9483079fcff25df2087463",
+        "final_rmsnorm_scale": 0.25984251968503935,
+        "layer_output_q_sha256": "e09e1ceb56908b221fc09d6c88f7f147be085e5603da8f6343b8616225e3e89b",
+        "layer_output_scale": 0.4619000953013503,
+        "layers_executed_per_position": 2,
+        "lm_head_output_s8_sha256": "03e8434e40c21867dfffc08d9c98e71480b85f6605252c671695a3ff0ba318db",
+        "lm_head_output_scale": 0.07601077162374661,
+        "reference_logit": 6.460915588018462,
+        "reference_rank": 37,
+        "substitution": "checkpoint-176 BF16 hidden_states[22] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.893260279978353,
+            "token_id": 55725
+          },
+          {
+            "piece": "Absolutely",
+            "score": 8.057141792117141,
+            "token_id": 77045
+          },
+          {
+            "piece": " diced",
+            "score": 7.753098705622155,
+            "token_id": 88864
+          },
+          {
+            "piece": "utter",
+            "score": 7.601077162374661,
+            "token_id": 6207
+          },
+          {
+            "piece": " ej",
+            "score": 7.449055619127169,
+            "token_id": 19279
+          },
+          {
+            "piece": " anecd",
+            "score": 7.373044847503421,
+            "token_id": 49650
+          },
+          {
+            "piece": "imonials",
+            "score": 7.373044847503421,
+            "token_id": 57335
+          },
+          {
+            "piece": " \u043d\u043e\u0432\u043e\u0441\u0442\u0438",
+            "score": 7.221023304255929,
+            "token_id": 141268
+          }
+        ],
+        "top_logit": 8.893260279978353,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/layer-cut-23-f64le.bin",
+          "sha256": "0b80dbb919618cb7f39a8a862cac652ba684176a520865020595bd048085ea17",
+          "shape": [
+            151936
+          ]
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.5924931612480787,
+          "jensen_shannon_divergence_nats": 0.6701229933515445,
+          "raw_score_error": {
+            "cosine_similarity": 0.33773504869154997,
+            "maximum_absolute_error": 13.913704188789907,
+            "mean_absolute_error": 3.531473977626483,
+            "relative_l2": 0.9423817179633847,
+            "rmse": 4.063511514940098
+          },
+          "reference_top_rank_in_candidate": 15,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 2.121509959019022,
+        "final_rmsnorm_q_sha256": "eef61cf3b39c067517244e33e77c09e6d5d776a48d866e9c851b7dd6388b0221",
+        "final_rmsnorm_scale": 0.23523622047244094,
+        "layer_output_q_sha256": "0a00e23e311c119dde8add36c8bc1882cb61220772a7f86845473490b71a18d5",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "6f9f67f38f2c698a6dc7176599b0745135fadb326d98f21f7afd3b478552705b",
+        "lm_head_output_scale": 0.07375050341989112,
+        "reference_logit": 6.711295811210092,
+        "reference_rank": 15,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.628808900127261,
+            "token_id": 55725
+          },
+          {
+            "piece": " diced",
+            "score": 7.596301852248785,
+            "token_id": 88864
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.596301852248785,
+            "token_id": 108089
+          },
+          {
+            "piece": "\u969c",
+            "score": 7.375050341989112,
+            "token_id": 99884
+          },
+          {
+            "piece": "imonials",
+            "score": 7.227549335149329,
+            "token_id": 57335
+          },
+          {
+            "piece": " ej",
+            "score": 7.153798831729438,
+            "token_id": 19279
+          },
+          {
+            "piece": " anecd",
+            "score": 7.080048328309547,
+            "token_id": 49650
+          },
+          {
+            "piece": "OTO",
+            "score": 7.006297824889656,
+            "token_id": 27186
+          }
+        ],
+        "top_logit": 8.628808900127261,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      }
+    ]
+  },
+  "official_attempt_consumed": false,
+  "official_run_launched": false,
+  "operator_boundary_scan": {
+    "bf16_capture_bindings": {
+      "down": {
+        "dtype": "torch.float32",
+        "sha256": "15569ab65758494e73a012a0920b7c0aadc3ec48a23d47713bcd91e9343e0f4e",
+        "shape": [
+          34,
+          896
+        ]
+      },
+      "gate": {
+        "dtype": "torch.float32",
+        "sha256": "38b43f7f8043640a6f1a2776a3c854d6daac133237ddcee5c946966e905c3ef1",
+        "shape": [
+          34,
+          4864
+        ]
+      },
+      "input_norm": {
+        "dtype": "torch.float32",
+        "sha256": "8c797032359e18359585c40f8147e4a76aa96e37d1af3b3a50afd3e5cbb23756",
+        "shape": [
+          34,
+          896
+        ]
+      },
+      "k": {
+        "dtype": "torch.float32",
+        "sha256": "d5298fb715effbd7c9b5150604904d771a3406196a3a2e09c3837e8edafc2f8a",
+        "shape": [
+          34,
+          128
+        ]
+      },
+      "layer_output": {
+        "dtype": "torch.float32",
+        "sha256": "e08396d3304caf7cc554ccd64f10bef16db48a33b068982372ff2580e98cf8fd",
+        "shape": [
+          34,
+          896
+        ]
+      },
+      "o": {
+        "dtype": "torch.float32",
+        "sha256": "695263632fd3bce62bad3ef79c30c5331a7f53c2b2f8e188703f1089dfc8123d",
+        "shape": [
+          34,
+          896
+        ]
+      },
+      "post_norm": {
+        "dtype": "torch.float32",
+        "sha256": "4eca8b2b91c373f16cbf2f8cbb6706ac3d6dc6ded0e148d3ae25f9ebb8a3e26e",
+        "shape": [
+          34,
+          896
+        ]
+      },
+      "q": {
+        "dtype": "torch.float32",
+        "sha256": "612f0fe1c20b0bd554bbe2a86b55c5ad117ca14b4f518bf9bd6d1b5c8881fb8d",
+        "shape": [
+          34,
+          896
+        ]
+      },
+      "silu": {
+        "dtype": "torch.float32",
+        "sha256": "63043ba51caef7b0246ab1ee47d36c398c58e5f6e0401a0b9066953d1e970810",
+        "shape": [
+          34,
+          4864
+        ]
+      },
+      "up": {
+        "dtype": "torch.float32",
+        "sha256": "6f70f41768ff76220e01e7dc5db911ebe2327d6d23c9afba4f0dcf94e6b246cd",
+        "shape": [
+          34,
+          4864
+        ]
+      },
+      "v": {
+        "dtype": "torch.float32",
+        "sha256": "44122f1d7938b82fca1203557cd0ffa85f5d6516f36dd8e9d3e5c427cce37f2e",
+        "shape": [
+          34,
+          128
+        ]
+      }
+    },
+    "definition": "At the implicated layer, start from the exact checkpoint-176 BF16 layer input for every one of the 34 prefix positions, inject exact BF16 activations at the named execution boundary, requantize to the unchanged signed-A8 consumer scale, and leave all downstream W4A8 operators, final RMSNorm, and tied W4 head unchanged.",
+    "earliest_exact_token_recovering_boundary": "qkv_projection_outputs",
+    "earliest_materially_recovering_boundary": "qkv_projection_outputs",
+    "stop_policy": "Stop at the first exact token-39814 recovery; retain the earliest material rank/top-8/JSD recovery if no exact recovery is observed.",
+    "tested_boundaries": [
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/operator-23-input_rmsnorm_output-f64le.bin",
+          "sha256": "af153a131823b87eb7aac24ba4f900551ec8cc1b22f3a3e88d49c8d115b7e201",
+          "shape": [
+            151936
+          ]
+        },
+        "boundary": "input_rmsnorm_output",
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.5687425641650511,
+          "jensen_shannon_divergence_nats": 0.6731369186009803,
+          "raw_score_error": {
+            "cosine_similarity": 0.2909873996858145,
+            "maximum_absolute_error": 13.98326561394639,
+            "mean_absolute_error": 3.603308872597872,
+            "relative_l2": 0.961959917554521,
+            "rmse": 4.147931912708755
+          },
+          "reference_top_rank_in_candidate": 21,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 1.9385962460073642,
+        "final_rmsnorm_q_sha256": "635e500774501c317392a3b4cbe1836b3789b25f971107b768b5f55b49d73bd6",
+        "final_rmsnorm_scale": 0.23228346456692914,
+        "input_activation_substitution": "input_norm",
+        "layer_output_q_sha256": "aebe3ab964e09d8dcaa0765c77d0f41ce903a0024c2a0db97135bbdf7def00c2",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "72c6eadd8530ba436d168bbafb47038cd3e54aea3674176fd47f24e420b26601",
+        "lm_head_output_scale": 0.07298609215443529,
+        "projection_output_substitutions": [],
+        "reference_logit": 6.641734386053611,
+        "reference_rank": 21,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.320414505605623,
+            "token_id": 55725
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.4445813997523995,
+            "token_id": 108089
+          },
+          {
+            "piece": "imonials",
+            "score": 7.371595307597964,
+            "token_id": 57335
+          },
+          {
+            "piece": " diced",
+            "score": 7.371595307597964,
+            "token_id": 88864
+          },
+          {
+            "piece": " mys",
+            "score": 7.298609215443529,
+            "token_id": 9717
+          },
+          {
+            "piece": " ej",
+            "score": 7.225623123289093,
+            "token_id": 19279
+          },
+          {
+            "piece": " anecd",
+            "score": 7.152637031134658,
+            "token_id": 49650
+          },
+          {
+            "piece": "\u547d\u5468\u671f",
+            "score": 7.152637031134658,
+            "token_id": 62297
+          }
+        ],
+        "top_logit": 8.320414505605623,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/operator-23-q_projection_output-f64le.bin",
+          "sha256": "a3b955517e30d338d0811788ebe8a19f70c2b23f5c2decc9aabe2a7ee911f4bb",
+          "shape": [
+            151936
+          ]
+        },
+        "boundary": "q_projection_output",
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.6063515017154519,
+          "jensen_shannon_divergence_nats": 0.6698158873912898,
+          "raw_score_error": {
+            "cosine_similarity": 0.2335925937630983,
+            "maximum_absolute_error": 13.779611054367907,
+            "mean_absolute_error": 3.7168290737536416,
+            "relative_l2": 0.984272609782153,
+            "rmse": 4.244143331147815
+          },
+          "reference_top_rank_in_candidate": 9,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 2
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 2.6669789619918447,
+        "final_rmsnorm_q_sha256": "80c1dcf0ffcb12becf447a2444901a93cde4d420c09cf964378064de706a9011",
+        "final_rmsnorm_scale": 0.2854330708661417,
+        "input_activation_substitution": null,
+        "layer_output_q_sha256": "9ff9b60b0930a3de5d3cc0cbd3adff3720e809118f22897b8052c2521bfe5e18",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "0d480d64216493be3b33f401bc31e87321828f1c916bba8e18d1c3a6f4b0a459",
+        "lm_head_output_scale": 0.07881555782528374,
+        "projection_output_substitutions": [
+          "q"
+        ],
+        "reference_logit": 7.093400204275537,
+        "reference_rank": 9,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.82734247643178,
+            "token_id": 55725
+          },
+          {
+            "piece": " diced",
+            "score": 7.645109109052522,
+            "token_id": 88864
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.566293551227239,
+            "token_id": 108089
+          },
+          {
+            "piece": "Absolutely",
+            "score": 7.4874779934019555,
+            "token_id": 77045
+          },
+          {
+            "piece": "\u547d\u5468\u671f",
+            "score": 7.408662435576671,
+            "token_id": 62297
+          },
+          {
+            "piece": "\u5176\u4e2d\u4e4b\u4e00",
+            "score": 7.251031319926104,
+            "token_id": 117548
+          },
+          {
+            "piece": " anecd",
+            "score": 7.17221576210082,
+            "token_id": 49650
+          },
+          {
+            "piece": "Here",
+            "score": 7.093400204275537,
+            "token_id": 8420
+          }
+        ],
+        "top_logit": 8.82734247643178,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/operator-23-qk_projection_outputs-f64le.bin",
+          "sha256": "13fd64556c5ed3435d1763d2abe632491437997716f867e1796fa22c89521216",
+          "shape": [
+            151936
+          ]
+        },
+        "boundary": "qk_projection_outputs",
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.6160974018952987,
+          "jensen_shannon_divergence_nats": 0.6705129981808651,
+          "raw_score_error": {
+            "cosine_similarity": 0.37132465829331834,
+            "maximum_absolute_error": 13.812567996227836,
+            "mean_absolute_error": 3.484175204824833,
+            "relative_l2": 0.928508321680287,
+            "rmse": 4.003689996257067
+          },
+          "reference_top_rank_in_candidate": 6,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 2
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 2.7616596409934573,
+        "final_rmsnorm_q_sha256": "d5518edbb815bfce8a9279e0e9a36f0ec0cb313330bec94b69429a997bf2d304",
+        "final_rmsnorm_scale": 0.25984251968503935,
+        "input_activation_substitution": null,
+        "layer_output_q_sha256": "f1e394106e25272fcf58455913dc489c276bb99d3c43cdba1af263269ac7ebb6",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "2cf315a11aeb7f3d19587fafeb5ccec3d96c12afc93d3da5681fb7dd6ef8bf9f",
+        "lm_head_output_scale": 0.07325195702980822,
+        "projection_output_substitutions": [
+          "k",
+          "q"
+        ],
+        "reference_logit": 6.812432003772164,
+        "reference_rank": 6,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.423975058427946,
+            "token_id": 55725
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.39844766001063,
+            "token_id": 108089
+          },
+          {
+            "piece": " diced",
+            "score": 7.251943745951014,
+            "token_id": 88864
+          },
+          {
+            "piece": " ej",
+            "score": 6.958935917831781,
+            "token_id": 19279
+          },
+          {
+            "piece": "Absolutely",
+            "score": 6.958935917831781,
+            "token_id": 77045
+          },
+          {
+            "piece": "Sure",
+            "score": 6.812432003772164,
+            "token_id": 39814
+          },
+          {
+            "piece": " laughs",
+            "score": 6.739180046742356,
+            "token_id": 48236
+          },
+          {
+            "piece": " tast",
+            "score": 6.739180046742356,
+            "token_id": 57072
+          }
+        ],
+        "top_logit": 8.423975058427946,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1samepromptcausal01/logits/operator-23-qkv_projection_outputs-f64le.bin",
+          "sha256": "7f9cd8621ceca80a6af585ebec0fc9befbfd5792c082eb7c7e27cef4f1aa2e02",
+          "shape": [
+            151936
+          ]
+        },
+        "boundary": "qkv_projection_outputs",
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 1,
+          "candidate_top_token_id": 39814,
+          "centered_cosine_similarity": 0.9271227500821149,
+          "jensen_shannon_divergence_nats": 0.06398887732860442,
+          "raw_score_error": {
+            "cosine_similarity": 0.9629318744698969,
+            "maximum_absolute_error": 6.537847563976378,
+            "mean_absolute_error": 1.0752152110213162,
+            "relative_l2": 0.311502215320697,
+            "rmse": 1.3431848419349146
+          },
+          "reference_top_rank_in_candidate": 1,
+          "reference_top_token_id": 39814,
+          "top1_match": true,
+          "top8_overlap_count": 8
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 2.7326289670018014,
+        "final_rmsnorm_q_sha256": "4422cc71e277371da74b07c1f927168e5f42e0ad2eba8a470c0dd049988952c3",
+        "final_rmsnorm_scale": 0.5984251968503937,
+        "input_activation_substitution": null,
+        "layer_output_q_sha256": "e0a1e10258b3d9310c06c7ef68edd0ac3c641f5cd7f95117d8636b0bf57599bd",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "0c2a60aba6de024c46d78136b460019ff0a0ac1ec9493e530de7689310c563a2",
+        "lm_head_output_scale": 0.1217882051242618,
+        "projection_output_substitutions": [
+          "k",
+          "q",
+          "v"
+        ],
+        "reference_logit": 14.85816102515994,
+        "reference_rank": 1,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "Sure",
+            "score": 14.85816102515994,
+            "token_id": 39814
+          },
+          {
+            "piece": "Here",
+            "score": 14.249219999538631,
+            "token_id": 8420
+          },
+          {
+            "piece": "Why",
+            "score": 13.518490768793061,
+            "token_id": 10234
+          },
+          {
+            "piece": "Of",
+            "score": 12.909549743171752,
+            "token_id": 2124
+          },
+          {
+            "piece": "I",
+            "score": 12.544185127798967,
+            "token_id": 40
+          },
+          {
+            "piece": "Absolutely",
+            "score": 11.691667691929133,
+            "token_id": 77045
+          },
+          {
+            "piece": "Certainly",
+            "score": 11.44809128168061,
+            "token_id": 95456
+          },
+          {
+            "piece": "L",
+            "score": 11.082726666307824,
+            "token_id": 43
+          }
+        ],
+        "top_logit": 14.85816102515994,
+        "top_piece": "Sure",
+        "top_token_id": 39814
+      }
+    ]
+  },
+  "schema_version": 1,
+  "sealed_attempt_after": {
+    "manifest": {
+      "bytes": 22537849,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/manifest.json",
+      "sha256": "0259039f54ecc224a785ada1d4567b34158746fc06b3d3f3e316f5d277ddb470"
+    },
+    "run_summary": {
+      "bytes": 23646652,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/run_summary.json",
+      "sha256": "c496921d5b93f4840ec67c38c1c4d0afab034a8798a9a760c36a639ee80d4159"
+    },
+    "step0_final_rmsnorm_s8": {
+      "bytes": 896,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_s8.bin",
+      "sha256": "c7f29537c929a175b2b3f6751b81977a1881077d688052c7739b382484b124f8"
+    },
+    "step0_final_rmsnorm_scale": {
+      "bytes": 8,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_scale_f64le.bin",
+      "sha256": "10bbbde84a23171378edc09ccd62166da8b4624b9d8cb0cafce769c5a0ea1739"
+    },
+    "step0_lm_head_output_s8": {
+      "bytes": 151936,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_s8.bin",
+      "sha256": "55009f23fafbd106621fec56f349a599612a8c23635fd9fbca7b3bc1645bcc42"
+    },
+    "step0_lm_head_output_scale": {
+      "bytes": 8,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_scale_f64le.bin",
+      "sha256": "7063352c5598e6b359dd09628adcd9c47ca371ca8ff701bf0a379d2b895abb8f"
+    }
+  },
+  "status": "RECOVERED_EXACT_TOKEN_AND_OPERATOR_BOUNDARY",
+  "suppressed_nonfunctional_cache_effect_assertions": {
+    "count": 0,
+    "scope": "Only diagnostic zero-effect assertions invalidated by hidden-state substitution were bypassed; numerical and context checks remained active.",
+    "unique_messages": []
+  }
+}

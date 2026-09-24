@@ -1,0 +1,110 @@
+{
+  "schema_version": 1,
+  "created_at_utc": "2026-08-08T07:04:23Z",
+  "stage": "specification",
+  "status": "READY_NOT_SUBMITTED",
+  "task_title": "Execute one non-consuming V7 Volcano qualification",
+  "objective": "Submit at most one ACE2-named qualification job to the verified workspace-independent Volcano target, preserve complete backend and environment evidence, and make no V7 lifecycle transition.",
+  "claim_boundary": "Environment and byte-integrity qualification only. This task grants no V7 authority, launch intent, official namespace, marker, training, evaluator access, checkpoint, quality, quantization, RTL, U280, or product-completion claim.",
+  "accepted_package": {
+    "candidate_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7",
+    "execution_tree_sha256": "99adb88967a4ebd16f8f6b342147a6dea1d9e8f55b6042a8d6fe88d4139ec2c2",
+    "l2_status": "ACCEPTED_V7_FULL_FINETUNE_EXECUTION_PACKAGE_NO_ATTEMPT",
+    "attempt_authority_granted": false,
+    "detached_launch_authorized": false
+  },
+  "backend": {
+    "amlt_project": "argus-IR01",
+    "service": "volcano",
+    "target": "oidc@msr02",
+    "queue": "bonete01",
+    "job_sku_constraint": "G1",
+    "observed_available_shape": "1x180G8-NVIDIA-B200",
+    "observed_host_ram": "approximately 1951 GiB",
+    "experiment_name": "ace2-v7-volcano-qualification-20260808",
+    "job_name": "ace2-v7-qualification-one-b200"
+  },
+  "frozen_bindings": {
+    "active_config": {
+      "bytes": 1325,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/amlt.yaml",
+      "sha256": "f31ab802fb8b65941cb2aa7cac3f2657dfd947e5cb7afb074a05ff80144d5b76"
+    },
+    "failed_singularity_config_preserved": {
+      "bytes": 1474,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/amlt-singularity-failed.yaml",
+      "sha256": "b5c2ff81cf27838a93bc4e7c0e8ab702dd6cbd061b8b3971de9f69b2c652ce3c"
+    },
+    "qualification_script": {
+      "bytes": 19214,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/qualification.py",
+      "sha256": "4e8c8dd82536d255e0e7ec4192818cebf30023ee361c0817e8ff46665a26da5d"
+    },
+    "qualification_spec": {
+      "bytes": 8172,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/qualification_spec.json",
+      "sha256": "633362faee8b9ebaf526481a6268df958eaedf38b5de4e932fece31db0f36a16"
+    },
+    "staged_repo_manifest": {
+      "bytes": 6641,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/local-evidence/staged-repo-manifest.json",
+      "sha256": "063c24432d03b80b0dbbcf863242c5a87917cd5e498da46187b1e3c661f4f5ba"
+    },
+    "staged_model_manifest": {
+      "bytes": 659,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/local-evidence/staged-model-manifest.json",
+      "sha256": "9760a189a1cc0e68bc1698e3d7a8944bd5597a87df790cc68e060c83214e977c"
+    },
+    "local_config_dump": {
+      "bytes": 2007,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/local-evidence/volcano-config-dump.yaml",
+      "sha256": "853fac1b9c7cd0084e76156dfd8cb12b26d680d89dc813219d52f79e8bf06f4b"
+    },
+    "local_config_dump_metadata": {
+      "bytes": 436,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/local-evidence/volcano-config-dump-meta.json",
+      "sha256": "ec8d9fc36b1455e40c99ae2809936797baae0d65ed199ad87854807506085c33"
+    },
+    "preexisting_experiment_inventory": {
+      "bytes": 415,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/local-evidence/volcano-preexisting-experiments.json",
+      "sha256": "f047170a8952ecc5a3f54bd19b74a362f46f8531a3cffab1ef247afa63a50c49"
+    }
+  },
+  "submission_policy": {
+    "maximum_backend_jobs": 1,
+    "planner_may_submit": false,
+    "engineer_may_submit_exact_config_once": true,
+    "preexisting_volcano_job_count": 0,
+    "third_backend_permitted": false,
+    "singularity_retry_permitted": false,
+    "azure_rbac_or_permission_changes_permitted": false,
+    "v7_lifecycle_execution_permitted": false
+  },
+  "commands": {
+    "working_directory": "/home/argustest/argus-ir01-sol-engine",
+    "non_consuming_dump": "amlt run /home/argustest/ace-2/research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/amlt.yaml :ace2-v7-qualification-one-b200 ace2-v7-volcano-qualification-20260808 --dump",
+    "single_submission": "amlt run /home/argustest/ace-2/research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/amlt.yaml :ace2-v7-qualification-one-b200 ace2-v7-volcano-qualification-20260808 -y",
+    "status": "amlt status --hide-urls ace2-v7-volcano-qualification-20260808 :ace2-v7-qualification-one-b200",
+    "download_logs": "amlt logs download ace2-v7-volcano-qualification-20260808 :ace2-v7-qualification-one-b200 --output /home/argustest/ace-2/research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/downloaded/logs",
+    "download_results": "amlt results download ace2-v7-volcano-qualification-20260808 :ace2-v7-qualification-one-b200 --output /home/argustest/ace-2/research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/downloaded/results"
+  },
+  "required_evidence": [
+    "pre-submission parsed config and exact bound hashes",
+    "experiment and job IDs if a backend job is created",
+    "terminal backend status and complete logs",
+    "downloaded qualification-result.json and evidence-manifest.json with companions",
+    "GPU name, UUID, compute capability, total/free VRAM, driver, and CUDA runtime",
+    "host total/available RAM and free disk",
+    "exact Python and package versions",
+    "staged repository and model tree identities before and after the probe",
+    "proof that all prohibited V7 authority, namespace, marker, evaluator, and lifecycle paths remain absent"
+  ],
+  "failure_routing": {
+    "submission_failure_before_job_exists": "Stop immediately, preserve the exact command/config/error, report the precise Volcano prerequisite, and do not try a third backend.",
+    "job_exists_then_fails": "Preserve the job identity, status, all logs/results, and exact failed checks; do not resubmit.",
+    "qualification_passes": "Preserve the immutable evidence and request Fresh Review; do not launch V7 training or change selected_policy_id/current_stage."
+  },
+  "acceptance_check": "A Fresh Reviewer verifies that no more than one Volcano job was created and that the complete immutable evidence supports either an exact pre-job backend prerequisite or an honest B200 qualification result while every V7 lifecycle path remained absent.",
+  "scope": "bounded"
+}

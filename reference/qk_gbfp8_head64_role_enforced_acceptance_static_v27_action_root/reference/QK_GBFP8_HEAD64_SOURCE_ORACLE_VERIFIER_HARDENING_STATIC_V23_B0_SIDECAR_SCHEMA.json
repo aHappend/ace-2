@@ -1,0 +1,143 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_SOURCE_ORACLE_VERIFIER_HARDENING_STATIC_V23_B0_SIDECAR_SCHEMA",
+  "title": "Synthetic-only nonselecting B0 source-Q/K identity-control verifier fixture",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_kind", "v23_action_id", "claim_boundary", "synthetic_fixture_only", "official_data_derived", "authority_provenance", "control", "frozen_contract", "row_class_aggregates", "diagnostic_residuals", "sidecar_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_kind": {"const": "qk_gbfp8_head64_source_oracle_verifier_hardening_v23_b0_synthetic_fixture"},
+    "v23_action_id": {"const": "ace2:qk-gbfp8-base-v23:source-oracle-verifier-hardening:ec58e011:additive-0001"},
+    "claim_boundary": {"const": "STATIC_ONLY_NO_EXECUTION_AUTHORITY"},
+    "synthetic_fixture_only": {"const": true},
+    "official_data_derived": {"const": false},
+    "authority_provenance": {
+      "const": {
+        "authority_or_credential_materialized": false,
+        "evaluator_invocations": 0,
+        "execution_authorized": false,
+        "official_payload_open_count": 0,
+        "official_target_process_starts": 0,
+        "owner_or_ledger_materialized": false,
+        "result_or_terminal_materialized": false,
+        "runtime_namespace_materialized": false
+      }
+    },
+    "control": {
+      "const": {
+        "base_selection_permitted": false,
+        "comparison_only": true,
+        "control_id": "B0_SOURCE_QK_IDENTITY",
+        "may_satisfy_quantization_acceptance": false,
+        "nonselecting": true,
+        "official_result_schema_influence_permitted": false,
+        "quantization_completion": false,
+        "software_identity_path": true,
+        "tensor_values_exposed": false
+      }
+    },
+    "frozen_contract": {
+      "const": {
+        "benchmark_package_sha256": "3d36df763e775bc8f3fb5d106eaf842f7b74482c236b9697906bb93647c44832",
+        "binding_table_sha256": "87ab3deb25f77d89b0797d72004b4436f9541987da13a42f44a2bff7f9fa9655",
+        "candidate_definitions": [
+          {"bytes_per_head": 80, "exponent_bytes_per_head": 16, "group_count": 8, "group_size": 8, "label": "G8", "mantissa_bytes_per_head": 64},
+          {"bytes_per_head": 96, "exponent_bytes_per_head": 32, "group_count": 16, "group_size": 4, "label": "G4", "mantissa_bytes_per_head": 64},
+          {"bytes_per_head": 128, "exponent_bytes_per_head": 64, "group_count": 32, "group_size": 2, "label": "G2", "mantissa_bytes_per_head": 64},
+          {"bytes_per_head": 192, "exponent_bytes_per_head": 128, "group_count": 64, "group_size": 1, "label": "G1", "mantissa_bytes_per_head": 64}
+        ],
+        "candidate_order": ["G8", "G4", "G2", "G1"],
+        "diagnosis_file_sha256": "650f46edd9fba234c76948d679af76384e9d55a00369af252ced01f23cc57c2c",
+        "failure_if_none_pass": "HARD_THRESHOLD_FAILED",
+        "hard_gates": {
+          "cross_lane_record_count_maximum": 0,
+          "invalid_or_non_finite_value_count_maximum": 0,
+          "normalization_rejection_count_maximum": 0,
+          "positive_centered_realized_score_count_maximum": 0,
+          "rank_margin_violation_count_maximum": 0,
+          "saturation_event_count_maximum": 0,
+          "top_key_matching_fraction_minimum": {"denominator": 1, "numerator": 1},
+          "top_key_mismatch_count_maximum": 0,
+          "unique_oracle_positive_margin_preserved_fraction_minimum": {"denominator": 1, "numerator": 1}
+        },
+        "input_token_ids_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+        "lane_metadata_byte_count": 20057,
+        "lane_metadata_sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a",
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+        "numerical_tensor_identities": [
+          {"dtype": "torch.bfloat16", "sha256": "401cdb0dc4a8def3190ac424f96df272c2bcf11241874759977d692845a19c0a", "shape": [1, 2, 41, 64], "tensor_name": "bf16.k_rope"},
+          {"dtype": "torch.bfloat16", "sha256": "285e064ffea9571b7e3ed192a7083bf831dc5d444e0139558d3d51f084995429", "shape": [1, 14, 41, 64], "tensor_name": "bf16.q_rope"},
+          {"dtype": "torch.bfloat16", "sha256": "49627e8364e534c61f4db8208d82798e53409c3c10d5d5e28c3c1462ef617765", "shape": [1, 14, 41, 41], "tensor_name": "bf16.qk_scaled_scores"}
+        ],
+        "official_evaluator_sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63",
+        "official_result_schema_sha256": "07f818190e7f97032a6bc3724914f00f36070f429f1cd549c67e4e7b026ae720",
+        "require_every_hard_gate": true,
+        "score_error_affects_selection": false,
+        "sealed_set_id": "w4a8-c02-attention-substage-trace-v2",
+        "selected_tensor_names": ["bf16.k_rope", "bf16.q_rope", "bf16.qk_scaled_scores"],
+        "selection_policy": "FIRST_PASSING_CANDIDATE_IN_FIXED_ORDER",
+        "tensor_bundle_byte_count": 1305797,
+        "tensor_bundle_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175",
+        "tensor_record_count": 25,
+        "v21_result_byte_count": 8767,
+        "v21_result_file_sha256": "4901c835dd9b8700cb3a3dd5ecac54f2d1112f7f2f6e909a7ad37ee35ab8941f"
+      }
+    },
+    "row_class_aggregates": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["row_class", "row_count", "top_match_count", "top_mismatch_count", "positive_margin_preserved_count", "rank_margin_violation_count", "sum_signed_error_q12_20_lsb", "sum_absolute_error_q12_20_lsb", "sum_squared_error_q40_40_lsb2", "maximum_absolute_error_q12_20_lsb", "row_membership_sha256", "top_mismatch_membership_sha256", "rank_violation_membership_sha256"],
+        "properties": {
+          "row_class": {"enum": ["ALL_CAUSAL_ROWS", "SINGLETON_ROWS", "ORACLE_TIED_TOP_ROWS", "ORACLE_UNIQUE_POSITIVE_MARGIN_ROWS"]},
+          "row_count": {"type": "integer", "minimum": 0},
+          "top_match_count": {"type": "integer", "minimum": 0},
+          "top_mismatch_count": {"type": "integer", "minimum": 0},
+          "positive_margin_preserved_count": {"type": "integer", "minimum": 0},
+          "rank_margin_violation_count": {"type": "integer", "minimum": 0},
+          "sum_signed_error_q12_20_lsb": {"type": "integer"},
+          "sum_absolute_error_q12_20_lsb": {"type": "integer", "minimum": 0},
+          "sum_squared_error_q40_40_lsb2": {"type": "integer", "minimum": 0},
+          "maximum_absolute_error_q12_20_lsb": {"type": "integer", "minimum": 0},
+          "row_membership_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "top_mismatch_membership_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "rank_violation_membership_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      },
+      "allOf": [
+        {"contains": {"type": "object", "required": ["row_class"], "properties": {"row_class": {"const": "ALL_CAUSAL_ROWS"}}}, "minContains": 1, "maxContains": 1},
+        {"contains": {"type": "object", "required": ["row_class"], "properties": {"row_class": {"const": "SINGLETON_ROWS"}}}, "minContains": 1, "maxContains": 1},
+        {"contains": {"type": "object", "required": ["row_class"], "properties": {"row_class": {"const": "ORACLE_TIED_TOP_ROWS"}}}, "minContains": 1, "maxContains": 1},
+        {"contains": {"type": "object", "required": ["row_class"], "properties": {"row_class": {"const": "ORACLE_UNIQUE_POSITIVE_MARGIN_ROWS"}}}, "minContains": 1, "maxContains": 1}
+      ]
+    },
+    "diagnostic_residuals": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "comparison_only", "may_satisfy_quantization_acceptance", "aggregate_digest_sha256"],
+        "properties": {
+          "label": {"enum": ["B0", "G1", "G2", "G4", "G8"]},
+          "comparison_only": {"const": true},
+          "may_satisfy_quantization_acceptance": {"const": false},
+          "aggregate_digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      },
+      "allOf": [
+        {"contains": {"type": "object", "required": ["label"], "properties": {"label": {"const": "B0"}}}, "minContains": 1, "maxContains": 1},
+        {"contains": {"type": "object", "required": ["label"], "properties": {"label": {"const": "G1"}}}, "minContains": 1, "maxContains": 1},
+        {"contains": {"type": "object", "required": ["label"], "properties": {"label": {"const": "G2"}}}, "minContains": 1, "maxContains": 1},
+        {"contains": {"type": "object", "required": ["label"], "properties": {"label": {"const": "G4"}}}, "minContains": 1, "maxContains": 1},
+        {"contains": {"type": "object", "required": ["label"], "properties": {"label": {"const": "G8"}}}, "minContains": 1, "maxContains": 1}
+      ]
+    },
+    "sidecar_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

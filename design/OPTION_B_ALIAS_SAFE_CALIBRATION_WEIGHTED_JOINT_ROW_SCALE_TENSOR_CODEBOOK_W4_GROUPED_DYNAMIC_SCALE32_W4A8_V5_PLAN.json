@@ -1,0 +1,212 @@
+{
+  "schema_version": 1,
+  "contract_id": "option_b_alias_safe_calibration_weighted_joint_row_scale_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v5",
+  "candidate_id": "option_b_alias_safe_calibration_weighted_joint_row_scale_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v5",
+  "status": "planner_frozen_preexecution_requirements_no_attempt_authority",
+  "stage": "specification",
+  "selected_policy_id": null,
+  "predecessor": {
+    "candidate_id": "option_b_alias_safe_joint_row_scale_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v4",
+    "disposition": "fresh_reviewer_accepted_terminal_preattempt_no_go",
+    "failure_taxonomy": "NO_GO_NON_EVALUATOR_QUALITY_GATE",
+    "terminal_no_go": {
+      "path": "build/stage1-option-b-alias-safe-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v4/PREATTEMPT_NO_GO.json",
+      "sha256": "bee3023d453d57f3cbc8803ac3a061b76a758e0bd6b77f9a2f7f21c26a9d4802"
+    },
+    "review_record": "research/raw/specification/joint-scale-codebook-v4-review-done-20260806T154042Z.json",
+    "review_record_sha256": "c8d3d277f66e5ee89b8c2711da4a00218f271537483962f6ef7471cff29ee70f",
+    "non_evaluator_exact_bf16_sequence_match_count": 2,
+    "non_evaluator_response_gate_outcome_match_count": 8,
+    "aggregate_v4_joint_bf16_sse": 2387.058149454451,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_permitted": false
+  },
+  "evidence_backed_direction": {
+    "retained_construct": "Fresh Review verified the alias-safe source-tied then runtime-split lm_head construction, complete BF16 embedding preservation, byte-identical independent 169-Linear V4 construction, 169/169 V3-relative source-space reconstruction improvement, and legal grouped Dynamic Scale32 execution at all 312 activation boundaries.",
+    "measured_failure": "V4 reduced aggregate unweighted BF16 weight-reconstruction SSE from V3 2987.0298056936317 to 2387.058149454451 and strictly improved all 169 tensors, yet exact non-evaluator token identity decreased from V3 3/8 to V4 2/8. Lower source-space weight SSE is therefore not a sufficient detector for the immutable exact-sequence objective.",
+    "replacement_hypothesis": "Retain the exact V4 storage and accelerator format, but optimize the row Scale32 records and tensor codebook against exact per-input-channel activation-energy weights derived only from the frozen four public calibration prompts under the pinned BF16 model. This directs the fixed 4-bit representation toward weight errors that are exercised most strongly by the selected chat contract without adding runtime metadata or using official inputs.",
+    "distinctness": "V4 minimizes unweighted source-space weight SSE from pinned weights only. V5 first captures and freezes exact BF16 activation-energy records for every Linear input channel, then performs a new deterministic weighted alternating minimization. It is not a replay, parameter tweak, prompt-specific runtime policy, wider payload, exception table, or repair under the V4 candidate ID."
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_config_tie_word_embeddings": true,
+    "source_embedding_tensor": "model.embed_tokens.weight",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f"
+  },
+  "calibration_statistics": {
+    "source_contract": {
+      "path": "evidence/verification/qwen2.5-0.5b-instruct-w4a8-calibration-v1/calibration_contract.json",
+      "sha256": "084ab27de7e19b3f66cbcacbd7c219b67e7ef1cbc51c0d92e6da67af7e6df763",
+      "prompt_count": 4
+    },
+    "permitted_model": "pinned BF16 source model before any weight or activation quantization",
+    "permitted_positions": "all prompt-prefill positions and the deterministic BF16 greedy rollout of at most six generated tokens for the four frozen calibration prompts",
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "statistic": "For each of the 169 Linear modules and each input channel j, capture every finite BF16 input x and accumulate H_j=sum(x^2) exactly on a module-local dyadic integer lattice; use max(H_j,1) so an unobserved channel remains represented.",
+    "normalization": "Divide the complete positive integer H vector by its greatest common divisor only; no floating-point normalization, clipping, percentile, prompt weighting, or learned parameter is permitted.",
+    "required_identity": "Two independent BF16 calibration-statistic captures must produce byte-identical per-module H vectors, prompt token hashes, generated calibration token arrays, position counts, and aggregate manifest hashes.",
+    "official_nine_prompt_inputs_outputs_tokens_or_gates_permitted": false,
+    "additional_four_non_evaluator_inputs_permitted_for_construction": false,
+    "network_access_permitted": false
+  },
+  "candidate_state_construction": {
+    "initial_invariant": "lm_head.weight and model.embed_tokens.weight are the same Parameter object and storage immediately after pinned-model load",
+    "separation_rule": "Before weight construction, replace only lm_head.weight with a detached byte-identical non-trainable clone and set only the in-memory candidate configuration tie_word_embeddings field to false.",
+    "retie_forbidden": true,
+    "quantization_scope": "exactly 168 transformer Linear weights plus the separated lm_head weight",
+    "post_quantization_embedding_invariant": "The original embedding Parameter object, storage pointer, shape, dtype, and complete BF16 byte stream remain unchanged.",
+    "independent_candidate_a_and_b_manifest_equality_required": true,
+    "module_counts": {
+      "transformer_linears": 168,
+      "lm_head": 1,
+      "total_linears": 169
+    }
+  },
+  "weight_policy": {
+    "payload_bits_per_weight": 4,
+    "payload_semantics": "unsigned codebook index 0 through 15",
+    "packing": "row-major output row then input lane; even flat index in low nibble and odd flat index in high nibble",
+    "row_scale": {
+      "format": "existing normalized unsigned-Q1.15 Scale32 significand plus signed exponent record",
+      "bytes_per_output_row": 4,
+      "record_count_changed": false,
+      "legal_significand_range": [32768, 65535],
+      "legal_exponent_range": [-24, 4],
+      "all_zero_weight_row_rule": "use the frozen all-zero Scale32 record and payload index of the codepoint nearest zero",
+      "overflow_clipping_or_saturation_permitted": false
+    },
+    "codebook": {
+      "scope": "one per Linear tensor",
+      "record_bytes": 16,
+      "alignment_bytes": 16,
+      "memory_beats_at_128_bits": 1,
+      "entry_count": 16,
+      "entry_format": "strictly increasing signed-Q4.4 two's-complement int8",
+      "entry_order": "byte offset equals payload index"
+    },
+    "weighted_joint_construction_algorithm": {
+      "data_source": "pinned BF16 weights plus the frozen exact calibration H vectors only",
+      "official_prompt_output_token_or_gate_access_permitted": false,
+      "initial_state": "Freshly recompute the complete V4 eight-iteration unweighted joint row-Scale32/tensor-codebook result from pinned BF16 weights; do not import a V4 candidate manifest or mutable state.",
+      "outer_iterations": 8,
+      "weighted_objective": "For each tensor, minimize sum over output rows i and input channels j of H_j*(weight_ij-reconstruction_ij)^2 using exact integer comparisons on a common dyadic lattice.",
+      "assignment_step": "Assign every BF16 weight to the nearest reconstructed level row_scale times codepoint_q4_4 divided by 16; exact-distance ties select the lower index. Positive H_j does not alter the per-weight nearest-level boundary but remains part of every row-scale and codebook cost.",
+      "row_scale_step": "With indices and codepoints fixed, form the exact weighted dyadic least-squares ideal 16*sum(H_j*weight_j*codepoint_j)/sum(H_j*codepoint_j^2). Constrain it to the no-overflow lower bound absmax*16/127 and the legal Scale32 range. Evaluate the legal records bracketing that ideal, their immediate normalized-significand neighbors, and the prior record using weighted row SSE; choose minimum weighted SSE, then smaller positive scale, then smaller packed record on ties.",
+      "codebook_step": "With indices and row scales fixed, accumulate exact H_j-weighted per-cluster quadratic costs for every signed-Q4.4 value -128 through +127. Use dynamic programming to choose the globally minimum-cost strictly increasing 16-value codebook. Empty clusters retain their prior codepoint as a hard constraint; total-cost ties choose the lexicographically smaller codebook.",
+      "iteration_acceptance": "Reassign after each row-scale and codebook update. The exact activation-energy-weighted tensor objective may not increase from the preceding outer iteration; a violation fails closed. Execute all eight iterations even after a fixed point.",
+      "final_reconstruction": "decoded_weight = decoded_row_scale * signed_codebook_q4_4 / 16",
+      "floating_point_nondeterminism_stochastic_rounding_prompt_ranking_or_gate_tuning_permitted": false
+    },
+    "pre_attempt_model_only_gate": {
+      "v4_reference_report": {
+        "path": "build/stage1-option-b-alias-safe-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v4/preattempt/model_only_reconstruction.json",
+        "sha256": "725a3467127736fe2346d1577abce53370941d8c647357c21499bb7a25c3c53a",
+        "aggregate_unweighted_bf16_sse": 2387.058149454451
+      },
+      "required_weighted_baseline": "Freshly apply the exact V5 H vectors to the freshly reconstructed V4 candidate and record per-tensor plus aggregate weighted objectives before V5 optimization.",
+      "per_tensor_activation_energy_weighted_objective_may_increase_against_v4": false,
+      "aggregate_activation_energy_weighted_objective_must_strictly_decrease_against_v4": true,
+      "unweighted_bf16_sse_is_reported_but_not_an_eligibility_detector": true,
+      "candidate_a_and_b_statistics_payload_row_scale_codebook_reconstruction_iteration_trace_and_state_manifests_must_match": true
+    }
+  },
+  "activation_policy": {
+    "payload": "signed A8 symmetric range -127 through +127 with -128 reserved",
+    "rounding": "round_to_nearest_ties_to_even",
+    "event_family_count_per_layer": 13,
+    "event_count_all_24_layers": 312,
+    "group_lanes": [64, 128],
+    "base_record_source": "the same frozen authenticated activation Scale32 significands used by V4",
+    "selection_rule": "For each live finite group, preserve the base activation Scale32 significand and choose the minimum integer exponent delta in [-24,+24] whose effective exponent remains in [-24,+4] and covers every lane without saturation.",
+    "all_zero_group_rule": "use exponent delta zero",
+    "failure_rule": "If no legal delta covers a finite group, fail closed; never clip, saturate, or mutate the base activation significand.",
+    "prompt_or_dataset_specific_runtime_scale_control_permitted": false
+  },
+  "accelerator_facing_format": {
+    "public_ace2_shell_contract_changed": false,
+    "weight_payload_transport": "existing 128-bit external-memory read channel; packed 4-bit indices retain the existing byte count",
+    "row_scale_transport": "existing one 32-bit Scale32 record per output row; only record values may change",
+    "codebook_transport": "one aligned 128-bit read beat per Linear tensor before its weight stream",
+    "calibration_statistics_in_product_image_or_runtime": false,
+    "codebook_cache_budget_bytes": 32,
+    "compute_primitive": "signed A8 activation multiplied by signed Q4.4 codepoint, accumulated as an integer product, then combined with the row Scale32 and fixed fractional shift four",
+    "floating_point_rtl_permitted": false,
+    "cycle_accurate_rtl_or_ppa_claimed_by_this_plan": false
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "standard_decoder_layer_weight_count": 14909440,
+    "standard_decoder_layer_existing_total_weight_bytes": 7505408,
+    "standard_decoder_layer_codebook_bytes": 112,
+    "standard_decoder_layer_exact_bits_per_weight": 4.027257898351649,
+    "lm_head_shape": [151936, 896],
+    "lm_head_codebook_bytes": 16,
+    "lm_head_exact_bits_per_weight": 4.035715225959803,
+    "whole_model_codebook_bytes": 2704,
+    "additional_row_scale_bytes": 0,
+    "additional_calibration_statistic_bytes_in_product": 0,
+    "per_scalar_or_per_group_weight_metadata_permitted": false,
+    "maximum_scale_metadata_bits_per_activation": 0.5,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_tensor_sidecars_per_decoder_layer_token": 13,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "maximum_incremental_sram_bytes": 2368,
+    "new_public_ace2_shell_ports_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0
+  },
+  "pre_attempt_closure": {
+    "official_execution_marker_permitted": false,
+    "official_nine_prompt_inputs_permitted_for_preflight": false,
+    "network_access_permitted": false,
+    "calibration_statistics_gate": "Two independent exact BF16 captures over the same four frozen calibration prompts must produce byte-identical H vectors, token arrays, position counts, and manifests for all 169 Linear modules.",
+    "weighted_model_gate": "All 169 tensors must be non-regressing against the freshly measured V4 activation-energy-weighted baseline and the aggregate weighted objective must strictly improve.",
+    "non_evaluator_quality_gate": "The same frozen eight non-evaluator inputs must achieve 8/8 exact BF16 token arrays and 8/8 matching BF16 response-gate outcomes before an official marker may be created; the four additional inputs remain construction-blind holdouts.",
+    "dynamic_gate": "A fresh V5 candidate must cover all 312 named activation boundaries with legal deltas, zero saturation, zero clipping, and no reserved -128 payload.",
+    "required_artifacts": [
+      "hash-bound candidate-specific runner and exact weighted-constructor self-test",
+      "two independent calibration-statistic captures and equality manifest",
+      "candidate A and B state, payload, row-scale, codebook, reconstruction, weighted-objective, and iteration-trace manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "weighted Scale32 bracketing, neighbor, tie-break, all-zero-row, and legal-range self-tests",
+      "weighted strict-codebook dynamic-programming optimum, empty-cluster, tie-break, range, nibble-packing, and hash-mismatch self-tests",
+      "model-only report proving 169/169 V4-relative activation-energy-weighted non-regression and strict aggregate improvement",
+      "8/8 non-evaluator exact-sequence and response-gate report with construction/holdout labels",
+      "fresh-candidate 312-event Dynamic Scale32 report",
+      "predeclared contract binding every source, model, calibration, matrix, runner, tool version, format, and policy hash",
+      "PREATTEMPT_READY.json that verifies all artifacts without creating execution_started.json"
+    ],
+    "failure_disposition": "Preserve PREATTEMPT_NO_GO, leave the official attempt unconsumed, keep selected_policy_id null, and submit the bounded result for Fresh Review without accessing official inputs."
+  },
+  "official_attempt": {
+    "attempts_authorized_by_this_file": 0,
+    "required_fresh_attempt_directory": "build/stage1-option-b-alias-safe-calibration-weighted-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v5/attempt-0001",
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false,
+    "fresh_reviewer_required": true
+  },
+  "risk_register": [
+    "Activation-energy weighting is an evidence-backed proxy, not proof of token identity; the eight-input exact gate remains mandatory and precedes official execution.",
+    "The four calibration prompts influence construction, so all four additional non-evaluator prompts remain construction-blind holdouts and must independently match exactly.",
+    "Exact activation-statistic capture and weighted integer objectives increase build complexity and must prove byte-identical independent capture and construction.",
+    "No calibration statistic is stored or transported at runtime; any product-image metadata growth, prompt-dependent runtime selection, sparse exception table, wider payload, or extra row record is forbidden.",
+    "Changing row Scale32 and codebook values preserves geometry but will require accelerator-facing agreement checks and focused RTL regression only after numerical policy acceptance and Manager stage advance."
+  ],
+  "claim_boundary": {
+    "planning_requirements_frozen": true,
+    "attempt_authority_created": false,
+    "official_attempt_started": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "schema": "ace2-prompt-suite-rtl-oracle-config-v1",
+  "max_new_tokens": 4,
+  "cases": [
+    {
+      "id": "multilingual-greeting",
+      "prompt": "Grüße,世界"
+    },
+    {
+      "id": "verification-question",
+      "prompt": "Why verify RTL state?"
+    },
+    {
+      "id": "kv-cache-question",
+      "prompt": "Name one K/V cache invariant."
+    }
+  ]
+}

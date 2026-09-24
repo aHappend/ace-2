@@ -6,10 +6,16 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable
 
-from ace2_quality_contracts import (
-    dynamic_rope_output_scale,
-    requantize_dynamic_rope_value,
-)
+try:
+    from ace2_quality_contracts import (
+        dynamic_rope_output_scale,
+        requantize_dynamic_rope_value,
+    )
+except ModuleNotFoundError:
+    from tools.ace2_quality_contracts import (
+        dynamic_rope_output_scale,
+        requantize_dynamic_rope_value,
+    )
 
 
 HIDDEN_SIZE = 896

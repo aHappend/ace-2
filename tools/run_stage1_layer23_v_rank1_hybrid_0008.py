@@ -1,0 +1,1288 @@
+#!/usr/bin/env python3
+"""Pristine-environment preloader for nonofficial hybrid attempt 0008."""
+
+from __future__ import annotations
+
+import argparse
+import hashlib
+import json
+import os
+import stat
+import sys
+import tempfile
+import time
+from datetime import UTC, datetime
+from pathlib import Path
+from typing import Any
+
+
+ROOT = Path(__file__).resolve().parents[1]
+LAUNCHER = Path(__file__).resolve()
+IMPLEMENTATION = ROOT / "tools/run_stage1_layer23_v_rank1_hybrid.py"
+OUTPUT = (
+    ROOT
+    / "evidence/verification/stage1-layer23-v-rank1-hybrid-v1"
+    / "nonofficial-hybrid-0008"
+)
+TERMINAL = OUTPUT / "terminal-record.json"
+PRIVATE = ROOT / "build/stage1-layer23-v-rank1-hybrid-v1/private"
+TOKENIZATION_PREFLIGHT = PRIVATE / "exact-tokenization-preflight-0008.json"
+TOKENIZATION_REGRESSION = PRIVATE / "tokenization-verifier-regression-0008.json"
+PREDECESSOR_0006_TOKENIZATION = PRIVATE / "exact-tokenization-preflight-0006.json"
+EXPECTED_PYTHON = Path("/home/argustest/miniconda3/bin/python3.13")
+EXPECTED_PYTHON_SHA256 = (
+    "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad"
+)
+EXPECTED_PREDECESSOR_0006_TOKENIZATION_SHA256 = (
+    "d1b6cfe2e208dfece95e57da31ce0fe4c1df1ed08c1acd9f61ad5847d8d8cb49"
+)
+EXPECTED_ENVIRONMENT = {
+    "CUDA_VISIBLE_DEVICES": "",
+    "HF_HUB_OFFLINE": "1",
+    "HOME": "/home/argustest",
+    "LC_ALL": "C",
+    "PATH": (
+        "/home/argustest/argustest2/.venv/bin:/home/argustest/bin:"
+        "/home/argustest/.bun/bin:/home/argustest/.krew/bin:"
+        "/home/argustest/.local/bin:/home/argustest/bin:/home/argustest/.krew/bin:"
+        "/home/argustest/.vscode-server/data/User/globalStorage/"
+        "github.copilot-chat/debugCommand:"
+        "/home/argustest/.vscode-server/data/User/globalStorage/"
+        "github.copilot-chat/copilotCli:"
+        "/home/argustest/.vscode-server/cli/servers/Stable-"
+        "a5b500951314efd502d07465bd138dfbd714a960/server/bin/remote-cli:"
+        "/home/argustest/.elan/bin:/home/argustest/.local/bin:"
+        "/home/argustest/bin:/home/argustest/Argus_BoXiuLi8T_MOF/code/"
+        "Argus_mofgen_uv:/home/argustest/bin:/home/argustest/.bun/bin:"
+        "/home/argustest/.krew/bin:/home/argustest/.local/bin:"
+        "/home/argustest/bin:/home/argustest/.krew/bin:"
+        "/home/argustest/.nvm/versions/node/v22.23.1/bin:"
+        "/home/argustest/miniconda3/bin:/home/argustest/miniconda3/condabin:"
+        "/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:"
+        "/usr/games:/usr/local/games:/snap/bin"
+    ),
+    "PYTHONDONTWRITEBYTECODE": "1",
+    "PYTHONPATH": "/home/argustest/ace-2/.venv/lib/python3.13/site-packages",
+    "TOKENIZERS_PARALLELISM": "false",
+    "TRANSFORMERS_OFFLINE": "1",
+}
+REQUIRED_PREIMPORT_ABSENT = (
+    "numpy",
+    "peft",
+    "safetensors",
+    "torch",
+    "transformers",
+    "tools",
+)
+MAX_CONTEXT_TOKENS = 40
+EXPECTED_TOKENIZATION_CHECKS = {
+    "model_executed": False,
+    "simulator_executed": False,
+    "icarus_compile_executed": False,
+    "process_not_started": True,
+    "output_namespace_absent": True,
+    "exact_final_auto_tokenizer_path_executed": True,
+    "canonical_chat_token_ids_path_executed": True,
+    "resolved_tokenizer_files_bound": True,
+    "chat_template_hash_bound": True,
+    "exactly_two_new_unseen_prompts": True,
+    "generation_count_is_four": True,
+    "all_total_context_counts_at_most_40": True,
+    "all_maximum_processed_positions_below_40": True,
+    "accepted_rtl_context_bound_unchanged": True,
+    "predecessor_0007_terminal_and_0006_certificate_seals_immutable": True,
+}
+
+# Capture the Python launch state before any dependency or project import.
+PRE_IMPORT_ENVIRONMENT = dict(os.environ)
+PRE_IMPORT_SYS_PATH = list(sys.path)
+PRE_IMPORT_SYS_PREFIX = sys.prefix
+PRE_IMPORT_ARGV = list(sys.argv)
+PRE_IMPORT_CWD = str(Path.cwd().resolve())
+PRE_IMPORT_MODULES = frozenset(sys.modules)
+
+
+class PreloaderError(RuntimeError):
+    pass
+
+
+def _require(condition: bool, message: str) -> None:
+    if not condition:
+        raise PreloaderError(message)
+
+
+def _canonical_bytes(value: Any) -> bytes:
+    return (
+        json.dumps(value, indent=2, sort_keys=True, ensure_ascii=True, allow_nan=False)
+        + "\n"
+    ).encode("utf-8")
+
+
+def _sha256_file(path: Path) -> str:
+    digest = hashlib.sha256()
+    with path.open("rb") as stream:
+        for block in iter(lambda: stream.read(1 << 20), b""):
+            digest.update(block)
+    return digest.hexdigest()
+
+
+def _utc_now() -> str:
+    return datetime.now(UTC).isoformat().replace("+00:00", "Z")
+
+
+def _seal_preloader_failure(error: BaseException) -> None:
+    if TERMINAL.exists():
+        return
+    OUTPUT.mkdir(parents=True, exist_ok=True)
+    record = {
+        "schema_version": 1,
+        "mission_id": "stage1rank1hybrid07",
+        "attempt_identity": "nonofficial-hybrid-0008",
+        "status": "FAILED_SEALED_NO_EXECUTION",
+        "outcome": "pre_execution_failure",
+        "sealed_at_utc": _utc_now(),
+        "process_start_count": 0,
+        "process_started": False,
+        "failure": {
+            "failure_taxonomy": "pre_execution_gate_failure",
+            "phase": "stdlib_preloader_or_nonconsuming_gate",
+            "root_cause_hypothesis": f"{type(error).__name__}: {error}",
+            "regression": "No retry, replay, or resume; preserve the failed gate artifacts.",
+        },
+    }
+    try:
+        with TERMINAL.open("xb") as stream:
+            stream.write(_canonical_bytes(record))
+            stream.flush()
+            os.fsync(stream.fileno())
+    except FileExistsError:
+        return
+
+
+def _verify_pre_import_launch() -> None:
+    interpreter = Path(sys.executable).resolve()
+    _require(interpreter == EXPECTED_PYTHON, "Python interpreter binding changed")
+    _require(
+        _sha256_file(interpreter) == EXPECTED_PYTHON_SHA256,
+        "Python interpreter SHA-256 changed",
+    )
+    _require(PRE_IMPORT_CWD == str(ROOT), "final-child cwd binding changed")
+    _require(
+        Path(PRE_IMPORT_ARGV[0]).resolve() == LAUNCHER,
+        "launcher argv[0] binding changed",
+    )
+    _require(
+        PRE_IMPORT_ENVIRONMENT == EXPECTED_ENVIRONMENT,
+        "pristine pre-import OS environment differs from the frozen launch environment",
+    )
+    contaminated = sorted(
+        name
+        for name in PRE_IMPORT_MODULES
+        if any(name == root or name.startswith(f"{root}.") for root in REQUIRED_PREIMPORT_ABSENT)
+    )
+    _require(not contaminated, f"dependency/project modules loaded before snapshot: {contaminated}")
+    _require(
+        stat.S_ISREG(os.lstat(LAUNCHER).st_mode)
+        and stat.S_ISREG(os.lstat(IMPLEMENTATION).st_mode),
+        "launcher or runner is not a regular file",
+    )
+
+
+def _environment_delta(
+    before: dict[str, str], after: dict[str, str]
+) -> dict[str, Any]:
+    return {
+        "added": {key: after[key] for key in sorted(after.keys() - before.keys())},
+        "removed": {key: before[key] for key in sorted(before.keys() - after.keys())},
+        "changed": {
+            key: {"before": before[key], "after": after[key]}
+            for key in sorted(before.keys() & after.keys())
+            if before[key] != after[key]
+        },
+    }
+
+
+def _configure_runner(runner: Any, post_import_environment: dict[str, str]) -> None:
+    runner.MISSION_ID = "stage1rank1hybrid07"
+    runner.ATTEMPT_ID = "nonofficial-hybrid-0008"
+    runner.OUTPUT = OUTPUT
+    runner.PREFLIGHT = OUTPUT / "preflight.json"
+    runner.FREEZE = OUTPUT / "freeze.json"
+    runner.PACKAGE = OUTPUT / "execution-package.json"
+    runner.AUTHORITY = OUTPUT / "execution-authority.json"
+    runner.LIVE = OUTPUT / "live"
+    runner.RESULT = runner.LIVE / "result.json"
+    runner.FAILURE = runner.LIVE / "failure.json"
+    runner.SUMS = runner.LIVE / "SHA256SUMS"
+    runner.STATE = OUTPUT / "supervisor-state"
+    runner.STDOUT = OUTPUT / "execution.stdout.log"
+    runner.STDERR = OUTPUT / "execution.stderr.log"
+    runner.TERMINAL = TERMINAL
+    runner.DEFAULT_PROMPTS = PRIVATE / "prompts-0008.json"
+    runner.TEMPLATE_GATE = PRIVATE / "package-template-invariant-0008.json"
+    runner.DEPENDENCY_PROBE = PRIVATE / "dependency-probe-0008.json"
+    runner.PREDECESSOR_TERMINAL_SEALS = {
+        "nonofficial-hybrid-0001": {
+            "sha256": "c97541d51a481812fbf41cb8fccdb035fe560ec97db179ca2a2aa4d6afb2780e",
+            "process_start_count": 0,
+            "process_started": False,
+        },
+        "nonofficial-hybrid-0002": {
+            "sha256": "c8facc07691df72aab7fed0c6a6c51c15d6bc2c6fa222e622c3ee4c088bf4573",
+            "process_start_count": 0,
+            "process_started": False,
+        },
+        "nonofficial-hybrid-0003": {
+            "sha256": "defc1c23ce2c85548a8f95971c18f0f2a9c155a8816ce0078060203ec746e50f",
+            "process_start_count": 1,
+            "process_started": True,
+        },
+        "nonofficial-hybrid-0004": {
+            "sha256": "c4ec89eaddfdbb05e5efcd91c6e5ce54cb1bc193be02732c0da4cc3ccb6b6917",
+            "process_start_count": 0,
+            "process_started": False,
+        },
+        "nonofficial-hybrid-0005": {
+            "sha256": "8be6597ec736cf469fa898576801719f288cf752c25c1dd8d526d785ab113cf6",
+            "process_start_count": 1,
+            "process_started": True,
+        },
+        "nonofficial-hybrid-0006": {
+            "sha256": "b49a8ceaed8e0312f91632d23fcde5f2c1d2ef8a461d6e8b6b861f174a882a16",
+            "process_start_count": 0,
+            "process_started": False,
+        },
+        "nonofficial-hybrid-0007": {
+            "sha256": "a7b5e817f3c0d5a8039521d97167d659208962e74e9b1c43bc3c8c12ff2e1b07",
+            "process_start_count": 1,
+            "process_started": True,
+        },
+    }
+    runner.__file__ = str(LAUNCHER)
+
+    original_verify_predecessor_seals = runner.verify_predecessor_seals
+    original_source_records = runner.source_records
+    original_execution_bound_paths = runner.execution_bound_paths
+    original_package_template_invariant = runner.package_template_invariant
+    original_preflight = runner.preflight
+    original_freeze = runner.freeze
+    original_execute = runner.execute
+    original_run_sequence = runner.run_sequence
+    original_verify = runner.verify
+
+    def verify_predecessor_seals_0008() -> None:
+        original_verify_predecessor_seals()
+        failure_path = OUTPUT.parent / "nonofficial-hybrid-0005/live/failure.json"
+        runner.require(
+            runner.sha256_file(failure_path)
+            == "390569ddaa36949c90e3e665746b7a9efd57d217cbf035158d719e6fb31e3738",
+            "nonofficial-hybrid-0005 failure seal changed",
+        )
+        failure = runner.read_json(failure_path)
+        runner.require(
+            failure.get("root_cause_hypothesis")
+            == "BackendError: attention context exceeds accepted RTL core bound",
+            "nonofficial-hybrid-0005 failure reason changed",
+        )
+        runner.require(
+            runner.sha256_file(PREDECESSOR_0006_TOKENIZATION)
+            == EXPECTED_PREDECESSOR_0006_TOKENIZATION_SHA256,
+            "nonofficial-hybrid-0006 exact-tokenization certificate changed",
+        )
+        certificate = runner.read_json(PREDECESSOR_0006_TOKENIZATION)
+        runner.require(
+            certificate.get("mission_id") == "stage1rank1hybrid06"
+            and certificate.get("attempt_identity") == "nonofficial-hybrid-0006"
+            and certificate.get("status")
+            == "PASS_NONCONSUMING_EXACT_TOKENIZATION_PREFLIGHT",
+            "nonofficial-hybrid-0006 exact-tokenization certificate identity changed",
+        )
+
+    runner.verify_predecessor_seals = verify_predecessor_seals_0008
+
+    def dependency_probe_0008() -> int:
+        runner.require(
+            not runner.DEPENDENCY_PROBE.exists(), "dependency probe already exists"
+        )
+        runner.require(
+            not TOKENIZATION_PREFLIGHT.exists(),
+            "exact-tokenization preflight already exists",
+        )
+        runner.require(
+            not TOKENIZATION_REGRESSION.exists(),
+            "tokenization-verifier regression already exists",
+        )
+        runner.require(
+            not runner.TEMPLATE_GATE.exists(), "package-template invariant already exists"
+        )
+        runner.require(
+            not runner.OUTPUT.exists(),
+            f"{runner.ATTEMPT_ID} output namespace already exists",
+        )
+        runner.validate_no_execution()
+        runner.verify_predecessor_seals()
+        runner.verify_exact_interpreter()
+        runner.require(
+            PRE_IMPORT_ENVIRONMENT == runner.child_environment(),
+            "pristine pre-import environment differs from the complete frozen child environment",
+        )
+
+        snapshot, model, tokenizer_json, tokenizer_config = (
+            runner.resolve_runtime_inputs()
+        )
+        resolved_files = {
+            "model": model,
+            "adapter": runner.ADAPTER.resolve(strict=True),
+            "tokenizer_json": tokenizer_json,
+            "tokenizer_config": tokenizer_config,
+        }
+        for label, path in resolved_files.items():
+            runner.require_resolved_regular_file(path, label)
+
+        import_chain = [
+            ("tools.run_stage1_layer23_v_rank1_hybrid", runner),
+            ("peft", runner.peft),
+            ("numpy", runner.np),
+            ("safetensors", runner.safetensors),
+            ("torch", runner.torch),
+            ("transformers", runner.transformers),
+            ("tools.ace2_checkpoint176_hidden_state_localizer", runner.localizer),
+            ("tools.ace2_exact_once_runtime_supervisor", runner.supervisor),
+            ("tools.rtl_arbitrary_text_generation_backend", runner.backend),
+            ("tools.run_rtl_arbitrary_text_generation", runner.generation_runner),
+            ("tools.run_stage1_layer23_v_rank1_integer_candidate", runner.candidate),
+        ]
+        chain_records = []
+        for name, module in import_chain:
+            module_path = (
+                IMPLEMENTATION
+                if module is runner
+                else Path(module.__file__).resolve(strict=True)
+            )
+            runner.require(
+                stat.S_ISREG(os.lstat(module_path).st_mode),
+                f"top-level import is not backed by a regular file: {name}",
+            )
+            chain_records.append(
+                {"module": name, "file": runner.file_record(module_path)}
+            )
+
+        paths = {
+            "output_namespace": runner.OUTPUT,
+            "package": runner.PACKAGE,
+            "state": runner.STATE,
+            "live_output": runner.LIVE,
+            "stdout": runner.STDOUT,
+            "stderr": runner.STDERR,
+            "terminal": runner.TERMINAL,
+            "exact_tokenization_preflight": TOKENIZATION_PREFLIGHT,
+            "tokenization_verifier_regression": TOKENIZATION_REGRESSION,
+        }
+        runner.require(
+            len({str(path) for path in paths.values()}) == len(paths),
+            "package/state/output paths are not distinct",
+        )
+        delta = _environment_delta(
+            PRE_IMPORT_ENVIRONMENT, post_import_environment
+        )
+        record = {
+            "schema_version": 2,
+            "mission_id": runner.MISSION_ID,
+            "attempt_identity": runner.ATTEMPT_ID,
+            "status": "PASS_NONCONSUMING_EXACT_CHILD_DEPENDENCY_PROBE",
+            "created_at_utc": runner.utc_now(),
+            "interpreter": runner.file_record(EXPECTED_PYTHON),
+            "launcher": runner.file_record(LAUNCHER),
+            "runner": runner.file_record(IMPLEMENTATION),
+            "cwd": PRE_IMPORT_CWD,
+            "argv": PRE_IMPORT_ARGV,
+            "argv_sha256": runner.sha256_bytes(
+                runner.canonical_bytes(PRE_IMPORT_ARGV)
+            ),
+            "environment": PRE_IMPORT_ENVIRONMENT,
+            "environment_keys": sorted(PRE_IMPORT_ENVIRONMENT),
+            "environment_sha256": runner.sha256_bytes(
+                runner.canonical_bytes(PRE_IMPORT_ENVIRONMENT)
+            ),
+            "pre_import_runtime": {
+                "sys_path": PRE_IMPORT_SYS_PATH,
+                "sys_prefix": PRE_IMPORT_SYS_PREFIX,
+                "loaded_module_names": sorted(PRE_IMPORT_MODULES),
+            },
+            "post_import_runtime": {
+                "sys_path": list(sys.path),
+                "sys_prefix": sys.prefix,
+            },
+            "post_import_environment": post_import_environment,
+            "post_import_environment_keys": sorted(post_import_environment),
+            "import_side_effects": {
+                "classification": "post_import_delta_not_launch_binding",
+                "environment_delta": delta,
+            },
+            "imports": {
+                "peft": str(runner.peft.__version__),
+                "torch": str(runner.torch.__version__),
+                "transformers": str(runner.transformers.__version__),
+                "numpy": str(runner.np.__version__),
+                "safetensors": str(runner.safetensors.__version__),
+            },
+            "top_level_import_chain": chain_records,
+            "resolved_runtime_inputs": {
+                label: runner.file_record(path)
+                for label, path in resolved_files.items()
+            },
+            "snapshot_revision": snapshot.name,
+            "path_disjointness": {
+                name: runner.public_path(path) for name, path in paths.items()
+            },
+            "sys_path": list(sys.path),
+            "sys_prefix": sys.prefix,
+            "checks": {
+                "process_not_started": True,
+                "output_namespace_absent": True,
+                "exact_tokenization_preflight_absent": True,
+                "tokenization_verifier_regression_absent": True,
+                "exact_interpreter_path": True,
+                "exact_interpreter_sha256": True,
+                "pristine_pre_import_environment_exact": True,
+                "all_pre_import_environment_keys_recorded": True,
+                "post_import_environment_delta_recorded": True,
+                "post_import_delta_not_misclassified_as_launch_mismatch": True,
+                "required_third_party_imports_succeeded": True,
+                "complete_top_level_import_chain_recorded": True,
+                "runner_and_launcher_hashes_recorded": True,
+                "resolved_model_tokenizer_bindings_regular": True,
+                "package_state_output_paths_distinct": True,
+                "predecessor_0007_terminal_and_0006_certificate_seals_immutable": True,
+            },
+        }
+        runner.write_json(runner.DEPENDENCY_PROBE, record)
+        print(
+            "ACE2_HYBRID_DEPENDENCY_PROBE_PASS "
+            f"sha256={runner.sha256_file(runner.DEPENDENCY_PROBE)} "
+            "process_start_count=0",
+            flush=True,
+        )
+        return 0
+
+    runner.dependency_probe = dependency_probe_0008
+
+    def child_entry_attestation_0008(
+        prompts_path: Path, expected_freeze_sha256: str
+    ) -> dict[str, Any]:
+        runner.require(
+            runner.PACKAGE.is_file() and runner.AUTHORITY.is_file(),
+            "execution package or authority is absent at child entry",
+        )
+        runner.require(
+            runner.FREEZE.is_file()
+            and TOKENIZATION_PREFLIGHT.is_file()
+            and TOKENIZATION_REGRESSION.is_file(),
+            "frozen child-entry artifacts are absent",
+        )
+        runner.require(
+            runner.sha256_file(runner.FREEZE) == expected_freeze_sha256,
+            "freeze hash differs from exact child argv binding",
+        )
+        package = runner.read_json(runner.PACKAGE)
+        authority = runner.read_json(runner.AUTHORITY)
+        runner.require(
+            package.get("schema") == runner.supervisor.PACKAGE_SCHEMA
+            and package.get("package_id")
+            == f"{runner.MISSION_ID}-{runner.ATTEMPT_ID}",
+            "execution package identity changed at child entry",
+        )
+        runner.require(
+            authority.get("schema") == runner.supervisor.AUTHORITY_SCHEMA
+            and authority.get("authority_id")
+            == f"operator-{runner.MISSION_ID}-{runner.ATTEMPT_ID}-execute-once"
+            and authority.get("decision") == "execute_once",
+            "execution authority identity changed at child entry",
+        )
+
+        package_measurement = runner.supervisor.measure_file(
+            runner.PACKAGE, "execution package"
+        )
+        authority_measurement = runner.supervisor.measure_file(
+            runner.AUTHORITY, "execution authority"
+        )
+        expected_authority_package = {
+            "path": str(runner.PACKAGE),
+            "byte_count": package_measurement.byte_count,
+            "sha256": package_measurement.sha256,
+            "package_id": package["package_id"],
+        }
+        runner.require(
+            authority.get("package") == expected_authority_package
+            and authority.get("bindings") == package.get("bindings"),
+            "package/authority binding changed at child entry",
+        )
+        expected_runtime = {
+            "state_dir": str(runner.STATE),
+            "stdout_path": str(runner.STDOUT),
+            "stderr_path": str(runner.STDERR),
+            "terminal_record_path": str(runner.TERMINAL),
+        }
+        runner.require(
+            authority.get("runtime") == expected_runtime,
+            "authority runtime binding changed at child entry",
+        )
+
+        frozen = runner.read_json(runner.FREEZE)
+        runner.verify_frozen_sources(frozen, prompts_path)
+        runner.require(
+            frozen.get("exact_tokenization_preflight")
+            == runner.file_record(TOKENIZATION_PREFLIGHT)
+            and frozen.get("tokenization_verifier_regression")
+            == runner.file_record(TOKENIZATION_REGRESSION),
+            "frozen tokenization artifact binding changed at child entry",
+        )
+        runner.require(
+            frozen["tokenizer"].get("exact_expected_checks")
+            == EXPECTED_TOKENIZATION_CHECKS,
+            "frozen exact tokenization check map changed at child entry",
+        )
+        _snapshot, model, tokenizer_json, tokenizer_config = (
+            runner.resolve_runtime_inputs()
+        )
+        packaged_bindings = package.get("bindings")
+        runner.require(
+            isinstance(packaged_bindings, dict),
+            "execution package bindings are malformed",
+        )
+        required_absent_outputs = packaged_bindings.get(
+            "required_absent_outputs"
+        )
+        runner.require(
+            isinstance(required_absent_outputs, list)
+            and set(required_absent_outputs)
+            == {
+                str(runner.LIVE),
+                str(runner.STDOUT),
+                str(runner.STDERR),
+                str(runner.TERMINAL),
+            },
+            "required-absent output binding changed at child entry",
+        )
+        expected_bindings = runner.package_bindings(
+            prompts_path,
+            expected_freeze_sha256,
+            required_absent_outputs,
+            model,
+            tokenizer_json,
+            tokenizer_config,
+            include_frozen_stage_files=True,
+        )
+        runner.require(
+            packaged_bindings == expected_bindings,
+            "frozen source or execution binding changed at child entry",
+        )
+        observed_argv = [str(Path(sys.executable).resolve()), *PRE_IMPORT_ARGV]
+        runner.require(
+            packaged_bindings["argv"] == observed_argv
+            and packaged_bindings["argv_sha256"]
+            == runner.supervisor.canonical_value_sha256(observed_argv),
+            "child argv differs from the exact packaged argv",
+        )
+        runner.require(
+            packaged_bindings["cwd"] == PRE_IMPORT_CWD
+            and packaged_bindings["environment"] == PRE_IMPORT_ENVIRONMENT,
+            "child cwd or environment differs from the package binding",
+        )
+
+        expected_provenance = {
+            "package": {
+                "path": str(runner.PACKAGE),
+                "byte_count": package_measurement.byte_count,
+                "sha256": package_measurement.sha256,
+                "package_id": package["package_id"],
+            },
+            "authority": {
+                "path": str(runner.AUTHORITY),
+                "byte_count": authority_measurement.byte_count,
+                "sha256": authority_measurement.sha256,
+                "authority_id": authority["authority_id"],
+            },
+        }
+        intent_path = runner.STATE / "pre_start_intent.json"
+        runner.require(
+            intent_path.is_file(), "supervisor pre-start reservation is absent"
+        )
+        intent = runner.read_json(intent_path)
+        runner.require(
+            intent.get("schema") == runner.supervisor.INTENT_SCHEMA
+            and intent.get("process_start_count") == 0
+            and intent.get("provenance") == expected_provenance
+            and intent.get("bindings") == packaged_bindings
+            and intent.get("runtime") == expected_runtime,
+            "supervisor pre-start reservation changed",
+        )
+
+        started_path = runner.STATE / "process_started.json"
+        deadline = time.monotonic() + 5.0
+        while not started_path.is_file() and time.monotonic() < deadline:
+            time.sleep(0.01)
+        runner.require(
+            started_path.is_file(),
+            "supervisor process-start record was not published within the child-entry bound",
+        )
+        started_records = sorted(
+            path
+            for path in runner.STATE.iterdir()
+            if path.name.startswith("process_started")
+        )
+        runner.require(
+            started_records == [started_path],
+            "supervisor process-start record is not sole",
+        )
+        started = runner.read_json(started_path)
+        runner.require(
+            set(started) == {
+                "schema",
+                "recorded_at_utc",
+                "process_start_count",
+                "pid",
+                "provenance",
+            }
+            and started.get("schema") == runner.supervisor.STARTED_SCHEMA
+            and started.get("process_start_count") == 1
+            and started.get("pid") == os.getpid()
+            and started.get("provenance") == expected_provenance,
+            "supervisor process-start record changed or belongs to another child",
+        )
+        forbidden_outcomes = [
+            runner.LIVE,
+            runner.RESULT,
+            runner.FAILURE,
+            runner.TERMINAL,
+            runner.STATE / "terminal_record.json",
+            runner.STATE / "pre_start_rejection.json",
+        ]
+        runner.require(
+            not any(path.exists() for path in forbidden_outcomes)
+            and not any(Path(path).exists() for path in required_absent_outputs),
+            "pre-existing result or terminal outcome exists beyond the current reservation",
+        )
+        return {
+            "status": "PASS_EXACT_ONCE_CHILD_ENTRY_ATTESTATION",
+            "pid": os.getpid(),
+            "process_start_count": 1,
+            "package_sha256": package_measurement.sha256,
+            "authority_sha256": authority_measurement.sha256,
+            "argv_sha256": packaged_bindings["argv_sha256"],
+            "freeze_sha256": expected_freeze_sha256,
+        }
+
+    runner.child_entry_attestation = child_entry_attestation_0008
+
+    def exact_tokenization_payload(
+        prompts_path: Path,
+        *,
+        execution_attestation: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        runner.verify_exact_interpreter()
+        runner.verify_dependency_probe()
+        runner.verify_predecessor_seals()
+        if execution_attestation is None:
+            runner.validate_no_execution()
+        else:
+            runner.require(
+                execution_attestation.get("status")
+                == "PASS_EXACT_ONCE_CHILD_ENTRY_ATTESTATION"
+                and execution_attestation.get("pid") == os.getpid()
+                and execution_attestation.get("process_start_count") == 1,
+                "execution-time tokenization recomputation lacks exact child-entry attestation",
+            )
+        runner.require(
+            runner.backend.MAX_CONTEXT_TOKENS == MAX_CONTEXT_TOKENS,
+            "accepted RTL context bound changed",
+        )
+        resolved_prompts = prompts_path.resolve(strict=True)
+        runner.require_resolved_regular_file(resolved_prompts, "private prompt")
+        prompt_hashes = runner.prompt_records(resolved_prompts)
+        snapshot, _model, tokenizer_json, tokenizer_config = (
+            runner.resolve_runtime_inputs()
+        )
+        for label, path in (
+            ("tokenizer JSON", tokenizer_json),
+            ("tokenizer config", tokenizer_config),
+        ):
+            runner.require_resolved_regular_file(path, label)
+        tokenizer_config_value = runner.read_json(tokenizer_config)
+        configured_template = tokenizer_config_value.get("chat_template")
+        runner.require(
+            isinstance(configured_template, str) and bool(configured_template),
+            "resolved tokenizer chat template is absent",
+        )
+        tokenizer = runner.AutoTokenizer.from_pretrained(
+            snapshot,
+            local_files_only=True,
+            trust_remote_code=False,
+            use_fast=True,
+        )
+        runner.require(tokenizer.is_fast is True, "final tokenizer is not fast")
+        runner.require(
+            tokenizer.chat_template == configured_template,
+            "AutoTokenizer chat template differs from resolved tokenizer config",
+        )
+        prompt_records = []
+        for prompt, prompt_hash in zip(
+            runner.load_prompts(resolved_prompts), prompt_hashes, strict=True
+        ):
+            token_ids = runner.generation_runner.canonical_chat_token_ids(
+                tokenizer, prompt["text"]
+            )
+            runner.require(bool(token_ids), "tokenizer produced an empty prompt")
+            prompt_token_count = len(token_ids)
+            total_context_token_count = prompt_token_count + runner.STEPS
+            maximum_processed_position = total_context_token_count - 1
+            runner.require(
+                total_context_token_count <= MAX_CONTEXT_TOKENS,
+                "exact final prompt tokenization exceeds accepted RTL context bound",
+            )
+            runner.require(
+                maximum_processed_position < MAX_CONTEXT_TOKENS,
+                "exact final prompt processed position exceeds accepted RTL context bound",
+            )
+            prompt_records.append(
+                {
+                    **prompt_hash,
+                    "prompt_token_ids": token_ids,
+                    "prompt_token_count": prompt_token_count,
+                    "generation_count": runner.STEPS,
+                    "total_context_token_count": total_context_token_count,
+                    "maximum_processed_position": maximum_processed_position,
+                    "checks": {
+                        "prompt_plus_generation_within_context_bound": True,
+                        "maximum_processed_position_within_context_bound": True,
+                    },
+                }
+            )
+        return {
+            "prompts": prompt_records,
+            "tokenizer": {
+                "snapshot_revision": snapshot.name,
+                "auto_tokenizer": {
+                    "class": type(tokenizer).__name__,
+                    "use_fast": True,
+                    "local_files_only": True,
+                    "trust_remote_code": False,
+                },
+                "resolved_files": {
+                    "tokenizer_json": runner.file_record(tokenizer_json),
+                    "tokenizer_config": runner.file_record(tokenizer_config),
+                },
+                "chat_template_utf8_sha256": runner.sha256_bytes(
+                    configured_template.encode("utf-8")
+                ),
+                "canonical_chat_token_ids_source": runner.file_record(
+                    Path(runner.generation_runner.__file__).resolve(strict=True)
+                ),
+                "apply_policy": "single user message plus tokenizer generation prompt",
+            },
+            "context_contract": {
+                "max_context_tokens": MAX_CONTEXT_TOKENS,
+                "generation_count": runner.STEPS,
+                "total_context_formula": "len(prompt_token_ids) + generation_count",
+                "maximum_processed_position_formula": "len(prompt_token_ids) + generation_count - 1",
+            },
+        }
+
+    def tokenization_preflight_0008(prompts_path: Path) -> int:
+        runner.require(
+            not TOKENIZATION_PREFLIGHT.exists(),
+            "exact-tokenization preflight already exists",
+        )
+        runner.require(
+            not TOKENIZATION_REGRESSION.exists(),
+            "tokenization-verifier regression exists before exact tokenization",
+        )
+        runner.require(
+            not runner.TEMPLATE_GATE.exists(),
+            "package-template invariant already exists before exact tokenization",
+        )
+        runner.require(
+            not runner.OUTPUT.exists(),
+            f"{runner.ATTEMPT_ID} output namespace already exists before exact tokenization",
+        )
+        payload = exact_tokenization_payload(prompts_path)
+        unseen = runner.verify_unseen_prompt_hashes(
+            runner.prompt_records(prompts_path)
+        )
+        record = {
+            "schema_version": 1,
+            "mission_id": runner.MISSION_ID,
+            "attempt_identity": runner.ATTEMPT_ID,
+            "status": "PASS_NONCONSUMING_EXACT_TOKENIZATION_PREFLIGHT",
+            "created_at_utc": runner.utc_now(),
+            **payload,
+            "unseen_check": unseen,
+            "checks": dict(EXPECTED_TOKENIZATION_CHECKS),
+        }
+        runner.write_json(TOKENIZATION_PREFLIGHT, record)
+        print(
+            "ACE2_HYBRID_EXACT_TOKENIZATION_PREFLIGHT_PASS "
+            f"sha256={runner.sha256_file(TOKENIZATION_PREFLIGHT)} "
+            "process_start_count=0",
+            flush=True,
+        )
+        return 0
+
+    runner.tokenization_preflight = tokenization_preflight_0008
+
+    def validate_tokenization_check_map(record: dict[str, Any]) -> None:
+        runner.require(
+            isinstance(record.get("checks"), dict)
+            and record["checks"] == EXPECTED_TOKENIZATION_CHECKS,
+            "exact-tokenization preflight exact check map changed",
+        )
+
+    runner.validate_tokenization_check_map = validate_tokenization_check_map
+
+    def verify_tokenization_preflight(
+        prompts_path: Path,
+        *,
+        execution_attestation: dict[str, Any] | None = None,
+    ) -> dict[str, Any]:
+        runner.require(
+            TOKENIZATION_PREFLIGHT.is_file(),
+            "exact-tokenization preflight is absent",
+        )
+        record = runner.read_json(TOKENIZATION_PREFLIGHT)
+        runner.require(
+            record.get("mission_id") == runner.MISSION_ID
+            and record.get("attempt_identity") == runner.ATTEMPT_ID
+            and record.get("status")
+            == "PASS_NONCONSUMING_EXACT_TOKENIZATION_PREFLIGHT",
+            "exact-tokenization preflight identity/status changed",
+        )
+        validate_tokenization_check_map(record)
+        payload = exact_tokenization_payload(
+            prompts_path, execution_attestation=execution_attestation
+        )
+        for key in ("prompts", "tokenizer", "context_contract"):
+            runner.require(
+                record[key] == payload[key],
+                f"exact-tokenization preflight binding changed: {key}",
+            )
+        runner.require(
+            record["unseen_check"]["records"]
+            == [
+                {
+                    "prompt_id": prompt["prompt_id"],
+                    "sha256": prompt["sha256"],
+                    "prior_hash_matches": 0,
+                }
+                for prompt in payload["prompts"]
+            ],
+            "exact-tokenization unseen-prompt certificate changed",
+        )
+        return record
+
+    runner.verify_tokenization_preflight = verify_tokenization_preflight
+
+    def tokenization_verifier_regression_0008(prompts_path: Path) -> int:
+        runner.require(
+            not TOKENIZATION_REGRESSION.exists(),
+            "tokenization-verifier regression already exists",
+        )
+        runner.require(
+            not runner.TEMPLATE_GATE.exists(),
+            "package-template invariant exists before tokenization-verifier regression",
+        )
+        runner.require(
+            not runner.OUTPUT.exists(),
+            f"{runner.ATTEMPT_ID} output namespace already exists before verifier regression",
+        )
+        certificate = verify_tokenization_preflight(prompts_path)
+        cases = (
+            ("required_true_flipped_false", "process_not_started", False),
+            ("execution_flag_flipped_true", "model_executed", True),
+        )
+        case_records = []
+        with tempfile.TemporaryDirectory(
+            prefix=f"ace2-{runner.ATTEMPT_ID}-tokenization-regression-"
+        ) as temporary:
+            sandbox = Path(temporary)
+            for name, key, value in cases:
+                tampered = json.loads(json.dumps(certificate))
+                tampered["checks"][key] = value
+                tampered_path = sandbox / f"{name}.json"
+                runner.write_json(tampered_path, tampered)
+                try:
+                    validate_tokenization_check_map(runner.read_json(tampered_path))
+                except runner.HybridError as error:
+                    runner.require(
+                        str(error)
+                        == "exact-tokenization preflight exact check map changed",
+                        f"unexpected verifier rejection for {name}",
+                    )
+                    rejection = str(error)
+                else:
+                    raise runner.HybridError(
+                        f"tokenization verifier accepted tamper case: {name}"
+                    )
+                case_records.append(
+                    {
+                        "case": name,
+                        "flipped_key": key,
+                        "flipped_value": value,
+                        "temporary_certificate_sha256": runner.sha256_file(
+                            tampered_path
+                        ),
+                        "rejected": True,
+                        "rejection": rejection,
+                    }
+                )
+        runner.validate_no_execution()
+        runner.require(
+            not runner.OUTPUT.exists(),
+            f"{runner.ATTEMPT_ID} output namespace was consumed by verifier regression",
+        )
+        record = {
+            "schema_version": 1,
+            "mission_id": runner.MISSION_ID,
+            "attempt_identity": runner.ATTEMPT_ID,
+            "status": "PASS_NONCONSUMING_EXACT_CHECK_MAP_TAMPER_REGRESSION",
+            "created_at_utc": runner.utc_now(),
+            "source_certificate": runner.file_record(TOKENIZATION_PREFLIGHT),
+            "expected_checks": dict(EXPECTED_TOKENIZATION_CHECKS),
+            "cases": case_records,
+            "checks": {
+                "required_true_flipped_false_rejected": True,
+                "execution_flag_flipped_true_rejected": True,
+                "temporary_certificate_copies_isolated": True,
+                "process_not_started": True,
+                "output_namespace_absent": True,
+            },
+        }
+        runner.write_json(TOKENIZATION_REGRESSION, record)
+        print(
+            "ACE2_HYBRID_TOKENIZATION_VERIFIER_REGRESSION_PASS "
+            f"sha256={runner.sha256_file(TOKENIZATION_REGRESSION)} "
+            "process_start_count=0",
+            flush=True,
+        )
+        return 0
+
+    runner.tokenization_verifier_regression = tokenization_verifier_regression_0008
+
+    def verify_tokenization_verifier_regression() -> dict[str, Any]:
+        runner.require(
+            TOKENIZATION_REGRESSION.is_file(),
+            "tokenization-verifier regression is absent",
+        )
+        record = runner.read_json(TOKENIZATION_REGRESSION)
+        runner.require(
+            record.get("mission_id") == runner.MISSION_ID
+            and record.get("attempt_identity") == runner.ATTEMPT_ID
+            and record.get("status")
+            == "PASS_NONCONSUMING_EXACT_CHECK_MAP_TAMPER_REGRESSION",
+            "tokenization-verifier regression identity/status changed",
+        )
+        runner.require(
+            record.get("source_certificate")
+            == runner.file_record(TOKENIZATION_PREFLIGHT),
+            "tokenization-verifier regression certificate binding changed",
+        )
+        runner.require(
+            record.get("expected_checks") == EXPECTED_TOKENIZATION_CHECKS,
+            "tokenization-verifier regression expected map changed",
+        )
+        runner.require(
+            record.get("checks")
+            == {
+                "required_true_flipped_false_rejected": True,
+                "execution_flag_flipped_true_rejected": True,
+                "temporary_certificate_copies_isolated": True,
+                "process_not_started": True,
+                "output_namespace_absent": True,
+            },
+            "tokenization-verifier regression predicates changed",
+        )
+        return record
+
+    runner.verify_tokenization_verifier_regression = (
+        verify_tokenization_verifier_regression
+    )
+
+    def source_records_0008(
+        model: Path,
+        tokenizer_json: Path,
+        tokenizer_config: Path,
+        prompts: Path,
+    ) -> dict[str, Any]:
+        records = original_source_records(
+            model, tokenizer_json, tokenizer_config, prompts
+        )
+        for path in (TOKENIZATION_PREFLIGHT, TOKENIZATION_REGRESSION):
+            records[runner.public_path(path)] = runner.file_record(path)
+        return dict(sorted(records.items()))
+
+    runner.source_records = source_records_0008
+
+    def execution_bound_paths_0008(
+        prompts_path: Path,
+        model: Path,
+        tokenizer_json: Path,
+        tokenizer_config: Path,
+        *,
+        include_frozen_stage_files: bool,
+    ) -> list[Path]:
+        paths = original_execution_bound_paths(
+            prompts_path,
+            model,
+            tokenizer_json,
+            tokenizer_config,
+            include_frozen_stage_files=include_frozen_stage_files,
+        )
+        return sorted(
+            {
+                *paths,
+                TOKENIZATION_PREFLIGHT.resolve(strict=True),
+                TOKENIZATION_REGRESSION.resolve(strict=True),
+            },
+            key=lambda item: str(item),
+        )
+
+    runner.execution_bound_paths = execution_bound_paths_0008
+
+    def package_template_invariant_0008(prompts_path: Path) -> int:
+        runner.validate_no_execution()
+        certificate = verify_tokenization_preflight(prompts_path)
+        regression = verify_tokenization_verifier_regression()
+        result = original_package_template_invariant(prompts_path)
+        gate = runner.read_json(runner.TEMPLATE_GATE)
+        gate["exact_tokenization_preflight"] = runner.file_record(
+            TOKENIZATION_PREFLIGHT
+        )
+        gate["tokenization_verifier_regression"] = runner.file_record(
+            TOKENIZATION_REGRESSION
+        )
+        gate["tokenization_context_contract"] = certificate["context_contract"]
+        gate["tokenization_exact_expected_checks"] = dict(
+            EXPECTED_TOKENIZATION_CHECKS
+        )
+        gate["tokenization_tamper_cases"] = regression["cases"]
+        gate["checks"]["exact_tokenization_preflight_passed"] = True
+        gate["checks"]["exact_tokenization_check_map_passed"] = True
+        gate["checks"]["tokenization_tamper_regressions_passed"] = True
+        gate["checks"]["all_prompt_contexts_within_40"] = True
+        runner.write_json(runner.TEMPLATE_GATE, gate)
+        print(
+            "ACE2_HYBRID_PACKAGE_TEMPLATE_TOKENIZATION_BINDING_PASS "
+            f"sha256={runner.sha256_file(runner.TEMPLATE_GATE)}",
+            flush=True,
+        )
+        return result
+
+    runner.package_template_invariant = package_template_invariant_0008
+
+    def preflight_0008(prompts_path: Path) -> int:
+        certificate = verify_tokenization_preflight(prompts_path)
+        regression = verify_tokenization_verifier_regression()
+        result = original_preflight(prompts_path)
+        preflight_record = runner.read_json(runner.PREFLIGHT)
+        preflight_record["exact_tokenization_preflight"] = runner.file_record(
+            TOKENIZATION_PREFLIGHT
+        )
+        preflight_record["tokenization_verifier_regression"] = runner.file_record(
+            TOKENIZATION_REGRESSION
+        )
+        preflight_record["exact_prompt_tokenization"] = certificate["prompts"]
+        preflight_record["context_contract"] = certificate["context_contract"]
+        preflight_record["checks"]["exact_final_tokenization_preflight_passed"] = True
+        preflight_record["checks"]["tokenization_tamper_regressions_passed"] = True
+        preflight_record["checks"]["all_prompt_contexts_within_40"] = True
+        runner.require(
+            regression["expected_checks"] == EXPECTED_TOKENIZATION_CHECKS,
+            "preflight tokenization exact expected map changed",
+        )
+        runner.write_json(runner.PREFLIGHT, preflight_record)
+        print(
+            "ACE2_HYBRID_PREFLIGHT_TOKENIZATION_BINDING_PASS "
+            f"sha256={runner.sha256_file(runner.PREFLIGHT)}",
+            flush=True,
+        )
+        return result
+
+    runner.preflight = preflight_0008
+
+    def freeze_0008(prompts_path: Path) -> int:
+        certificate = verify_tokenization_preflight(prompts_path)
+        regression = verify_tokenization_verifier_regression()
+        result = original_freeze(prompts_path)
+        frozen = runner.read_json(runner.FREEZE)
+        frozen["exact_tokenization_preflight"] = runner.file_record(
+            TOKENIZATION_PREFLIGHT
+        )
+        frozen["tokenization_verifier_regression"] = runner.file_record(
+            TOKENIZATION_REGRESSION
+        )
+        frozen["tokenizer"]["exact_prompt_tokenization"] = certificate["prompts"]
+        frozen["tokenizer"]["context_contract"] = certificate["context_contract"]
+        frozen["tokenizer"]["exact_expected_checks"] = dict(
+            EXPECTED_TOKENIZATION_CHECKS
+        )
+        frozen["tokenizer"]["tamper_regression_cases"] = regression["cases"]
+        runner.write_json(runner.FREEZE, frozen)
+        print(
+            "ACE2_HYBRID_FREEZE_TOKENIZATION_BINDING_PASS "
+            f"freeze_sha256={runner.sha256_file(runner.FREEZE)}",
+            flush=True,
+        )
+        return result
+
+    runner.freeze = freeze_0008
+
+    def run_sequence_0008(
+        prompt_id: str,
+        token_ids: list[int],
+        tokenizer: Any,
+        weights: Any,
+        adapter: Any,
+        binary: Path,
+        mode: str,
+    ) -> dict[str, Any]:
+        runner.require(
+            len(token_ids) + runner.STEPS <= MAX_CONTEXT_TOKENS,
+            "attention context exceeds accepted RTL core bound",
+        )
+        runner.require(
+            len(token_ids) + runner.STEPS - 1 < MAX_CONTEXT_TOKENS,
+            "attention processed position exceeds accepted RTL core bound",
+        )
+        return original_run_sequence(
+            prompt_id, token_ids, tokenizer, weights, adapter, binary, mode
+        )
+
+    runner.run_sequence = run_sequence_0008
+
+    def execute_0008(prompts_path: Path, expected_freeze_sha256: str) -> int:
+        execution_attestation = child_entry_attestation_0008(
+            prompts_path, expected_freeze_sha256
+        )
+        certificate = verify_tokenization_preflight(
+            prompts_path, execution_attestation=execution_attestation
+        )
+        verify_tokenization_verifier_regression()
+        frozen = runner.read_json(runner.FREEZE)
+        runner.require(
+            frozen.get("exact_tokenization_preflight")
+            == runner.file_record(TOKENIZATION_PREFLIGHT),
+            "frozen exact-tokenization preflight binding changed",
+        )
+        runner.require(
+            frozen.get("tokenization_verifier_regression")
+            == runner.file_record(TOKENIZATION_REGRESSION),
+            "frozen tokenization-verifier regression binding changed",
+        )
+        runner.require(
+            frozen["tokenizer"].get("exact_prompt_tokenization")
+            == certificate["prompts"],
+            "frozen exact prompt tokenization changed",
+        )
+        runner.require(
+            frozen["tokenizer"].get("exact_expected_checks")
+            == EXPECTED_TOKENIZATION_CHECKS,
+            "frozen exact tokenization check map changed",
+        )
+        return original_execute(prompts_path, expected_freeze_sha256)
+
+    runner.execute = execute_0008
+
+    def verify_0008() -> int:
+        result = original_verify()
+        certificate = runner.read_json(TOKENIZATION_PREFLIGHT)
+        runner.require(
+            certificate.get("mission_id") == runner.MISSION_ID
+            and certificate.get("attempt_identity") == runner.ATTEMPT_ID
+            and certificate.get("status")
+            == "PASS_NONCONSUMING_EXACT_TOKENIZATION_PREFLIGHT",
+            "exact-tokenization preflight identity/status changed",
+        )
+        validate_tokenization_check_map(certificate)
+        verify_tokenization_verifier_regression()
+        frozen = runner.read_json(runner.FREEZE)
+        execution_result = runner.read_json(runner.RESULT)
+        runner.require(
+            frozen.get("exact_tokenization_preflight")
+            == runner.file_record(TOKENIZATION_PREFLIGHT),
+            "frozen exact-tokenization certificate measurement changed",
+        )
+        runner.require(
+            frozen["tokenizer"]["exact_prompt_tokenization"]
+            == certificate["prompts"],
+            "frozen tokenization certificate changed",
+        )
+        runner.require(
+            frozen["tokenizer"]["exact_expected_checks"]
+            == EXPECTED_TOKENIZATION_CHECKS,
+            "frozen exact tokenization check map changed",
+        )
+        for certified, observed in zip(
+            certificate["prompts"], execution_result["prompts"], strict=True
+        ):
+            runner.require(
+                certified["prompt_id"] == observed["prompt_id"]
+                and certified["prompt_token_count"]
+                == observed["prompt_token_count"],
+                "executed prompt tokenization differs from exact preflight",
+            )
+            runner.require(
+                certified["total_context_token_count"] <= MAX_CONTEXT_TOKENS
+                and certified["maximum_processed_position"]
+                < MAX_CONTEXT_TOKENS,
+                "certified prompt context bound changed",
+            )
+            runner.require(
+                max(
+                    step["absolute_position"]
+                    for step in observed["rtl_hybrid"]["steps"]
+                )
+                < certified["maximum_processed_position"],
+                "observed RTL processed position exceeds certified maximum",
+            )
+        print(
+            "ACE2_HYBRID_EXACT_TOKENIZATION_DECISIVE_VERIFY_PASS "
+            f"certificate_sha256={runner.sha256_file(TOKENIZATION_PREFLIGHT)} "
+            f"regression_sha256={runner.sha256_file(TOKENIZATION_REGRESSION)}",
+            flush=True,
+        )
+        return result
+
+    runner.verify = verify_0008
+
+
+def main() -> int:
+    try:
+        _verify_pre_import_launch()
+        if str(ROOT) not in sys.path:
+            sys.path.insert(0, str(ROOT))
+        from tools import run_stage1_layer23_v_rank1_hybrid as runner
+
+        post_import_environment = dict(os.environ)
+        _configure_runner(runner, post_import_environment)
+        if "--tokenization-preflight" in PRE_IMPORT_ARGV[1:]:
+            parser = argparse.ArgumentParser()
+            parser.add_argument("--tokenization-preflight", action="store_true")
+            parser.add_argument("--prompts", type=Path, default=runner.DEFAULT_PROMPTS)
+            arguments = parser.parse_args(PRE_IMPORT_ARGV[1:])
+            return runner.tokenization_preflight(arguments.prompts.resolve())
+        if "--check-tokenization-verifier" in PRE_IMPORT_ARGV[1:]:
+            parser = argparse.ArgumentParser()
+            parser.add_argument("--check-tokenization-verifier", action="store_true")
+            parser.add_argument("--prompts", type=Path, default=runner.DEFAULT_PROMPTS)
+            arguments = parser.parse_args(PRE_IMPORT_ARGV[1:])
+            return runner.tokenization_verifier_regression(
+                arguments.prompts.resolve()
+            )
+        return runner.main()
+    except BaseException as error:
+        _seal_preloader_failure(error)
+        print(f"{type(error).__name__}: {error}", file=sys.stderr, flush=True)
+        return 1
+
+
+if __name__ == "__main__":
+    raise SystemExit(main())

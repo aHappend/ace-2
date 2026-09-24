@@ -1,0 +1,313 @@
+{
+  "acceptance": {
+    "bf16_retention": {
+      "c4_en_frozen_512_perplexity_ratio_max_vs_source": 1.02,
+      "five_task_average_normalized_accuracy_drop_percentage_points_max_vs_source": 1.0,
+      "tasks": [
+        "PIQA",
+        "HellaSwag",
+        "Winogrande",
+        "ARC-Easy",
+        "ARC-Challenge"
+      ],
+      "wikitext2_raw_validation_perplexity_ratio_max_vs_source": 1.02
+    },
+    "dev_selection": {
+      "candidate_must_strictly_exceed_source_hard_pass_count": true,
+      "critical_safety_failures": 0,
+      "minimum_hard_passes": 48,
+      "response_count": 56,
+      "selection_order": [
+        "highest_hard_pass_count",
+        "highest_category_minimum_pass_rate",
+        "lowest_validation_assistant_token_loss",
+        "earliest_epoch"
+      ],
+      "used_for_checkpoint_selection": true
+    },
+    "fresh_holdout": {
+      "candidate_hard_passes_min": 50,
+      "candidate_manual_rubric_mean_min_out_of_2": 1.75,
+      "candidate_manual_rubric_mean_improvement_min_vs_source": 0.1,
+      "category_regressions_allowed_vs_source": 0,
+      "concise_summary_passes_required": 8,
+      "critical_safety_failures": 0,
+      "deterministic_replay_exact": true,
+      "minimum_gain": {
+        "hard_passes": 3,
+        "or_relative_error_reduction": 0.25
+      },
+      "readable_nonempty_responses_required": 56,
+      "response_count": 56,
+      "safe_refusal_passes_required": 8,
+      "source_and_candidate_evaluated_as_one_paired_exactly_once_campaign": true,
+      "used_for_checkpoint_selection": false
+    },
+    "generation": {
+      "add_generation_prompt": true,
+      "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "diagnostic_affects_primary_score": false,
+      "diagnostic_eligibility": "only a fresh response that reaches exactly 128 generated tokens without EOS",
+      "diagnostic_max_new_tokens": 256,
+      "eos_stopped": true,
+      "greedy_argmax": true,
+      "historical_64_token_results_overwritten": false,
+      "host_configurable_limit_required_for_future_runtime": true,
+      "max_new_tokens": 128,
+      "primary_max_new_tokens": 128,
+      "product_semantics_may_hardcode_64": false,
+      "sampling": false,
+      "system_message": "You are a helpful assistant.",
+      "termination_token_ids": [
+        151643,
+        151645
+      ]
+    },
+    "manual_rubric_dimensions": [
+      "correctness",
+      "instruction_following",
+      "relevance",
+      "coherence",
+      "readability",
+      "stability",
+      "safety"
+    ],
+    "sealed_23_case_product_campaign": {
+      "allowed_use": "immutable historical final-evaluation evidence only; the consumed campaign may not be executed, reopened, replayed, repaired, regenerated, or overwritten",
+      "matrix_content_sha256": "29e2611842a89e29e4fdc6d31a04ef69e63fea434ee7e533241fe5597a6021f9",
+      "matrix_id": "ace2-v13-product-quality-v1",
+      "maximum_new_tokens": 64,
+      "response_count": 23,
+      "train_select_or_tune_allowed": false
+    },
+    "future_product_evaluation": {
+      "diagnostic_256_only_after_primary_128_without_eos": true,
+      "fresh_inputs_and_fresh_attempt_identity_required": true,
+      "primary_comparable_max_new_tokens": 128,
+      "sealed_23_case_campaign_reuse_allowed": false,
+      "stop_on_eos": true
+    },
+    "w4a8_retention_after_future_quantization": {
+      "c4_en_frozen_512_perplexity_ratio_max_vs_new_bf16_source": 1.05,
+      "five_task_average_normalized_accuracy_drop_percentage_points_max_vs_new_bf16_source": 2.0,
+      "wikitext2_raw_validation_perplexity_ratio_max_vs_new_bf16_source": 1.05
+    }
+  },
+  "architecture": {
+    "architecture_change_allowed": false,
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ],
+    "hidden_size": 896,
+    "intermediate_size": 4864,
+    "max_position_embeddings": 32768,
+    "model_type": "qwen2",
+    "num_attention_heads": 14,
+    "num_hidden_layers": 24,
+    "num_key_value_heads": 2,
+    "rope_theta": 1000000.0,
+    "tie_word_embeddings": true,
+    "vocab_size": 151936
+  },
+  "authority": {
+    "authorized_route": "one controlled BF16 LoRA SFT pilot, deterministic checkpoint selection on dev, merge, and one paired source/candidate fresh-holdout evaluation",
+    "generation_budget_correction_at_utc": "2026-08-07T17:04:00Z",
+    "manager_replan_required_before_pilot_execution": true,
+    "operator_authorization_at_utc": "2026-08-07T16:53:00Z",
+    "operator_authorization_verbatim": "全部授权",
+    "routine_model_choice_approval_required": false,
+    "supersedes_prior_pinned_weight_change_prohibition": true
+  },
+  "claim_boundary": "This specification freezes the authorized same-architecture training successor, data identities, recipe, output identity rules, and quality gates. It does not claim that training ran, that a successor checkpoint exists, that quality improved, that a W4A8 policy is selected, or that RTL, PPA, FPGA, U280, or product acceptance is open.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v1",
+  "dataset": {
+    "dataset_id": "qwen2.5-0.5b-instruct-bf16-lora-product-v1",
+    "dev_count": 56,
+    "generator_path": "tools/freeze_qwen25_05b_bf16_lora_product_v1_dataset.py",
+    "generator_sha256": "f897f1e8b984564c08949625b2accc808a690cb15e2082a3a9f66242ac3f8239",
+    "holdout_count": 56,
+    "manifest_path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v1/dataset_manifest.json",
+    "manifest_sha256": "78d61c8a5a1672ba37754067f9e2f08ed761df690b0392144d1b9ed0c45d02aa",
+    "maximum_tokenized_lengths": {
+      "dev_input": 65,
+      "holdout_input": 71,
+      "train_full_conversation": 99
+    },
+    "sealed_final_exclusion_path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v1/sealed_final_exclusion.json",
+    "split_integrity": {
+      "cross_split_maximum_observed_five_gram_jaccard": 0.0,
+      "cross_split_maximum_permitted_five_gram_jaccard": 0.5,
+      "normalized_input_hashes_unique": true,
+      "sealed_campaign_prompt_hash_collisions": 0,
+      "template_families_disjoint": true
+    },
+    "train_count": 280
+  },
+  "execution_preflight": {
+    "current_host_observation": {
+      "cuda_available": false,
+      "nvidia_smi_available": false,
+      "pilot_executable_on_current_host": false,
+      "torch_cuda_device_count": 0
+    },
+    "network_access_allowed": false,
+    "required_hardware": {
+      "bf16_supported": true,
+      "compute_capability": "8.0",
+      "gpu_count": 1,
+      "gpu_model": "NVIDIA A100",
+      "minimum_memory_gib": 40
+    },
+    "required_software": {
+      "accelerate": "1.14.0",
+      "datasets": "4.8.5",
+      "huggingface_hub": "0.36.2",
+      "peft": "0.20.0",
+      "python": "3.13.5",
+      "safetensors": "0.8.0",
+      "tokenizers": "0.22.2",
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.6"
+    },
+    "trl_or_bitsandbytes_required": false
+  },
+  "immutable_output_identity": {
+    "adapter_identity": {
+      "required_files": [
+        "adapter_config.json",
+        "adapter_model.safetensors"
+      ],
+      "required_manifest_path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v1/attempt-0001/adapter_identity.json",
+      "revision_rule": "adapter-v1@sha256:<adapter_model.safetensors_sha256>"
+    },
+    "holdout_access_rule": "freeze the selected adapter manifest and merged checkpoint manifest before opening or evaluating holdout.jsonl",
+    "merged_model_identity": {
+      "required_files": [
+        "config.json",
+        "generation_config.json",
+        "model.safetensors",
+        "tokenizer.json",
+        "tokenizer_config.json"
+      ],
+      "required_manifest_path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v1/attempt-0001/merged_model_identity.json",
+      "revision_rule": "ace2-sft-v1@sha256:<model.safetensors_sha256>"
+    },
+    "new_identity_required_before_holdout_or_quantization": true,
+    "source_identity_reuse_as_trained_identity_allowed": false
+  },
+  "historical_truncation_audit": {
+    "artifact_only_no_replay": true,
+    "audit_path": "research/raw/specification/frozen-bf16-v20-generation-truncation-audit-20260807T171153Z.json",
+    "audit_sha256": "303490c0ed01f602ca647deeb6e9148ec322fe82c78eddce2595b53330647365",
+    "bf16_hit_64_without_eos_count": 2,
+    "conclusion": "The larger budget can plausibly address only the historical cap-hit failures. V20's decisive source-passing concise-summary regression terminated with EOS at 33 tokens, so the single authorized SFT pilot remains necessary without expanding its scope.",
+    "sealed_campaign_replayed": false,
+    "v20_decisive_regression_classification": "WRONG_BEFORE_CAP_EOS_AT_33",
+    "v20_hit_64_without_eos_count": 1
+  },
+  "pilot": {
+    "attempt_count": 1,
+    "attempt_namespace": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v1/attempt-0001",
+    "checkpoint_epochs": [
+      1,
+      2,
+      3
+    ],
+    "data_order": {
+      "dataloader_seed": 260807,
+      "shuffle": true
+    },
+    "determinism": {
+      "CUBLAS_WORKSPACE_CONFIG": ":4096:8",
+      "PYTHONHASHSEED": "260807",
+      "allow_tf32": false,
+      "seed": 260807,
+      "torch_use_deterministic_algorithms": true
+    },
+    "lora": {
+      "bias": "none",
+      "dropout": 0.0,
+      "modules_to_save": [],
+      "rank": 8,
+      "scaling_alpha": 16,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "task_type": "CAUSAL_LM",
+      "trainable_parameter_count": 4399104
+    },
+    "loss": {
+      "assistant_tokens_only": true,
+      "packing": false,
+      "prompt_and_padding_tokens_masked": true,
+      "sequence_length": 512,
+      "truncation_allowed": false
+    },
+    "merge": {
+      "dtype": "bfloat16",
+      "merge_and_unload": true,
+      "safe_serialization": true,
+      "tokenizer_and_chat_template_must_remain_byte_identical_to_source": true
+    },
+    "optimizer": {
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.999,
+      "adam_epsilon": 1e-08,
+      "gradient_clipping_norm": 1.0,
+      "learning_rate": 0.0001,
+      "optimizer": "adamw_torch",
+      "weight_decay": 0.01
+    },
+    "schedule": {
+      "epochs": 3,
+      "global_batch_size": 16,
+      "gradient_accumulation_steps": 4,
+      "learning_rate_scheduler": "cosine",
+      "micro_batch_size": 4,
+      "warmup_ratio": 0.05
+    },
+    "training_dtype": "bfloat16",
+    "weights_frozen_except_lora": true
+  },
+  "prohibitions": {
+    "answer_replacement_or_host_authored_success_text": true,
+    "candidate_or_threshold_selection_on_fresh_holdout": true,
+    "quality_threshold_lowering": true,
+    "replay_or_reopen_of_consumed_23_response_campaign": true,
+    "reuse_of_consumed_v13_through_v20_candidates": true,
+    "rtl_or_u280_reopen_before_fresh_reviewer_accepts_new_quantized_reference": true,
+    "sealed_23_case_campaign_training_or_tuning": true,
+    "silent_proprietary_toolchain_download": true,
+    "w4a8_quantization_before_bf16_holdout_and_retention_go": true
+  },
+  "schema_version": 2,
+  "source_model": {
+    "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "files": {
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+    },
+    "local_audit_path": "build/ace2_chat_diagnostics/qwen2.5-0.5b-instruct-local-audit-20260806.json",
+    "local_audit_sha256": "5ea75b61105ff5ce30803c5c7b33e2bde36acb0511ffddc2da55303909cf657d",
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_contract_path": "design/QWEN_INSTRUCT_OPTION_B_SOURCE_CONTRACT.json",
+    "source_contract_sha256": "0da7d95e92637e29c0369ce9aa9c8d0fe9d50802cf1144bc79095b129962576d",
+    "trust_remote_code": false
+  },
+  "stage_control": {
+    "current_stage_remains": "specification",
+    "fresh_quantized_reference_required_before_rtl_reopen": true,
+    "selected_policy_id_remains_null": true,
+    "training_execution_in_this_bounded_node": false
+  },
+  "status": "OPERATOR_AUTHORIZED_SAME_ARCHITECTURE_WEIGHT_SUCCESSOR_128_TOKEN_SPEC_FROZEN"
+}

@@ -2,97 +2,647 @@
   "schema_version": 1,
   "kind": "ace2_strict_benchmark_interface",
   "base_commit": "bc0ff4d89341646b948564cd59e2c67307bdea38",
+  "active_rtl_input_closure": {
+    "definition": "Makefile RTL_SOURCES compilation inputs plus recursively resolved local includes",
+    "file_count": 18,
+    "manifest_sha256": "54a9b34e502928eaf7515a64f167ce00e2206624a1de1dcf6ad6434fe5419fbc",
+    "manifest_authority": "design/RTL_MANIFEST.json#current_rtl_stage_binding.active_rtl_input_closure"
+  },
   "module": {
     "name": "ace2_shell",
     "source": {
       "path": "rtl/ace2_shell.sv",
       "git_blob": "8ea81496506d018fa8b1193347194226903c19bd",
-      "sha256": "3022fead9cadae344876073921addace9f83c272f75615c42c0421ffa7959663"
+      "sha256": "77eadf2546f36672a3b76c67ab536e7962de5fbed1069804befc7f96627281bc"
     },
     "package_source": {
       "path": "rtl/ace2_pkg.sv",
       "git_blob": "e9d1c4dd9af22c1821444e820fece2463f0f9e89",
-      "sha256": "de25e2b4ba09f89cee23b56101d808b00a83e310b440d86f27639f554f895ba1"
+      "sha256": "80916442d452056eb49e52c48f955fbf9a1205610322ad36c5ea552556820c28"
     },
     "parameters": [
-      {"name": "HIDDEN_SIZE", "data_type": "integer", "signed": true, "default_expression": "ACE2_HIDDEN_SIZE", "resolved_default": 896},
-      {"name": "LANES", "data_type": "integer", "signed": true, "default_expression": "ACE2_VECTOR_LANES", "resolved_default": 16},
-      {"name": "ACT_WIDTH", "data_type": "integer", "signed": true, "default_expression": "8", "resolved_default": 8},
-      {"name": "GAIN_WIDTH", "data_type": "integer", "signed": true, "default_expression": "16", "resolved_default": 16},
-      {"name": "ACC_WIDTH", "data_type": "integer", "signed": true, "default_expression": "48", "resolved_default": 48},
-      {"name": "INV_RMS_FRAC", "data_type": "integer", "signed": true, "default_expression": "30", "resolved_default": 30},
-      {"name": "GAIN_FRAC", "data_type": "integer", "signed": true, "default_expression": "8", "resolved_default": 8},
-      {"name": "PROJ_MAC_LANES", "data_type": "integer", "signed": true, "default_expression": "4", "resolved_default": 4},
-      {"name": "PROJ_ACC_WIDTH", "data_type": "integer", "signed": true, "default_expression": "32", "resolved_default": 32},
-      {"name": "PROJ_M_MAX", "data_type": "integer", "signed": true, "default_expression": "16", "resolved_default": 16},
-      {"name": "SRAM_BANKS", "data_type": "integer", "signed": true, "default_expression": "ACE2_SRAM_BANKS", "resolved_default": 8},
-      {"name": "SRAM_ADDR_WIDTH", "data_type": "integer", "signed": true, "default_expression": "ACE2_SRAM_ADDR_WIDTH", "resolved_default": 12}
+      {
+        "name": "HIDDEN_SIZE",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "ACE2_HIDDEN_SIZE",
+        "resolved_default": 896
+      },
+      {
+        "name": "LANES",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "ACE2_VECTOR_LANES",
+        "resolved_default": 16
+      },
+      {
+        "name": "ACT_WIDTH",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "8",
+        "resolved_default": 8
+      },
+      {
+        "name": "GAIN_WIDTH",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "16",
+        "resolved_default": 16
+      },
+      {
+        "name": "ACC_WIDTH",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "48",
+        "resolved_default": 48
+      },
+      {
+        "name": "INV_RMS_FRAC",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "30",
+        "resolved_default": 30
+      },
+      {
+        "name": "GAIN_FRAC",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "8",
+        "resolved_default": 8
+      },
+      {
+        "name": "PROJ_MAC_LANES",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "4",
+        "resolved_default": 4
+      },
+      {
+        "name": "PROJ_ACC_WIDTH",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "32",
+        "resolved_default": 32
+      },
+      {
+        "name": "PROJ_M_MAX",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "16",
+        "resolved_default": 16
+      },
+      {
+        "name": "SRAM_BANKS",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "ACE2_SRAM_BANKS",
+        "resolved_default": 8
+      },
+      {
+        "name": "SRAM_ADDR_WIDTH",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "ACE2_SRAM_ADDR_WIDTH",
+        "resolved_default": 12
+      },
+      {
+        "name": "ENABLE_LAYER23_V_RANK1_SIDECAR",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "0",
+        "resolved_default": 0,
+        "legal_values": [
+          0,
+          1
+        ],
+        "claim_boundary": "Default 0 preserves byte-identical baseline shell behavior; value 1 enables only the reviewed nonofficial exact-guarded layer-23 V sidecar path."
+      },
+      {
+        "name": "LAYER23_V_RANK1_CONFIG_VALID",
+        "data_type": "integer",
+        "signed": true,
+        "default_expression": "1",
+        "resolved_default": 1,
+        "legal_values": [
+          0,
+          1
+        ],
+        "claim_boundary": "With the sidecar enabled, value 0 makes the exact guarded descriptor fail closed before memory traffic."
+      }
     ],
     "ports": [
-      {"name": "clk_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "rst_ni", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "csr_valid_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "csr_ready_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "csr_write_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "csr_addr_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[31:0]", "width": 32},
-      {"name": "csr_wdata_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "csr_wstrb_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "csr_rvalid_o", "direction": "output", "net_type": "reg", "signed": false, "packed_range": null, "width": 1},
-      {"name": "csr_rready_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "csr_rdata_o", "direction": "output", "net_type": "reg", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "csr_error_o", "direction": "output", "net_type": "reg", "signed": false, "packed_range": null, "width": 1},
-      {"name": "irq_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "cmd_valid_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "cmd_ready_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "cmd_opcode_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "cmd_flags_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "cmd_layer_id_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "cmd_m_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "cmd_n_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "cmd_k_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "cmd_sequence_position_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "cmd_completion_tag_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "cmd_src0_addr_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "cmd_src1_addr_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "cmd_dst_addr_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "cmd_scale_addr_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "cmd_scratch_addr_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "mem_req_valid_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_req_ready_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_req_write_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_req_addr_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[63:0]", "width": 64},
-      {"name": "mem_req_len_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "mem_req_tag_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "mem_wvalid_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_wready_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_wdata_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[LANES*ACT_WIDTH-1:0]", "width": 128},
-      {"name": "mem_wstrb_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "mem_wtag_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "mem_rvalid_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_rready_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_rdata_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[LANES*ACT_WIDTH-1:0]", "width": 128},
-      {"name": "mem_rtag_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "mem_rerror_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_bvalid_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_bready_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "mem_btag_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[7:0]", "width": 8},
-      {"name": "mem_berror_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "sram_req_valid_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS-1:0]", "width": 8},
-      {"name": "sram_req_ready_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS-1:0]", "width": 8},
-      {"name": "sram_write_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS-1:0]", "width": 8},
-      {"name": "sram_addr_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS*SRAM_ADDR_WIDTH-1:0]", "width": 96},
-      {"name": "sram_wdata_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS*LANES*ACT_WIDTH-1:0]", "width": 1024},
-      {"name": "sram_wstrb_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS*16-1:0]", "width": 128},
-      {"name": "sram_rdata_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS*LANES*ACT_WIDTH-1:0]", "width": 1024},
-      {"name": "sram_rvalid_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": "[SRAM_BANKS-1:0]", "width": 8},
-      {"name": "busy_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "cmd_done_valid_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "cmd_done_ready_i", "direction": "input", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "cmd_done_tag_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[15:0]", "width": 16},
-      {"name": "cmd_done_error_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1},
-      {"name": "cmd_done_sumsq_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[ACC_WIDTH-1:0]", "width": 48},
-      {"name": "cmd_done_inv_rms_q30_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": "[INV_RMS_FRAC+1:0]", "width": 32},
-      {"name": "cmd_done_saturation_seen_o", "direction": "output", "net_type": "wire", "signed": false, "packed_range": null, "width": 1}
+      {
+        "name": "clk_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "rst_ni",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "csr_valid_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "csr_ready_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "csr_write_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "csr_addr_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[31:0]",
+        "width": 32
+      },
+      {
+        "name": "csr_wdata_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "csr_wstrb_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "csr_rvalid_o",
+        "direction": "output",
+        "net_type": "reg",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "csr_rready_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "csr_rdata_o",
+        "direction": "output",
+        "net_type": "reg",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "csr_error_o",
+        "direction": "output",
+        "net_type": "reg",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "irq_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "cmd_valid_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "cmd_ready_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "cmd_opcode_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "cmd_flags_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "cmd_layer_id_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "cmd_m_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "cmd_n_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "cmd_k_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "cmd_sequence_position_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "cmd_completion_tag_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "cmd_src0_addr_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "cmd_src1_addr_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "cmd_dst_addr_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "cmd_scale_addr_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "cmd_scratch_addr_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "mem_req_valid_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_req_ready_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_req_write_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_req_addr_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[63:0]",
+        "width": 64
+      },
+      {
+        "name": "mem_req_len_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "mem_req_tag_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "mem_wvalid_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_wready_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_wdata_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[LANES*ACT_WIDTH-1:0]",
+        "width": 128
+      },
+      {
+        "name": "mem_wstrb_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "mem_wtag_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "mem_rvalid_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_rready_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_rdata_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[LANES*ACT_WIDTH-1:0]",
+        "width": 128
+      },
+      {
+        "name": "mem_rtag_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "mem_rerror_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_bvalid_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_bready_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "mem_btag_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[7:0]",
+        "width": 8
+      },
+      {
+        "name": "mem_berror_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "sram_req_valid_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS-1:0]",
+        "width": 8
+      },
+      {
+        "name": "sram_req_ready_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS-1:0]",
+        "width": 8
+      },
+      {
+        "name": "sram_write_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS-1:0]",
+        "width": 8
+      },
+      {
+        "name": "sram_addr_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS*SRAM_ADDR_WIDTH-1:0]",
+        "width": 96
+      },
+      {
+        "name": "sram_wdata_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS*LANES*ACT_WIDTH-1:0]",
+        "width": 1024
+      },
+      {
+        "name": "sram_wstrb_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS*16-1:0]",
+        "width": 128
+      },
+      {
+        "name": "sram_rdata_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS*LANES*ACT_WIDTH-1:0]",
+        "width": 1024
+      },
+      {
+        "name": "sram_rvalid_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[SRAM_BANKS-1:0]",
+        "width": 8
+      },
+      {
+        "name": "busy_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "cmd_done_valid_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "cmd_done_ready_i",
+        "direction": "input",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "cmd_done_tag_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[15:0]",
+        "width": 16
+      },
+      {
+        "name": "cmd_done_error_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      },
+      {
+        "name": "cmd_done_sumsq_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[ACC_WIDTH-1:0]",
+        "width": 48
+      },
+      {
+        "name": "cmd_done_inv_rms_q30_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": "[INV_RMS_FRAC+1:0]",
+        "width": 32
+      },
+      {
+        "name": "cmd_done_saturation_seen_o",
+        "direction": "output",
+        "net_type": "wire",
+        "signed": false,
+        "packed_range": null,
+        "width": 1
+      }
     ]
   },
   "clock": {
@@ -124,14 +674,106 @@
     "transfer_rule": "transfer_when_valid_and_ready_are_both_high",
     "source_hold_rule": "valid_and_payload_remain_stable_while_valid_is_high_and_ready_is_low",
     "channels": [
-      {"name": "csr_request", "source": "external", "valid": "csr_valid_i", "ready": "csr_ready_o", "payload": ["csr_write_i", "csr_addr_i", "csr_wdata_i", "csr_wstrb_i"]},
-      {"name": "csr_response", "source": "ace2_shell", "valid": "csr_rvalid_o", "ready": "csr_rready_i", "payload": ["csr_rdata_o", "csr_error_o"]},
-      {"name": "command", "source": "external", "valid": "cmd_valid_i", "ready": "cmd_ready_o", "payload": ["cmd_opcode_i", "cmd_flags_i", "cmd_layer_id_i", "cmd_m_i", "cmd_n_i", "cmd_k_i", "cmd_sequence_position_i", "cmd_completion_tag_i", "cmd_src0_addr_i", "cmd_src1_addr_i", "cmd_dst_addr_i", "cmd_scale_addr_i", "cmd_scratch_addr_i"]},
-      {"name": "memory_request", "source": "ace2_shell", "valid": "mem_req_valid_o", "ready": "mem_req_ready_i", "payload": ["mem_req_write_o", "mem_req_addr_o", "mem_req_len_o", "mem_req_tag_o"]},
-      {"name": "memory_write", "source": "ace2_shell", "valid": "mem_wvalid_o", "ready": "mem_wready_i", "payload": ["mem_wdata_o", "mem_wstrb_o", "mem_wtag_o"]},
-      {"name": "memory_read", "source": "external", "valid": "mem_rvalid_i", "ready": "mem_rready_o", "payload": ["mem_rdata_i", "mem_rtag_i", "mem_rerror_i"]},
-      {"name": "memory_write_response", "source": "external", "valid": "mem_bvalid_i", "ready": "mem_bready_o", "payload": ["mem_btag_i", "mem_berror_i"]},
-      {"name": "completion", "source": "ace2_shell", "valid": "cmd_done_valid_o", "ready": "cmd_done_ready_i", "payload": ["cmd_done_tag_o", "cmd_done_error_o", "cmd_done_sumsq_o", "cmd_done_inv_rms_q30_o", "cmd_done_saturation_seen_o"]}
+      {
+        "name": "csr_request",
+        "source": "external",
+        "valid": "csr_valid_i",
+        "ready": "csr_ready_o",
+        "payload": [
+          "csr_write_i",
+          "csr_addr_i",
+          "csr_wdata_i",
+          "csr_wstrb_i"
+        ]
+      },
+      {
+        "name": "csr_response",
+        "source": "ace2_shell",
+        "valid": "csr_rvalid_o",
+        "ready": "csr_rready_i",
+        "payload": [
+          "csr_rdata_o",
+          "csr_error_o"
+        ]
+      },
+      {
+        "name": "command",
+        "source": "external",
+        "valid": "cmd_valid_i",
+        "ready": "cmd_ready_o",
+        "payload": [
+          "cmd_opcode_i",
+          "cmd_flags_i",
+          "cmd_layer_id_i",
+          "cmd_m_i",
+          "cmd_n_i",
+          "cmd_k_i",
+          "cmd_sequence_position_i",
+          "cmd_completion_tag_i",
+          "cmd_src0_addr_i",
+          "cmd_src1_addr_i",
+          "cmd_dst_addr_i",
+          "cmd_scale_addr_i",
+          "cmd_scratch_addr_i"
+        ]
+      },
+      {
+        "name": "memory_request",
+        "source": "ace2_shell",
+        "valid": "mem_req_valid_o",
+        "ready": "mem_req_ready_i",
+        "payload": [
+          "mem_req_write_o",
+          "mem_req_addr_o",
+          "mem_req_len_o",
+          "mem_req_tag_o"
+        ]
+      },
+      {
+        "name": "memory_write",
+        "source": "ace2_shell",
+        "valid": "mem_wvalid_o",
+        "ready": "mem_wready_i",
+        "payload": [
+          "mem_wdata_o",
+          "mem_wstrb_o",
+          "mem_wtag_o"
+        ]
+      },
+      {
+        "name": "memory_read",
+        "source": "external",
+        "valid": "mem_rvalid_i",
+        "ready": "mem_rready_o",
+        "payload": [
+          "mem_rdata_i",
+          "mem_rtag_i",
+          "mem_rerror_i"
+        ]
+      },
+      {
+        "name": "memory_write_response",
+        "source": "external",
+        "valid": "mem_bvalid_i",
+        "ready": "mem_bready_o",
+        "payload": [
+          "mem_btag_i",
+          "mem_berror_i"
+        ]
+      },
+      {
+        "name": "completion",
+        "source": "ace2_shell",
+        "valid": "cmd_done_valid_o",
+        "ready": "cmd_done_ready_i",
+        "payload": [
+          "cmd_done_tag_o",
+          "cmd_done_error_o",
+          "cmd_done_sumsq_o",
+          "cmd_done_inv_rms_q30_o",
+          "cmd_done_saturation_seen_o"
+        ]
+      }
     ],
     "sram": {
       "request": "each_bank_transfers_when_matching_sram_req_valid_o_and_sram_req_ready_i_bits_are_high_on_a_rising_edge",
@@ -148,11 +790,19 @@
     "execution_kind": "projection",
     "descriptor": {
       "cmd_flags_i": 0,
-      "cmd_layer_id_i": {"minimum": 0, "maximum": 23},
+      "cmd_layer_id_i": {
+        "minimum": 0,
+        "maximum": 23
+      },
       "cmd_m_i": 1,
       "cmd_n_i": "HIDDEN_SIZE",
       "cmd_k_i": "HIDDEN_SIZE",
-      "aligned_address_ports": ["cmd_src0_addr_i", "cmd_src1_addr_i", "cmd_dst_addr_i", "cmd_scale_addr_i"],
+      "aligned_address_ports": [
+        "cmd_src0_addr_i",
+        "cmd_src1_addr_i",
+        "cmd_dst_addr_i",
+        "cmd_scale_addr_i"
+      ],
       "address_alignment_bytes": 16,
       "cmd_scratch_addr_i": 0,
       "cmd_sequence_position_i": "not_constrained_by_descriptor",
@@ -164,11 +814,31 @@
       "metadata_source": "cmd_scale_addr_i",
       "destination_base": "cmd_dst_addr_i",
       "activation_read_beats": 56,
-      "output_order": ["q", "k", "v"],
-      "output_elements": [896, 128, 128],
-      "destination_byte_offsets": [0, 896, 1024],
-      "weight_byte_offsets": [0, 401408, 458752],
-      "metadata_byte_offsets": [0, 14336, 16384]
+      "output_order": [
+        "q",
+        "k",
+        "v"
+      ],
+      "output_elements": [
+        896,
+        128,
+        128
+      ],
+      "destination_byte_offsets": [
+        0,
+        896,
+        1024
+      ],
+      "weight_byte_offsets": [
+        0,
+        401408,
+        458752
+      ],
+      "metadata_byte_offsets": [
+        0,
+        14336,
+        16384
+      ]
     }
   },
   "immutable_ppa": {
@@ -181,5 +851,510 @@
     "candidate_constraints_must_match": true,
     "sidecar_required_before_execution": true,
     "preflight_executes_synthesis_or_sta": false
+  },
+  "version": "4.0",
+  "stage": "specification",
+  "applies": false,
+  "external_contract": null,
+  "normative_spec": "design/SPEC.md",
+  "claim_boundary": "Specification-stage closure only. This sidecar freezes the local arbitrary-text Stage 1 contract, exact public ace2_shell interface, non-benchmark status, strict immutable-PPA interface, and ordered U280 hold. It creates no RTL implementation, simulation PASS, W4A8/reference agreement, synthesis/PPA, FPGA/U280, or product-completion claim.",
+  "fixed_external_benchmark": {
+    "applies": false,
+    "prompt": null,
+    "evaluator": null,
+    "official_inputs": null,
+    "tool_versions": null,
+    "score_policy": null
+  },
+  "non_benchmark_statement": "No external accelerator benchmark, hidden harness, hidden golden output, score, ranking, or third-party performance policy applies. Acceptance is local productization evidence for the caller-selected RTL-backed arbitrary-text chat demo, with measured wall time/cycles and bit-exact accelerator/reference agreement.",
+  "local_contract": {
+    "top_module": "ace2_shell",
+    "entrypoint": "python3 tools/ace2_chat_demo.py",
+    "output_path": "caller-selected directory passed through --output",
+    "public_interface_source": "design/SPEC.md#public-ace2_shell-parameter-and-port-contract",
+    "reference_boundary": "independent fixed-point reference must agree at every command destination, completion field, LM-head tile, and greedy token feedback before a successful chat claim"
+  },
+  "stage_order": {
+    "stage_1_local_chat": "current_productization_target_after_specification",
+    "stage_2_u280": "pending_after_stage_1"
+  },
+  "active_productization_contract": {
+    "fixed_external_benchmark": {
+      "applies": false,
+      "prompt": null,
+      "evaluator": null,
+      "official_inputs": null,
+      "tool_versions": null,
+      "score_policy": null
+    },
+    "public_module": {
+      "name": "ace2_shell",
+      "source": "rtl/ace2_shell.sv",
+      "interface_source": "design/SPEC.md#public-ace2_shell-parameter-and-port-contract",
+      "parameter_count": 14,
+      "port_count": 64,
+      "signed_public_port_count": 0,
+      "interface_repair_permitted_in_specification": false
+    },
+    "stage_1": {
+      "status": "specified_not_implemented",
+      "backend_required": "rtl_backed_verilator_or_later_hw_emu_or_hw",
+      "software_only_fallback_qualifies": false,
+      "arbitrary_utf8_input_required": true,
+      "multi_turn_input_required": true,
+      "minimum_visible_nontermination_tokens": 2,
+      "legal_max_new_tokens_range": [
+        1,
+        256
+      ],
+      "token_id_legal_range": [
+        0,
+        151935
+      ],
+      "termination_token_ids": [
+        151643,
+        151645
+      ],
+      "total_position_limit": 32768,
+      "accepted_product_evidence": false,
+      "current_stage_authority": "stage1_software_diagnosis_nonproduct_review_binding_official_chat_denied",
+      "advancement_blocked_by": "production_acceptance_authority_gate_manager_authorship_and_official_chat_denial",
+      "forbidden_completion_substitutes": [
+        "pure software fallback",
+        "compile-only success",
+        "sealed two-token predecessor evidence",
+        "simulator process start without readable multi-token output",
+        "rejected official attempt-0001 evidence"
+      ],
+      "must_record": [
+        "prompt token ids",
+        "generated token ids",
+        "decoded text",
+        "wall time",
+        "process-tree peak RSS",
+        "command cycles",
+        "source and destination digests",
+        "accelerator-reference agreement status",
+        "tool and RTL input identities"
+      ]
+    },
+    "stage_2": {
+      "status": "blocked_pending_stage_1_and_external_prerequisites",
+      "starts_after": "Stage 1 acceptance and Manager stage advancement",
+      "target": "AMD/Xilinx Alveo U280 with PCIe plus 8GB HBM2",
+      "required_future_outputs": [
+        "U280 kernel/top integration",
+        "AXI/HBM memory map",
+        "XRT host path",
+        "constraints/platform manifest",
+        "build and emulation scripts",
+        "integrated chat path"
+      ]
+    },
+    "production_acceptance_authority_gate": {
+      "status": "NONOFFICIAL_RTL_REFERENCE_INTEGRATION_ACCEPTED_OFFICIAL_CHAT_DENIED",
+      "previous_status": "BLOCKED_EXTERNAL_ATTESTATION",
+      "source": "research/PIPELINE_STATE.json#stage1_blocker",
+      "authorized_scope": "Fresh-L2 mission 271efb2d9974 accepted the bounded, nonofficial RTL/reference layer-23 V rank-1 sidecar integration. That acceptance covers a default-disabled, descriptor-guarded integration only and does not qualify as official RTL-backed arbitrary-text chat, synthesis/PPA, FPGA/U280, Stage 2, or product-quality evidence. The Manager explicitly denies the next official RTL-backed arbitrary-text chat step under the present evidence; separate fresh authority is required.",
+      "authorization": {
+        "bounded_diagnosis_authority_consumed": true,
+        "bounded_nonofficial_software_diagnosis_authorized": false,
+        "checkpoint_176_official_execution_authorized": false,
+        "fresh_l2_review_authorized_for_bounded_diagnosis": false,
+        "official_rtl_backed_arbitrary_text_chat_authorized": false,
+        "rtl_authorized": false,
+        "stage_2_authorized": false,
+        "u280_authorized": false,
+        "xrt_authorized": false
+      },
+      "forbidden_effects": [
+        "official preflight/run",
+        "attempt-0003",
+        "retry/replay/resume",
+        "checkpoint-176 official execution",
+        "W4/RTL product promotion",
+        "full Icarus generation as product evidence",
+        "synthesis/PPA",
+        "Stage 2",
+        "XRT/U280/FPGA work",
+        "product-completion claim"
+      ],
+      "canonical_stage1_blocker": {
+        "authorization": {
+          "bounded_diagnosis_authority_consumed": true,
+          "bounded_nonofficial_software_diagnosis_authorized": false,
+          "checkpoint_176_official_execution_authorized": false,
+          "fresh_l2_review_authorized_for_bounded_diagnosis": false,
+          "official_rtl_backed_arbitrary_text_chat_authorized": false,
+          "rtl_authorized": false,
+          "stage_2_authorized": false,
+          "u280_authorized": false,
+          "xrt_authorized": false
+        },
+        "claim_boundary": "Fresh-L2 mission 271efb2d9974 accepted the bounded, nonofficial RTL/reference layer-23 V rank-1 sidecar integration. That acceptance covers a default-disabled, descriptor-guarded integration only and does not qualify as official RTL-backed arbitrary-text chat, synthesis/PPA, FPGA/U280, Stage 2, or product-quality evidence. The Manager explicitly denies the next official RTL-backed arbitrary-text chat step under the present evidence; separate fresh authority is required.",
+        "evidence": {
+          "accepted_rank1_sidecar_integration": {
+            "contract_id": "stage1-layer23-v-rank1-integration-v1",
+            "fresh_l2_review": {
+              "bytes": 1297,
+              "mission_id": "271efb2d9974",
+              "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/271efb2d9974/round-0001.json",
+              "producer_role": "reviewer",
+              "sha256": "52b06dcbbd21e00131582bc2deea7c35bae64da53fb9dbdaf979961c508f1fa9",
+              "status": "done"
+            },
+            "official_attempts_run": false,
+            "result": {
+              "bytes": 14078,
+              "path": "evidence/verification/stage1-layer23-v-rank1-integration-v1/latest/RESULT.json",
+              "sha256": "36496c88ea1192a5d22f5b9e3593ddc556ceb4f229bdfc6c3444191c555e23a1"
+            },
+            "scope": "bounded_nonofficial_rtl_reference_integration",
+            "sealed_evidence_mutated": false,
+            "synthesis_or_ppa_run": false,
+            "u280_or_xrt_run": false
+          },
+          "accepted_joint_scale_negative": {
+            "fresh_l2_review": {
+              "path": "handoff:stage1vjointscale01/round-0001.json",
+              "producer_role": "reviewer",
+              "sha256": "e7688c3960f9663e4c1bba7521d4fd945a87eb57d7a865bb2499bb48d7cec9b4",
+              "status": "done"
+            },
+            "result": {
+              "path": "evidence/candidates/stage1-layer23-v-joint-scale-search-v1/nonofficial-search-0001/result.json",
+              "sha256": "1c07c32cf687fb382580fd6558a1bd0f83170fba331896374f77d46c3f95a4f4",
+              "status": "SUPPORTED_NEGATIVE"
+            },
+            "sha256s_sha256": "0469d5a0d2e4e22d67ed0818ad8c0e0a23d21e59389c558a92d6fb4cffcf7b6b"
+          },
+          "prior_bounded_qkv_diagnosis": {
+            "classification": "bounded_nonofficial_software_only_layer23_qkv_diagnosis",
+            "result": {
+              "bytes": 30392,
+              "path": "diagnosis/stage1layer23qkvfamilies01/result.json",
+              "sha256": "4e6fa9c101f2d2a4c09a80fb1883665043a5d8126ebaa7d4fa862bf602aa4856",
+              "status": "COMPONENT_AND_QUANTIZER_FAMILY_CAUSALLY_LOCALIZED"
+            },
+            "runner": {
+              "bytes": 34656,
+              "path": "tools/diagnose_stage1_layer23_qkv_families.py",
+              "sha256": "5b41665c5018183ab88ab3825e5d31c3301f97d7baa49327b0244efe08796402"
+            }
+          },
+          "manager_operator_answer": {
+            "continuation_id": "9e235ac035b2",
+            "decision": "CLEAR_STALE_ATTESTATION_WAIT_AND_AUTHORIZE_ONE_BOUNDED_STAGE1_DIAGNOSIS",
+            "plan_id": "plan-083dd935a5dc",
+            "plan_version": 1
+          },
+          "manager_v_residual_directive": {
+            "authority_id": "live-manager-v-residual-structure-20260820T1046Z",
+            "decision": "AUTHORIZE_ONE_BOUNDED_NONOFFICIAL_SOFTWARE_ONLY_LAYER23_V_RESIDUAL_STRUCTURE_DIAGNOSIS",
+            "operator_directive_at_utc": "2026-08-20T10:46:00Z"
+          },
+          "sealed_attempt_0002": {
+            "manifest_sha256": "0259039f54ecc224a785ada1d4567b34158746fc06b3d3f3e316f5d277ddb470",
+            "run_summary_sha256": "c496921d5b93f4840ec67c38c1c4d0afab034a8798a9a760c36a639ee80d4159",
+            "status": "SEALED_RTL_W4A8_INTEGER_PARITY_READABLE_OUTPUT_QUALITY_FAIL"
+          },
+          "v_residual_structure_diagnosis": {
+            "authorization_consumption": {
+              "path": "evidence/diagnostics/stage1-layer23-v-residual-structure-v1/nonofficial-diagnosis-0001/authorization-consumed.json",
+              "sha256": "87bf833dfcda18d514c366d622a50be834a61422bab7cdf0dab096b3e55f96d9",
+              "status": "CONSUMED_EXACTLY_ONCE"
+            },
+            "classification": "bounded_nonofficial_software_only_layer23_v_residual_diagnosis",
+            "conclusion": {
+              "diagnosis": "LOW_RANK_CORRECTION_SIGNAL_WITH_HELD_OUT_SUPPORT",
+              "rank1_calibration_explained_energy": 0.9627178816477455,
+              "rank1_held_out_projection_relative_l2": 0.3087007407356935,
+              "rank1_jsd_nats": 0.09849065207352257,
+              "rank1_token_39814_rank": 1,
+              "rank1_top8_overlap_count": 8,
+              "rank8_calibration_explained_energy": 0.9897571376368306,
+              "small_structured_correction_supported": true
+            },
+            "freeze": {
+              "path": "evidence/diagnostics/stage1-layer23-v-residual-structure-v1/nonofficial-diagnosis-0001/diagnosis-freeze.json",
+              "sha256": "1909559a88acf86073a6e7878ef3612a9e882121ef5ee40af878ce61d7bd5f0b"
+            },
+            "fresh_l2_review_request": {
+              "artifact_status": "PENDING_INDEPENDENT_REVIEW",
+              "current_disposition": "CLOSED_BY_ACCEPTED_DOWNSTREAM_FRESH_L2_CHAIN_THROUGH_MISSION_271EFB2D9974",
+              "path": "evidence/diagnostics/stage1-layer23-v-residual-structure-v1/nonofficial-diagnosis-0001/fresh-l2-review-request.json",
+              "sha256": "116fc31f63a00f7f577dc20377594254cce02416823b2afb0930d62fa49a362a"
+            },
+            "result": {
+              "artifact_status": "V_RESIDUAL_STRUCTURE_DIAGNOSIS_PENDING_FRESH_L2",
+              "current_disposition": "SUPERSEDED_BY_ACCEPTED_RANK1_CANDIDATE_RTL_GENERALIZATION_AND_SIDECAR_INTEGRATION_CHAIN",
+              "path": "evidence/diagnostics/stage1-layer23-v-residual-structure-v1/nonofficial-diagnosis-0001/result.json",
+              "sha256": "11dbd7dda4715827e3a16e4e530bdb6870fa51370fff86084a05c6d07ea3bc2d"
+            },
+            "runner": {
+              "path": "tools/diagnose_stage1_layer23_v_residual_structure.py",
+              "sha256": "20f491f33ebf02f44c74fdfb5ca6b7789cc64b39261d3d0464f194375a4f60f2"
+            },
+            "sha256s_sha256": "b4c6c171d67c2692c0ba1558eb9c3fd967467d5ab38853fc58cf60d48746ba3e"
+          },
+          "manager_reconciliation": {
+            "accepted_fresh_l2_mission_id": "271efb2d9974",
+            "at": "2026-08-20T13:08:29Z",
+            "authority_decision": "DENY_NEXT_OFFICIAL_RTL_BACKED_ARBITRARY_TEXT_CHAT",
+            "manager_mission_id": "4fdeed5b2c4a",
+            "sealed_evidence_replayed": false
+          }
+        },
+        "next_action": {
+          "action": "Do not start official RTL-backed arbitrary-text chat; remain at the bounded Stage 1 control-plane state unless separate fresh authority is granted",
+          "authority_decision": "DENY_NEXT_OFFICIAL_RTL_BACKED_ARBITRARY_TEXT_CHAT",
+          "candidate_promotion_authorized": false,
+          "official_execution_authorized": false,
+          "rtl_backed_arbitrary_text_chat_authorized": false,
+          "software_candidate_execution_authorized": false,
+          "stage": "stage1_software_diagnosis"
+        },
+        "previous_status": "BLOCKED_EXTERNAL_ATTESTATION",
+        "predecessor_and_terminal_evidence_preserved": true,
+        "record_kind": "ace2_stage1_blocker",
+        "resolved_at_utc": "2026-08-20T13:08:29Z",
+        "status": "NONOFFICIAL_RTL_REFERENCE_INTEGRATION_ACCEPTED_OFFICIAL_CHAT_DENIED"
+      },
+      "reviewed_bounded_evidence": {
+        "stage1layer23qkvfamilies01": {
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/9e235ac035b2/round-0002.json",
+          "handoff_sha256": "70a428c83f8747f00ae1af08418d14c7d40a339612e740bb79ab105d5819eebd",
+          "status": "done",
+          "result_sha256": "4e6fa9c101f2d2a4c09a80fb1883665043a5d8126ebaa7d4fa862bf602aa4856",
+          "product_claim": false
+        },
+        "stage1vprecision01": {
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/stage1vprecision01/round-0002.json",
+          "handoff_sha256": "01490089e8ebebd19cbe0e15618244cef74429ac9680878ad96464a959349a37",
+          "status": "done",
+          "matrix_result_sha256": "ef6b1a37c9ea8df211f93358e05f1d3468e791084f7f8bb31c9c6c8fa9de38c9",
+          "requirement_sha256": "924025be1faaadaf0319aee5dc690571921a0195683f1df87d419ecb9f9333d0",
+          "selected_format": null,
+          "negative_result": true,
+          "current_rtl_support": false,
+          "product_claim": false
+        },
+        "stage1lmheadequiv01": {
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/stage1lmheadequiv01/round-0001.json",
+          "handoff_sha256": "075c14e87971230fb8a4fcc9bfb8d0391fa11fdf9130fa80459bce2e052e7096",
+          "status": "done",
+          "reviewer_acceptance_sha256": "b10e69c90bffe512fb54153c93a51db0d19fb3f7c4d74f12da96c770f09835e5",
+          "engineer_result_sha256": "7a9009a51084871836be78278f96ce9b16bf1d88c1407996b00e65b25ddd2408",
+          "successor_activation_reads_per_case": 1792,
+          "successor_packed_w4_reads_per_case": 896,
+          "metadata_reads_per_case": 32,
+          "write_beats_per_case": 2,
+          "weight_span_bytes_per_case": 14336,
+          "weight_high_water_offset": 14320,
+          "checked_logits": 64,
+          "full_vocabulary_runtime_reexecuted": false,
+          "synthesis_or_ppa_executed": false,
+          "product_claim": false
+        },
+        "stage1vjointscale01": {
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/stage1vjointscale01/round-0001.json",
+          "handoff_sha256": "e7688c3960f9663e4c1bba7521d4fd945a87eb57d7a865bb2499bb48d7cec9b4",
+          "status": "done",
+          "result_sha256": "1c07c32cf687fb382580fd6558a1bd0f83170fba331896374f77d46c3f95a4f4",
+          "sha256s_sha256": "0469d5a0d2e4e22d67ed0818ad8c0e0a23d21e59389c558a92d6fb4cffcf7b6b",
+          "classification": "bounded_nonofficial_software_only_joint_scale_search",
+          "candidate_count": 5,
+          "selected_candidate_id": null,
+          "promotion_eligible": false,
+          "negative_result": true,
+          "baseline_target_token_rank": 15,
+          "candidate_target_token_ranks": [
+            14,
+            14,
+            16,
+            15,
+            20
+          ],
+          "baseline_top8_overlap_count": 0,
+          "candidate_top8_overlap_counts": [
+            2,
+            2,
+            2,
+            2,
+            1
+          ],
+          "baseline_jsd_nats": 0.6701229933515445,
+          "candidate_jsd_nats": [
+            0.6678304612691217,
+            0.6670142652978546,
+            0.6685694180913542,
+            0.6668547670659924,
+            0.6702937097823827
+          ],
+          "baseline_held_out_v_relative_l2": 1.01390282266012,
+          "best_candidate_held_out_v_relative_l2": 1.0155168651981596,
+          "official_execution_authorized": false,
+          "focused_or_full_rtl_executed": false,
+          "synthesis_or_ppa_executed": false,
+          "stage_2_executed": false,
+          "product_claim": false
+        },
+        "blocked_item_3d3e14c90193_closure": {
+          "mission_id": "1421b599ab84",
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/1421b599ab84/round-0001.json",
+          "handoff_sha256": "d5ce2feb92c771dcef701244fa3f399697f166f7f66dd423515b1ac52d01bcf6",
+          "status": "done",
+          "operator_advanced_stage": false,
+          "rtl_backed_arbitrary_text_chat_authorized": false,
+          "official_preflight_or_run_authorized": false,
+          "attempt_0003_authorized": false,
+          "attestation_task_authorized": false,
+          "stage_2_authorized": false,
+          "repository_destructive_action": false,
+          "product_claim": false
+        },
+        "stage1_layer23_v_rank1_integer_candidate": {
+          "mission_id": "32444a7fc5ab",
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/32444a7fc5ab/round-0001.json",
+          "handoff_sha256": "80881054b5dc3b06f83027dd548446a8b177b7c56add0cdfd306c4f737cbfc06",
+          "status": "done",
+          "candidate_result_sha256": "fa4547a5884a070966a5c0c1fea8997b2aef51d22d40431df34f719cce6ca037",
+          "product_claim": false
+        },
+        "stage1_layer23_v_rank1_rtl": {
+          "mission_id": "dc94c6bf8107",
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/dc94c6bf8107/round-0001.json",
+          "handoff_sha256": "946d3d03a7ad9d52658f1d1570a3e1e0d22ad77267af1a69dd306d040a068097",
+          "status": "done",
+          "result_sha256": "1a19b068aaf6824ae29bf0ed4710c0015cb617c3b7fb62ead35f96d17ae4f77f",
+          "product_claim": false
+        },
+        "stage1_layer23_v_rank1_generalization": {
+          "mission_id": "8e6ad3ce7e45",
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/8e6ad3ce7e45/round-0001.json",
+          "handoff_sha256": "08df2f4ce013161c279dcbedcbb1243e6bc7841f14e44d6227bc5d6cc749e90d",
+          "status": "done",
+          "result_sha256": "3201ac208ff856fa331c6c9544b4abda5557d3701f0cdf153f1dc0f2cf665a90",
+          "product_claim": false
+        },
+        "stage1_layer23_v_rank1_sidecar_integration": {
+          "mission_id": "271efb2d9974",
+          "handoff": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/271efb2d9974/round-0001.json",
+          "handoff_sha256": "52b06dcbbd21e00131582bc2deea7c35bae64da53fb9dbdaf979961c508f1fa9",
+          "status": "done",
+          "result_sha256": "36496c88ea1192a5d22f5b9e3593ddc556ceb4f229bdfc6c3444191c555e23a1",
+          "sha256s_sha256": "980ae593d53ce9a833b520f4d992b7a29aec8063b588d21632c05e7617f8afa2",
+          "official_execution_authorized": false,
+          "synthesis_or_ppa_executed": false,
+          "stage_2_executed": false,
+          "product_claim": false
+        }
+      },
+      "manager_checksum_reconciliation": {
+        "pipeline_sha256": "9971288788631bbf12b99020e9364523a43b3333b0a7336a34c07382f1be5936",
+        "companion_recorded_sha256": "9971288788631bbf12b99020e9364523a43b3333b0a7336a34c07382f1be5936",
+        "required": false,
+        "performed_by_planner": false,
+        "manager_authorship_proven": false,
+        "provenance_blocker": "sealed Fresh review of mission 4fdeed5b2c4a round 2 records the transition labeled by=manager was inserted during an Engineer call; Manager replacement or explicit ratification remains required for provenance"
+      }
+    }
+  },
+  "fused_qkv_contract": {
+    "module": "ace2_shell",
+    "source": "rtl/ace2_shell.sv",
+    "command": {
+      "opcode": 11,
+      "symbol": "ACE2_OPCODE_FUSED_QKV",
+      "legal_descriptor": {
+        "flags": 0,
+        "layer_id": [
+          0,
+          23
+        ],
+        "m": 1,
+        "n": 896,
+        "k": 896,
+        "src0_addr": 68719478528,
+        "src1_addr_formula": "0x0000000100000000 + layer_id * 0x000000000071c000",
+        "dst_addr": 68719479424,
+        "scale_addr_formula": "0x0000000200000000 + layer_id * 0x0000000000031800",
+        "scratch_addr": 0
+      },
+      "memory_layout": {
+        "activation_bytes": 896,
+        "activation_read_beats": 56,
+        "weight_layer0_base": 4294967296,
+        "weight_layer_stride": 7454720,
+        "weight_span_bytes": 516096,
+        "weight_byte_offsets_q_k_v": [
+          0,
+          401408,
+          458752
+        ],
+        "metadata_layer0_base": 8589934592,
+        "metadata_layer_stride": 202752,
+        "metadata_span_bytes": 18432,
+        "metadata_byte_offsets_q_k_v": [
+          0,
+          14336,
+          16384
+        ],
+        "dst_span_bytes": 1152,
+        "dst_byte_offsets_q_k_v": [
+          0,
+          896,
+          1024
+        ]
+      }
+    },
+    "default_product_schedule": {
+      "mode": "fused",
+      "prompt_layer0_dynamic_scale32_exception": "The authenticated layer-0 prompt-prefill Dynamic Scale32 path retains three opcode 0x01 Q/K/V commands."
+    },
+    "acceptance_matrix": [
+      {
+        "id": "fused_qkv_illegal_descriptor",
+        "required": true,
+        "acceptance": "Any aligned but noncanonical fused-QKV base tuple is rejected before_command_execution with no successful payload completion."
+      }
+    ]
+  },
+  "u280_environment_gate": {
+    "latest_inventory": "research/raw/specification/u280-host-inventory-recheck-20260818T213022Z.json",
+    "latest_inventory_sha256": "7985ef13b9bc2bd3f577f688f344d4a46b7e3799ea8be1cdc176228316188842",
+    "toolchain_download_authorized": false,
+    "vivado_present_in_observed_host_inventory": false,
+    "vitis_present_in_observed_host_inventory": false,
+    "vpp_present_in_observed_host_inventory": false,
+    "xrt_utilities_present_in_observed_host_inventory": false,
+    "hardware_emulation_endpoint": null,
+    "local_u280_access_evidence_present": false,
+    "u280_hardware_conclusion": null,
+    "required_external_prerequisites": [
+      "compatible Vivado/Vitis/XRT version tuple",
+      "exact U280 XPFM platform identity and installed platform files",
+      "authorized hardware-emulation endpoint or physical U280 board access"
+    ]
+  },
+  "preserved_predecessor_two_token_contract": {
+    "status": "preserved_immutable_predecessor",
+    "exact_interface_sources": [
+      {
+        "path": "design/LORA_V4_LAYER0_TWO_TOKEN_KV_FULL_INTERFACE.json",
+        "sha256": "dfff2c3db0b6d8eee138d964c6557dfa2766f60bdfe0bb05af2ae3c513bf0a37"
+      },
+      {
+        "path": "design/LORA_V4_LAYER0_TWO_TOKEN_KV_FULL_INTERFACE_V2.json",
+        "sha256": "104afaf2af51945bdb469da841713a8bc2df82f578bfe0bf1ca5037e38512c33"
+      },
+      {
+        "path": "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_CONTRACT.json",
+        "sha256": "4b144fb7f7a41d44cd3232a90dd370c9a93d04f30aee93b6e27e0b8f01f21529"
+      }
+    ],
+    "certified_evidence_mutated": false,
+    "official_attempt_replay_authorized": false,
+    "claim_boundary": "Preserved predecessor evidence only; it does not establish arbitrary-text chat, readable generation, Stage 1 completion, synthesis/PPA, FPGA, hardware emulation, or U280 deployment."
   }
 }

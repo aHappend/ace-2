@@ -1,0 +1,465 @@
+{
+  "$id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_RESULT_V1_SCHEMA",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "artifact_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "sealed_set_id": {"const": "w4a8-c02-attention-substage-trace-v2"},
+        "tensor_bundle_sha256": {"$ref": "#/$defs/sha256"},
+        "tensor_record_count": {"const": 25}
+      },
+      "required": ["sealed_set_id", "tensor_bundle_sha256", "tensor_record_count"],
+      "type": "object"
+    },
+    "candidate_result": {
+      "additionalProperties": false,
+      "properties": {
+        "bytes_per_head": {"minimum": 1, "type": "integer"},
+        "exponent_bytes_per_head": {"minimum": 1, "type": "integer"},
+        "group_count": {"minimum": 1, "type": "integer"},
+        "group_size": {"minimum": 1, "type": "integer"},
+        "label": {"enum": ["G8", "G4", "G2", "G1"]},
+        "mantissa_bytes_per_head": {"const": 64},
+        "metrics": {"$ref": "#/$defs/metrics"},
+        "threshold_evaluation": {"$ref": "#/$defs/threshold_evaluation"}
+      },
+      "required": [
+        "bytes_per_head",
+        "exponent_bytes_per_head",
+        "group_count",
+        "group_size",
+        "label",
+        "mantissa_bytes_per_head",
+        "metrics",
+        "threshold_evaluation"
+      ],
+      "type": "object"
+    },
+    "count_gate": {
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"actual": {"const": 0}, "pass": {"const": true}}},
+        {"properties": {"actual": {"minimum": 1}, "pass": {"const": false}}}
+      ],
+      "properties": {
+        "actual": {"$ref": "#/$defs/nonnegative_integer"},
+        "limit": {"const": 0},
+        "pass": {"type": "boolean"}
+      },
+      "required": ["actual", "limit", "pass"],
+      "type": "object"
+    },
+    "fraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {"minimum": 1, "type": "integer"},
+        "numerator": {"$ref": "#/$defs/nonnegative_integer"}
+      },
+      "required": ["denominator", "numerator"],
+      "type": "object"
+    },
+    "fraction_gate": {
+      "additionalProperties": false,
+      "properties": {
+        "actual": {"$ref": "#/$defs/fraction"},
+        "limit": {"const": {"denominator": 1, "numerator": 1}},
+        "pass": {"type": "boolean"}
+      },
+      "required": ["actual", "limit", "pass"],
+      "type": "object"
+    },
+    "rank_fraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {"const": 346},
+        "numerator": {"maximum": 346, "minimum": 0, "type": "integer"}
+      },
+      "required": ["denominator", "numerator"],
+      "type": "object"
+    },
+    "rank_fraction_gate": {
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"actual": {"properties": {"numerator": {"const": 346}}}, "pass": {"const": true}}},
+        {"properties": {"actual": {"properties": {"numerator": {"maximum": 345}}}, "pass": {"const": false}}}
+      ],
+      "properties": {
+        "actual": {"$ref": "#/$defs/rank_fraction"},
+        "limit": {"const": {"denominator": 1, "numerator": 1}},
+        "pass": {"type": "boolean"}
+      },
+      "required": ["actual", "limit", "pass"],
+      "type": "object"
+    },
+    "top_fraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {"const": 574},
+        "numerator": {"maximum": 574, "minimum": 0, "type": "integer"}
+      },
+      "required": ["denominator", "numerator"],
+      "type": "object"
+    },
+    "top_fraction_gate": {
+      "additionalProperties": false,
+      "oneOf": [
+        {"properties": {"actual": {"properties": {"numerator": {"const": 574}}}, "pass": {"const": true}}},
+        {"properties": {"actual": {"properties": {"numerator": {"maximum": 573}}}, "pass": {"const": false}}}
+      ],
+      "properties": {
+        "actual": {"$ref": "#/$defs/top_fraction"},
+        "limit": {"const": {"denominator": 1, "numerator": 1}},
+        "pass": {"type": "boolean"}
+      },
+      "required": ["actual", "limit", "pass"],
+      "type": "object"
+    },
+    "invalid_accounting": {
+      "additionalProperties": false,
+      "properties": {
+        "cross_lane_record_count": {"$ref": "#/$defs/nonnegative_integer"},
+        "invalid_or_non_finite_value_count": {"$ref": "#/$defs/nonnegative_integer"},
+        "normalization_rejection_count": {"$ref": "#/$defs/nonnegative_integer"},
+        "positive_centered_realized_score_count": {"$ref": "#/$defs/nonnegative_integer"},
+        "saturation_event_count": {"$ref": "#/$defs/nonnegative_integer"}
+      },
+      "required": [
+        "cross_lane_record_count",
+        "invalid_or_non_finite_value_count",
+        "normalization_rejection_count",
+        "positive_centered_realized_score_count",
+        "saturation_event_count"
+      ],
+      "type": "object"
+    },
+    "metrics": {
+      "additionalProperties": false,
+      "properties": {
+        "invalid_accounting": {"$ref": "#/$defs/invalid_accounting"},
+        "rank_margin": {"$ref": "#/$defs/rank_margin"},
+        "score_error": {"$ref": "#/$defs/score_error"},
+        "top_key": {"$ref": "#/$defs/top_key"}
+      },
+      "required": ["invalid_accounting", "rank_margin", "score_error", "top_key"],
+      "type": "object"
+    },
+    "nonnegative_integer": {"minimum": 0, "type": "integer"},
+    "passing_candidates": {
+      "enum": [
+        [],
+        ["G8"],
+        ["G4"],
+        ["G2"],
+        ["G1"],
+        ["G8", "G4"],
+        ["G8", "G2"],
+        ["G8", "G1"],
+        ["G4", "G2"],
+        ["G4", "G1"],
+        ["G2", "G1"],
+        ["G8", "G4", "G2"],
+        ["G8", "G4", "G1"],
+        ["G8", "G2", "G1"],
+        ["G4", "G2", "G1"],
+        ["G8", "G4", "G2", "G1"]
+      ],
+      "type": "array"
+    },
+    "rank_margin": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "properties": {
+              "minimum_realized_margin_q12_20_lsb": {"maximum": 0},
+              "preserved_positive_margin_fraction": {"properties": {"numerator": {"maximum": 345}}},
+              "preserved_positive_margin_row_count": {"maximum": 345}
+            }
+          },
+          "if": {"properties": {"violation_count": {"const": 0}}},
+          "then": {
+            "properties": {
+              "minimum_realized_margin_q12_20_lsb": {"minimum": 1},
+              "preserved_positive_margin_fraction": {"const": {"denominator": 346, "numerator": 346}},
+              "preserved_positive_margin_row_count": {"const": 346}
+            }
+          }
+        }
+      ],
+      "properties": {
+        "minimum_realized_margin_q12_20_lsb": {"type": "integer"},
+        "preserved_positive_margin_fraction": {"$ref": "#/$defs/rank_fraction"},
+        "preserved_positive_margin_row_count": {"maximum": 346, "minimum": 0, "type": "integer"},
+        "unique_oracle_top_row_count": {"const": 346},
+        "violation_count": {"maximum": 346, "minimum": 0, "type": "integer"}
+      },
+      "required": [
+        "minimum_realized_margin_q12_20_lsb",
+        "preserved_positive_margin_fraction",
+        "preserved_positive_margin_row_count",
+        "unique_oracle_top_row_count",
+        "violation_count"
+      ],
+      "type": "object"
+    },
+    "score_error": {
+      "additionalProperties": false,
+      "properties": {
+        "maximum_absolute_error_q12_20_lsb": {"$ref": "#/$defs/nonnegative_integer"},
+        "sum_absolute_error_q12_20_lsb": {"$ref": "#/$defs/nonnegative_integer"},
+        "sum_signed_error_q12_20_lsb": {"type": "integer"},
+        "sum_squared_error_q40_40_lsb2": {"$ref": "#/$defs/nonnegative_integer"},
+        "valid_value_count": {"const": 12054}
+      },
+      "required": [
+        "maximum_absolute_error_q12_20_lsb",
+        "sum_absolute_error_q12_20_lsb",
+        "sum_signed_error_q12_20_lsb",
+        "sum_squared_error_q40_40_lsb2",
+        "valid_value_count"
+      ],
+      "type": "object"
+    },
+    "selection": {
+      "additionalProperties": false,
+      "properties": {
+        "passing_candidates": {"$ref": "#/$defs/passing_candidates"},
+        "policy": {"const": "FIRST_PASSING_CANDIDATE_IN_FIXED_ORDER"},
+        "selected_candidate": {"enum": ["G8", "G4", "G2", "G1", null]}
+      },
+      "required": ["passing_candidates", "policy", "selected_candidate"],
+      "type": "object"
+    },
+    "sha256": {"pattern": "^[0-9a-f]{64}$", "type": "string"},
+    "terminal": {
+      "additionalProperties": false,
+      "properties": {
+        "first_record_immutable": {"const": true},
+        "invocation_count_performed": {"const": 1},
+        "metrics_published": {"const": true},
+        "reason_code": {"enum": ["HARD_THRESHOLD_FAILED", "HARD_THRESHOLDS_PASSED"]},
+        "retry_replay_resume_repair_permitted": {"const": false},
+        "status": {"enum": ["FAILED_TERMINAL", "SUCCEEDED_TERMINAL"]},
+        "tensor_open_count": {"const": 1},
+        "thresholds_evaluated": {"const": true}
+      },
+      "required": [
+        "first_record_immutable",
+        "invocation_count_performed",
+        "metrics_published",
+        "reason_code",
+        "retry_replay_resume_repair_permitted",
+        "status",
+        "tensor_open_count",
+        "thresholds_evaluated"
+      ],
+      "type": "object"
+    },
+    "threshold_evaluation": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {"properties": {"all_hard_gates_pass": {"const": false}}},
+          "if": {
+            "properties": {
+              "cross_lane_record_count_maximum": {"properties": {"pass": {"const": true}}},
+              "invalid_or_non_finite_value_count_maximum": {"properties": {"pass": {"const": true}}},
+              "normalization_rejection_count_maximum": {"properties": {"pass": {"const": true}}},
+              "positive_centered_realized_score_count_maximum": {"properties": {"pass": {"const": true}}},
+              "rank_margin_violation_count_maximum": {"properties": {"pass": {"const": true}}},
+              "saturation_event_count_maximum": {"properties": {"pass": {"const": true}}},
+              "top_key_matching_fraction_minimum": {"properties": {"pass": {"const": true}}},
+              "top_key_mismatch_count_maximum": {"properties": {"pass": {"const": true}}},
+              "unique_oracle_positive_margin_preserved_fraction_minimum": {"properties": {"pass": {"const": true}}}
+            },
+            "required": [
+              "cross_lane_record_count_maximum",
+              "invalid_or_non_finite_value_count_maximum",
+              "normalization_rejection_count_maximum",
+              "positive_centered_realized_score_count_maximum",
+              "rank_margin_violation_count_maximum",
+              "saturation_event_count_maximum",
+              "top_key_matching_fraction_minimum",
+              "top_key_mismatch_count_maximum",
+              "unique_oracle_positive_margin_preserved_fraction_minimum"
+            ]
+          },
+          "then": {"properties": {"all_hard_gates_pass": {"const": true}}}
+        }
+      ],
+      "properties": {
+        "all_hard_gates_pass": {"type": "boolean"},
+        "cross_lane_record_count_maximum": {"$ref": "#/$defs/count_gate"},
+        "invalid_or_non_finite_value_count_maximum": {"$ref": "#/$defs/count_gate"},
+        "normalization_rejection_count_maximum": {"$ref": "#/$defs/count_gate"},
+        "positive_centered_realized_score_count_maximum": {"$ref": "#/$defs/count_gate"},
+        "rank_margin_violation_count_maximum": {"$ref": "#/$defs/count_gate"},
+        "saturation_event_count_maximum": {"$ref": "#/$defs/count_gate"},
+        "top_key_matching_fraction_minimum": {"$ref": "#/$defs/top_fraction_gate"},
+        "top_key_mismatch_count_maximum": {"$ref": "#/$defs/count_gate"},
+        "unique_oracle_positive_margin_preserved_fraction_minimum": {"$ref": "#/$defs/rank_fraction_gate"}
+      },
+      "required": [
+        "all_hard_gates_pass",
+        "cross_lane_record_count_maximum",
+        "invalid_or_non_finite_value_count_maximum",
+        "normalization_rejection_count_maximum",
+        "positive_centered_realized_score_count_maximum",
+        "rank_margin_violation_count_maximum",
+        "saturation_event_count_maximum",
+        "top_key_matching_fraction_minimum",
+        "top_key_mismatch_count_maximum",
+        "unique_oracle_positive_margin_preserved_fraction_minimum"
+      ],
+      "type": "object"
+    },
+    "top_key": {
+      "additionalProperties": false,
+      "allOf": [
+        {
+          "else": {
+            "properties": {
+              "matching_fraction": {"properties": {"numerator": {"maximum": 573}}},
+              "matching_row_count": {"maximum": 573}
+            }
+          },
+          "if": {"properties": {"mismatch_count": {"const": 0}}},
+          "then": {
+            "properties": {
+              "matching_fraction": {"const": {"denominator": 574, "numerator": 574}},
+              "matching_row_count": {"const": 574}
+            }
+          }
+        }
+      ],
+      "properties": {
+        "matching_fraction": {"$ref": "#/$defs/top_fraction"},
+        "matching_row_count": {"maximum": 574, "minimum": 0, "type": "integer"},
+        "mismatch_count": {"maximum": 574, "minimum": 0, "type": "integer"},
+        "row_count": {"const": 574}
+      },
+      "required": ["matching_fraction", "matching_row_count", "mismatch_count", "row_count"],
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "else": {"properties": {"selection": {"properties": {"passing_candidates": {"not": {"contains": {"const": "G8"}}}}}}},
+      "if": {"properties": {"candidate_results": {"prefixItems": [{"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]}}},
+      "then": {"properties": {"selection": {"properties": {"passing_candidates": {"contains": {"const": "G8"}}}}}}
+    },
+    {
+      "else": {"properties": {"selection": {"properties": {"passing_candidates": {"not": {"contains": {"const": "G4"}}}}}}},
+      "if": {"properties": {"candidate_results": {"prefixItems": [{}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]}}},
+      "then": {"properties": {"selection": {"properties": {"passing_candidates": {"contains": {"const": "G4"}}}}}}
+    },
+    {
+      "else": {"properties": {"selection": {"properties": {"passing_candidates": {"not": {"contains": {"const": "G2"}}}}}}},
+      "if": {"properties": {"candidate_results": {"prefixItems": [{}, {}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]}}},
+      "then": {"properties": {"selection": {"properties": {"passing_candidates": {"contains": {"const": "G2"}}}}}}
+    },
+    {
+      "else": {"properties": {"selection": {"properties": {"passing_candidates": {"not": {"contains": {"const": "G1"}}}}}}},
+      "if": {"properties": {"candidate_results": {"prefixItems": [{}, {}, {}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]}}},
+      "then": {"properties": {"selection": {"properties": {"passing_candidates": {"contains": {"const": "G1"}}}}}}
+    }
+  ],
+  "oneOf": [
+    {
+      "properties": {
+        "candidate_results": {"prefixItems": [{"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]},
+        "selected_candidate": {"const": "G8"},
+        "selection": {"properties": {"selected_candidate": {"const": "G8"}}},
+        "terminal": {"properties": {"reason_code": {"const": "HARD_THRESHOLDS_PASSED"}, "status": {"const": "SUCCEEDED_TERMINAL"}}}
+      }
+    },
+    {
+      "properties": {
+        "candidate_results": {"prefixItems": [{"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]},
+        "selected_candidate": {"const": "G4"},
+        "selection": {"properties": {"selected_candidate": {"const": "G4"}}},
+        "terminal": {"properties": {"reason_code": {"const": "HARD_THRESHOLDS_PASSED"}, "status": {"const": "SUCCEEDED_TERMINAL"}}}
+      }
+    },
+    {
+      "properties": {
+        "candidate_results": {"prefixItems": [{"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]},
+        "selected_candidate": {"const": "G2"},
+        "selection": {"properties": {"selected_candidate": {"const": "G2"}}},
+        "terminal": {"properties": {"reason_code": {"const": "HARD_THRESHOLDS_PASSED"}, "status": {"const": "SUCCEEDED_TERMINAL"}}}
+      }
+    },
+    {
+      "properties": {
+        "candidate_results": {"prefixItems": [{"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": true}}}}}]},
+        "selected_candidate": {"const": "G1"},
+        "selection": {"properties": {"selected_candidate": {"const": "G1"}}},
+        "terminal": {"properties": {"reason_code": {"const": "HARD_THRESHOLDS_PASSED"}, "status": {"const": "SUCCEEDED_TERMINAL"}}}
+      }
+    },
+    {
+      "properties": {
+        "candidate_results": {"prefixItems": [{"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}, {"properties": {"threshold_evaluation": {"properties": {"all_hard_gates_pass": {"const": false}}}}}]},
+        "selected_candidate": {"const": null},
+        "selection": {"properties": {"selected_candidate": {"const": null}}},
+        "terminal": {"properties": {"reason_code": {"const": "HARD_THRESHOLD_FAILED"}, "status": {"const": "FAILED_TERMINAL"}}}
+      }
+    }
+  ],
+  "properties": {
+    "authority_sha256": {"$ref": "#/$defs/sha256"},
+    "candidate_results": {
+      "items": false,
+      "maxItems": 4,
+      "minItems": 4,
+      "prefixItems": [
+        {"allOf": [{"$ref": "#/$defs/candidate_result"}, {"properties": {"bytes_per_head": {"const": 80}, "exponent_bytes_per_head": {"const": 16}, "group_count": {"const": 8}, "group_size": {"const": 8}, "label": {"const": "G8"}}}]},
+        {"allOf": [{"$ref": "#/$defs/candidate_result"}, {"properties": {"bytes_per_head": {"const": 96}, "exponent_bytes_per_head": {"const": 32}, "group_count": {"const": 16}, "group_size": {"const": 4}, "label": {"const": "G4"}}}]},
+        {"allOf": [{"$ref": "#/$defs/candidate_result"}, {"properties": {"bytes_per_head": {"const": 128}, "exponent_bytes_per_head": {"const": 64}, "group_count": {"const": 32}, "group_size": {"const": 2}, "label": {"const": "G2"}}}]},
+        {"allOf": [{"$ref": "#/$defs/candidate_result"}, {"properties": {"bytes_per_head": {"const": 192}, "exponent_bytes_per_head": {"const": 128}, "group_count": {"const": 64}, "group_size": {"const": 1}, "label": {"const": "G1"}}}]}
+      ],
+      "type": "array"
+    },
+    "consumed_ledger_sha256": {"$ref": "#/$defs/sha256"},
+    "evaluator_sha256": {"$ref": "#/$defs/sha256"},
+    "fresh_l2_acceptance_sha256": {"$ref": "#/$defs/sha256"},
+    "generation_id": {"const": "qk-gbfp8-head64-granularity-sweep-v8-base"},
+    "input_bindings": {"$ref": "#/$defs/artifact_binding"},
+    "invocation_sha256": {"$ref": "#/$defs/sha256"},
+    "irreversible_action_id": {"pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]{15,255}$", "type": "string"},
+    "lane_label": {"const": "Base"},
+    "model_identity_sha256": {"$ref": "#/$defs/sha256"},
+    "namespace_label": {"const": "base"},
+    "package_id": {"const": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE"},
+    "package_sha256": {"$ref": "#/$defs/sha256"},
+    "result_sha256": {"$ref": "#/$defs/sha256"},
+    "schema_id": {"const": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_RESULT_V1"},
+    "selected_candidate": {"enum": ["G8", "G4", "G2", "G1", null]},
+    "selection": {"$ref": "#/$defs/selection"},
+    "terminal": {"$ref": "#/$defs/terminal"}
+  },
+  "required": [
+    "authority_sha256",
+    "candidate_results",
+    "consumed_ledger_sha256",
+    "evaluator_sha256",
+    "fresh_l2_acceptance_sha256",
+    "generation_id",
+    "input_bindings",
+    "invocation_sha256",
+    "irreversible_action_id",
+    "lane_label",
+    "model_identity_sha256",
+    "namespace_label",
+    "package_id",
+    "package_sha256",
+    "result_sha256",
+    "schema_id",
+    "selected_candidate",
+    "selection",
+    "terminal"
+  ],
+  "type": "object"
+}

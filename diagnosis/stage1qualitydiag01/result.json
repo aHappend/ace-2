@@ -1,0 +1,2529 @@
+{
+  "classification": "candidate_only_diagnosis_no_official_execution",
+  "conditions": {
+    "base_bf16": {
+      "checkpoint": "base model without LoRA",
+      "independent_greedy": {
+        "decoded_text": "Sure, here's",
+        "feedback_policy": "independent_greedy_lowest_token_id_tie_break",
+        "generated_token_ids": [
+          39814,
+          11,
+          1588,
+          594
+        ],
+        "mode": "greedy",
+        "steps": [
+          {
+            "cache_length_after_forward": 34,
+            "context_token_count": 34,
+            "feedback_token_id": 39814,
+            "generation_index": 0,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-greedy-step-00-f32le.bin",
+              "sha256": "1f136971916eacd7c4d672ea20443c3211cd9f94bc7ecca33fd27f233bea1fe6",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 18.625,
+              "target_ranks": {
+                "26614": 18247,
+                "43895": 103526,
+                "76521": 18806,
+                "92464": 31636
+              },
+              "target_scores": {
+                "26614": 0.93359375,
+                "43895": -4.09375,
+                "76521": 0.87890625,
+                "92464": -0.2255859375
+              },
+              "top_candidates": [
+                {
+                  "piece": "Sure",
+                  "score": 21.0,
+                  "token_id": 39814
+                },
+                {
+                  "piece": "Here",
+                  "score": 18.625,
+                  "token_id": 8420
+                },
+                {
+                  "piece": "Of",
+                  "score": 17.875,
+                  "token_id": 2124
+                },
+                {
+                  "piece": "Why",
+                  "score": 17.875,
+                  "token_id": 10234
+                },
+                {
+                  "piece": "I",
+                  "score": 16.875,
+                  "token_id": 40
+                },
+                {
+                  "piece": "Certainly",
+                  "score": 16.875,
+                  "token_id": 95456
+                },
+                {
+                  "piece": "Absolutely",
+                  "score": 16.5,
+                  "token_id": 77045
+                },
+                {
+                  "piece": "Okay",
+                  "score": 14.9375,
+                  "token_id": 32313
+                }
+              ],
+              "top_margin": 2.375,
+              "top_piece": "Sure",
+              "top_score": 21.0,
+              "top_tie_count": 1,
+              "top_token_id": 39814
+            }
+          },
+          {
+            "cache_length_after_forward": 35,
+            "context_token_count": 35,
+            "feedback_token_id": 11,
+            "generation_index": 1,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-greedy-step-01-f32le.bin",
+              "sha256": "ac26fd696dba5b2f566e1c6fef394a004f4713cf832510655bf2eed6c6e83648",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 23.0,
+              "target_ranks": {
+                "26614": 41455,
+                "43895": 84930,
+                "76521": 103716,
+                "92464": 106303
+              },
+              "target_scores": {
+                "26614": -1.890625,
+                "43895": -4.03125,
+                "76521": -4.9375,
+                "92464": -5.0625
+              },
+              "top_candidates": [
+                {
+                  "piece": ",",
+                  "score": 23.875,
+                  "token_id": 11
+                },
+                {
+                  "piece": "!",
+                  "score": 23.0,
+                  "token_id": 0
+                },
+                {
+                  "piece": "!\n",
+                  "score": 18.125,
+                  "token_id": 4894
+                },
+                {
+                  "piece": "ly",
+                  "score": 16.375,
+                  "token_id": 398
+                },
+                {
+                  "piece": " thing",
+                  "score": 16.125,
+                  "token_id": 3166
+                },
+                {
+                  "piece": "!\n\n",
+                  "score": 15.6875,
+                  "token_id": 2219
+                },
+                {
+                  "piece": ".",
+                  "score": 14.25,
+                  "token_id": 13
+                },
+                {
+                  "piece": ":\n",
+                  "score": 14.125,
+                  "token_id": 510
+                }
+              ],
+              "top_margin": 0.875,
+              "top_piece": ",",
+              "top_score": 23.875,
+              "top_tie_count": 1,
+              "top_token_id": 11
+            }
+          },
+          {
+            "cache_length_after_forward": 36,
+            "context_token_count": 36,
+            "feedback_token_id": 1588,
+            "generation_index": 2,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-greedy-step-02-f32le.bin",
+              "sha256": "a5017d4b17b76217ee8c6a68550308545e3b0806211b23fc0a07dff7e365245e",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 20.5,
+              "target_ranks": {
+                "26614": 19918,
+                "43895": 57792,
+                "76521": 62250,
+                "92464": 28948
+              },
+              "target_scores": {
+                "26614": 0.703125,
+                "43895": -1.8671875,
+                "76521": -2.09375,
+                "92464": -0.080078125
+              },
+              "top_candidates": [
+                {
+                  "piece": " here",
+                  "score": 24.375,
+                  "token_id": 1588
+                },
+                {
+                  "piece": " I",
+                  "score": 20.5,
+                  "token_id": 358
+                },
+                {
+                  "piece": " how",
+                  "score": 18.0,
+                  "token_id": 1246
+                },
+                {
+                  "piece": " let",
+                  "score": 17.0,
+                  "token_id": 1077
+                },
+                {
+                  "piece": " what",
+                  "score": 17.0,
+                  "token_id": 1128
+                },
+                {
+                  "piece": " there",
+                  "score": 16.375,
+                  "token_id": 1052
+                },
+                {
+                  "piece": " why",
+                  "score": 15.8125,
+                  "token_id": 3170
+                },
+                {
+                  "piece": " have",
+                  "score": 15.75,
+                  "token_id": 614
+                }
+              ],
+              "top_margin": 3.875,
+              "top_piece": " here",
+              "top_score": 24.375,
+              "top_tie_count": 1,
+              "top_token_id": 1588
+            }
+          },
+          {
+            "cache_length_after_forward": 37,
+            "context_token_count": 37,
+            "feedback_token_id": null,
+            "generation_index": 3,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-greedy-step-03-f32le.bin",
+              "sha256": "7933f4ca8143bddc3121e7801a8d7b5d10f084f82a96db9f498273234b9499a4",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 23.75,
+              "target_ranks": {
+                "26614": 18853,
+                "43895": 139869,
+                "76521": 68347,
+                "92464": 15366
+              },
+              "target_scores": {
+                "26614": -0.03857421875,
+                "43895": -7.8125,
+                "76521": -3.375,
+                "92464": 0.357421875
+              },
+              "top_candidates": [
+                {
+                  "piece": "'s",
+                  "score": 27.125,
+                  "token_id": 594
+                },
+                {
+                  "piece": " is",
+                  "score": 23.75,
+                  "token_id": 374
+                },
+                {
+                  "piece": "\u2019s",
+                  "score": 23.0,
+                  "token_id": 748
+                },
+                {
+                  "piece": " it",
+                  "score": 22.75,
+                  "token_id": 432
+                },
+                {
+                  "piece": " goes",
+                  "score": 20.125,
+                  "token_id": 5780
+                },
+                {
+                  "piece": " you",
+                  "score": 17.25,
+                  "token_id": 498
+                },
+                {
+                  "piece": " we",
+                  "score": 16.5,
+                  "token_id": 582
+                },
+                {
+                  "piece": " was",
+                  "score": 16.25,
+                  "token_id": 572
+                }
+              ],
+              "top_margin": 3.375,
+              "top_piece": "'s",
+              "top_score": 27.125,
+              "top_tie_count": 1,
+              "top_token_id": 594
+            }
+          }
+        ],
+        "use_cache": true
+      },
+      "teacher_forced_on_sealed_prefix": {
+        "decoded_text": "TI tariffs(ang ArgumentOutOfRangeException",
+        "feedback_policy": "sealed_w4a8_teacher_forced",
+        "generated_token_ids": [
+          26614,
+          43895,
+          92464,
+          76521
+        ],
+        "mode": "teacher-forced",
+        "steps": [
+          {
+            "cache_length_after_forward": 34,
+            "context_token_count": 34,
+            "feedback_token_id": 26614,
+            "generation_index": 0,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-teacher-forced-step-00-f32le.bin",
+              "sha256": "1f136971916eacd7c4d672ea20443c3211cd9f94bc7ecca33fd27f233bea1fe6",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 18.625,
+              "target_ranks": {
+                "26614": 18247,
+                "43895": 103526,
+                "76521": 18806,
+                "92464": 31636
+              },
+              "target_scores": {
+                "26614": 0.93359375,
+                "43895": -4.09375,
+                "76521": 0.87890625,
+                "92464": -0.2255859375
+              },
+              "top_candidates": [
+                {
+                  "piece": "Sure",
+                  "score": 21.0,
+                  "token_id": 39814
+                },
+                {
+                  "piece": "Here",
+                  "score": 18.625,
+                  "token_id": 8420
+                },
+                {
+                  "piece": "Of",
+                  "score": 17.875,
+                  "token_id": 2124
+                },
+                {
+                  "piece": "Why",
+                  "score": 17.875,
+                  "token_id": 10234
+                },
+                {
+                  "piece": "I",
+                  "score": 16.875,
+                  "token_id": 40
+                },
+                {
+                  "piece": "Certainly",
+                  "score": 16.875,
+                  "token_id": 95456
+                },
+                {
+                  "piece": "Absolutely",
+                  "score": 16.5,
+                  "token_id": 77045
+                },
+                {
+                  "piece": "Okay",
+                  "score": 14.9375,
+                  "token_id": 32313
+                }
+              ],
+              "top_margin": 2.375,
+              "top_piece": "Sure",
+              "top_score": 21.0,
+              "top_tie_count": 1,
+              "top_token_id": 39814
+            }
+          },
+          {
+            "cache_length_after_forward": 35,
+            "context_token_count": 35,
+            "feedback_token_id": 43895,
+            "generation_index": 1,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-teacher-forced-step-01-f32le.bin",
+              "sha256": "e3a2bd8b66f55d175e45c969bacc504a99e1cc35f7690467a8d21b3064e4a6f8",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 13.9375,
+              "target_ranks": {
+                "26614": 8669,
+                "43895": 138175,
+                "76521": 101738,
+                "92464": 20667
+              },
+              "target_scores": {
+                "26614": 2.59375,
+                "43895": -5.46875,
+                "76521": -3.28125,
+                "92464": 1.125
+              },
+              "top_candidates": [
+                {
+                  "piece": "FF",
+                  "score": 14.0625,
+                  "token_id": 1748
+                },
+                {
+                  "piece": "K",
+                  "score": 13.9375,
+                  "token_id": 42
+                },
+                {
+                  "piece": "KE",
+                  "score": 13.75,
+                  "token_id": 3390
+                },
+                {
+                  "piece": "RED",
+                  "score": 13.3125,
+                  "token_id": 6504
+                },
+                {
+                  "piece": "PT",
+                  "score": 13.0625,
+                  "token_id": 2828
+                },
+                {
+                  "piece": "'m",
+                  "score": 12.8125,
+                  "token_id": 2776
+                },
+                {
+                  "piece": "ke",
+                  "score": 12.6875,
+                  "token_id": 440
+                },
+                {
+                  "piece": "SS",
+                  "score": 12.625,
+                  "token_id": 1220
+                }
+              ],
+              "top_margin": 0.125,
+              "top_piece": "FF",
+              "top_score": 14.0625,
+              "top_tie_count": 1,
+              "top_token_id": 1748
+            }
+          },
+          {
+            "cache_length_after_forward": 36,
+            "context_token_count": 36,
+            "feedback_token_id": 92464,
+            "generation_index": 2,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-teacher-forced-step-02-f32le.bin",
+              "sha256": "5cedf5d6645f5a2dc27768956241793c6ebbd1537822153eee19b019dd2cae08",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 14.3125,
+              "target_ranks": {
+                "26614": 13359,
+                "43895": 62,
+                "76521": 136391,
+                "92464": 22561
+              },
+              "target_scores": {
+                "26614": 3.421875,
+                "43895": 10.0625,
+                "76521": -2.328125,
+                "92464": 2.546875
+              },
+              "top_candidates": [
+                {
+                  "piece": ",",
+                  "score": 14.3125,
+                  "token_id": 11
+                },
+                {
+                  "piece": " are",
+                  "score": 14.3125,
+                  "token_id": 525
+                },
+                {
+                  "piece": ".",
+                  "score": 13.625,
+                  "token_id": 13
+                },
+                {
+                  "piece": "!",
+                  "score": 13.4375,
+                  "token_id": 0
+                },
+                {
+                  "piece": ":",
+                  "score": 13.25,
+                  "token_id": 25
+                },
+                {
+                  "piece": " the",
+                  "score": 13.1875,
+                  "token_id": 279
+                },
+                {
+                  "piece": ":\n",
+                  "score": 13.125,
+                  "token_id": 510
+                },
+                {
+                  "piece": " you",
+                  "score": 13.0625,
+                  "token_id": 498
+                }
+              ],
+              "top_margin": 0.0,
+              "top_piece": ",",
+              "top_score": 14.3125,
+              "top_tie_count": 2,
+              "top_token_id": 11
+            }
+          },
+          {
+            "cache_length_after_forward": 37,
+            "context_token_count": 37,
+            "feedback_token_id": null,
+            "generation_index": 3,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/base-bf16-teacher-forced-step-03-f32le.bin",
+              "sha256": "02626b3c6f3f796d0e85e5d53445ec139cae11219c077b9042fa74abf6aba727",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 15.375,
+              "target_ranks": {
+                "26614": 46797,
+                "43895": 116248,
+                "76521": 91423,
+                "92464": 6394
+              },
+              "target_scores": {
+                "26614": -0.166015625,
+                "43895": -2.890625,
+                "76521": -1.8203125,
+                "92464": 3.390625
+              },
+              "top_candidates": [
+                {
+                  "piece": "ry",
+                  "score": 16.0,
+                  "token_id": 884
+                },
+                {
+                  "piece": "r",
+                  "score": 15.375,
+                  "token_id": 81
+                },
+                {
+                  "piece": "ie",
+                  "score": 14.0625,
+                  "token_id": 645
+                },
+                {
+                  "piece": "lo",
+                  "score": 13.25,
+                  "token_id": 385
+                },
+                {
+                  "piece": "els",
+                  "score": 13.1875,
+                  "token_id": 2010
+                },
+                {
+                  "piece": ")",
+                  "score": 12.875,
+                  "token_id": 8
+                },
+                {
+                  "piece": "ina",
+                  "score": 12.875,
+                  "token_id": 2210
+                },
+                {
+                  "piece": "g",
+                  "score": 12.5,
+                  "token_id": 70
+                }
+              ],
+              "top_margin": 0.625,
+              "top_piece": "ry",
+              "top_score": 16.0,
+              "top_tie_count": 1,
+              "top_token_id": 884
+            }
+          }
+        ],
+        "use_cache": true
+      }
+    },
+    "checkpoint176_bf16": {
+      "checkpoint": "base model plus checkpoint-176 LoRA",
+      "independent_greedy": {
+        "decoded_text": "Sure, here's",
+        "feedback_policy": "independent_greedy_lowest_token_id_tie_break",
+        "generated_token_ids": [
+          39814,
+          11,
+          1588,
+          594
+        ],
+        "mode": "greedy",
+        "steps": [
+          {
+            "cache_length_after_forward": 34,
+            "context_token_count": 34,
+            "feedback_token_id": 39814,
+            "generation_index": 0,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-greedy-step-00-f32le.bin",
+              "sha256": "1910fe7196b34ac858b2d5b8406ee94df00ef39e5f285ba7ed56381de66b7614",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 19.0,
+              "target_ranks": {
+                "26614": 35822,
+                "43895": 76404,
+                "76521": 17097,
+                "92464": 41149
+              },
+              "target_scores": {
+                "26614": -0.921875,
+                "43895": -3.203125,
+                "76521": 0.73046875,
+                "92464": -1.2734375
+              },
+              "top_candidates": [
+                {
+                  "piece": "Sure",
+                  "score": 20.625,
+                  "token_id": 39814
+                },
+                {
+                  "piece": "Here",
+                  "score": 19.0,
+                  "token_id": 8420
+                },
+                {
+                  "piece": "I",
+                  "score": 18.25,
+                  "token_id": 40
+                },
+                {
+                  "piece": "Why",
+                  "score": 17.875,
+                  "token_id": 10234
+                },
+                {
+                  "piece": "Of",
+                  "score": 17.75,
+                  "token_id": 2124
+                },
+                {
+                  "piece": "Absolutely",
+                  "score": 16.5,
+                  "token_id": 77045
+                },
+                {
+                  "piece": "Certainly",
+                  "score": 15.6875,
+                  "token_id": 95456
+                },
+                {
+                  "piece": "L",
+                  "score": 14.8125,
+                  "token_id": 43
+                }
+              ],
+              "top_margin": 1.625,
+              "top_piece": "Sure",
+              "top_score": 20.625,
+              "top_tie_count": 1,
+              "top_token_id": 39814
+            }
+          },
+          {
+            "cache_length_after_forward": 35,
+            "context_token_count": 35,
+            "feedback_token_id": 11,
+            "generation_index": 1,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-greedy-step-01-f32le.bin",
+              "sha256": "2c3d0e005c34fd3b75dd2e898449d94c33349b7acb498a52a00352f2a92309d2",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 22.5,
+              "target_ranks": {
+                "26614": 40592,
+                "43895": 50211,
+                "76521": 85521,
+                "92464": 111930
+              },
+              "target_scores": {
+                "26614": -2.359375,
+                "43895": -2.90625,
+                "76521": -4.6875,
+                "92464": -6.0
+              },
+              "top_candidates": [
+                {
+                  "piece": ",",
+                  "score": 26.125,
+                  "token_id": 11
+                },
+                {
+                  "piece": "!",
+                  "score": 22.5,
+                  "token_id": 0
+                },
+                {
+                  "piece": "!\n",
+                  "score": 18.875,
+                  "token_id": 4894
+                },
+                {
+                  "piece": " thing",
+                  "score": 15.6875,
+                  "token_id": 3166
+                },
+                {
+                  "piece": "!\n\n",
+                  "score": 15.375,
+                  "token_id": 2219
+                },
+                {
+                  "piece": "ly",
+                  "score": 15.0,
+                  "token_id": 398
+                },
+                {
+                  "piece": "\uff01",
+                  "score": 14.375,
+                  "token_id": 6313
+                },
+                {
+                  "piece": " !",
+                  "score": 13.8125,
+                  "token_id": 753
+                }
+              ],
+              "top_margin": 3.625,
+              "top_piece": ",",
+              "top_score": 26.125,
+              "top_tie_count": 1,
+              "top_token_id": 11
+            }
+          },
+          {
+            "cache_length_after_forward": 36,
+            "context_token_count": 36,
+            "feedback_token_id": 1588,
+            "generation_index": 2,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-greedy-step-02-f32le.bin",
+              "sha256": "b1df560a3033befe9ca5012bfede7272b1bea3361000382ea800b90f5fb90cfa",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 21.125,
+              "target_ranks": {
+                "26614": 18208,
+                "43895": 52423,
+                "76521": 49527,
+                "92464": 22774
+              },
+              "target_scores": {
+                "26614": 0.75,
+                "43895": -1.703125,
+                "76521": -1.5390625,
+                "92464": 0.3046875
+              },
+              "top_candidates": [
+                {
+                  "piece": " here",
+                  "score": 24.125,
+                  "token_id": 1588
+                },
+                {
+                  "piece": " I",
+                  "score": 21.125,
+                  "token_id": 358
+                },
+                {
+                  "piece": " how",
+                  "score": 19.0,
+                  "token_id": 1246
+                },
+                {
+                  "piece": " what",
+                  "score": 18.375,
+                  "token_id": 1128
+                },
+                {
+                  "piece": "here",
+                  "score": 17.5,
+                  "token_id": 6739
+                },
+                {
+                  "piece": " let",
+                  "score": 16.875,
+                  "token_id": 1077
+                },
+                {
+                  "piece": " why",
+                  "score": 16.0,
+                  "token_id": 3170
+                },
+                {
+                  "piece": " there",
+                  "score": 15.5,
+                  "token_id": 1052
+                }
+              ],
+              "top_margin": 3.0,
+              "top_piece": " here",
+              "top_score": 24.125,
+              "top_tie_count": 1,
+              "top_token_id": 1588
+            }
+          },
+          {
+            "cache_length_after_forward": 37,
+            "context_token_count": 37,
+            "feedback_token_id": null,
+            "generation_index": 3,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-greedy-step-03-f32le.bin",
+              "sha256": "213513ba92666b582482aec4b019acdaee86011ecabbed7d3e1fbed2b1066be0",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 23.375,
+              "target_ranks": {
+                "26614": 13567,
+                "43895": 131371,
+                "76521": 57694,
+                "92464": 13024
+              },
+              "target_scores": {
+                "26614": 0.1259765625,
+                "43895": -7.25,
+                "76521": -3.21875,
+                "92464": 0.203125
+              },
+              "top_candidates": [
+                {
+                  "piece": "'s",
+                  "score": 27.375,
+                  "token_id": 594
+                },
+                {
+                  "piece": " it",
+                  "score": 23.375,
+                  "token_id": 432
+                },
+                {
+                  "piece": " is",
+                  "score": 20.5,
+                  "token_id": 374
+                },
+                {
+                  "piece": "\u2019s",
+                  "score": 19.625,
+                  "token_id": 748
+                },
+                {
+                  "piece": " goes",
+                  "score": 18.875,
+                  "token_id": 5780
+                },
+                {
+                  "piece": " was",
+                  "score": 15.3125,
+                  "token_id": 572
+                },
+                {
+                  "piece": "\u7684\u662f",
+                  "score": 14.9375,
+                  "token_id": 100146
+                },
+                {
+                  "piece": "\u7684\u5c31\u662f",
+                  "score": 14.9375,
+                  "token_id": 105729
+                }
+              ],
+              "top_margin": 4.0,
+              "top_piece": "'s",
+              "top_score": 27.375,
+              "top_tie_count": 1,
+              "top_token_id": 594
+            }
+          }
+        ],
+        "use_cache": true
+      },
+      "position33_hidden_boundaries": {
+        "bytes": 89600,
+        "dtype": "float32_le",
+        "path": "diagnosis/stage1qualitydiag01/hidden/checkpoint176-bf16-position33-boundaries-f32le.bin",
+        "sha256": "de30afeb9dc65c615c4e23a7661b65ef264fb2435aca912475e5b3c1ef6ea945",
+        "shape": [
+          25,
+          896
+        ]
+      },
+      "teacher_forced_on_sealed_prefix": {
+        "decoded_text": "TI tariffs(ang ArgumentOutOfRangeException",
+        "feedback_policy": "sealed_w4a8_teacher_forced",
+        "generated_token_ids": [
+          26614,
+          43895,
+          92464,
+          76521
+        ],
+        "mode": "teacher-forced",
+        "steps": [
+          {
+            "cache_length_after_forward": 34,
+            "context_token_count": 34,
+            "feedback_token_id": 26614,
+            "generation_index": 0,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-teacher-forced-step-00-f32le.bin",
+              "sha256": "1910fe7196b34ac858b2d5b8406ee94df00ef39e5f285ba7ed56381de66b7614",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 19.0,
+              "target_ranks": {
+                "26614": 35822,
+                "43895": 76404,
+                "76521": 17097,
+                "92464": 41149
+              },
+              "target_scores": {
+                "26614": -0.921875,
+                "43895": -3.203125,
+                "76521": 0.73046875,
+                "92464": -1.2734375
+              },
+              "top_candidates": [
+                {
+                  "piece": "Sure",
+                  "score": 20.625,
+                  "token_id": 39814
+                },
+                {
+                  "piece": "Here",
+                  "score": 19.0,
+                  "token_id": 8420
+                },
+                {
+                  "piece": "I",
+                  "score": 18.25,
+                  "token_id": 40
+                },
+                {
+                  "piece": "Why",
+                  "score": 17.875,
+                  "token_id": 10234
+                },
+                {
+                  "piece": "Of",
+                  "score": 17.75,
+                  "token_id": 2124
+                },
+                {
+                  "piece": "Absolutely",
+                  "score": 16.5,
+                  "token_id": 77045
+                },
+                {
+                  "piece": "Certainly",
+                  "score": 15.6875,
+                  "token_id": 95456
+                },
+                {
+                  "piece": "L",
+                  "score": 14.8125,
+                  "token_id": 43
+                }
+              ],
+              "top_margin": 1.625,
+              "top_piece": "Sure",
+              "top_score": 20.625,
+              "top_tie_count": 1,
+              "top_token_id": 39814
+            }
+          },
+          {
+            "cache_length_after_forward": 35,
+            "context_token_count": 35,
+            "feedback_token_id": 43895,
+            "generation_index": 1,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-teacher-forced-step-01-f32le.bin",
+              "sha256": "95562b8e286bd444bf19e0e4d79544519f43504f280ab5d2f31a24f7e3e3a78b",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 13.9375,
+              "target_ranks": {
+                "26614": 12308,
+                "43895": 137721,
+                "76521": 98195,
+                "92464": 19872
+              },
+              "target_scores": {
+                "26614": 1.4453125,
+                "43895": -6.375,
+                "76521": -3.9375,
+                "92464": 0.5703125
+              },
+              "top_candidates": [
+                {
+                  "piece": "KE",
+                  "score": 14.0,
+                  "token_id": 3390
+                },
+                {
+                  "piece": "FF",
+                  "score": 13.9375,
+                  "token_id": 1748
+                },
+                {
+                  "piece": "K",
+                  "score": 13.75,
+                  "token_id": 42
+                },
+                {
+                  "piece": "RED",
+                  "score": 13.4375,
+                  "token_id": 6504
+                },
+                {
+                  "piece": "ke",
+                  "score": 13.125,
+                  "token_id": 440
+                },
+                {
+                  "piece": "ken",
+                  "score": 12.8125,
+                  "token_id": 2712
+                },
+                {
+                  "piece": "PT",
+                  "score": 12.625,
+                  "token_id": 2828
+                },
+                {
+                  "piece": "'m",
+                  "score": 12.5625,
+                  "token_id": 2776
+                }
+              ],
+              "top_margin": 0.0625,
+              "top_piece": "KE",
+              "top_score": 14.0,
+              "top_tie_count": 1,
+              "top_token_id": 3390
+            }
+          },
+          {
+            "cache_length_after_forward": 36,
+            "context_token_count": 36,
+            "feedback_token_id": 92464,
+            "generation_index": 2,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-teacher-forced-step-02-f32le.bin",
+              "sha256": "f78953de9707830413530589ccb3e9524f6238c5cbef235b1ae9fa11e915e0d9",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 12.9375,
+              "target_ranks": {
+                "26614": 12440,
+                "43895": 63,
+                "76521": 140514,
+                "92464": 26693
+              },
+              "target_scores": {
+                "26614": 2.8125,
+                "43895": 9.4375,
+                "76521": -3.765625,
+                "92464": 1.5
+              },
+              "top_candidates": [
+                {
+                  "piece": ",",
+                  "score": 13.625,
+                  "token_id": 11
+                },
+                {
+                  "piece": " my",
+                  "score": 12.9375,
+                  "token_id": 847
+                },
+                {
+                  "piece": ":",
+                  "score": 12.8125,
+                  "token_id": 25
+                },
+                {
+                  "piece": " are",
+                  "score": 12.75,
+                  "token_id": 525
+                },
+                {
+                  "piece": " me",
+                  "score": 12.75,
+                  "token_id": 752
+                },
+                {
+                  "piece": "!",
+                  "score": 12.6875,
+                  "token_id": 0
+                },
+                {
+                  "piece": ".",
+                  "score": 12.6875,
+                  "token_id": 13
+                },
+                {
+                  "piece": " a",
+                  "score": 12.6875,
+                  "token_id": 264
+                }
+              ],
+              "top_margin": 0.6875,
+              "top_piece": ",",
+              "top_score": 13.625,
+              "top_tie_count": 1,
+              "top_token_id": 11
+            }
+          },
+          {
+            "cache_length_after_forward": 37,
+            "context_token_count": 37,
+            "feedback_token_id": null,
+            "generation_index": 3,
+            "logits": {
+              "bytes": 607744,
+              "dtype": "float32_le",
+              "path": "diagnosis/stage1qualitydiag01/logits/checkpoint176-bf16-teacher-forced-step-03-f32le.bin",
+              "sha256": "cdd566139aa5e44c7e9bb45a4c773e9c44c541439a8f095de959ade6767661c6",
+              "shape": [
+                151936
+              ]
+            },
+            "ranking": {
+              "runner_up_score": 15.25,
+              "target_ranks": {
+                "26614": 49118,
+                "43895": 130678,
+                "76521": 88914,
+                "92464": 5071
+              },
+              "target_scores": {
+                "26614": -0.498046875,
+                "43895": -4.03125,
+                "76521": -1.9765625,
+                "92464": 3.640625
+              },
+              "top_candidates": [
+                {
+                  "piece": "ry",
+                  "score": 15.5625,
+                  "token_id": 884
+                },
+                {
+                  "piece": "ie",
+                  "score": 15.25,
+                  "token_id": 645
+                },
+                {
+                  "piece": "r",
+                  "score": 15.1875,
+                  "token_id": 81
+                },
+                {
+                  "piece": "lo",
+                  "score": 14.125,
+                  "token_id": 385
+                },
+                {
+                  "piece": "els",
+                  "score": 13.1875,
+                  "token_id": 2010
+                },
+                {
+                  "piece": ")",
+                  "score": 13.125,
+                  "token_id": 8
+                },
+                {
+                  "piece": "ina",
+                  "score": 13.125,
+                  "token_id": 2210
+                },
+                {
+                  "piece": "ler",
+                  "score": 12.875,
+                  "token_id": 1536
+                }
+              ],
+              "top_margin": 0.3125,
+              "top_piece": "ry",
+              "top_score": 15.5625,
+              "top_tie_count": 1,
+              "top_token_id": 884
+            }
+          }
+        ],
+        "use_cache": true
+      }
+    },
+    "checkpoint176_w4a8_software_and_sealed_rtl": {
+      "decoded_text": "TI tariffs(ang ArgumentOutOfRangeException",
+      "generated_token_ids": [
+        26614,
+        43895,
+        92464,
+        76521
+      ],
+      "software_rtl_full_vector_mismatch_count": 0,
+      "steps": [
+        {
+          "generation_index": 0,
+          "head_execution": {
+            "bytes": 7742,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/head_execution.json",
+            "sha256": "d603bbafbfaadeaf2afd0838e00b3473aade79a316420b2e0c12462a8ca91b56"
+          },
+          "output_s8": {
+            "bytes": 151936,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_s8.bin",
+            "sha256": "55009f23fafbd106621fec56f349a599612a8c23635fd9fbca7b3bc1645bcc42"
+          },
+          "output_scale_f64le": {
+            "bytes": 8,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_scale_f64le.bin",
+            "sha256": "7063352c5598e6b359dd09628adcd9c47ca371ca8ff701bf0a379d2b895abb8f"
+          },
+          "ranking": {
+            "runner_up_score": 11.42762253228135,
+            "target_ranks": {
+              "26614": 1,
+              "43895": 122075,
+              "76521": 52694,
+              "92464": 86348
+            },
+            "target_scores": {
+              "26614": 11.673377855556218,
+              "43895": -3.8092075107604497,
+              "76521": -0.24575532327486774,
+              "92464": -1.966042586198942
+            },
+            "top_candidates": [
+              {
+                "piece": "TI",
+                "score": 11.673377855556218,
+                "token_id": 26614
+              },
+              {
+                "piece": "ilon",
+                "score": 11.42762253228135,
+                "token_id": 16917
+              },
+              {
+                "piece": "_instance",
+                "score": 11.181867209006482,
+                "token_id": 11904
+              },
+              {
+                "piece": "arlo",
+                "score": 10.936111885731615,
+                "token_id": 60928
+              },
+              {
+                "piece": "ton",
+                "score": 10.690356562456747,
+                "token_id": 777
+              },
+              {
+                "piece": "\u4f5c\u7528",
+                "score": 10.690356562456747,
+                "token_id": 100154
+              },
+              {
+                "piece": "erializer",
+                "score": 10.567478900819312,
+                "token_id": 41939
+              },
+              {
+                "piece": "\u7684\u4f5c\u7528",
+                "score": 10.567478900819312,
+                "token_id": 104149
+              }
+            ],
+            "top_margin": 0.24575532327486904,
+            "top_piece": "TI",
+            "top_score": 11.673377855556218,
+            "top_tie_count": 1,
+            "top_token_id": 26614
+          },
+          "rtl_final_rmsnorm_integer_mismatches": 0,
+          "rtl_full_vector_integer_mismatches": 0,
+          "selected_token_id": 26614
+        },
+        {
+          "generation_index": 1,
+          "head_execution": {
+            "bytes": 7747,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-01/head_execution.json",
+            "sha256": "430a78bc57b81c66f0eff0dd839768a679dd36b2352ffcb5434f14b685f00187"
+          },
+          "output_s8": {
+            "bytes": 151936,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-01/tensors/lm_head_output_s8.bin",
+            "sha256": "e7f73feac68486138598b3274f594469a8bef502a232a2c5d8f9c4c1c38650d6"
+          },
+          "output_scale_f64le": {
+            "bytes": 8,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-01/tensors/lm_head_output_scale_f64le.bin",
+            "sha256": "a4ba4e3d87477b8f1169fb1ae0ab27c8a07e44a5892c271fdd1e4a59bfe92402"
+          },
+          "ranking": {
+            "runner_up_score": 12.998581886291504,
+            "target_ranks": {
+              "26614": 30099,
+              "43895": 1,
+              "76521": 3678,
+              "92464": 46030
+            },
+            "target_scores": {
+              "26614": 3.27523323119156,
+              "43895": 12.998581886291504,
+              "76521": 6.652817500857856,
+              "92464": 2.3540738849189338
+            },
+            "top_candidates": [
+              {
+                "piece": " tariffs",
+                "score": 12.998581886291504,
+                "token_id": 43895
+              },
+              {
+                "piece": " \ufffd",
+                "score": 12.998581886291504,
+                "token_id": 84238
+              },
+              {
+                "piece": "\u9739",
+                "score": 12.998581886291504,
+                "token_id": 119527
+              },
+              {
+                "piece": ".GetKey",
+                "score": 12.486826693917823,
+                "token_id": 51723
+              },
+              {
+                "piece": "\u9556",
+                "score": 12.28212461696835,
+                "token_id": 117315
+              },
+              {
+                "piece": ".navigationItem",
+                "score": 11.975071501544141,
+                "token_id": 53013
+              },
+              {
+                "piece": " Internacional",
+                "score": 11.975071501544141,
+                "token_id": 95067
+              },
+              {
+                "piece": " onload",
+                "score": 11.975071501544141,
+                "token_id": 96964
+              }
+            ],
+            "top_margin": 0.0,
+            "top_piece": " tariffs",
+            "top_score": 12.998581886291504,
+            "top_tie_count": 3,
+            "top_token_id": 43895
+          },
+          "rtl_final_rmsnorm_integer_mismatches": 0,
+          "rtl_full_vector_integer_mismatches": 0,
+          "selected_token_id": 43895
+        },
+        {
+          "generation_index": 2,
+          "head_execution": {
+            "bytes": 7743,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-02/head_execution.json",
+            "sha256": "c35e387fbc5270f1edf04219f4a6868d061445b6c509b2a98a245c0e2706152b"
+          },
+          "output_s8": {
+            "bytes": 151936,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-02/tensors/lm_head_output_s8.bin",
+            "sha256": "7784670cbf34be98f446ef09f712163efa1971844a122434b740e505d818f703"
+          },
+          "output_scale_f64le": {
+            "bytes": 8,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-02/tensors/lm_head_output_scale_f64le.bin",
+            "sha256": "8c335ac2935d14fddd43a4d22115edf5e84de6915876a9be6631964a0402f591"
+          },
+          "ranking": {
+            "runner_up_score": 11.589757123331387,
+            "target_ranks": {
+              "26614": 2738,
+              "43895": 4082,
+              "76521": 25390,
+              "92464": 1
+            },
+            "target_scores": {
+              "26614": 5.208879605991634,
+              "43895": 4.68799164539247,
+              "76521": 1.692885871947281,
+              "92464": 12.371089064230132
+            },
+            "top_candidates": [
+              {
+                "piece": "(ang",
+                "score": 12.371089064230132,
+                "token_id": 92464
+              },
+              {
+                "piece": "RequestBody",
+                "score": 11.589757123331387,
+                "token_id": 33334
+              },
+              {
+                "piece": ".\"&",
+                "score": 11.459535133181596,
+                "token_id": 83784
+              },
+              {
+                "piece": "monto",
+                "score": 11.329313143031804,
+                "token_id": 94073
+              },
+              {
+                "piece": "IFF",
+                "score": 10.938647172582431,
+                "token_id": 29035
+              },
+              {
+                "piece": ".eulerAngles",
+                "score": 10.808425182432641,
+                "token_id": 80523
+              },
+              {
+                "piece": "brit",
+                "score": 10.67820319228285,
+                "token_id": 31314
+              },
+              {
+                "piece": ">';",
+                "score": 10.67820319228285,
+                "token_id": 36709
+              }
+            ],
+            "top_margin": 0.7813319408987454,
+            "top_piece": "(ang",
+            "top_score": 12.371089064230132,
+            "top_tie_count": 1,
+            "top_token_id": 92464
+          },
+          "rtl_final_rmsnorm_integer_mismatches": 0,
+          "rtl_full_vector_integer_mismatches": 0,
+          "selected_token_id": 92464
+        },
+        {
+          "generation_index": 3,
+          "head_execution": {
+            "bytes": 7745,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-03/head_execution.json",
+            "sha256": "a82009bb593dc718c8773a7d7ba0b73b7788e88279fbe59fb0bf756db51965ce"
+          },
+          "output_s8": {
+            "bytes": 151936,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-03/tensors/lm_head_output_s8.bin",
+            "sha256": "94c6ff756a203ce12fd25901cc554352b782cf10b4ca3c2cf3e8af4524c7f48d"
+          },
+          "output_scale_f64le": {
+            "bytes": 8,
+            "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-03/tensors/lm_head_output_scale_f64le.bin",
+            "sha256": "02a7909f45a8c361146a25b709612fca5fde8b46e69f93dd3a969c989d9096d8"
+          },
+          "ranking": {
+            "runner_up_score": 13.920639518677719,
+            "target_ranks": {
+              "26614": 101703,
+              "43895": 47660,
+              "76521": 1,
+              "92464": 9341
+            },
+            "target_scores": {
+              "26614": -0.6846216156726748,
+              "43895": 1.8256576417937993,
+              "76521": 14.491157531738281,
+              "92464": 5.020558514932948
+            },
+            "top_candidates": [
+              {
+                "piece": " ArgumentOutOfRangeException",
+                "score": 14.491157531738281,
+                "token_id": 76521
+              },
+              {
+                "piece": ",alpha",
+                "score": 13.920639518677719,
+                "token_id": 88400
+              },
+              {
+                "piece": " fingertips",
+                "score": 13.806535916065608,
+                "token_id": 71048
+              },
+              {
+                "piece": " \u6ce8",
+                "score": 13.46422510822927,
+                "token_id": 62579
+              },
+              {
+                "piece": "agy",
+                "score": 13.46422510822927,
+                "token_id": 81670
+              },
+              {
+                "piece": ".Ag",
+                "score": 13.236017903005045,
+                "token_id": 49850
+              },
+              {
+                "piece": " letzten",
+                "score": 13.121914300392932,
+                "token_id": 66968
+              },
+              {
+                "piece": "$values",
+                "score": 13.121914300392932,
+                "token_id": 96605
+              }
+            ],
+            "top_margin": 0.5705180130605623,
+            "top_piece": " ArgumentOutOfRangeException",
+            "top_score": 14.491157531738281,
+            "top_tie_count": 1,
+            "top_token_id": 76521
+          },
+          "rtl_final_rmsnorm_integer_mismatches": 0,
+          "rtl_full_vector_integer_mismatches": 0,
+          "selected_token_id": 76521
+        }
+      ]
+    }
+  },
+  "diagnosis": {
+    "cross_prompt_causal_support": {
+      "activation_localization": {
+        "bytes": 11055,
+        "path": "evidence/candidates/w4a8-chat-hidden-state-localization-v1/candidate-0002/activation-localization.json",
+        "sha256": "7cf26098b83e3ed7dbfb80f4dfbf033da6ee172336aa9e806d6ca41b7639f6ae"
+      },
+      "earliest_recovering_layer_cut": 18,
+      "earliest_recovering_operator_boundary": "model.layers.17.self_attn.q_proj.output",
+      "implicated_layer": 17,
+      "layer_scan": {
+        "bytes": 37735,
+        "path": "evidence/candidates/w4a8-chat-hidden-state-localization-v1/candidate-0002/layer-scan.json",
+        "sha256": "9599b1d618af45158ed62b2374abc25448322d1f872253c0be06b0079804ff7a"
+      },
+      "limitation": "These causal layer-17 artifacts use the canonical Hello prompt, not the sealed attempt-0002 prompt; they narrow the repair but do not replace the same-prompt final-logit attribution.",
+      "mechanism": "tensor_wide_a8_activation_quantization",
+      "mechanism_split": {
+        "bytes": 13586,
+        "path": "evidence/candidates/w4a8-chat-hidden-state-localization-v1/candidate-0002/mechanism-split.json",
+        "sha256": "7129452cdb80581359fb594d7f130dcbf2f7e119bdeba8c5360bec6e8844a6b9"
+      }
+    },
+    "dominant_fault": "quantization_calibration",
+    "excluded_as_dominant": {
+      "checkpoint_or_lora_quality": "checkpoint-176 BF16 produces its own greedy continuation before W4A8 changes the first selected token",
+      "generation_or_runtime_semantics": "the first mismatch precedes generated-token feedback; cache lengths advance identically, and teacher-forced comparisons retain one prefix",
+      "rtl": "sealed RTL equals the checkpoint-176 W4A8 software reference over every full-vocabulary output at all four positions",
+      "tokenizer_or_chat_template": "all conditions consume the same frozen post-template token IDs under the same tokenizer revision and special-token map"
+    },
+    "narrowest_same_prompt_support": "checkpoint176_bf16_to_w4a8_final_logits",
+    "smallest_repair_task": "Replace the tensor-wide signed-A8 scale at the layer-17 q-projection output with model-derived grouped activation scaling, then run only a nonofficial four-token aligned BF16/W4A8 software-and-focused-RTL candidate check; do not authorize another official attempt."
+  },
+  "first_decisive_divergence": {
+    "boundary": "final_logits_before_any_generated_token_feedback",
+    "checkpoint176_bf16_top_rank_in_w4a8": 75808,
+    "checkpoint176_bf16_top_token_id": 39814,
+    "generation_index": 0,
+    "identical_prompt_token_count": 34,
+    "jensen_shannon_divergence_nats": 0.691777078713527,
+    "reason_decisive": "The rank reversal occurs on the identical frozen prompt before generated-token feedback, while all 151936 software/RTL outputs match.",
+    "top8_overlap_count": 0,
+    "w4a8_top_rank_in_checkpoint176_bf16": 35822,
+    "w4a8_top_token_id": 26614
+  },
+  "frozen_contract": {
+    "attempt": "attempt-0002",
+    "generation": {
+      "eos_token_id": 151645,
+      "kv_state_loop": "prefill all frozen prompt IDs with use_cache=True, then append one feedback token per generation position",
+      "max_new_tokens": 4,
+      "sampling": false,
+      "sealed_output_contains_eos": false,
+      "selection": "greedy over all 151936 outputs; lowest token ID wins exact ties",
+      "termination": "fixed_four_tokens_no_eos_observed"
+    },
+    "model": {
+      "base_model_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "checkpoint176_adapter_config_sha256": "9261b3480065c0d1bdf8b0a33b01279f1cfdb285ca7aaf3aa850fb62ab894664",
+      "checkpoint176_adapter_sha256": "c9476d6ccc687a4d68de1951eb889b689daaf9c5d3822b4c5acfc26a1cd38a28",
+      "checkpoint176_tree_sha256": "8cee9b9343e49b66ee2ea427578f87335ffa259919356cdd119cd8712ff7eeee"
+    },
+    "prompt": {
+      "sha256": "90eaeeb4312de67b46fda2c43a80f3bfeb0ac20d0dc222a65f390c9407607c36",
+      "text_persisted": false,
+      "token_count": 34,
+      "token_ids_sha256": "dbdff6c533c804f645b0a76b8a44cf85e9b61f52bcce053e81189bd82f009e0d"
+    },
+    "sealed_artifacts_after": {
+      "SHA256SUMS": {
+        "bytes": 10520766,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/SHA256SUMS",
+        "sha256": "62642110239e6407042fceff78d02269d1719aca8eadcf6bf109b51d87d71234"
+      },
+      "authorization.json": {
+        "bytes": 2927,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/authorization.json",
+        "sha256": "9668c96a657015ea7c6937d0baf2e20c5730ac9c7de38c8991bae351f86d3387"
+      },
+      "launch_provenance.json": {
+        "bytes": 93515,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/launch_provenance.json",
+        "sha256": "6b08546caa88e763f95e0fa81769b7b356873f53b34b825a415eccd01063e533"
+      },
+      "manifest.json": {
+        "bytes": 22537849,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/manifest.json",
+        "sha256": "0259039f54ecc224a785ada1d4567b34158746fc06b3d3f3e316f5d277ddb470"
+      },
+      "run_summary.json": {
+        "bytes": 23646652,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/run_summary.json",
+        "sha256": "c496921d5b93f4840ec67c38c1c4d0afab034a8798a9a760c36a639ee80d4159"
+      },
+      "status.json": {
+        "bytes": 108,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/status.json",
+        "sha256": "e10b562911f0ca93b309e7641aecb9e8ac0da5a0630d59e76177ce4b1d572707"
+      }
+    },
+    "sealed_artifacts_before": {
+      "SHA256SUMS": {
+        "bytes": 10520766,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/SHA256SUMS",
+        "sha256": "62642110239e6407042fceff78d02269d1719aca8eadcf6bf109b51d87d71234"
+      },
+      "authorization.json": {
+        "bytes": 2927,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/authorization.json",
+        "sha256": "9668c96a657015ea7c6937d0baf2e20c5730ac9c7de38c8991bae351f86d3387"
+      },
+      "launch_provenance.json": {
+        "bytes": 93515,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/launch_provenance.json",
+        "sha256": "6b08546caa88e763f95e0fa81769b7b356873f53b34b825a415eccd01063e533"
+      },
+      "manifest.json": {
+        "bytes": 22537849,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/manifest.json",
+        "sha256": "0259039f54ecc224a785ada1d4567b34158746fc06b3d3f3e316f5d277ddb470"
+      },
+      "run_summary.json": {
+        "bytes": 23646652,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/run_summary.json",
+        "sha256": "c496921d5b93f4840ec67c38c1c4d0afab034a8798a9a760c36a639ee80d4159"
+      },
+      "status.json": {
+        "bytes": 108,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/status.json",
+        "sha256": "e10b562911f0ca93b309e7641aecb9e8ac0da5a0630d59e76177ce4b1d572707"
+      }
+    },
+    "tokenizer": {
+      "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "length": 151665,
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+      "special_token_ids": [
+        151645,
+        151643,
+        151644,
+        151646,
+        151647,
+        151648,
+        151649,
+        151650,
+        151651,
+        151652,
+        151653,
+        151654,
+        151655,
+        151656
+      ],
+      "special_tokens_map_sha256": "74373fa85e39bd97a688d6364664d1d20e7c15c9f6ec6ce6b54f5f28d2fc4090",
+      "tokenizer_config_sha256": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583",
+      "tokenizer_json_sha256": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "vocab_size": 151643
+    }
+  },
+  "same_prefix_teacher_forced_comparisons": [
+    {
+      "base_bf16_vs_checkpoint176_bf16": {
+        "candidate_top_rank_in_reference": 1,
+        "candidate_top_token_id": 39814,
+        "centered_cosine_similarity": 0.9531873078580174,
+        "jensen_shannon_divergence_nats": 0.019766674532846057,
+        "raw_score_error": {
+          "cosine_similarity": 0.970703176771016,
+          "maximum_absolute_error": 4.5625,
+          "mean_absolute_error": 0.8319459137928115,
+          "relative_l2": 0.24582002165484765,
+          "rmse": 1.0599659029422182
+        },
+        "reference_top_rank_in_candidate": 1,
+        "reference_top_token_id": 39814,
+        "top1_match": true,
+        "top8_overlap_count": 7
+      },
+      "checkpoint176_bf16_vs_w4a8": {
+        "candidate_top_rank_in_reference": 35822,
+        "candidate_top_token_id": 26614,
+        "centered_cosine_similarity": 0.019028942081907935,
+        "jensen_shannon_divergence_nats": 0.691777078713527,
+        "raw_score_error": {
+          "cosine_similarity": 0.30090868602801685,
+          "maximum_absolute_error": 22.427622532281347,
+          "mean_absolute_error": 3.648725463022417,
+          "relative_l2": 1.057737559975021,
+          "rmse": 4.5609211987176295
+        },
+        "reference_top_rank_in_candidate": 75808,
+        "reference_top_token_id": 39814,
+        "top1_match": false,
+        "top8_overlap_count": 0
+      },
+      "generation_index": 0,
+      "identical_prefix_token_count": 34
+    },
+    {
+      "base_bf16_vs_checkpoint176_bf16": {
+        "candidate_top_rank_in_reference": 2,
+        "candidate_top_token_id": 1748,
+        "centered_cosine_similarity": 0.9807637799247034,
+        "jensen_shannon_divergence_nats": 0.03039026104384425,
+        "raw_score_error": {
+          "cosine_similarity": 0.9780076317160626,
+          "maximum_absolute_error": 3.34375,
+          "mean_absolute_error": 0.8317008761841279,
+          "relative_l2": 0.24347538759196843,
+          "rmse": 0.9708031235740892
+        },
+        "reference_top_rank_in_candidate": 3,
+        "reference_top_token_id": 3390,
+        "top1_match": false,
+        "top8_overlap_count": 7
+      },
+      "checkpoint176_bf16_vs_w4a8": {
+        "candidate_top_rank_in_reference": 137721,
+        "candidate_top_token_id": 43895,
+        "centered_cosine_similarity": 0.019372710767380195,
+        "jensen_shannon_divergence_nats": 0.6775130259525814,
+        "raw_score_error": {
+          "cosine_similarity": -0.19750187209350673,
+          "maximum_absolute_error": 21.235103847473624,
+          "mean_absolute_error": 4.517259702655619,
+          "relative_l2": 1.3678561492441583,
+          "rmse": 5.454017489897852
+        },
+        "reference_top_rank_in_candidate": 106827,
+        "reference_top_token_id": 3390,
+        "top1_match": false,
+        "top8_overlap_count": 0
+      },
+      "generation_index": 1,
+      "identical_prefix_token_count": 35
+    },
+    {
+      "base_bf16_vs_checkpoint176_bf16": {
+        "candidate_top_rank_in_reference": 1,
+        "candidate_top_token_id": 11,
+        "centered_cosine_similarity": 0.9304066875655584,
+        "jensen_shannon_divergence_nats": 0.04874231603158086,
+        "raw_score_error": {
+          "cosine_similarity": 0.8690345733999293,
+          "maximum_absolute_error": 5.421875,
+          "mean_absolute_error": 0.9937895097155454,
+          "relative_l2": 0.49620431267858556,
+          "rmse": 1.213352342607522
+        },
+        "reference_top_rank_in_candidate": 1,
+        "reference_top_token_id": 11,
+        "top1_match": true,
+        "top8_overlap_count": 5
+      },
+      "checkpoint176_bf16_vs_w4a8": {
+        "candidate_top_rank_in_reference": 26693,
+        "candidate_top_token_id": 92464,
+        "centered_cosine_similarity": -0.02318985125352962,
+        "jensen_shannon_divergence_nats": 0.6600387686345697,
+        "raw_score_error": {
+          "cosine_similarity": 0.0744000874397634,
+          "maximum_absolute_error": 17.93848329078494,
+          "mean_absolute_error": 3.004366530763265,
+          "relative_l2": 1.5712487751035686,
+          "rmse": 3.8421237651072753
+        },
+        "reference_top_rank_in_candidate": 31338,
+        "reference_top_token_id": 11,
+        "top1_match": false,
+        "top8_overlap_count": 0
+      },
+      "generation_index": 2,
+      "identical_prefix_token_count": 36
+    },
+    {
+      "base_bf16_vs_checkpoint176_bf16": {
+        "candidate_top_rank_in_reference": 1,
+        "candidate_top_token_id": 884,
+        "centered_cosine_similarity": 0.9876542722350597,
+        "jensen_shannon_divergence_nats": 0.03682909202324898,
+        "raw_score_error": {
+          "cosine_similarity": 0.9881199225969413,
+          "maximum_absolute_error": 2.17578125,
+          "mean_absolute_error": 0.3710524054132747,
+          "relative_l2": 0.160011921519489,
+          "rmse": 0.4639496127989994
+        },
+        "reference_top_rank_in_candidate": 1,
+        "reference_top_token_id": 884,
+        "top1_match": true,
+        "top8_overlap_count": 7
+      },
+      "checkpoint176_bf16_vs_w4a8": {
+        "candidate_top_rank_in_reference": 88914,
+        "candidate_top_token_id": 76521,
+        "centered_cosine_similarity": 0.018715328204253315,
+        "jensen_shannon_divergence_nats": 0.6795944461248955,
+        "raw_score_error": {
+          "cosine_similarity": -0.07023043743256871,
+          "maximum_absolute_error": 21.345599016805334,
+          "mean_absolute_error": 3.4530566148948343,
+          "relative_l2": 1.4785635952716922,
+          "rmse": 4.28704937113981
+        },
+        "reference_top_rank_in_candidate": 83363,
+        "reference_top_token_id": 884,
+        "top1_match": false,
+        "top8_overlap_count": 0
+      },
+      "generation_index": 3,
+      "identical_prefix_token_count": 37
+    }
+  ],
+  "same_prompt_boundary_summary": {
+    "final_rmsnorm_relative_l2": 1.3188003835232063,
+    "first_compared_boundary": "model.layers.0.input",
+    "first_relative_l2": 0.008071951271009122,
+    "interpretation": "The trace measures accumulated numerical drift, not causal recovery; the step-0 final-logit rank reversal is the decisive same-prompt boundary.",
+    "largest_layer_input_relative_l2": 3.38724725774287,
+    "largest_layer_input_relative_l2_boundary": "model.layers.11.input"
+  },
+  "same_prompt_boundary_trace": {
+    "final_rmsnorm": {
+      "boundary": "model.final_rmsnorm.output",
+      "metrics_vs_checkpoint176_bf16": {
+        "cosine_similarity": -0.06031946819239585,
+        "maximum_absolute_error": 159.76771653543307,
+        "mean_absolute_error": 8.119114408074669,
+        "relative_l2": 1.3188003835232063,
+        "rmse": 12.135429292500675
+      },
+      "w4a8_final_rmsnorm_s8": {
+        "bytes": 896,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_s8.bin",
+        "sha256": "c7f29537c929a175b2b3f6751b81977a1881077d688052c7739b382484b124f8"
+      },
+      "w4a8_final_rmsnorm_scale_f64le": {
+        "bytes": 8,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_scale_f64le.bin",
+        "sha256": "10bbbde84a23171378edc09ccd62166da8b4624b9d8cb0cafce769c5a0ea1739"
+      }
+    },
+    "layer_inputs": [
+      {
+        "boundary": "model.layers.0.input",
+        "layer": 0,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.9999674220121839,
+          "maximum_absolute_error": 0.00026336429625983815,
+          "mean_absolute_error": 0.00013675409944306893,
+          "relative_l2": 0.008071951271009122,
+          "rmse": 0.00015635742939944513
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-00/tensors/input_hidden_s8.bin",
+          "sha256": "b27abe9ec2c832685f490620af9e59589b631431bcc4ca08b77700859945823a"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-00/tensors/input_scale_f64le.bin",
+          "sha256": "a1ea39852627be026a3a0c4b66ed1af4b709c17daf005f1f04c46838d821562a"
+        }
+      },
+      {
+        "boundary": "model.layers.1.input",
+        "layer": 1,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.7604725717185192,
+          "maximum_absolute_error": 0.5381568557634129,
+          "mean_absolute_error": 0.05342624698429294,
+          "relative_l2": 0.6745270545344766,
+          "rmse": 0.07262399755756631
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-01/tensors/input_hidden_s8.bin",
+          "sha256": "27f1a92a08245f2f9d153d9b987d31e8aa3f4c6490af079d7c45177e87654d9f"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-01/tensors/input_scale_f64le.bin",
+          "sha256": "9eddf60fa19527185ad0a99e5633442b0e3ae8db20ede71cfe1eef3bb26846ad"
+        }
+      },
+      {
+        "boundary": "model.layers.2.input",
+        "layer": 2,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.5109091655461493,
+          "maximum_absolute_error": 2.8174579575305847,
+          "mean_absolute_error": 0.16337420373182862,
+          "relative_l2": 1.069276929196974,
+          "rmse": 0.22525910994884774
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-02/tensors/input_hidden_s8.bin",
+          "sha256": "556662f6f2a43652313d2177eef8d0a197f1d3c088a2ac090d479a33e471af39"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-02/tensors/input_scale_f64le.bin",
+          "sha256": "be68450e19c70d941e15b14ac497d5beb7f40d26edcdc955ee60cc0e77b30cbc"
+        }
+      },
+      {
+        "boundary": "model.layers.3.input",
+        "layer": 3,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.46297271242348215,
+          "maximum_absolute_error": 2.659694836834284,
+          "mean_absolute_error": 0.192205811545873,
+          "relative_l2": 1.153585484959905,
+          "rmse": 0.259179478621938
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-03/tensors/input_hidden_s8.bin",
+          "sha256": "c4868110e5e1a90b952968964c5572f36781f71508a0939144a01fc4dfc6dfa1"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-03/tensors/input_scale_f64le.bin",
+          "sha256": "27d37b96d4fe60dd0833da4aecbe9267514f0b7618b9326b6830fff11b59a709"
+        }
+      },
+      {
+        "boundary": "model.layers.4.input",
+        "layer": 4,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.356801484061753,
+          "maximum_absolute_error": 3.576496188096174,
+          "mean_absolute_error": 0.23497317568372825,
+          "relative_l2": 1.1570174778997924,
+          "rmse": 0.3175847784581348
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-04/tensors/input_hidden_s8.bin",
+          "sha256": "a86559def2edf6d0576778562674d004986c6776f672f587faa8305b05e06f4c"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-04/tensors/input_scale_f64le.bin",
+          "sha256": "d234e176c668830920c434bfbdb4226ba1155751270d9e3cc6d5a6e42d19d971"
+        }
+      },
+      {
+        "boundary": "model.layers.5.input",
+        "layer": 5,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.28428081674376104,
+          "maximum_absolute_error": 3.4192817267470472,
+          "mean_absolute_error": 0.3417987733643556,
+          "relative_l2": 1.4378424743280642,
+          "rmse": 0.4490207151128554
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-05/tensors/input_hidden_s8.bin",
+          "sha256": "6ca35b77ff849f07652b0768b9d8463bdb3018ae0bdc80907fd5ba145f2ea679"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-05/tensors/input_scale_f64le.bin",
+          "sha256": "ae003731687aaa7e0beccb4edb0b2222e5468b8c37c0328b9b325b8430efe736"
+        }
+      },
+      {
+        "boundary": "model.layers.6.input",
+        "layer": 6,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.18711741102194016,
+          "maximum_absolute_error": 4.87575373311681,
+          "mean_absolute_error": 0.485348139607732,
+          "relative_l2": 1.9352904133720545,
+          "rmse": 0.624292852844287
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-06/tensors/input_hidden_s8.bin",
+          "sha256": "53e0ab066f133858de6c3197e3d899a090f1a03bf84d6228e2470b9728af78a3"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-06/tensors/input_scale_f64le.bin",
+          "sha256": "58ab7ac40685d27ff77aa7758a9057f5a6430b643776be6c4945f09410b6766f"
+        }
+      },
+      {
+        "boundary": "model.layers.7.input",
+        "layer": 7,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.1291843076071942,
+          "maximum_absolute_error": 5.579838369775006,
+          "mean_absolute_error": 0.6499648060653824,
+          "relative_l2": 2.170505380897442,
+          "rmse": 0.824143504651531
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-07/tensors/input_hidden_s8.bin",
+          "sha256": "88b4cba43216c5f06c4cc1a38521aed016fbc3fd551686b07e9529259e5f456d"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-07/tensors/input_scale_f64le.bin",
+          "sha256": "b24b85b8b8b68195b46190ac72004fe712c893e8f4c61adb2f874125cfb8e58f"
+        }
+      },
+      {
+        "boundary": "model.layers.8.input",
+        "layer": 8,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.053955643871801365,
+          "maximum_absolute_error": 6.677692203071174,
+          "mean_absolute_error": 0.7846847183256502,
+          "relative_l2": 2.547483198828646,
+          "rmse": 0.9993092072711017
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-08/tensors/input_hidden_s8.bin",
+          "sha256": "ccb4e2146c2eb019cf7b0fb6911224e68daf078a1ea305cf063720077401be28"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-08/tensors/input_scale_f64le.bin",
+          "sha256": "f0eabfd93eadfb1f71e3d881eba5f7c4b67a1efabb28d3b12ed5d0689b908fb0"
+        }
+      },
+      {
+        "boundary": "model.layers.9.input",
+        "layer": 9,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.09885387296599447,
+          "maximum_absolute_error": 5.802119638037494,
+          "mean_absolute_error": 0.9788777515778256,
+          "relative_l2": 3.1072818571831555,
+          "rmse": 1.2356917007969337
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-09/tensors/input_hidden_s8.bin",
+          "sha256": "b041f1233be418d757892a9b67b9156d18dfb086980f7ef2bbea89aa4b816417"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-09/tensors/input_scale_f64le.bin",
+          "sha256": "c0b4c9075caf2aca7ab290b185382602eff5e4f02669e694e017b931f331a396"
+        }
+      },
+      {
+        "boundary": "model.layers.10.input",
+        "layer": 10,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.1279245259442978,
+          "maximum_absolute_error": 6.036880237849679,
+          "mean_absolute_error": 1.086125619248545,
+          "relative_l2": 2.9358337228740985,
+          "rmse": 1.3758571606320775
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-10/tensors/input_hidden_s8.bin",
+          "sha256": "7ed36dcd9f1ecd82fcc4cbd077af71924a1c8ed2069a2e8f36fd8db10a2efd53"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-10/tensors/input_scale_f64le.bin",
+          "sha256": "9c4e1aec7dbb6ce23a28426e6f2925f36e21d83a99a2d3850f9286a627c41752"
+        }
+      },
+      {
+        "boundary": "model.layers.11.input",
+        "layer": 11,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.1448057701933404,
+          "maximum_absolute_error": 5.201590470441683,
+          "mean_absolute_error": 1.2660206897253394,
+          "relative_l2": 3.38724725774287,
+          "rmse": 1.586554418631934
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-11/tensors/input_hidden_s8.bin",
+          "sha256": "a675b7f3533f69d8779d3acb453b907f0f458557b4f6864379f977f89fd08b3b"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-11/tensors/input_scale_f64le.bin",
+          "sha256": "f0c923cc1d7b06b68245b09f490e3a3c8d581bcb9f64c0c95cf052194f6e6b04"
+        }
+      },
+      {
+        "boundary": "model.layers.12.input",
+        "layer": 12,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.15513226157197804,
+          "maximum_absolute_error": 4.885779493437038,
+          "mean_absolute_error": 1.237049405617038,
+          "relative_l2": 3.245597756698129,
+          "rmse": 1.5599681306031372
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-12/tensors/input_hidden_s8.bin",
+          "sha256": "7ed6ab41dd1a6d24b7e41b1ee63a5b4b40465b9e554d1085d57e80243abb9ee5"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-12/tensors/input_scale_f64le.bin",
+          "sha256": "d974270649510edf308839932f33ac3c059b8681d2915dcb2f03f954cdb46348"
+        }
+      },
+      {
+        "boundary": "model.layers.13.input",
+        "layer": 13,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.1494918987828179,
+          "maximum_absolute_error": 5.14598217160683,
+          "mean_absolute_error": 1.228685366054756,
+          "relative_l2": 3.1223876598092293,
+          "rmse": 1.5535791657229
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-13/tensors/input_hidden_s8.bin",
+          "sha256": "b1c7fb14742ae6ee96c31ea15c66666af37b224e71533baadefad772d1446e44"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-13/tensors/input_scale_f64le.bin",
+          "sha256": "5d937a920d4cdffc98f4f8017cdad1166ced2e66fa955472174d187f13bfdde3"
+        }
+      },
+      {
+        "boundary": "model.layers.14.input",
+        "layer": 14,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.15123864398503747,
+          "maximum_absolute_error": 6.1939918938584215,
+          "mean_absolute_error": 1.1891968322936677,
+          "relative_l2": 2.9270251985473195,
+          "rmse": 1.5158528333296046
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-14/tensors/input_hidden_s8.bin",
+          "sha256": "aba432a90d971b19858c417463d525389479ff94e09c371a8178430e3d3d5433"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-14/tensors/input_scale_f64le.bin",
+          "sha256": "4c7834ad4b53f160da28c8ec179ef0df1541aa678a72e3a3ba2d6f0ef0211432"
+        }
+      },
+      {
+        "boundary": "model.layers.15.input",
+        "layer": 15,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.11137907173870627,
+          "maximum_absolute_error": 6.1962817560030725,
+          "mean_absolute_error": 1.2212835087852614,
+          "relative_l2": 2.6288350605835333,
+          "rmse": 1.5669385168404166
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-15/tensors/input_hidden_s8.bin",
+          "sha256": "c8b64d5df1f8f99b8886ffc5ec91a3582def664f1e35a89fb6a740ebdffc2171"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-15/tensors/input_scale_f64le.bin",
+          "sha256": "5b35c3b9a74c1e81c5d0952387621c38cadbd63664b89e21a4c2672ad77ff158"
+        }
+      },
+      {
+        "boundary": "model.layers.16.input",
+        "layer": 16,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.04621860448840158,
+          "maximum_absolute_error": 7.611537974650465,
+          "mean_absolute_error": 1.1752979970496271,
+          "relative_l2": 2.3833865501002838,
+          "rmse": 1.5090773218525595
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-16/tensors/input_hidden_s8.bin",
+          "sha256": "594488f3ba0943a15387b416172b03964d788aba085b2fc30c800cf25f02e9b0"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-16/tensors/input_scale_f64le.bin",
+          "sha256": "eddda83130a8f5b1e5ec1929aa9c261b2b859450153fb51c9f437fcf856dc185"
+        }
+      },
+      {
+        "boundary": "model.layers.17.input",
+        "layer": 17,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.03757805847039136,
+          "maximum_absolute_error": 7.640613856278066,
+          "mean_absolute_error": 1.2119100063670472,
+          "relative_l2": 2.2366363966587657,
+          "rmse": 1.5811803891569653
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-17/tensors/input_hidden_s8.bin",
+          "sha256": "d054ec40dbab5eb2d6a95eca0c7bd0697ecc6e378c9909deaeb7e20efef88d96"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-17/tensors/input_scale_f64le.bin",
+          "sha256": "be7d21b66e6566fec3d8503d7459e9281d65478dbeb3d14a2db969750251a186"
+        }
+      },
+      {
+        "boundary": "model.layers.18.input",
+        "layer": 18,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.05426968075888823,
+          "maximum_absolute_error": 10.378754563218966,
+          "mean_absolute_error": 1.3486614836750739,
+          "relative_l2": 1.9656626548791303,
+          "rmse": 1.7522460413917953
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-18/tensors/input_hidden_s8.bin",
+          "sha256": "d8851194e236fce6fdf674eff21e77514fb9d74e3e957ed2fe7dc7f9b1624d1c"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-18/tensors/input_scale_f64le.bin",
+          "sha256": "1371eeac560342ed1ba796385d123dae0edf8a93e32db2b4263d58127c3d9d66"
+        }
+      },
+      {
+        "boundary": "model.layers.19.input",
+        "layer": 19,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.05686719666468576,
+          "maximum_absolute_error": 10.981429437952716,
+          "mean_absolute_error": 1.495363840370264,
+          "relative_l2": 1.9219999786269288,
+          "rmse": 1.9136175946809566
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-19/tensors/input_hidden_s8.bin",
+          "sha256": "3c81e07c47a8021c753ae662bca03331b9dcb885c624f1342053ba0fe135c849"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-19/tensors/input_scale_f64le.bin",
+          "sha256": "c72c648af5ebf50bf1bf8a7babb330cf74abb8232508443154db2b8f425d6b83"
+        }
+      },
+      {
+        "boundary": "model.layers.20.input",
+        "layer": 20,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": 0.030965046513543003,
+          "maximum_absolute_error": 15.607984238722192,
+          "mean_absolute_error": 1.6138203241626647,
+          "relative_l2": 1.9014084478267261,
+          "rmse": 2.0966980972028004
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-20/tensors/input_hidden_s8.bin",
+          "sha256": "a90eae16352f02184a1c690ab94c219cd9343b5bed0f42ba2846af267715b37b"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-20/tensors/input_scale_f64le.bin",
+          "sha256": "1f2f85ce8e548e639711ed3ea1483a8f3becb856ed554c6d25769d644e6535aa"
+        }
+      },
+      {
+        "boundary": "model.layers.21.input",
+        "layer": 21,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": -0.048093976053398504,
+          "maximum_absolute_error": 32.60425519567775,
+          "mean_absolute_error": 1.9003271422065013,
+          "relative_l2": 1.6701765115421623,
+          "rmse": 2.608292120846175
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-21/tensors/input_hidden_s8.bin",
+          "sha256": "f7b3ac7a65fc42a8a2b460690316be1d23052e06611253c1ccb5f57017966b41"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-21/tensors/input_scale_f64le.bin",
+          "sha256": "e04b98fda7ffd23ee38394999d84efc87f6c5cff75e9df066b6a9d54ae60e673"
+        }
+      },
+      {
+        "boundary": "model.layers.22.input",
+        "layer": 22,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": -0.0654253261131335,
+          "maximum_absolute_error": 49.6641975462906,
+          "mean_absolute_error": 2.068442291522522,
+          "relative_l2": 1.5479265642886284,
+          "rmse": 3.0638556349092676
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-22/tensors/input_hidden_s8.bin",
+          "sha256": "9d1a19f7f6d547d0e10826af28f0851c922347feee57d30a986fed0d2ea51dc5"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-22/tensors/input_scale_f64le.bin",
+          "sha256": "1e3b549e8333c58cf7f6918c684ab584332d77e0c4a887c4e03e579d70a72912"
+        }
+      },
+      {
+        "boundary": "model.layers.23.input",
+        "layer": 23,
+        "metrics_vs_checkpoint176_bf16": {
+          "cosine_similarity": -0.0861181254954804,
+          "maximum_absolute_error": 56.27755546569824,
+          "mean_absolute_error": 2.242887607022399,
+          "relative_l2": 1.5272217317192405,
+          "rmse": 3.3651913671795195
+        },
+        "w4a8_input_hidden_s8": {
+          "bytes": 896,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-23/tensors/input_hidden_s8.bin",
+          "sha256": "435c01277d58aee549d54a02f15080e98eb3ca8ab0476a9e5547b080be30ffa8"
+        },
+        "w4a8_input_scale_f64le": {
+          "bytes": 8,
+          "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/tokens/position-33/layer-23/tensors/input_scale_f64le.bin",
+          "sha256": "f515d4db4e6c2d95d4a6f0b5f25062b848f68500226e6441b3c38601ceef58b2"
+        }
+      }
+    ]
+  },
+  "schema_version": 1,
+  "scope_guards": {
+    "attempt_0002_read_only": true,
+    "new_official_attempt_created": false,
+    "official_preflight_launched": false,
+    "retry_replay_or_resume_launched": false,
+    "rtl_modified": false,
+    "stage2_entered": false
+  },
+  "software": {
+    "attention_implementation": "eager",
+    "device": "cpu",
+    "model_dtype": "torch.bfloat16",
+    "numpy": "2.5.1",
+    "peft": "0.20.0",
+    "python": "3.13.5",
+    "safetensors": "0.8.0",
+    "tokenizers": "0.22.2",
+    "torch": "2.11.0+cu130",
+    "transformers": "4.57.6"
+  },
+  "source": {
+    "bytes": 36190,
+    "path": "tools/diagnose_stage1_quality_attempt0002.py",
+    "sha256": "7b204355d4dea8bce500ce0ae1044f2a01269875f1ecdd69899c5f5e3bcb45d5"
+  },
+  "status": "PASS_STAGE1_QUALITY_FAILURE_LOCALIZED_AWAITING_INDEPENDENT_REVIEW"
+}

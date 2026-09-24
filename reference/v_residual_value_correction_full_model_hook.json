@@ -1,0 +1,47 @@
+{
+  "baseline_equality_boundaries": [
+    "q_projection_int8",
+    "k_projection_int8",
+    "v_projection_int8",
+    "q_absolute_rope_int8",
+    "k_absolute_rope_int8",
+    "base_score_q20_44",
+    "softmax_probability_q0_15"
+  ],
+  "candidate_contract": "shared_v_residual_value_correction_attention_v1",
+  "claim_boundary": "rtl_hook_contract_only_no_focused_quality_result",
+  "correction_core": {
+    "authoritative_baseline_input": "signed_int32_attention_value_accumulator",
+    "conversion": "one_exact_residual_v_scale32_over_baseline_v_scale32_signed_ties_to_even_division_after_complete_lane_sum",
+    "forbidden_inputs": [
+      "query_residual",
+      "key_residual",
+      "rope_residual",
+      "score_correction",
+      "prompt_id",
+      "dataset_id",
+      "runtime_learned_gate"
+    ],
+    "identity_ports": [],
+    "insertion_point": "before_unchanged_attention_value_requantizer",
+    "probability_input": "authoritative_unsigned_q0_15"
+  },
+  "failure_policy": "any_metadata_hash_mismatch_baseline_tensor_difference_reserved_s4_code_or_checked_overflow_aborts_before_metric_collection",
+  "head_mapping": "query_head_h_uses_kv_head_floor_h_divided_by_7",
+  "layer_scope": "all_24_layers",
+  "metadata_table": "reference/generated/v_residual_scale32_metadata.json",
+  "required_runner": "tools/ace2_full_model_fixed_point.py",
+  "scalar_reference": "tools/ace2_v_residual_value_correction_reference.py",
+  "schema_version": 1,
+  "tensor_hook_order": [
+    "run_authoritative_baseline_qkv_projection",
+    "assert_candidate_baseline_qkv_projection_equal",
+    "derive_canonical_signed4_v_residual_from_accumulator_multiplier_shift_and_frozen_scale32",
+    "run_authoritative_baseline_rope_score_and_softmax",
+    "assert_candidate_score_and_probability_bit_identical",
+    "accumulate_probability_times_residual_v_for_each_output_lane",
+    "convert_complete_lane_sum_once_into_baseline_v_accumulator_domain",
+    "checked_add_to_authoritative_baseline_attention_value_accumulator",
+    "run_unchanged_attention_value_requantizer_and_decoder_path"
+  ]
+}

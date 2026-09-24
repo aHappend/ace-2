@@ -1,0 +1,765 @@
+{
+  "bf16_capture_bindings": {
+    "input_norm": {
+      "dtype": "torch.float32",
+      "sha256": "8c797032359e18359585c40f8147e4a76aa96e37d1af3b3a50afd3e5cbb23756",
+      "shape": [
+        34,
+        896
+      ]
+    },
+    "k": {
+      "dtype": "torch.float32",
+      "sha256": "d5298fb715effbd7c9b5150604904d771a3406196a3a2e09c3837e8edafc2f8a",
+      "shape": [
+        34,
+        128
+      ]
+    },
+    "layer_input": {
+      "dtype": "torch.float32",
+      "sha256": "169d14dc3b9d30b63a82f9a8e981896b14381155750bc3b578c5793a43c71c35",
+      "shape": [
+        34,
+        896
+      ]
+    },
+    "q": {
+      "dtype": "torch.float32",
+      "sha256": "612f0fe1c20b0bd554bbe2a86b55c5ad117ca14b4f518bf9bd6d1b5c8881fb8d",
+      "shape": [
+        34,
+        896
+      ]
+    },
+    "v": {
+      "dtype": "torch.float32",
+      "sha256": "44122f1d7938b82fca1203557cd0ffa85f5d6516f36dd8e9d3e5c427cce37f2e",
+      "shape": [
+        34,
+        128
+      ]
+    }
+  },
+  "causal_conclusion": {
+    "a8_output_quantization": "not_blocking_recovery because every component-output substitution retained the frozen A8 output quantizer",
+    "causal_configuration_id": "layer23-v-bf16_projection_output_to_a8",
+    "causal_configuration_sha256": "cb59edf88183a23e8437cc46cc0373e83a1f976b9d1dd3400e4e27a9d39c0720",
+    "causal_metrics": {
+      "configuration_sha256": "cb59edf88183a23e8437cc46cc0373e83a1f976b9d1dd3400e4e27a9d39c0720",
+      "jensen_shannon_divergence_nats": 0.11229219047941186,
+      "logits_sha256": "112c2c3b4fe3442cc2d6db702849908be574d3e7e1b9f8e350118be12de43f19",
+      "relative_l2": 0.32035682776440993,
+      "token_39814_rank": 1,
+      "top8_overlap_count": 7,
+      "top_token_id": 39814
+    },
+    "component": "v",
+    "l2_maximum_used_as_causal_evidence": false,
+    "minimal_repair_recommendation": "Run one software-only model.layers.23.self_attn.v_proj candidate that jointly changes only its W4 weight and A8 input quantizers while retaining A8 output quantization; require token 39814 rank 1 with no top-8-overlap or JSD regression.",
+    "quantizer_family": "joint_w4_weight_and_a8_input_quantization",
+    "selection_policy": "Q, K, V order; exact token recovery first, otherwise only the frozen material rank/top-8/JSD criterion; never select by L2 magnitude"
+  },
+  "classification": "bounded_nonofficial_software_only_layer23_qkv_diagnosis",
+  "component_isolation": {
+    "method": "Replace exactly one of Q, K, or V with its checkpoint-176 BF16 projection output, requantize it with the unchanged tensor-wide A8 output scale, and leave the other components and downstream path unchanged.",
+    "records": [
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1layer23qkvfamilies01/logits/layer23-q-bf16_projection_output_to_a8-f64le.bin",
+          "sha256": "a3b955517e30d338d0811788ebe8a19f70c2b23f5c2decc9aabe2a7ee911f4bb",
+          "shape": [
+            151936
+          ]
+        },
+        "causal_recovery": {
+          "kind": "no_preregistered_causal_recovery",
+          "recovered": false
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.6063515017154519,
+          "jensen_shannon_divergence_nats": 0.6698158873912898,
+          "raw_score_error": {
+            "cosine_similarity": 0.2335925937630983,
+            "maximum_absolute_error": 13.779611054367907,
+            "mean_absolute_error": 3.7168290737536416,
+            "relative_l2": 0.984272609782153,
+            "rmse": 4.244143331147815
+          },
+          "reference_top_rank_in_candidate": 9,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 2
+        },
+        "component": "q",
+        "configuration": {
+          "sha256": "e26aac67a58f25d9200e20d004f8831eefd235ad1a7b313620509fa99d970a93",
+          "value": {
+            "a8_input": false,
+            "a8_output": true,
+            "component": "q",
+            "configuration_id": "layer23-q-bf16_projection_output_to_a8",
+            "downstream": "unchanged accepted W4A8 layer-23 tail and tied W4 head",
+            "family": "bf16_projection_output_to_a8",
+            "initial_state": "checkpoint-176 BF16 layer-23 input for all 34 frozen prefix positions",
+            "layer": 23,
+            "w4_weight": false
+          }
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 1.997568364982726,
+        "failure_analysis": {
+          "failure_taxonomy_class": "QUALITY_CAUSAL_RECOVERY_MISS",
+          "regression": {
+            "jsd_delta_nats_vs_layer23_baseline": -0.0003071059602546278,
+            "token_rank_delta_vs_layer23_baseline": -6,
+            "top8_overlap_delta_vs_layer23_baseline": 2
+          },
+          "root_cause_hypothesis": "Replacing only q family bf16_projection_output_to_a8 is insufficient; the causal error lies in another family or a component interaction."
+        },
+        "final_rmsnorm_q_sha256": "80c1dcf0ffcb12becf447a2444901a93cde4d420c09cf964378064de706a9011",
+        "final_rmsnorm_scale": 0.2854330708661417,
+        "layer_output_q_sha256": "9ff9b60b0930a3de5d3cc0cbd3adff3720e809118f22897b8052c2521bfe5e18",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "0d480d64216493be3b33f401bc31e87321828f1c916bba8e18d1c3a6f4b0a459",
+        "lm_head_output_scale": 0.07881555782528374,
+        "quantizer_family_ablation": "bf16_projection_output_to_a8",
+        "reference_logit": 7.093400204275537,
+        "reference_rank": 9,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.82734247643178,
+            "token_id": 55725
+          },
+          {
+            "piece": " diced",
+            "score": 7.645109109052522,
+            "token_id": 88864
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.566293551227239,
+            "token_id": 108089
+          },
+          {
+            "piece": "Absolutely",
+            "score": 7.4874779934019555,
+            "token_id": 77045
+          },
+          {
+            "piece": "\u547d\u5468\u671f",
+            "score": 7.408662435576671,
+            "token_id": 62297
+          },
+          {
+            "piece": "\u5176\u4e2d\u4e4b\u4e00",
+            "score": 7.251031319926104,
+            "token_id": 117548
+          },
+          {
+            "piece": " anecd",
+            "score": 7.17221576210082,
+            "token_id": 49650
+          },
+          {
+            "piece": "Here",
+            "score": 7.093400204275537,
+            "token_id": 8420
+          }
+        ],
+        "top_logit": 8.82734247643178,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1layer23qkvfamilies01/logits/layer23-k-bf16_projection_output_to_a8-f64le.bin",
+          "sha256": "b1670e8109e6710e9fd7b3645fc6445900c66803e8a618f88f881162da3f4288",
+          "shape": [
+            151936
+          ]
+        },
+        "causal_recovery": {
+          "kind": "no_preregistered_causal_recovery",
+          "recovered": false
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.6123259728710998,
+          "jensen_shannon_divergence_nats": 0.6656165566668757,
+          "raw_score_error": {
+            "cosine_similarity": 0.3552519492567866,
+            "maximum_absolute_error": 13.672012471777247,
+            "mean_absolute_error": 3.5056445694288034,
+            "relative_l2": 0.9351640009311311,
+            "rmse": 4.03238901360855
+          },
+          "reference_top_rank_in_candidate": 10,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 2
+        },
+        "component": "k",
+        "configuration": {
+          "sha256": "72e1655d2614b9f4bfba68742ef9bd9869fb90eb616144b01417ef3b1fa67268",
+          "value": {
+            "a8_input": false,
+            "a8_output": true,
+            "component": "k",
+            "configuration_id": "layer23-k-bf16_projection_output_to_a8",
+            "downstream": "unchanged accepted W4A8 layer-23 tail and tied W4 head",
+            "family": "bf16_projection_output_to_a8",
+            "initial_state": "checkpoint-176 BF16 layer-23 input for all 34 frozen prefix positions",
+            "layer": 23,
+            "w4_weight": false
+          }
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 1.939311729016481,
+        "failure_analysis": {
+          "failure_taxonomy_class": "QUALITY_CAUSAL_RECOVERY_MISS",
+          "regression": {
+            "jsd_delta_nats_vs_layer23_baseline": -0.004506436684668769,
+            "token_rank_delta_vs_layer23_baseline": -5,
+            "top8_overlap_delta_vs_layer23_baseline": 2
+          },
+          "root_cause_hypothesis": "Replacing only k family bf16_projection_output_to_a8 is insufficient; the causal error lies in another family or a component interaction."
+        },
+        "final_rmsnorm_q_sha256": "d47a70b1c8e868ea76ea1320dc00f08187ceaf19d300d55a204d81c147a8e76f",
+        "final_rmsnorm_scale": 0.2372047244094488,
+        "layer_output_q_sha256": "c8fea807e5fc29f58dc004945efdb5328e2e1267ac5703815a65abd047b2512b",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "ba392d65f0c7747adb089820bf3c5e3612edd3b02870129cfeb7aeaff0d7f885",
+        "lm_head_output_scale": 0.07640645635409618,
+        "quantizer_family_ablation": "bf16_projection_output_to_a8",
+        "reference_logit": 6.952987528222752,
+        "reference_rank": 10,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.557523111658773,
+            "token_id": 55725
+          },
+          {
+            "piece": "Absolutely",
+            "score": 7.487832722701426,
+            "token_id": 77045
+          },
+          {
+            "piece": " diced",
+            "score": 7.41142626634733,
+            "token_id": 88864
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.258613353639137,
+            "token_id": 108089
+          },
+          {
+            "piece": "Here",
+            "score": 7.182206897285041,
+            "token_id": 8420
+          },
+          {
+            "piece": " ej",
+            "score": 7.029393984576848,
+            "token_id": 19279
+          },
+          {
+            "piece": " anecd",
+            "score": 7.029393984576848,
+            "token_id": 49650
+          },
+          {
+            "piece": "imonials",
+            "score": 7.029393984576848,
+            "token_id": 57335
+          }
+        ],
+        "top_logit": 8.557523111658773,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1layer23qkvfamilies01/logits/layer23-v-bf16_projection_output_to_a8-f64le.bin",
+          "sha256": "112c2c3b4fe3442cc2d6db702849908be574d3e7e1b9f8e350118be12de43f19",
+          "shape": [
+            151936
+          ]
+        },
+        "causal_recovery": {
+          "kind": "exact_token_and_rank_recovery",
+          "recovered": true
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 1,
+          "candidate_top_token_id": 39814,
+          "centered_cosine_similarity": 0.9142067628987031,
+          "jensen_shannon_divergence_nats": 0.11229219047941186,
+          "raw_score_error": {
+            "cosine_similarity": 0.9564542486994361,
+            "maximum_absolute_error": 6.579469815952571,
+            "mean_absolute_error": 1.100341267115498,
+            "relative_l2": 0.32035682776440993,
+            "rmse": 1.3813655694888396
+          },
+          "reference_top_rank_in_candidate": 1,
+          "reference_top_token_id": 39814,
+          "top1_match": true,
+          "top8_overlap_count": 7
+        },
+        "component": "v",
+        "configuration": {
+          "sha256": "cb59edf88183a23e8437cc46cc0373e83a1f976b9d1dd3400e4e27a9d39c0720",
+          "value": {
+            "a8_input": false,
+            "a8_output": true,
+            "component": "v",
+            "configuration_id": "layer23-v-bf16_projection_output_to_a8",
+            "downstream": "unchanged accepted W4A8 layer-23 tail and tied W4 head",
+            "family": "bf16_projection_output_to_a8",
+            "initial_state": "checkpoint-176 BF16 layer-23 input for all 34 frozen prefix positions",
+            "layer": 23,
+            "w4_weight": false
+          }
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 2.220467366016237,
+        "final_rmsnorm_q_sha256": "e5bb999535c97b5b7b498b2e9dc00b04149e7404499223031ad8bf59bfdbd4e5",
+        "final_rmsnorm_scale": 0.610236220472441,
+        "layer_output_q_sha256": "529643eeb35ad63a847509cab5b449ad011e05d26ef51f1341a7dd74e8b25f2c",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "569251883053bf0e2fc3cf43908d066b6fc8d915d14ab475ab861c9db48c1a56",
+        "lm_head_output_scale": 0.11935893381674459,
+        "quantizer_family_ablation": "bf16_projection_output_to_a8",
+        "reference_logit": 14.203713124192607,
+        "reference_rank": 1,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": "Sure",
+            "score": 14.203713124192607,
+            "token_id": 39814
+          },
+          {
+            "piece": "Here",
+            "score": 14.084354190375862,
+            "token_id": 8420
+          },
+          {
+            "piece": "Why",
+            "score": 13.24884165365865,
+            "token_id": 10234
+          },
+          {
+            "piece": "Of",
+            "score": 13.129482719841905,
+            "token_id": 2124
+          },
+          {
+            "piece": "I",
+            "score": 12.293970183124692,
+            "token_id": 40
+          },
+          {
+            "piece": "Absolutely",
+            "score": 11.69717551404097,
+            "token_id": 77045
+          },
+          {
+            "piece": "Certainly",
+            "score": 11.219739778773992,
+            "token_id": 95456
+          },
+          {
+            "piece": "D",
+            "score": 11.100380844957247,
+            "token_id": 35
+          }
+        ],
+        "top_logit": 14.203713124192607,
+        "top_piece": "Sure",
+        "top_token_id": 39814
+      }
+    ]
+  },
+  "created_at_utc": "2026-08-20T07:20:59.377597+00:00",
+  "elapsed_wall_seconds": 15.234640563023277,
+  "frozen_contract": {
+    "adapter_config_sha256": "9261b3480065c0d1bdf8b0a33b01279f1cfdb285ca7aaf3aa850fb62ab894664",
+    "adapter_model_sha256": "c9476d6ccc687a4d68de1951eb889b689daaf9c5d3822b4c5acfc26a1cd38a28",
+    "checkpoint176_bf16_logits_sha256": "1910fe7196b34ac858b2d5b8406ee94df00ef39e5f285ba7ed56381de66b7614",
+    "checkpoint176_bf16_token_id": 39814,
+    "checkpoint_tree_sha256": "8cee9b9343e49b66ee2ea427578f87335ffa259919356cdd119cd8712ff7eeee",
+    "model_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+    "position": 0,
+    "prior_incomplete_diagnosis": {
+      "bytes": 55006,
+      "path": "diagnosis/stage1samepromptcausal01/result.json",
+      "sha256": "0e35e7ccafa5dc90324af4dee91e4a9c7d91075055965b6894c0adb750c1bff4"
+    },
+    "prompt_sha256": "90eaeeb4312de67b46fda2c43a80f3bfeb0ac20d0dc222a65f390c9407607c36",
+    "sealed_attempt_before": {
+      "manifest": {
+        "bytes": 22537849,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/manifest.json",
+        "sha256": "0259039f54ecc224a785ada1d4567b34158746fc06b3d3f3e316f5d277ddb470"
+      },
+      "run_summary": {
+        "bytes": 23646652,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/run_summary.json",
+        "sha256": "c496921d5b93f4840ec67c38c1c4d0afab034a8798a9a760c36a639ee80d4159"
+      },
+      "step0_final_rmsnorm_s8": {
+        "bytes": 896,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_s8.bin",
+        "sha256": "c7f29537c929a175b2b3f6751b81977a1881077d688052c7739b382484b124f8"
+      },
+      "step0_final_rmsnorm_scale": {
+        "bytes": 8,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_scale_f64le.bin",
+        "sha256": "10bbbde84a23171378edc09ccd62166da8b4624b9d8cb0cafce769c5a0ea1739"
+      },
+      "step0_lm_head_output_s8": {
+        "bytes": 151936,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_s8.bin",
+        "sha256": "55009f23fafbd106621fec56f349a599612a8c23635fd9fbca7b3bc1645bcc42"
+      },
+      "step0_lm_head_output_scale": {
+        "bytes": 8,
+        "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_scale_f64le.bin",
+        "sha256": "7063352c5598e6b359dd09628adcd9c47ca371ca8ff701bf0a379d2b895abb8f"
+      }
+    },
+    "token_count": 34,
+    "token_ids_sha256": "dbdff6c533c804f645b0a76b8a44cf85e9b61f52bcce053e81189bd82f009e0d"
+  },
+  "layer23_baseline_metrics": {
+    "bf16_layer23_input_then_w4a8": {
+      "configuration_sha256": "5f69596b7d68cfa555e94a018fa2ce7050e15c5b27de424598ce0c459139c9b6",
+      "jensen_shannon_divergence_nats": 0.6701229933515445,
+      "logits_sha256": "0b80dbb919618cb7f39a8a862cac652ba684176a520865020595bd048085ea17",
+      "relative_l2": 0.9423817179633847,
+      "token_39814_rank": 15,
+      "top8_overlap_count": 0,
+      "top_token_id": 55725
+    },
+    "global_w4a8": {
+      "configuration_sha256": "582db8bdef8d3ceafcf672bc3a5872c3dcea532d3e414d1a34df8be406b6b5e9",
+      "jensen_shannon_divergence_nats": 0.691777078713527,
+      "logits_sha256": "72a95a505314f2e31e5d556443464c1cf24238f1728ed263034892fad598f497",
+      "relative_l2": 1.057737559975021,
+      "token_39814_rank": 75808,
+      "top8_overlap_count": 0,
+      "top_token_id": 26614
+    }
+  },
+  "mission_id": "stage1layer23qkvfamilies01",
+  "quantizer_family_ablation": {
+    "method": "For each causally recovering component, independently bypass W4 weights while retaining A8 input/output, then bypass A8 input while retaining dequantized W4 weights and A8 output.",
+    "records": [
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1layer23qkvfamilies01/logits/layer23-v-bf16_weight_with_a8_input_output-f64le.bin",
+          "sha256": "dd6ec07996645e4d3df485c796544e3151de88b037f091527d0021606f830419",
+          "shape": [
+            151936
+          ]
+        },
+        "causal_recovery": {
+          "kind": "no_preregistered_causal_recovery",
+          "recovered": false
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.5812222354845741,
+          "jensen_shannon_divergence_nats": 0.672246742488438,
+          "raw_score_error": {
+            "cosine_similarity": 0.23888158587021913,
+            "maximum_absolute_error": 13.805433994203103,
+            "mean_absolute_error": 3.7003923199239384,
+            "relative_l2": 0.9829001705040726,
+            "rmse": 4.238225428981708
+          },
+          "reference_top_rank_in_candidate": 14,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 1
+        },
+        "component": "v",
+        "configuration": {
+          "sha256": "cefb22532e84e92be3ae7d1904ea1b9a272135d0aa3f03936b985e1d0fe570bd",
+          "value": {
+            "a8_input": true,
+            "a8_output": true,
+            "component": "v",
+            "configuration_id": "layer23-v-bf16_weight_with_a8_input_output",
+            "downstream": "unchanged accepted W4A8 layer-23 tail and tied W4 head",
+            "family": "bf16_weight_with_a8_input_output",
+            "initial_state": "checkpoint-176 BF16 layer-23 input for all 34 frozen prefix positions",
+            "layer": 23,
+            "w4_weight": false
+          }
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 2.052419893007027,
+        "failure_analysis": {
+          "failure_taxonomy_class": "QUALITY_CAUSAL_RECOVERY_MISS",
+          "regression": {
+            "jsd_delta_nats_vs_layer23_baseline": 0.0021237491368935046,
+            "token_rank_delta_vs_layer23_baseline": -1,
+            "top8_overlap_delta_vs_layer23_baseline": 1
+          },
+          "root_cause_hypothesis": "Replacing only v family bf16_weight_with_a8_input_output is insufficient; the causal error lies in another family or a component interaction."
+        },
+        "final_rmsnorm_q_sha256": "13206ad4d39feb857516b74be4aae56071e5354f60c50429960892e8095211f2",
+        "final_rmsnorm_scale": 0.25393700787401574,
+        "layer_output_q_sha256": "32a43d6a923156f656f238f0c7b7a07de74911aa5c9401f1648249cdf7f8ff15",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "4f031f268e262f1b3192dbdf60ea6f5c5f96acf188f5423af9cf2d1fc8c29cca",
+        "lm_head_output_scale": 0.07662433714378537,
+        "quantizer_family_ablation": "bf16_weight_with_a8_input_output",
+        "reference_logit": 6.819566005796898,
+        "reference_rank": 14,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.965047445822888,
+            "token_id": 55725
+          },
+          {
+            "piece": "imonials",
+            "score": 7.662433714378538,
+            "token_id": 57335
+          },
+          {
+            "piece": " anecd",
+            "score": 7.585809377234752,
+            "token_id": 49650
+          },
+          {
+            "piece": " diced",
+            "score": 7.585809377234752,
+            "token_id": 88864
+          },
+          {
+            "piece": " ej",
+            "score": 7.432560702947181,
+            "token_id": 19279
+          },
+          {
+            "piece": "OTO",
+            "score": 7.202687691515825,
+            "token_id": 27186
+          },
+          {
+            "piece": "Absolutely",
+            "score": 7.202687691515825,
+            "token_id": 77045
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.202687691515825,
+            "token_id": 108089
+          }
+        ],
+        "top_logit": 8.965047445822888,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      },
+      {
+        "accepted_w4a8_logits": {
+          "bytes": 1215488,
+          "dtype": "float64_le",
+          "path": "diagnosis/stage1layer23qkvfamilies01/logits/layer23-v-w4_weight_with_bf16_input_a8_output-f64le.bin",
+          "sha256": "4ca8ac29100ca914ec93d17fabcd0b53fe6fe2551acce2c3a2c2e12cb4589135",
+          "shape": [
+            151936
+          ]
+        },
+        "causal_recovery": {
+          "kind": "no_preregistered_causal_recovery",
+          "recovered": false
+        },
+        "comparison_vs_checkpoint176_bf16": {
+          "candidate_top_rank_in_reference": 301,
+          "candidate_top_token_id": 55725,
+          "centered_cosine_similarity": 0.5646549728064622,
+          "jensen_shannon_divergence_nats": 0.6747034748799297,
+          "raw_score_error": {
+            "cosine_similarity": 0.27861944405998157,
+            "maximum_absolute_error": 14.290507894801342,
+            "mean_absolute_error": 3.6235080936860715,
+            "relative_l2": 0.967003127591243,
+            "rmse": 4.1696780286040935
+          },
+          "reference_top_rank_in_candidate": 31,
+          "reference_top_token_id": 39814,
+          "top1_match": false,
+          "top8_overlap_count": 0
+        },
+        "component": "v",
+        "configuration": {
+          "sha256": "95de39db06e0f6b72c134f4bc08bb8b084df27f0e824158fbfb266f610e2837e",
+          "value": {
+            "a8_input": false,
+            "a8_output": true,
+            "component": "v",
+            "configuration_id": "layer23-v-w4_weight_with_bf16_input_a8_output",
+            "downstream": "unchanged accepted W4A8 layer-23 tail and tied W4 head",
+            "family": "w4_weight_with_bf16_input_a8_output",
+            "initial_state": "checkpoint-176 BF16 layer-23 input for all 34 frozen prefix positions",
+            "layer": 23,
+            "w4_weight": true
+          }
+        },
+        "cut": 23,
+        "elapsed_wall_seconds": 1.8830898000160232,
+        "failure_analysis": {
+          "failure_taxonomy_class": "QUALITY_CAUSAL_RECOVERY_MISS",
+          "regression": {
+            "jsd_delta_nats_vs_layer23_baseline": 0.004580481528385194,
+            "token_rank_delta_vs_layer23_baseline": 16,
+            "top8_overlap_delta_vs_layer23_baseline": 0
+          },
+          "root_cause_hypothesis": "Replacing only v family w4_weight_with_bf16_input_a8_output is insufficient; the causal error lies in another family or a component interaction."
+        },
+        "final_rmsnorm_q_sha256": "53cd4693ebfccb33890d984d3e828b829aaeef009b179d2382bc3ea7be6c15a9",
+        "final_rmsnorm_scale": 0.21948818897637795,
+        "layer_output_q_sha256": "01f54ebaeb3f4543887f560b6c033f2cba8c3e1e3e60a7eb03a79eabb5b69b81",
+        "layer_output_scale": 0.4665678429791308,
+        "layers_executed_per_position": 1,
+        "lm_head_output_s8_sha256": "2053460d2c3251000f2219c04ca2b325b22c24b600bc0e4696565faffa037a6c",
+        "lm_head_output_scale": 0.07299943608561839,
+        "quantizer_family_ablation": "w4_weight_with_bf16_input_a8_output",
+        "reference_logit": 6.423950375534418,
+        "reference_rank": 31,
+        "substitution": "checkpoint-176 BF16 hidden_states[23] requantized to signed A8 for every frozen prefix position",
+        "top_candidates": [
+          {
+            "piece": " kidding",
+            "score": 8.61393345810297,
+            "token_id": 55725
+          },
+          {
+            "piece": " anecd",
+            "score": 7.664940788989931,
+            "token_id": 49650
+          },
+          {
+            "piece": "OTO",
+            "score": 7.591941352904312,
+            "token_id": 27186
+          },
+          {
+            "piece": " diced",
+            "score": 7.591941352904312,
+            "token_id": 88864
+          },
+          {
+            "piece": " ej",
+            "score": 7.518941916818694,
+            "token_id": 19279
+          },
+          {
+            "piece": "imonials",
+            "score": 7.3729430446474575,
+            "token_id": 57335
+          },
+          {
+            "piece": "\u5f53\u6211",
+            "score": 7.299943608561839,
+            "token_id": 108089
+          },
+          {
+            "piece": "\u969c",
+            "score": 7.153944736390602,
+            "token_id": 99884
+          }
+        ],
+        "top_logit": 8.61393345810297,
+        "top_piece": " kidding",
+        "top_token_id": 55725
+      }
+    ]
+  },
+  "runner": {
+    "bytes": 34656,
+    "path": "tools/diagnose_stage1_layer23_qkv_families.py",
+    "sha256": "5b41665c5018183ab88ab3825e5d31c3301f97d7baa49327b0244efe08796402"
+  },
+  "schema_version": 1,
+  "scope_guards": {
+    "attempt_0003_created": false,
+    "full_rtl_generation_run": false,
+    "official_attempt_consumed": false,
+    "official_run_launched": false,
+    "stage2_entered": false
+  },
+  "sealed_attempt_after": {
+    "manifest": {
+      "bytes": 22537849,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/manifest.json",
+      "sha256": "0259039f54ecc224a785ada1d4567b34158746fc06b3d3f3e316f5d277ddb470"
+    },
+    "run_summary": {
+      "bytes": 23646652,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/run_summary.json",
+      "sha256": "c496921d5b93f4840ec67c38c1c4d0afab034a8798a9a760c36a639ee80d4159"
+    },
+    "step0_final_rmsnorm_s8": {
+      "bytes": 896,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_s8.bin",
+      "sha256": "c7f29537c929a175b2b3f6751b81977a1881077d688052c7739b382484b124f8"
+    },
+    "step0_final_rmsnorm_scale": {
+      "bytes": 8,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/final_rmsnorm_scale_f64le.bin",
+      "sha256": "10bbbde84a23171378edc09ccd62166da8b4624b9d8cb0cafce769c5a0ea1739"
+    },
+    "step0_lm_head_output_s8": {
+      "bytes": 151936,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_s8.bin",
+      "sha256": "55009f23fafbd106621fec56f349a599612a8c23635fd9fbca7b3bc1645bcc42"
+    },
+    "step0_lm_head_output_scale": {
+      "bytes": 8,
+      "path": "evidence/verification/rtl-arbitrary-text-generation-v1/attempt-0002/heads/step-00/tensors/lm_head_output_scale_f64le.bin",
+      "sha256": "7063352c5598e6b359dd09628adcd9c47ca371ca8ff701bf0a379d2b895abb8f"
+    }
+  },
+  "software": {
+    "numpy": "2.5.1",
+    "peft": "0.20.0",
+    "python": "3.13.5",
+    "tokenizers": "0.22.2",
+    "torch": "2.11.0+cu130",
+    "transformers": "4.57.6"
+  },
+  "status": "COMPONENT_AND_QUANTIZER_FAMILY_CAUSALLY_LOCALIZED",
+  "suppressed_nonfunctional_cache_effect_assertions": {
+    "count": 0,
+    "unique_messages": []
+  }
+}

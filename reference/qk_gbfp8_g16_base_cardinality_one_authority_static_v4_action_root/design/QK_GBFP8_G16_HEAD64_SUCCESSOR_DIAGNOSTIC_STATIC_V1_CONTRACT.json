@@ -1,0 +1,452 @@
+{
+  "accepted_g16": {
+    "alternative_id": "QK_GBFP8_G16_E16_HEAD64_V1",
+    "contract": {
+      "byte_count": 19517,
+      "path": "design/QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_CONTRACT.json",
+      "sha256": "64a7d1efce2336721a81be7e8319b1740cebad2449ac44ea29ca1007d2e5b549"
+    },
+    "fresh_l2_handoff": {
+      "byte_count": 891,
+      "mission_id": "46d03751e890",
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/46d03751e890/round-0002.json",
+      "sha256": "fe36c4c7dee34bfd7a77647e8f2737353ae280d955a93df019baf5312a3e6cc0",
+      "status": "done"
+    },
+    "package": {
+      "byte_count": 1422,
+      "path": "reference/QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_PACKAGE.json",
+      "sha256": "d6e4969660de746f7123b29e80f49febcf18fdeca8ffab234f4849a8dd8feea8"
+    },
+    "pure_reference": {
+      "byte_count": 16821,
+      "path": "reference/qk_grouped_bfp8_head64_successor_static_v1.py",
+      "sha256": "f3a5ebcff18403c048f2b279b5af2e56acaa7f551e68bfb2c475b418ce27140f"
+    },
+    "schema": {
+      "byte_count": 2405,
+      "path": "reference/QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_SCHEMA.json",
+      "sha256": "6dcda9692926962d5888fcb1ff99bf4f695d2cc8740d06a61b4b19c93cde2ef3"
+    },
+    "static_verifier": {
+      "byte_count": 22056,
+      "path": "tools/verify_qk_grouped_bfp8_head64_successor_static_v1.py",
+      "sha256": "18378125fcc96e38c15be30dca75843caaa384f2beb01f917646df9ea89ac4e6"
+    }
+  },
+  "artifact_kind": "qk_gbfp8_g16_head64_successor_diagnostic_static_pre_execution_contract",
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "authority_interface": {
+    "accepted_package_binding": "A later authority must bind the exact package SHA-256 accepted by Fresh-L2, the exact evaluator and result-schema SHA-256 values in that package, and exactly one frozen invocation_sha256 from this contract.",
+    "cardinality": 1,
+    "credential_policy": "No credential or READY_UNCONSUMED ledger is part of this package. A later authority must be create-only, lane-specific, and consumed exactly once before tensor deserialization.",
+    "planned_authority_root": "build/qk-gbfp8-g16-head64-successor-diagnostic-v4-authority",
+    "required_authority_fields": [
+      "authority_id",
+      "authority_cardinality",
+      "state",
+      "lane_label",
+      "package_sha256",
+      "evaluator_sha256",
+      "result_schema_sha256",
+      "invocation_sha256",
+      "output_path"
+    ],
+    "required_state_before_execution": "READY_UNCONSUMED"
+  },
+  "claim_boundary": {
+    "base_or_checkpoint_176_evaluated": false,
+    "c02_evaluator_invoked": false,
+    "candidate_or_result_namespace_created": false,
+    "live_credential_or_ready_ledger_created": false,
+    "model_loaded": false,
+    "new_model_scores_computed": false,
+    "numerical_improvement_claimed": false,
+    "rtl_u280_xrt_hbm_manifest_or_stage_modified": false,
+    "sealed_tensor_payload_opened_or_deserialized": false
+  },
+  "contract_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1",
+  "deterministic_evaluation": {
+    "g16_realization": {
+      "encoding": "For each contiguous 16-lane group choose the least signed exponent e for which every finite BF16 source value satisfies abs(x)<=127*2^e, then round x*2^-e to nearest ties to even. Zero groups use exponent zero; nonzero groups require maximum absolute mantissa in [64,127].",
+      "group_count": 4,
+      "group_size_lanes": 16,
+      "head_record_bytes": 72,
+      "normalization": "Use the accepted G16 reference normalize_score_row over the complete 41-key row and authoritative causal mask. Group partials and exponent alignment are exact integers; row maximum ties choose the lowest key index; Q12.20 realization rounds once, saturates only below signed-int64 minimum, and rejects any positive valid result.",
+      "query_head_to_kv_head": "kv_head = floor(query_head/7) for query_head 0 through 13",
+      "reference_function_sequence": [
+        "encode_head_bf16",
+        "normalize_score_row"
+      ]
+    },
+    "oracle": {
+      "centering": "Decode every selected oracle BF16 value as an exact dyadic, select the exact maximum over causal keys with lowest-index tie break, subtract exactly, then round centered values times 2^20 to nearest ties to even.",
+      "nonfinite_scan_order": "Before masking, indexing, encoding, metric accumulation, or output construction, scan every BF16 word in all three selected records and reject the lane if any word is NaN or infinity.",
+      "source": "bf16.qk_scaled_scores[0,query_head,query_index,key_index] is already post-HEAD64 scale 1/8; no score is recomputed for the oracle and bf16.qk_centered_scores is forbidden.",
+      "top_key_tie": "lowest valid key index among exact equal maxima"
+    },
+    "ordering": {
+      "head_lane": "0 through 63 increasing",
+      "key": "0 through 40 increasing",
+      "lane_labels": [
+        "Base",
+        "checkpoint-176"
+      ],
+      "query_head": "0 through 13 increasing",
+      "query_index": "0 through 40 increasing"
+    },
+    "record_selectors": {
+      "batch_index": 0,
+      "causal_validity": "key_index <= query_index",
+      "excluded_tensor_names": [
+        "bf16.qk_centered_scores",
+        "w4.score_key_s8",
+        "w4.score_key_scale32",
+        "w4.score_query_s8",
+        "w4.score_query_scale32",
+        "w4.scores_q6_9",
+        "w4.softmax_input_q6_9"
+      ],
+      "roles": {
+        "bf16_oracle_scores": {
+          "dtype": "torch.bfloat16",
+          "shape": [
+            1,
+            14,
+            41,
+            41
+          ],
+          "tensor_name": "bf16.qk_scaled_scores"
+        },
+        "realized_key_source": {
+          "dtype": "torch.bfloat16",
+          "shape": [
+            1,
+            2,
+            41,
+            64
+          ],
+          "tensor_name": "bf16.k_rope"
+        },
+        "realized_query_source": {
+          "dtype": "torch.bfloat16",
+          "shape": [
+            1,
+            14,
+            41,
+            64
+          ],
+          "tensor_name": "bf16.q_rope"
+        }
+      },
+      "sequence_length": 41
+    }
+  },
+  "input_set": {
+    "lanes": [
+      {
+        "authoritative_tensors": {
+          "bf16_oracle_scores": {
+            "dtype": "torch.bfloat16",
+            "sha256": "49627e8364e534c61f4db8208d82798e53409c3c10d5d5e28c3c1462ef617765",
+            "shape": [
+              1,
+              14,
+              41,
+              41
+            ],
+            "tensor_name": "bf16.qk_scaled_scores"
+          },
+          "realized_key_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "401cdb0dc4a8def3190ac424f96df272c2bcf11241874759977d692845a19c0a",
+            "shape": [
+              1,
+              2,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.k_rope"
+          },
+          "realized_query_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "285e064ffea9571b7e3ed192a7083bf831dc5d444e0139558d3d51f084995429",
+            "shape": [
+              1,
+              14,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.q_rope"
+          }
+        },
+        "generation_id": "g16-successor-diagnostic-base-v1",
+        "input_token_ids_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+        "label": "Base",
+        "metadata": {
+          "byte_count": 20057,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/result.json",
+          "sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a"
+        },
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+        "namespace_label": "base",
+        "output_path": "build/qk-gbfp8-g16-head64-successor-diagnostic-v4/base/result.json",
+        "tensor_bundle": {
+          "byte_count": 1305797,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/attention-substage-tensors.bin",
+          "sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"
+        }
+      },
+      {
+        "authoritative_tensors": {
+          "bf16_oracle_scores": {
+            "dtype": "torch.bfloat16",
+            "sha256": "776be2e58246c8641fa483e331e0d63896f96f14b3756548e15af3870d89c456",
+            "shape": [
+              1,
+              14,
+              41,
+              41
+            ],
+            "tensor_name": "bf16.qk_scaled_scores"
+          },
+          "realized_key_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "2c4b99f5bc97d0f95b886dfebf62242148940d7cc9021e197dfdee0aed9e9902",
+            "shape": [
+              1,
+              2,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.k_rope"
+          },
+          "realized_query_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "18671805abe3835d8f2e23bffb041ced6a05f41b8eac4f698f41d302def73b18",
+            "shape": [
+              1,
+              14,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.q_rope"
+          }
+        },
+        "generation_id": "g16-successor-diagnostic-checkpoint-176-v1",
+        "input_token_ids_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+        "label": "checkpoint-176",
+        "metadata": {
+          "byte_count": 20070,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/result.json",
+          "sha256": "3f73b5359e021ddb6183ec468ae154b3cda0807365b248773d80466e477b4e86"
+        },
+        "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98",
+        "namespace_label": "checkpoint-176",
+        "output_path": "build/qk-gbfp8-g16-head64-successor-diagnostic-v4/checkpoint-176/result.json",
+        "tensor_bundle": {
+          "byte_count": 1305797,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/attention-substage-tensors.bin",
+          "sha256": "07743a5df6bfa00d5e977dc622b70e90af9b6789feaeb5ae689448ac803ceb59"
+        }
+      }
+    ],
+    "sealed_set_id": "w4a8-c02-attention-substage-trace-v2"
+  },
+  "invocations": [
+    {
+      "argv": [
+        "/home/argustest/miniconda3/bin/python3.13",
+        "-I",
+        "-B",
+        "reference/qk_gbfp8_g16_head64_successor_diagnostic_static_v4.py",
+        "--package",
+        "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_PACKAGE.json",
+        "--authority",
+        "build/qk-gbfp8-g16-head64-successor-diagnostic-v4-authority/base/authority.json",
+        "--ledger",
+        "build/qk-gbfp8-g16-head64-successor-diagnostic-v4-authority/base/authority-ledger.json",
+        "--lane",
+        "Base",
+        "--metadata",
+        "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/result.json",
+        "--tensor-bundle",
+        "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/attention-substage-tensors.bin",
+        "--output",
+        "build/qk-gbfp8-g16-head64-successor-diagnostic-v4/base/result.json"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PYTHONHASHSEED": "0",
+        "TZ": "UTC"
+      },
+      "interpreter": {
+        "implementation": "CPython",
+        "path": "/home/argustest/miniconda3/bin/python3.13",
+        "sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad",
+        "version": "3.13.5"
+      },
+      "invocation_sha256": "8ba4d14d206be2d5e93739caf67dd756dd19039c130bea9c5ee2b31f7b6fa9c9",
+      "lane_label": "Base"
+    },
+    {
+      "argv": [
+        "/home/argustest/miniconda3/bin/python3.13",
+        "-I",
+        "-B",
+        "reference/qk_gbfp8_g16_head64_successor_diagnostic_static_v4.py",
+        "--package",
+        "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_PACKAGE.json",
+        "--authority",
+        "build/qk-gbfp8-g16-head64-successor-diagnostic-v4-authority/checkpoint-176/authority.json",
+        "--ledger",
+        "build/qk-gbfp8-g16-head64-successor-diagnostic-v4-authority/checkpoint-176/authority-ledger.json",
+        "--lane",
+        "checkpoint-176",
+        "--metadata",
+        "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/result.json",
+        "--tensor-bundle",
+        "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/attention-substage-tensors.bin",
+        "--output",
+        "build/qk-gbfp8-g16-head64-successor-diagnostic-v4/checkpoint-176/result.json"
+      ],
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PYTHONHASHSEED": "0",
+        "TZ": "UTC"
+      },
+      "interpreter": {
+        "implementation": "CPython",
+        "path": "/home/argustest/miniconda3/bin/python3.13",
+        "sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad",
+        "version": "3.13.5"
+      },
+      "invocation_sha256": "2fd2e672abd3cb85a9edeab863e213a255f507dcf08215895fe875a078203da6",
+      "lane_label": "checkpoint-176"
+    }
+  ],
+  "malformed_input_policy": {
+    "atomic_validation": "Validate package, authority, ledger absence, metadata identity, complete bundle framing, exact selected record names/dtypes/shapes/hashes, and all selected BF16 words before encoding or metric work.",
+    "fail_closed_conditions": [
+      "wrong JSON type, missing field, extra field, bool where an integer is required, malformed lowercase SHA-256, or noncanonical JSON",
+      "absolute, aliased, symlinked, wrong, or trailing argv path",
+      "bundle hash, byte count, magic, record count, record framing, record identity, dtype, shape, payload size, or trailing-byte mismatch",
+      "missing, duplicate, cross-lane, excluded, or extra selected role mapping",
+      "BF16 NaN or infinity anywhere in any complete selected role, including masked or otherwise metric-excluded positions",
+      "G16 encoding, normalization, positive-score, or width-bound rejection",
+      "all-masked row, invalid fraction, inconsistent metric population, malformed nested result, or threshold inconsistency",
+      "pre-existing output, authority ledger, symlink component, or non-create-only publication"
+    ],
+    "repair_policy": "No inference, defaulting, truncation, compatibility alias, partial publication, retry, replay, resume, repair, recalibration, regeneration, or result substitution is permitted."
+  },
+  "metrics": {
+    "invalid_accounting": {
+      "fields": [
+        "cross_lane_record_count",
+        "invalid_or_non_finite_value_count",
+        "normalization_rejection_count",
+        "positive_centered_realized_score_count",
+        "saturation_event_count"
+      ],
+      "gate_mode": "HARD"
+    },
+    "rank_margin": {
+      "empty_set": "If unique_oracle_top_row_count is zero, minimum_realized_margin_q12_20_lsb and preserved_positive_margin_fraction are null and the fraction threshold fails.",
+      "fields": [
+        "singleton_valid_key_row_count",
+        "unique_oracle_top_row_count",
+        "preserved_positive_margin_row_count",
+        "violation_count",
+        "minimum_realized_margin_q12_20_lsb",
+        "oracle_tied_row_count",
+        "preserved_positive_margin_fraction"
+      ],
+      "gate_mode": "HARD",
+      "positive_preservation": "For each nonsingleton row with one exact oracle maximum, realized score at the oracle top key minus the greatest realized score at any other valid key must be strictly positive."
+    },
+    "score_error": {
+      "fields": [
+        "valid_value_count",
+        "sum_signed_error_q12_20_lsb",
+        "sum_absolute_error_q12_20_lsb",
+        "sum_squared_error_q40_40_lsb2",
+        "maximum_absolute_error_q12_20_lsb"
+      ],
+      "gate_mode": "TRACKING",
+      "sign": "realized_q12_20_lsb - oracle_q12_20_lsb"
+    },
+    "top_key": {
+      "empty_set": "If row_count is zero, matching_fraction is null and the fraction threshold fails.",
+      "fields": [
+        "row_count",
+        "matching_row_count",
+        "mismatch_count",
+        "matching_fraction"
+      ],
+      "gate_mode": "HARD"
+    }
+  },
+  "output": {
+    "cli_rejection_semantics": "Failures before authority consumption, including CROSS_LANE_REJECTED, publish no result and exit nonzero. OUTPUT_PUBLICATION_REJECTED is an unpublishable create-only publication failure: it publishes no result, exits nonzero, and permits no retry, fallback, substitution, or overwrite.",
+    "create_only": true,
+    "result_schema_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_RESULT_V1",
+    "result_schema_path": "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_SCHEMA.json",
+    "root": "build/qk-gbfp8-g16-head64-successor-diagnostic-v4",
+    "serialization": "UTF-8 canonical JSON with sorted keys, compact separators, ASCII escaping, allow_nan=false, and one trailing LF",
+    "terminal_semantics": {
+      "FAILED_TERMINAL": "Exactly one authorized invocation occurred after a valid cardinality-one authority was consumed. Pre-metric failures raised after authority consumption publish null metrics and thresholds and use only INPUT_BINDING_REJECTED, INPUT_SCHEMA_REJECTED, NON_FINITE_INPUT_REJECTED, NORMALIZATION_REJECTED, REPRESENTATION_REJECTED, or RESULT_SCHEMA_REJECTED; hard-threshold failure publishes complete metrics and threshold evaluation with all_hard_thresholds_pass=false and reason HARD_THRESHOLD_FAILED.",
+      "NO_EXECUTION_TERMINAL": "No authority was consumed, invocation_count_performed is zero, and metrics and thresholds are null. This package creates no such result file.",
+      "SUCCEEDED_TERMINAL": "Exactly one invocation occurred and complete metrics satisfy every hard threshold.",
+      "first_record_immutable": true,
+      "retry_replay_resume_repair_permitted": false
+    }
+  },
+  "preserved_c02_static_bindings": {
+    "evaluation_package": {
+      "byte_count": 33568,
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATION_PACKAGE.json",
+      "sha256": "0bd51407f20950a93f47a520718a3bb4d5a5006d990d60aef626d16a5f9d976d"
+    },
+    "executable_evaluator": {
+      "byte_count": 32001,
+      "path": "tools/qk_bfp8_e16_head64_v1_c02_score_path_evaluator_v2.py",
+      "sha256": "f27b8662d0137b2c9ca9dc8d977c0b6b6d953c62554658f0e0e3f19d9527d521"
+    },
+    "package_verifier": {
+      "byte_count": 49140,
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_c02_score_path_evaluation_package.py",
+      "sha256": "701bdf27b8a412956ed8b1fb2a34edde8a6a5dff1aedc68010f0dd69ba0beb49"
+    }
+  },
+  "prohibited_actions": [
+    "open, deserialize, inspect, or hash sealed Base or checkpoint-176 tensor payload bytes during static verification",
+    "load or execute Base or checkpoint-176 models",
+    "invoke c02 or this G16 evaluator on sealed inputs",
+    "compute model, candidate, calibration, generation, or official scores",
+    "create a live credential, READY_UNCONSUMED ledger, authority namespace, candidate namespace, attempt namespace, command namespace, or result namespace",
+    "materialize either lane, replay Base c02, or repair c02",
+    "modify accepted c02 or accepted G16 static artifacts",
+    "modify RTL, U280, XRT, HBM2, manifests, constraints, or stage state",
+    "claim numerical improvement, RTL correctness, synthesis, timing, area, frequency, benchmark PASS, or Stage 1 completion"
+  ],
+  "schema_version": 1,
+  "thresholds": {
+    "cross_lane_record_count_maximum": 0,
+    "invalid_or_non_finite_value_count_maximum": 0,
+    "normalization_rejection_count_maximum": 0,
+    "positive_centered_realized_score_count_maximum": 0,
+    "rank_margin_violation_count_maximum": 0,
+    "saturation_event_count_maximum": 0,
+    "top_key_matching_fraction_minimum": {
+      "denominator": 1,
+      "numerator": 1
+    },
+    "top_key_mismatch_count_maximum": 0,
+    "unique_oracle_positive_margin_preserved_fraction_minimum": {
+      "denominator": 1,
+      "numerator": 1
+    }
+  }
+}

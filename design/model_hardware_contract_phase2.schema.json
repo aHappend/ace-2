@@ -1,0 +1,424 @@
+{
+  "$id": "https://github.com/Argus-AiTeam/ace-2/design/model_hardware_contract_phase2.schema.json",
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "claim_boundary": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "compatibility": {
+      "additionalProperties": false,
+      "properties": {
+        "existing_0p5b_runtime_preflight": {
+          "type": "boolean"
+        },
+        "full_model_rtl_execution_validated": {
+          "const": false
+        },
+        "larger_model_rtl_execution_validated": {
+          "const": false
+        },
+        "synthesis_timing_or_u280_validated": {
+          "const": false
+        }
+      },
+      "required": [
+        "existing_0p5b_runtime_preflight",
+        "full_model_rtl_execution_validated",
+        "larger_model_rtl_execution_validated",
+        "synthesis_timing_or_u280_validated"
+      ],
+      "type": "object"
+    },
+    "contract_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "current_parameterization_gaps": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "blocking_surfaces": {
+            "items": {
+              "type": "string"
+            },
+            "type": "array"
+          },
+          "current": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "required": {
+            "type": [
+              "integer",
+              "string"
+            ]
+          }
+        },
+        "required": [
+          "id",
+          "current",
+          "required",
+          "blocking_surfaces"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    },
+    "derived": {
+      "type": "object"
+    },
+    "dimensions": {
+      "additionalProperties": false,
+      "properties": {
+        "attention_heads": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "head_dim": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "hidden_size": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "intermediate_size": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "kv_heads": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "max_context": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "num_layers": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "tie_word_embeddings": {
+          "type": "boolean"
+        },
+        "vocab_size": {
+          "minimum": 1,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "num_layers",
+        "hidden_size",
+        "intermediate_size",
+        "attention_heads",
+        "kv_heads",
+        "head_dim",
+        "vocab_size",
+        "max_context",
+        "tie_word_embeddings"
+      ],
+      "type": "object"
+    },
+    "formats": {
+      "additionalProperties": false,
+      "properties": {
+        "accumulator_format": {
+          "const": "signed_int32_dot_product"
+        },
+        "activation_format": {
+          "const": "signed_int8"
+        },
+        "embedding_storage": {
+          "const": "bf16"
+        },
+        "kv_format": {
+          "const": "signed_int8_payload_scale32_per_kv_head"
+        },
+        "packed_weight_group_bytes": {
+          "const": 16
+        },
+        "scale_format": {
+          "const": "scale32"
+        },
+        "weight_format": {
+          "const": "signed_int4_packed_w4"
+        },
+        "weight_input_group_size": {
+          "const": 32
+        },
+        "weight_scale_format": {
+          "const": "scale32_little_endian_u32"
+        },
+        "weight_scale_granularity": {
+          "const": "per_output_channel_per_input_group"
+        },
+        "weight_scale_record_bytes": {
+          "const": 4
+        }
+      },
+      "required": [
+        "weight_format",
+        "weight_input_group_size",
+        "packed_weight_group_bytes",
+        "weight_scale_granularity",
+        "weight_scale_format",
+        "weight_scale_record_bytes",
+        "activation_format",
+        "accumulator_format",
+        "kv_format",
+        "scale_format",
+        "embedding_storage"
+      ],
+      "type": "object"
+    },
+    "hardware_interface": {
+      "additionalProperties": false,
+      "properties": {
+        "address_bits": {
+          "const": 64
+        },
+        "current_shell_command_widths": {
+          "additionalProperties": false,
+          "properties": {
+            "address_bits": {
+              "const": 64
+            },
+            "completion_tag_bits": {
+              "const": 16
+            },
+            "k_bits": {
+              "const": 16
+            },
+            "layer_id_bits": {
+              "const": 8
+            },
+            "m_bits": {
+              "const": 16
+            },
+            "n_bits": {
+              "const": 16
+            },
+            "sequence_position_bits": {
+              "const": 16
+            }
+          },
+          "required": [
+            "layer_id_bits",
+            "m_bits",
+            "n_bits",
+            "k_bits",
+            "sequence_position_bits",
+            "completion_tag_bits",
+            "address_bits"
+          ],
+          "type": "object"
+        },
+        "data_width_bits": {
+          "const": 128
+        },
+        "lm_head_tile_size": {
+          "const": 32
+        },
+        "projection_tile_k": {
+          "const": 32
+        },
+        "projection_tile_m": {
+          "const": 1
+        },
+        "projection_tile_n": {
+          "const": 32
+        },
+        "required_command_widths": {
+          "additionalProperties": false,
+          "properties": {
+            "address_bits": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "completion_tag_bits": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "k_bits": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "layer_id_bits": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "m_bits": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "n_bits": {
+              "minimum": 1,
+              "type": "integer"
+            },
+            "sequence_position_bits": {
+              "minimum": 1,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "layer_id_bits",
+            "m_bits",
+            "n_bits",
+            "k_bits",
+            "sequence_position_bits",
+            "completion_tag_bits",
+            "address_bits"
+          ],
+          "type": "object"
+        },
+        "vector_lanes": {
+          "const": 16
+        }
+      },
+      "required": [
+        "address_bits",
+        "data_width_bits",
+        "lm_head_tile_size",
+        "projection_tile_m",
+        "projection_tile_n",
+        "projection_tile_k",
+        "vector_lanes",
+        "required_command_widths",
+        "current_shell_command_widths"
+      ],
+      "type": "object"
+    },
+    "model_id": {
+      "enum": [
+        "qwen2.5-0.5b",
+        "qwen2.5-1.5b",
+        "qwen2.5-3b",
+        "qwen2.5-7b"
+      ]
+    },
+    "product": {
+      "additionalProperties": false,
+      "properties": {
+        "claim_boundary": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "compatible_tiers": {
+          "items": {
+            "enum": [
+              "ace2_nano",
+              "ace2_edge",
+              "ace2_pro"
+            ]
+          },
+          "minItems": 1,
+          "type": "array",
+          "uniqueItems": true
+        },
+        "compute_tiles": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "memory_channels": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "primary_tier": {
+          "enum": [
+            "ace2_nano",
+            "ace2_edge",
+            "ace2_pro"
+          ]
+        }
+      },
+      "required": [
+        "primary_tier",
+        "compatible_tiers",
+        "compute_tiles",
+        "memory_channels",
+        "claim_boundary"
+      ],
+      "type": "object"
+    },
+    "schema_version": {
+      "const": 2
+    },
+    "source": {
+      "additionalProperties": false,
+      "properties": {
+        "config_path": {
+          "const": "config.json"
+        },
+        "config_url": {
+          "format": "uri",
+          "type": "string"
+        },
+        "repository": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "revision": {
+          "pattern": "^[0-9a-f]{40}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "repository",
+        "revision",
+        "config_path",
+        "config_url"
+      ],
+      "type": "object"
+    },
+    "static_capacity_checks": {
+      "items": {
+        "additionalProperties": false,
+        "properties": {
+          "evidence": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "id": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "pass": {
+            "type": "boolean"
+          }
+        },
+        "required": [
+          "id",
+          "pass",
+          "evidence"
+        ],
+        "type": "object"
+      },
+      "type": "array"
+    }
+  },
+  "required": [
+    "schema_version",
+    "contract_id",
+    "model_id",
+    "source",
+    "product",
+    "dimensions",
+    "formats",
+    "hardware_interface",
+    "derived",
+    "static_capacity_checks",
+    "current_parameterization_gaps",
+    "compatibility",
+    "claim_boundary"
+  ],
+  "title": "ACE-2 Phase-2 Qwen2.5 Unified Model Hardware Contract",
+  "type": "object"
+}

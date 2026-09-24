@@ -1,0 +1,177 @@
+{
+  "conversion": "round_ties_to_even(signed_int8 * scale_numerator / 127), where scale_numerator=output_absmax*512; saturate signed_int16",
+  "generator": "tools/gen_silu_gate_vectors.py",
+  "layers": [
+    {
+      "gate_output_scale": 0.05585629921259842,
+      "gate_scale_numerator": 3632,
+      "layer_id": 0,
+      "up_output_scale": 0.031496062992125984,
+      "up_scale_numerator": 2048
+    },
+    {
+      "gate_output_scale": 0.054133858267716536,
+      "gate_scale_numerator": 3520,
+      "layer_id": 1,
+      "up_output_scale": 0.03789370078740158,
+      "up_scale_numerator": 2464
+    },
+    {
+      "gate_output_scale": 0.16141732283464566,
+      "gate_scale_numerator": 10496,
+      "layer_id": 2,
+      "up_output_scale": 0.5787401574803149,
+      "up_scale_numerator": 37632
+    },
+    {
+      "gate_output_scale": 0.2470472440944882,
+      "gate_scale_numerator": 16064,
+      "layer_id": 3,
+      "up_output_scale": 0.2578740157480315,
+      "up_scale_numerator": 16768
+    },
+    {
+      "gate_output_scale": 0.07529527559055119,
+      "gate_scale_numerator": 4896,
+      "layer_id": 4,
+      "up_output_scale": 0.04133858267716536,
+      "up_scale_numerator": 2688
+    },
+    {
+      "gate_output_scale": 0.08169291338582677,
+      "gate_scale_numerator": 5312,
+      "layer_id": 5,
+      "up_output_scale": 0.07480314960629922,
+      "up_scale_numerator": 4864
+    },
+    {
+      "gate_output_scale": 0.05610236220472441,
+      "gate_scale_numerator": 3648,
+      "layer_id": 6,
+      "up_output_scale": 0.062253937007874016,
+      "up_scale_numerator": 4048
+    },
+    {
+      "gate_output_scale": 0.054625984251968504,
+      "gate_scale_numerator": 3552,
+      "layer_id": 7,
+      "up_output_scale": 0.050688976377952756,
+      "up_scale_numerator": 3296
+    },
+    {
+      "gate_output_scale": 0.061515748031496065,
+      "gate_scale_numerator": 4000,
+      "layer_id": 8,
+      "up_output_scale": 0.03420275590551181,
+      "up_scale_numerator": 2224
+    },
+    {
+      "gate_output_scale": 0.058809055118110236,
+      "gate_scale_numerator": 3824,
+      "layer_id": 9,
+      "up_output_scale": 0.051919291338582675,
+      "up_scale_numerator": 3376
+    },
+    {
+      "gate_output_scale": 0.0625,
+      "gate_scale_numerator": 4064,
+      "layer_id": 10,
+      "up_output_scale": 0.033710629921259845,
+      "up_scale_numerator": 2192
+    },
+    {
+      "gate_output_scale": 0.05954724409448819,
+      "gate_scale_numerator": 3872,
+      "layer_id": 11,
+      "up_output_scale": 0.0359251968503937,
+      "up_scale_numerator": 2336
+    },
+    {
+      "gate_output_scale": 0.05241141732283464,
+      "gate_scale_numerator": 3408,
+      "layer_id": 12,
+      "up_output_scale": 0.03887795275590551,
+      "up_scale_numerator": 2528
+    },
+    {
+      "gate_output_scale": 0.05487204724409449,
+      "gate_scale_numerator": 3568,
+      "layer_id": 13,
+      "up_output_scale": 0.04133858267716536,
+      "up_scale_numerator": 2688
+    },
+    {
+      "gate_output_scale": 0.07086614173228346,
+      "gate_scale_numerator": 4608,
+      "layer_id": 14,
+      "up_output_scale": 0.035679133858267716,
+      "up_scale_numerator": 2320
+    },
+    {
+      "gate_output_scale": 0.05831692913385827,
+      "gate_scale_numerator": 3792,
+      "layer_id": 15,
+      "up_output_scale": 0.04478346456692913,
+      "up_scale_numerator": 2912
+    },
+    {
+      "gate_output_scale": 0.06988188976377953,
+      "gate_scale_numerator": 4544,
+      "layer_id": 16,
+      "up_output_scale": 0.04453740157480315,
+      "up_scale_numerator": 2896
+    },
+    {
+      "gate_output_scale": 0.09055118110236221,
+      "gate_scale_numerator": 5888,
+      "layer_id": 17,
+      "up_output_scale": 0.06791338582677166,
+      "up_scale_numerator": 4416
+    },
+    {
+      "gate_output_scale": 0.08366141732283465,
+      "gate_scale_numerator": 5440,
+      "layer_id": 18,
+      "up_output_scale": 0.06077755905511811,
+      "up_scale_numerator": 3952
+    },
+    {
+      "gate_output_scale": 0.18799212598425197,
+      "gate_scale_numerator": 12224,
+      "layer_id": 19,
+      "up_output_scale": 0.06200787401574803,
+      "up_scale_numerator": 4032
+    },
+    {
+      "gate_output_scale": 0.10679133858267717,
+      "gate_scale_numerator": 6944,
+      "layer_id": 20,
+      "up_output_scale": 0.15551181102362205,
+      "up_scale_numerator": 10112
+    },
+    {
+      "gate_output_scale": 0.32677165354330706,
+      "gate_scale_numerator": 21248,
+      "layer_id": 21,
+      "up_output_scale": 0.33070866141732286,
+      "up_scale_numerator": 21504
+    },
+    {
+      "gate_output_scale": 0.1156496062992126,
+      "gate_scale_numerator": 7520,
+      "layer_id": 22,
+      "up_output_scale": 0.0984251968503937,
+      "up_scale_numerator": 6400
+    },
+    {
+      "gate_output_scale": 0.1515748031496063,
+      "gate_scale_numerator": 9856,
+      "layer_id": 23,
+      "up_output_scale": 0.23622047244094488,
+      "up_scale_numerator": 15360
+    }
+  ],
+  "schema_version": 1,
+  "source": "evidence/layer0_tile_bfp_score_attention_v1/paired-smoke-20260801-v1/derived_scales.json",
+  "source_sha256": "78280eb606e0c14ea74163f72f45cbb045670fb26f400c054013b9726266ebaa"
+}

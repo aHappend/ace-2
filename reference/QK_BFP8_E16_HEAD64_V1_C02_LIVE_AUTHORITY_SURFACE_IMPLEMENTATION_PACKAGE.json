@@ -1,0 +1,123 @@
+{
+  "artifact_kind": "qk_bfp8_e16_head64_v1_c02_live_authority_surface_implementation_package",
+  "bindings": {
+    "authority_package_sha256": "3f31da79730ce25040148365091c902fa8ce611b0499d9137a6a053fdbf7285c",
+    "authority_verifier_sha256": "401852322e5b4d421c97e4579bb29a069c49995659eba78c9317df37a373f4aa",
+    "checksum_manifest_sha256": "5fe93639f8988f451be8caedaadda641fcc46ef47b6b4333ffaf6cfcde8aa43a",
+    "fail_closed_preflight_review_sha256": "89ef3ebee0b07b559fa39c03a0dc84ea81a077fe8ba9d04eabe1fc4e387a2a84",
+    "qualifying_authority_review_sha256": "88fd0fbc620e2978ba23db223276764e348eda96e37da7a1b39d74c116d2ffbb"
+  },
+  "claim_boundary": {
+    "authority_consumed": false,
+    "authority_materialized": false,
+    "declared_execution_namespace_created": false,
+    "fixed_input_payload_deserialized": false,
+    "invocation_count_performed": 0,
+    "live_surface_namespace_created": false,
+    "model_loaded_or_executed": false,
+    "repair_replay_resume_or_retry_performed": false,
+    "score_computation_performed": false,
+    "status": "NO_EXECUTION_PERFORMED"
+  },
+  "crash_semantics": {
+    "after_consumption_before_terminal": "the durable CONSUMED record remains authoritative; absent terminal is an orphaned-consumption outcome and may never be retried, replayed, resumed, repaired, or replaced",
+    "before_consumption_commit": "no process launch or tensor access is permitted; a canonical READY record may be irreversibly invalidated and failed terminal sealed",
+    "terminal_write": "atomic create-if-absent, fsync file, fsync parent; the first terminal record is immutable"
+  },
+  "implementation": {
+    "entrypoint_policy": "LIVE_SURFACE_BLOCKED_NO_EXECUTION_PERFORMED",
+    "launch_policy": "checksum-bound exact argv, shell=false, canonical cwd, explicit exact environment",
+    "path": "tools/qk_bfp8_e16_head64_v1_c02_live_authority_surface.py",
+    "sha256": "4e6a07c6e352e59eea7ec4a38223a396210c6a72154dea5e97e35b3c3cd8c0c9"
+  },
+  "lanes": {
+    "Base": {
+      "command_sha256": "a89602cbcf8d4b5a3d7fd11737615e399ce2d91d869ea1ea46b7a0f1f1b6cb4f",
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PYTHONHASHSEED": "0",
+        "TZ": "UTC"
+      },
+      "invocation_sha256": "58b90f06f10d179cb12820ee5a376cf3807eb9f2af929990dacac138a8fa6731",
+      "namespace_label": "base",
+      "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/base/result.json",
+      "record_id": "c02-score-path-base-exactly-once-v1",
+      "shell_argv": null,
+      "shell_argv_status": "MISSING_FROM_FROZEN_ACCEPTED_AUTHORITY_SURFACE"
+    },
+    "checkpoint-176": {
+      "command_sha256": "b9bb0df45304965056f5df21a44f194a22341995923eff0ce20ccd89022523ec",
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PYTHONHASHSEED": "0",
+        "TZ": "UTC"
+      },
+      "invocation_sha256": "78e83c2f2ad2a5ec15a96dc320bd3e86f5ed3fbedbf3de9871a03b40225c829b",
+      "namespace_label": "checkpoint-176",
+      "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/checkpoint-176/result.json",
+      "record_id": "c02-score-path-checkpoint-176-exactly-once-v1",
+      "shell_argv": null,
+      "shell_argv_status": "MISSING_FROM_FROZEN_ACCEPTED_AUTHORITY_SURFACE"
+    }
+  },
+  "launch_authority_binding": {
+    "authority_id": "QK_BFP8_E16_HEAD64_V1_C02_LIVE_LAUNCH_AUTHORITY_V1",
+    "path": null,
+    "sha256": null,
+    "status": "MISSING_FROM_FROZEN_ACCEPTED_AUTHORITY_SURFACE"
+  },
+  "live_eligibility": {
+    "blocking_conditions": [
+      "accepted authority package sets shell_argv_materialized=false for both commands",
+      "accepted authority package includes no executable evaluator implementation",
+      "no checksum-bound executable SHA-256 is present for either command",
+      "no checksum-bound launch authority amendment exists"
+    ],
+    "status": "FAIL_CLOSED_MISSING_FROZEN_SHELL_ARGV_AND_EXECUTABLE_IDENTITY"
+  },
+  "mutation_closure": [
+    "checksum-bound launch authority or launch descriptor mismatch",
+    "bound external artifact mutation",
+    "hash binding mismatch",
+    "lane, invocation, record, namespace, or command identity mismatch",
+    "argv, executable hash, or environment mismatch",
+    "noncanonical root, output, executable, ledger, terminal, or symlinked path",
+    "unexpected state or terminal collision",
+    "lane output alias or output collision",
+    "checkpoint-176 ordering violation",
+    "retry, replay, resume, repair, or terminal replacement"
+  ],
+  "path_contract": {
+    "live_surface_root": "build/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v1",
+    "per_lane": "lanes/<namespace_label>/{authority-ledger.json,.transition.lock,first-terminal.json}",
+    "permissions": {
+      "directories": "0700 owner=current effective uid",
+      "ledger_and_terminal": "0400 regular non-symlink",
+      "transition_lock": "0600 regular non-symlink"
+    },
+    "score_output_root": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1"
+  },
+  "schema_version": 1,
+  "schemas": {
+    "contract": "QK_BFP8_E16_HEAD64_V1_C02_LIVE_SURFACE_CONTRACT_V1",
+    "ready": "QK_BFP8_E16_HEAD64_V1_C02_LIVE_AUTHORITY_READY_V1",
+    "states": [
+      "READY_UNCONSUMED",
+      "CONSUMED",
+      "INVALIDATED_TERMINAL"
+    ],
+    "terminal": "QK_BFP8_E16_HEAD64_V1_C02_LIVE_AUTHORITY_TERMINAL_V1",
+    "terminal_states": [
+      "FAILED_TERMINAL",
+      "SUCCEEDED_TERMINAL"
+    ]
+  },
+  "static_verifier": {
+    "implementation": "CPython",
+    "path": "tools/verify_qk_bfp8_e16_head64_v1_c02_live_authority_surface.py",
+    "python_version": "3.13.5",
+    "sha256": "bc07d5484da0059e07d18c253234044f99763f8b48c917a61b674c8b225472c5"
+  }
+}

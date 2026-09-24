@@ -1,0 +1,48 @@
+{
+  "bindings": {
+    "candidate_result": {
+      "bytes": 14853,
+      "path": "evidence/candidates/w4a8-layer16-residual-sum-dual-scale-repair-v1/candidate-0006/result.json",
+      "sha256": "1c2a0cf5101abd6c9fb375de0d76192cfcbcd2610a01ef3b7669ec69fedd8757"
+    },
+    "candidate_sha256s": {
+      "bytes": 17393,
+      "path": "evidence/candidates/w4a8-layer16-residual-sum-dual-scale-repair-v1/candidate-0006/SHA256SUMS",
+      "sha256": "f7cd220c1f85ceb5041127147c269b50a2e2dd9f8b7a67d60cdc97b9a28adf8a"
+    },
+    "search_runner": {
+      "bytes": 26932,
+      "path": "tools/ace2_checkpoint176_layer16_residual_sum_dual_scale_search.py",
+      "sha256": "1252042651fc50f2395da5a192526d96c9be23445243c27dd02d87cb5266b3a9"
+    },
+    "validation_contract_result": {
+      "bytes": 20781,
+      "path": "evidence/candidates/w4a8-layer16-residual-sum-dual-scale-repair-v1/candidate-0006/contracts/group-032/result.json",
+      "sha256": "9ad515ac5ea4270562e32e57ee0634ae914fd379a772283edac83de9ff2ba70a"
+    }
+  },
+  "boundary": "model.layers.16.mlp.down_proj.output_to_residual_sum",
+  "classification": "candidate_only_best_null_focused_rtl_vectors",
+  "expected": {
+    "common_exponent_sha256": "f900fdf4186edc53bb87ee213855e1d0c1de37a6633d095e8ae10d204d908eb6",
+    "saturation_count": 0,
+    "sum_s8_sha256": "8a6db721ecb54f8697e2db7b556cfe39ab35a0a28a65140cfc5802ad68d4bd90"
+  },
+  "schema_version": 1,
+  "selected_as_repair": false,
+  "shape": {
+    "down_group_size": 4,
+    "hidden": 896,
+    "output_group_size": 32,
+    "output_groups": 28,
+    "residual_group_size": 1
+  },
+  "validation_candidate": {
+    "baseline_reference_rank": 31879,
+    "first_token_restored": false,
+    "output_group_size": 32,
+    "reference_rank": 34409,
+    "selection_reason": "no_non_control_contract_improved_rank_31879_or_restored_token_9707",
+    "top_token_id": 25232
+  }
+}

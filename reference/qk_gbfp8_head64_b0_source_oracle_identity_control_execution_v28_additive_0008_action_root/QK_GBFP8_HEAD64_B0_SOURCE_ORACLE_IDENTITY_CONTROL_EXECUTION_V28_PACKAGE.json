@@ -1,0 +1,170 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "qk_gbfp8_head64_b0_source_oracle_identity_control_execution_v28_package",
+  "action_identity": {
+    "action_id": "ace2:qk-gbfp8-base-v28:b0-source-oracle-identity-control-execute-once:38571d38:additive-0008",
+    "root_id": "qk_gbfp8_head64_b0_source_oracle_identity_control_execution_v28_additive_0008_action_root",
+    "source_static_action_id": "ace2:qk-gbfp8-base-v28:b0-source-oracle-identity-control:38571d38:additive-0008",
+    "distinct_future_execution_action": true,
+    "retry_replay_resume_repair_permitted": false
+  },
+  "authoritative_stage": "Base",
+  "claim_boundary": "STATIC_ONLY_NO_EXECUTION_AUTHORITY",
+  "execution_authority_granted": false,
+  "execution_binding": {
+    "argv": [
+      "/home/argustest/miniconda3/bin/python3.13",
+      "/home/argustest/ace-2/reference/qk_gbfp8_head64_b0_source_oracle_identity_control_execution_v28_additive_0008_action_root/tools/execute_qk_gbfp8_head64_b0_source_oracle_identity_control_once_v28.py",
+      "--mode",
+      "production",
+      "--static-package",
+      "/home/argustest/ace-2/reference/qk_gbfp8_head64_b0_source_oracle_identity_control_static_v28_additive_0008_action_root/QK_GBFP8_HEAD64_SOURCE_ORACLE_IDENTITY_CONTROL_STATIC_V28_PACKAGE.json",
+      "--static-acceptance",
+      "/home/argustest/ace-2/reference/qk_gbfp8_head64_b0_source_oracle_identity_control_static_v28_additive_0008_action_root/review/FRESH_L2_STATIC_ACCEPTANCE.json",
+      "--authority-envelope",
+      "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/authority/exactly-once-envelope.json",
+      "--output-sidecar",
+      "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/primary/result/b0/source-oracle-aggregate-sidecar.json",
+      "--terminal",
+      "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/primary/result/b0/first-terminal.json",
+      "--irreversible-action-id",
+      "ace2:qk-gbfp8-base-v28:b0-source-oracle-identity-control-execute-once:38571d38:additive-0008"
+    ],
+    "cwd": "/home/argustest/ace-2/reference/qk_gbfp8_head64_b0_source_oracle_identity_control_execution_v28_additive_0008_action_root",
+    "environment": {"LANG": "C", "LC_ALL": "C", "PYTHONDONTWRITEBYTECODE": "1", "PYTHONHASHSEED": "0", "TZ": "UTC"},
+    "execution_binding_sha256": "cf61c411b167203607dbe6e69e52cb147f4c7a33bf9d4b22503f59bfdb1d216e",
+    "future_execution_action_id": "ace2:qk-gbfp8-base-v28:b0-source-oracle-identity-control-execute-once:38571d38:additive-0008",
+    "interpreter": {"path": "/home/argustest/miniconda3/bin/python3.13", "sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad", "version": "3.13.5"},
+    "output_paths": {
+      "authority_consumption": "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/authority/authority-consumption.json",
+      "authority_envelope": "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/authority/exactly-once-envelope.json",
+      "credential_consumption": "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/authority/credential-consumption.json",
+      "ledger": "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/ledger/exactly-once-ledger.json",
+      "sidecar": "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/primary/result/b0/source-oracle-aggregate-sidecar.json",
+      "terminal": "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/primary/result/b0/first-terminal.json"
+    },
+    "runtime_namespace": "/home/argustest/ace-2/runtime/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once",
+    "shell": false
+  },
+  "authority_inputs": {
+    "manager_admission_path": "/home/argustest/ace-2/authority/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/manager-admission.json",
+    "operator_authority_path": "/home/argustest/ace-2/authority/qk_gbfp8_head64_b0_source_oracle_identity_control_v28_38571d38_additive_0008_once/operator-authority.json",
+    "namespace_relation": "STRICTLY_OUTSIDE_RUNTIME_NAMESPACE",
+    "materialized_by_this_package": false,
+    "fresh_manager_nonblocked_required": true,
+    "fresh_operator_affirmative_provenance_bound_required": true,
+    "both_bind_full_execution_package_and_invocation": true,
+    "runtime_envelope_is_projected_only_after_external_validation": true
+  },
+  "accepted_source_binding": {
+    "static_package_file_sha256": "c3052c9d72733a36fa83993aa8fb22e037e00f1f0b52c26eebd6c9664fe78237",
+    "static_package_content_sha256": "21b763f0f64c0a832781860729d906f8af594afff7c107008b41aebae65377f9",
+    "static_acceptance_file_sha256": "4e47a94ee3f6faed3ebba23d5cea499171c51303b4cfbe1d18884ddcf19e46c2",
+    "static_acceptance_self_sha256": "9077821d69bfcb6e63d6c602ee99be14fcae1c9f3ef0a688ccd8f8ea3fe4059a",
+    "accepted_candidate_entries_only_tree_sha256": "cfb9a89108e1906c1ac82898d4bbea90a449d1ba5bae304b7e7ad4438540ebf8",
+    "reviewer_provenance_identity_sha256": "3358f7e154dff28f2403f365e0860d2c37bda08b7157d68fe05b20907c21b667"
+  },
+  "exactly_once": {
+    "authority_consumption_budget": 1,
+    "credential_consumption_budget": 1,
+    "official_payload_open_budget": 1,
+    "official_evaluator_invocation_budget": 1,
+    "official_target_process_start_budget": 1,
+    "runtime_namespace_must_not_preexist": true,
+    "create_only_records": true,
+    "terminal_sealed_on_every_claimed_outcome": true,
+    "retry_replay_resume_repair_permitted": false
+  },
+  "source_oracle_semantics": {
+    "control_id": "B0_SOURCE_QK_IDENTITY",
+    "causal_row_count": 574,
+    "classification_labels": ["SOURCE_ORACLE_MATCH", "SOURCE_ORACLE_MISMATCH"],
+    "score_agreement_required": true,
+    "top_key_agreement_required": true,
+    "margin_sign_agreement_required": true,
+    "permanently_nonselecting": true,
+    "quantization_applied": false,
+    "may_count_as_any_quantization_group": false,
+    "base_selection_permitted": false,
+    "safe_output_boundary": "AGGREGATE_DIGESTS_AND_COUNTS_ONLY_NO_RAW_OR_RECONSTRUCTABLE_DATA",
+    "sidecar_schema_path": "/home/argustest/ace-2/reference/qk_gbfp8_head64_b0_source_oracle_identity_control_static_v28_additive_0008_action_root/reference/QK_GBFP8_HEAD64_SOURCE_ORACLE_IDENTITY_CONTROL_STATIC_V28_B0_SIDECAR_SCHEMA.json",
+    "sidecar_schema_file_sha256": "e8d102dcaa34366fec01bfe3d9ec5a95cbc571cf539a97e352ca50cf5e8e73d7"
+  },
+  "production_lineage": {
+    "v21_binding_table_path": "/home/argustest/ace-2/reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/bindings/C02_EXACT_BINDINGS_25.json",
+    "v21_binding_table_file_sha256": "87ab3deb25f77d89b0797d72004b4436f9541987da13a42f44a2bff7f9fa9655",
+    "official_parser_file_sha256": "ff9216d58bcd1584361e17d8d1854f3bcb96923c17927b1f309861546807bdb1",
+    "official_evaluator_file_sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63",
+    "official_payload_file_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175",
+    "official_payload_byte_count": 1305797,
+    "payload_opened_by_this_package": false,
+    "evaluator_invoked_by_this_package": false
+  },
+  "future_runtime_envelope_schema": {
+    "path": "/home/argustest/ace-2/reference/qk_gbfp8_head64_b0_source_oracle_identity_control_static_v28_additive_0008_action_root/reference/QK_GBFP8_HEAD64_SOURCE_ORACLE_IDENTITY_CONTROL_STATIC_V28_FUTURE_EXACTLY_ONCE_AUTHORITY_ENVELOPE_SCHEMA.json",
+    "file_sha256": "69ddea157a4ac13ec961d9aa8b214fa4d1bdc91632952350d9e157a4e1ebe376",
+    "identity_bundle_sha256": "9e5061229d0c4bc7b63778707d432c27b59d7c7b30bc33f65661c3c757ae9574"
+  },
+  "official_effects": {"payload_opens": 0, "evaluator_invocations": 0, "target_process_starts": 0},
+  "live_state_materialized": {"admission": false, "authority": false, "credential": false, "consumption": false, "ledger": false, "runtime": false, "result": false, "terminal": false},
+  "review": {
+    "required_role": "Fresh-L2",
+    "required_actor": "reviewer",
+    "decision_requested": "ACCEPT_STATIC_PACKAGE",
+    "claim_boundary": "STATIC_ONLY_NO_EXECUTION_AUTHORITY",
+    "acceptance_path": "review/FRESH_L2_STATIC_ACCEPTANCE.json",
+    "acceptance_schema_path": "reference/QK_GBFP8_HEAD64_B0_V28_FRESH_L2_ACCEPTANCE_SCHEMA.json",
+    "engineer_self_review_can_close": false,
+    "post_acceptance_verifier_reserved_to_reviewer": true,
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "preservation": {
+    "accepted_static_package_file_sha256": "c3052c9d72733a36fa83993aa8fb22e037e00f1f0b52c26eebd6c9664fe78237",
+    "accepted_static_acceptance_file_sha256": "4e47a94ee3f6faed3ebba23d5cea499171c51303b4cfbe1d18884ddcf19e46c2",
+    "unauthorized_build_0014_file_sha256": "d584ef93a92a33b92a0a1ef9d1ba49376efeefb21b8a00c98a1a8ef96b164c31",
+    "additive_0008_modified": false,
+    "static_successor_created": false,
+    "build_0014_run_or_modified": false
+  },
+  "generated_files": {
+    "evidence/SYNTHETIC_V28_INERT_REGRESSION_REPORT.json": {"sha256": "d34b229289b48f8a0a0fd1784dc769eaa27e3074a07d2eb7631b7438fc8119f7", "size": 1262},
+    "reference/QK_GBFP8_HEAD64_B0_V28_EXTERNAL_MANAGER_ADMISSION_SCHEMA.json": {"sha256": "04d572f0805a7670682fa225e49f6d91b5c60fbbe68ad12c8bb4fda26f2bf7e1", "size": 1858},
+    "reference/QK_GBFP8_HEAD64_B0_V28_EXTERNAL_OPERATOR_AUTHORITY_SCHEMA.json": {"sha256": "4d6d24a4bc4252f88e00464065d2e1d539b32300958ebc9bebb035e48573a453", "size": 2013},
+    "reference/QK_GBFP8_HEAD64_B0_V28_FIRST_TERMINAL_SCHEMA.json": {"sha256": "dba14f47f9bae6e237d901c7d22cdf64af8e0ae221c82fe8bdcfe5678e48357b", "size": 2219},
+    "reference/QK_GBFP8_HEAD64_B0_V28_FRESH_L2_ACCEPTANCE_SCHEMA.json": {"sha256": "f05612e5cfc1ffea59d797b04ed9d28f58ec31a7f57c6c278bfd6acd52b43f93", "size": 1625},
+    "tools/execute_qk_gbfp8_head64_b0_source_oracle_identity_control_once_v28.py": {"sha256": "36bd6021ebc1dca0d344db5b7cea7248af33789e98d08e5cf4feded9aff0ea8b", "size": 16515},
+    "tools/qk_gbfp8_head64_b0_evaluator_adapter_v28.py": {"sha256": "95b2b66e9f4b22486753e0464333371b15e002e07472b987aca7fa950c0b6fb9", "size": 6727},
+    "tools/qk_gbfp8_head64_b0_execution_common_v28.py": {"sha256": "d92eafab9cf0f43a799236641c15bebea550609f4869b402c515595322348338", "size": 14537},
+    "tools/qk_gbfp8_head64_b0_source_oracle_worker_v28.py": {"sha256": "34c0b823e244c0d4d4dd0a753c1783f1734d71fc7ea2bd79cd34f438a1ff58b6", "size": 12876},
+    "tools/test_qk_gbfp8_head64_b0_execution_v28.py": {"sha256": "4352069e7983de49f83f91cec02641ff386ab5e88b892d814d42dfa43b2e77be", "size": 16102},
+    "tools/verify_qk_gbfp8_head64_b0_execution_candidate_v28.py": {"sha256": "cf3cc0815a011ca5651754a5fd6c64311bbd17b4c21819638ef1c1f23353cac1", "size": 14208}
+  },
+  "static_file_policy": {
+    "package_relative_path": "QK_GBFP8_HEAD64_B0_SOURCE_ORACLE_IDENTITY_CONTROL_EXECUTION_V28_PACKAGE.json",
+    "acceptance_relative_path": "review/FRESH_L2_STATIC_ACCEPTANCE.json",
+    "inventory_policy": "EXACT_PACKAGE_FILES_PLUS_ONE_FUTURE_REVIEWER_ACCEPTANCE",
+    "allowed_relative_files": [
+      "QK_GBFP8_HEAD64_B0_SOURCE_ORACLE_IDENTITY_CONTROL_EXECUTION_V28_PACKAGE.json",
+      "evidence/SYNTHETIC_V28_INERT_REGRESSION_REPORT.json",
+      "reference/QK_GBFP8_HEAD64_B0_V28_EXTERNAL_MANAGER_ADMISSION_SCHEMA.json",
+      "reference/QK_GBFP8_HEAD64_B0_V28_EXTERNAL_OPERATOR_AUTHORITY_SCHEMA.json",
+      "reference/QK_GBFP8_HEAD64_B0_V28_FIRST_TERMINAL_SCHEMA.json",
+      "reference/QK_GBFP8_HEAD64_B0_V28_FRESH_L2_ACCEPTANCE_SCHEMA.json",
+      "tools/execute_qk_gbfp8_head64_b0_source_oracle_identity_control_once_v28.py",
+      "tools/qk_gbfp8_head64_b0_evaluator_adapter_v28.py",
+      "tools/qk_gbfp8_head64_b0_execution_common_v28.py",
+      "tools/qk_gbfp8_head64_b0_source_oracle_worker_v28.py",
+      "tools/test_qk_gbfp8_head64_b0_execution_v28.py",
+      "tools/verify_qk_gbfp8_head64_b0_execution_candidate_v28.py",
+      "review/FRESH_L2_STATIC_ACCEPTANCE.json"
+    ]
+  },
+  "verification_toolchain": {
+    "interpreter_path": "/home/argustest/miniconda3/bin/python3.13",
+    "interpreter_sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad",
+    "interpreter_version": "3.13.5",
+    "jsonschema_version": "4.23.0",
+    "bytecode_forbidden": true
+  },
+  "package_content_sha256": "5b01e4e2bd3dc5355817dc527e171b8eda19f82860535d30d98b2f11a36baafc"
+}

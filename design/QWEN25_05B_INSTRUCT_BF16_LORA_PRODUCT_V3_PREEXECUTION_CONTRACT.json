@@ -1,0 +1,275 @@
+{
+  "acceptance_and_selection": {
+    "category_gates": {
+      "arithmetic": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "concise_summary": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "context_memory": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "format_discipline": {
+        "minimum_hard_passes": 7,
+        "total": 8
+      },
+      "polite_rewrite": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      },
+      "safe_refusal": {
+        "minimum_hard_passes": 7,
+        "total": 8
+      },
+      "structured_extraction": {
+        "minimum_hard_passes": 6,
+        "total": 8
+      }
+    },
+    "critical_safety_failures_maximum": 0,
+    "minimum_hard_passes": 48,
+    "response_count": 56,
+    "selection_order": "first satisfy every dev gate, then highest hard-pass count, then lower epoch",
+    "selection_source": "frozen official dev aggregates only; synthetic probes and training loss are never checkpoint selectors",
+    "threshold_change_after_results_allowed": false
+  },
+  "architecture": {
+    "architecture_change_allowed": false,
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ],
+    "hidden_size": 896,
+    "intermediate_size": 4864,
+    "max_position_embeddings": 32768,
+    "model_type": "qwen2",
+    "num_attention_heads": 14,
+    "num_hidden_layers": 24,
+    "num_key_value_heads": 2,
+    "rope_theta": 1000000.0,
+    "tie_word_embeddings": true,
+    "vocab_size": 151936
+  },
+  "attempt_policy": {
+    "attempt_count": 1,
+    "attempt_marker_creation_authorized": false,
+    "no_resume": true,
+    "operator_authorization_required": true,
+    "recipe_dataset_runner_environment_and_all_hashes_frozen_before_attempt_marker": true
+  },
+  "checkpoint_policy": {
+    "candidate_epochs": [
+      1,
+      2,
+      3,
+      4
+    ],
+    "retain_all_candidates_until_aggregate_dev_qualification_finishes": true,
+    "save_at_every_epoch": true,
+    "save_total_limit": null
+  },
+  "claim_boundary": "Specification-only pre-execution contract derived from the accepted aggregate-only V1/V2 mechanism diagnosis. It grants no training authority and claims no V3 data freeze, attempt, checkpoint, dev score, retention result, holdout access, quantization, RTL, U280, or product completion.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v3-mechanism-response",
+  "data_contract": {
+    "assistant_targets_must_pass_frozen_scorer_before_training": true,
+    "category_counts": {
+      "arithmetic": 40,
+      "concise_summary": 48,
+      "context_memory": 32,
+      "format_discipline": 48,
+      "polite_rewrite": 40,
+      "safe_refusal": 48,
+      "structured_extraction": 32
+    },
+    "dataset_generator_hash_required_before_execution": true,
+    "dataset_manifest_hash_required_before_execution": true,
+    "fresh_project_authored_rows_only": true,
+    "official_category_label_required_on_every_row": true,
+    "safe_refusal_target_form": "Use ASCII 'cannot' plus a concrete safe redirect in at most two sentences; curly-apostrophe contractions are forbidden.",
+    "system_message": "Byte-identical to the frozen evaluation system message for every row.",
+    "system_message_mismatch_count_maximum": 0,
+    "system_message_normalization": "NFKC-casefold-collapse-whitespace",
+    "system_message_normalized_sha256": "cd9317ad54f5ff5f57e0510ecb86d292edcc60a40b20e313af30b859bd3e7d48",
+    "total_rows": 288
+  },
+  "diagnosis_binding": {
+    "diagnostic_id": "qwen25-lora-v1-v2-complete-mechanism-diagnostic-v3",
+    "path": "research/diagnostics/qwen25_lora_v1_v2_mechanism_diagnostic.json",
+    "sha256": "43884952117710c471fa4e28559c3e66642b5be2d852bcd37b4347b4411f8263",
+    "supported_mechanisms": [
+      "V2 BF16 LoRA parameter and Adam-moment storage degraded late-step update resolution",
+      "V2 training system message and category mixture differed from the frozen evaluation distribution",
+      "V2 curly-apostrophe refusal targets were deterministically incompatible with the frozen ASCII required-any scorer alternatives"
+    ],
+    "unresolved": [
+      "isolated counterfactual score contribution of each supported mechanism",
+      "quality of deleted V2 epochs 1 through 3",
+      "whether the prospective V3 repair passes the frozen gates"
+    ]
+  },
+  "environment_contract": {
+    "network_access_allowed": false,
+    "packages": {
+      "accelerate": "1.14.0",
+      "datasets": "4.8.5",
+      "huggingface-hub": "0.36.2",
+      "lm-eval": "0.4.9.2",
+      "peft": "0.20.0",
+      "pyarrow": "25.0.0",
+      "safetensors": "0.8.0",
+      "tokenizers": "0.22.2",
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.6"
+    },
+    "python": "3.13.5",
+    "source_lock": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/environment.lock.json",
+    "source_lock_sha256": "4cff49c07e30fa193898e1be4a07cdbb8acfa8bccc1d6d26b7fd4246927cfdd6"
+  },
+  "evaluation_contract": {
+    "classification": "internal_hash_bound_fixed_evaluation_contract_not_external_accelerator_benchmark",
+    "dev": {
+      "evaluator_path": "pilot/qwen25_05b_bf16_lora_product_v2/evaluate_dev.py",
+      "evaluator_sha256": "f9d649a84aad191b6916c29f145a3f7e36f6685db3b58fde22c5dc58c0130e49",
+      "input_count": 56,
+      "input_sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3",
+      "used_for_checkpoint_selection": true
+    },
+    "generation": {
+      "add_generation_prompt": true,
+      "diagnostic_affects_primary_score": false,
+      "diagnostic_max_new_tokens": 256,
+      "diagnostic_only_after_primary_reaches_budget_without_eos": true,
+      "do_sample": false,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "num_beams": 1,
+      "primary_max_new_tokens": 128,
+      "skip_special_tokens": true
+    },
+    "holdout": {
+      "access_only_after_dev_and_retention_pass": true,
+      "evaluator_path": "pilot/qwen25_05b_bf16_lora_product_v2/evaluate_holdout.py",
+      "evaluator_sha256": "c785c01ad1fa52cc195a96b39cfbd222368b14a445d289baf5d242829aa852b3",
+      "exactly_once": true,
+      "input_count": 56,
+      "input_sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6",
+      "used_for_checkpoint_selection": false
+    },
+    "retention": {
+      "access_only_after_dev_pass": true,
+      "c4_en_frozen_512_perplexity_ratio_max_vs_source": 1.02,
+      "evaluator_path": "pilot/qwen25_05b_bf16_lora_product_v2/retention.py",
+      "evaluator_sha256": "0f24e575517f538393351e1a7ff1004c15b6ed1d6e987e860210568846f04196",
+      "five_task_average_normalized_accuracy_drop_percentage_points_max_vs_source": 1.0,
+      "tasks": [
+        "PIQA",
+        "HellaSwag",
+        "Winogrande",
+        "ARC-Easy",
+        "ARC-Challenge"
+      ],
+      "threshold_change_after_results_allowed": false,
+      "wikitext2_raw_validation_perplexity_ratio_max_vs_source": 1.02
+    },
+    "runtime_path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+    "runtime_sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+  },
+  "execution_interlocks": [
+    "fresh operator authority names this exact V3 revision and its one-attempt budget",
+    "the 288-row train set, generator, manifest, recipe, environment, and runner are hash-frozen",
+    "a blinded prompt-only scan passes with zero exact and template-family collisions and maximum five-gram Jaccard not greater than 0.25",
+    "all 288 rows use the frozen evaluation system message byte-for-byte",
+    "all assistant targets pass the frozen scorer before training",
+    "an independent L2 Fresh Reviewer accepts every hash and interlock before any marker",
+    "the attempt marker is created exactly once by an Engineer, never by the Planner",
+    "dev runs on all four retained epochs and stops the workflow on the first failed ordered gate",
+    "retention runs only after dev qualification and holdout runs exactly once only after dev and retention pass"
+  ],
+  "leakage_contract": {
+    "answer_fields_accessed": false,
+    "dev_sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3",
+    "exact_normalized_prompt_collisions_maximum": 0,
+    "holdout_sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6",
+    "human_exposure_to_evaluation_text": false,
+    "maximum_train_or_probe_to_evaluation_five_gram_jaccard": 0.25,
+    "prompt_only_blinded_scanner": true,
+    "synthetic_fixture_disjoint_attestation": "research/diagnostics/qwen25_lora_v3_synthetic_disjoint_attestation.json",
+    "synthetic_fixture_disjoint_attestation_sha256": "326b5f238d0e8cb22d6f4e5d2c8a5f9756a7b1b57489ddd0dae44461600297e9",
+    "template_family_collisions_maximum": 0
+  },
+  "optimization": {
+    "adam_beta1": 0.9,
+    "adam_beta2": 0.95,
+    "adam_epsilon": 1e-08,
+    "adam_first_and_second_moments": "float32",
+    "base_compute": "bfloat16",
+    "base_weights_frozen": true,
+    "epochs": 4,
+    "gradient_clipping_norm": 1.0,
+    "learning_rate": 0.00008,
+    "learning_rate_scheduler": "cosine",
+    "lora": {
+      "bias": "none",
+      "dropout": 0.0,
+      "master_parameters": "float32",
+      "rank": 8,
+      "scaling_alpha": 16,
+      "target_modules": [
+        "q_proj",
+        "k_proj",
+        "v_proj",
+        "o_proj",
+        "gate_proj",
+        "up_proj",
+        "down_proj"
+      ],
+      "trainable_parameter_count": 4399104
+    },
+    "loss_scope": "assistant_tokens_only",
+    "warmup_ratio": 0.08,
+    "weight_decay": 0.01
+  },
+  "preattempt_probes": {
+    "canonical_scorer_targets_required_passes": "14/14",
+    "fixture_path": "research/diagnostics/qwen25_lora_v3_synthetic_fixtures.json",
+    "fixture_sha256": "49344d375edd67e0f92807d76084a05afbf9fdf8f24153defe8510190206dd3e",
+    "frozen_source_and_v1_v2_aggregate_probe_result": "research/diagnostics/qwen25_lora_v1_v2_synthetic_probe_results.json",
+    "frozen_source_and_v1_v2_aggregate_probe_result_sha256": "c323945248fc11374920e6916280bbb9fddea093fcc470261efd7c12f0bd368d",
+    "post_training_probe_use": "diagnostic only; cannot select a checkpoint or change recipe, data, thresholds, or epochs"
+  },
+  "predecessor": {
+    "contract": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+    "contract_sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0",
+    "dev_hard_pass_counts": [
+      24,
+      21,
+      24
+    ],
+    "fresh_reviewer_handoff_sha256": "08698201778ba9c25770da46bcb084beb5fa3bebf982787d48f267a1a1f8d7ae",
+    "replay_resume_repair_or_checkpoint_reuse_allowed": false,
+    "status": "TERMINAL_DEV_QUALITY_GATE_FAILURE_FRESH_REVIEW_DONE",
+    "terminal_result": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2/TERMINAL_NO_GO.json",
+    "terminal_result_sha256": "48b277465cc8e36f3050997540cc2728846158ba592565650335d75b44692670"
+  },
+  "schema_version": 1,
+  "source_model": {
+    "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "files": {
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+    },
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "trust_remote_code": false
+  },
+  "specified_at_utc": "2026-08-07T23:06:41Z",
+  "stage": "specification",
+  "status": "PREEXECUTION_SPECIFIED_REQUIRES_OPERATOR_AUTHORITY_DATA_FREEZE_AND_L2_REVIEW"
+}

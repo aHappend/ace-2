@@ -1,0 +1,172 @@
+{
+  "schema_version": 1,
+  "contract_id": "option_b_alias_safe_post_w4_static_position_class_group_scale_w4a8_v2",
+  "candidate_id": "option_b_alias_safe_post_w4_static_position_class_group_scale_w4a8_v2",
+  "status": "planner_frozen_preexecution_requirements_no_attempt_authority",
+  "stage": "specification",
+  "selected_policy_id": null,
+  "predecessor": {
+    "candidate_id": "option_b_static_position_class_group_scale_w4a8_v1",
+    "disposition": "immutable_consumed_evaluator_no_execution",
+    "review_record": "research/raw/specification/static-position-class-review-replan-20260806T120912Z.json",
+    "replay_or_repair_under_predecessor_id_permitted": false
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "tie_word_embeddings": true,
+    "source_embedding_tensor": "model.embed_tokens.weight",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f",
+    "image_manifest": {
+      "path": "evidence/verification/build-qwen2.5-0.5b-instruct-w4a8-image-v1/manifest.json",
+      "sha256": "b3c57252ca53044ea59e78e0afd739e88645d91db23570bb7de4f5306fdbe158"
+    }
+  },
+  "candidate_state_construction": {
+    "initial_invariant": "lm_head.weight and model.embed_tokens.weight must be the same parameter and storage immediately after model load",
+    "separation_rule": "Before any weight quantization, replace lm_head.weight with a detached byte-identical clone and leave model.embed_tokens.weight on its original parameter and storage.",
+    "post_separation_invariant": "lm_head.weight and model.embed_tokens.weight must have different storage addresses while their BF16 bytes still match.",
+    "weight_quantization_rule": "Apply the authenticated signed-W4 per-output-row Scale32 rule to all 168 transformer Linear weights and the separated lm_head weight; never write through model.embed_tokens.weight.",
+    "post_quantization_embedding_invariant": "The complete model.embed_tokens.weight BF16 byte stream must retain SHA-256 4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f.",
+    "post_quantization_lm_head_invariant": "lm_head uses the authenticated packed-W4 plus per-output-row Scale32 representation derived from the same raw tied BF16 source.",
+    "hardware_semantics": "This separated-use host state matches the existing package: host/runtime embedding preload reads raw BF16 model.embed_tokens rows, while the accelerator image contains a distinct packed-W4 lm_head region.",
+    "module_counts": {
+      "transformer_linears": 168,
+      "lm_head": 1,
+      "total_w4_linears": 169
+    }
+  },
+  "activation_policy": {
+    "payload": "signed A8",
+    "rounding": "round_to_nearest_ties_to_even",
+    "position_classes": {
+      "sink": "absolute sequence position zero",
+      "prompt": "positions one through original prompt length minus one",
+      "decode": "positions at or beyond the original prompt length"
+    },
+    "event_families_per_layer": [
+      "input_rmsnorm",
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "rope_q",
+      "rope_k",
+      "attention_value",
+      "o_proj",
+      "post_attention_rmsnorm",
+      "mlp_gate_proj",
+      "mlp_up_proj",
+      "silu_gate",
+      "mlp_down_proj"
+    ],
+    "group_lanes": [64, 128],
+    "table_derivation_order": [
+      "construct the exact alias-safe post-W4 candidate state",
+      "run only the frozen non-evaluator calibration and preflight prompts",
+      "collect per-layer, per-event, per-position-class, per-group absolute maxima",
+      "encode each maximum divided by 127 with the smallest covering normalized Scale32 record",
+      "freeze the resulting table and its hash",
+      "reload a fresh exact alias-safe post-W4 candidate and replay every non-evaluator prompt against the frozen table"
+    ],
+    "calibration_inputs": {
+      "existing_contract": {
+        "path": "evidence/verification/qwen2.5-0.5b-instruct-w4a8-calibration-v1/calibration_contract.json",
+        "sha256": "084ab27de7e19b3f66cbcacbd7c219b67e7ef1cbc51c0d92e6da67af7e6df763",
+        "prompt_count": 4
+      },
+      "additional_preflight_prompts": [
+        "Name one primary color in one lowercase word.",
+        "Return only the integer result of 9 multiplied by 7.",
+        "In five words, describe gentle rain.",
+        "Answer yes or no: Is water wet?"
+      ],
+      "official_nine_prompt_inputs_permitted": false,
+      "network_access_permitted": false
+    },
+    "pre_attempt_preflight_acceptance": {
+      "fresh_model_reconstruction_required": true,
+      "embedding_hash_match_required": true,
+      "all_312_layer_event_names_required": true,
+      "all_three_position_classes_required_at_every_event": true,
+      "fixed_table_overflow_count": 0,
+      "runtime_scale_selection_count": 0,
+      "dynamic_calibration_count": 0,
+      "per_token_scale_sidecar_bytes": 0,
+      "attempt_marker_permitted_before_preflight_pass": false
+    }
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "per_scalar_weight_metadata_forbidden": true,
+    "static_scale32_records_per_decoder_layer": 549,
+    "static_table_bytes_per_decoder_layer": 2196,
+    "static_table_bytes_all_24_layers": 52704,
+    "maximum_incremental_activation_metadata_bytes_per_decoder_layer_token": 0,
+    "maximum_live_static_table_sram_bytes": 2196,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "static_table_load_cycles_per_layer_without_backpressure": 138,
+    "weight_image_delta_bytes": 0,
+    "accelerator_static_table_delta_bytes": 52704,
+    "new_public_ace2_shell_ports_permitted": false,
+    "runtime_maximum_detector_or_dynamic_exponent_selector_required": false,
+    "floating_point_rtl_permitted": false,
+    "saturation_or_silent_clipping_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0,
+    "throughput_or_measured_latency_claimed": false
+  },
+  "official_attempt_contract": {
+    "attempts_authorized_by_this_file": 0,
+    "authorization_rule": "A replacement bounded Engineer mission must separately authorize exactly one new attempt after all preflight artifacts and hashes are frozen.",
+    "required_attempt_id": "attempt-0001",
+    "required_attempt_directory": "build/stage1-option-b-alias-safe-post-w4-static-position-class-group-scale-w4a8-v2/attempt-0001",
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "selected_policy_id_must_remain_null_until_fresh_reviewer_adjudication": true,
+    "replay_tuning_ranking_bisection_prompt_sweep_or_gate_relaxation_permitted": false,
+    "on_evaluator_no_execution": "preserve the consumed attempt, classify separately, and draw no numerical correctness conclusion"
+  },
+  "acceptance_matrix": [
+    {
+      "class": "preflight",
+      "case": "alias separation, exact post-W4 table derivation, and fresh-model replay over all frozen non-evaluator prompts",
+      "expected": "all identity, coverage, and zero-overflow checks pass before any attempt marker exists"
+    },
+    {
+      "class": "illegal",
+      "case": "embedding bytes change, tied storage remains after separation, official prompts are used for calibration/preflight, or a marker exists before preflight passes",
+      "expected": "fail without creating or consuming official attempt authority"
+    },
+    {
+      "class": "evaluator_no_execution",
+      "case": "the frozen official attempt starts but no candidate prompt completes",
+      "expected": "authorization remains consumed, numerical conclusion remains null, and replay is forbidden"
+    },
+    {
+      "class": "numerical_failure",
+      "case": "one or more candidate prompt results complete but the 9/9 binary gate is not met",
+      "expected": "eligible=false, selected_policy_id=null, exact disagreements preserved, and no downstream authority"
+    },
+    {
+      "class": "numerical_success",
+      "case": "all nine complete token arrays and all nine response-gate outcomes match BF16",
+      "expected": "prepare immutable Fresh Reviewer input; do not select the policy or advance stages before independent acceptance"
+    }
+  ],
+  "claim_boundary": {
+    "product_policy_accepted": false,
+    "numerical_attempt_executed": false,
+    "attempt_authority_created": false,
+    "rtl_capability_accepted": false,
+    "ppa_or_timing_accepted": false,
+    "demo_retargeted": false,
+    "u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

@@ -1,0 +1,44 @@
+{
+  "cases": [
+    {
+      "id": "explanation-register-regression",
+      "instruction_type": "explanation",
+      "prompt": "What are registers used for?"
+    },
+    {
+      "id": "summary-solar",
+      "instruction_type": "summarization",
+      "prompt": "Summarize this fact: Solar panels convert sunlight into electricity."
+    },
+    {
+      "id": "extraction-copper",
+      "instruction_type": "extraction",
+      "prompt": "Extract the material from this sentence: The cable uses copper."
+    },
+    {
+      "id": "classification-positive",
+      "instruction_type": "classification",
+      "prompt": "Classify this statement as positive or negative: The test passed."
+    },
+    {
+      "id": "arithmetic-words",
+      "instruction_type": "arithmetic",
+      "prompt": "Answer in words: What is two plus three?"
+    },
+    {
+      "id": "format-memory-heading",
+      "instruction_type": "formatting",
+      "prompt": "Write a short heading about memory safety."
+    }
+  ],
+  "freeze_policy": {
+    "candidate_output_inspection_before_freeze": false,
+    "candidate_specific_prompt_editing": false,
+    "generated_tokens": 4,
+    "per_prompt_scales": false,
+    "sampling": false,
+    "selection_basis": "instruction-type coverage plus one accepted rejected-prompt regression"
+  },
+  "schema_version": 1,
+  "system_prompt": "You are a helpful assistant. Follow the user's requested response format exactly."
+}

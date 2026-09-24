@@ -1,0 +1,128 @@
+{
+  "acceptance_contract": {
+    "fresh_l2_acceptance_required_before_operator_authority": true,
+    "localization_must_report": [
+      "For each of the two frozen alternatives and each of the two frozen models, the exact integer clamp-event count and every available model/layer/head/token-pair/stage coordinate from the sealed repair-0003 artifacts.",
+      "For each frozen alternative and model, the exact validation top-key agreement fraction, absolute improvement from the unchanged c01 baseline, and every head that regressed top-key agreement.",
+      "A fail-closed completeness statement for any required coordinate or metric that is not present in the sealed artifacts; absence must not be reconstructed by rerunning model inference or either repair campaign.",
+      "A deterministic structural disposition limited to whether the next separately authorized compression design must eliminate saturation, change the Q/K representation jointly, or both; it may not select or create a candidate."
+    ],
+    "required_verdicts": [
+      "LOCALIZATION_COMPLETE_NO_EXECUTION_AUTHORITY",
+      "LOCALIZATION_INCOMPLETE_NO_EXECUTION_AUTHORITY"
+    ]
+  },
+  "artifact_kind": "w4a8_c02_repair_0003_failed_gate_localization_structural_prerequisite_contract",
+  "authority_gate": {
+    "canonical_future_authority_path": "research/raw/specification/w4a8-c02-repair-0003-failed-gate-localization-v1-operator-authority.json",
+    "current_authority_cardinality": 0,
+    "external_human_operator_event_required": true,
+    "planner_engineer_reviewer_scheduler_events_grant_authority": false,
+    "required_event_bindings": [
+      "this contract path and SHA-256",
+      "the future Fresh-L2 acceptance path and SHA-256",
+      "repair-0002/SHA256SUMS path and SHA-256",
+      "repair-0003/SHA256SUMS path and SHA-256",
+      "repair-0003 generation_id",
+      "current_stage=rtl and the frozen research/PIPELINE_STATE.json SHA-256",
+      "exactly one consuming action with no retry, replay, resume, or expansion"
+    ]
+  },
+  "claim_boundary": "This frozen contract defines one non-consuming structural prerequisite and its possible future consuming action. It grants no authority, intent, namespace, marker, submission, execution, retry, resume, model or evaluator run, repair-campaign replay, candidate/package creation, RTL/spec/manifest mutation, synthesis/PPA, FPGA/U280 work, or stage transition.",
+  "consuming_action": {
+    "action_id": "localize-repair-0003-failed-gates-from-sealed-artifacts-v1",
+    "allowed_source_path": "tools/localize_w4a8_c02_repair_0003_failed_gates.py",
+    "cardinality": 1,
+    "execution_count": 1,
+    "input_mode": "read_only_sealed_artifacts_only",
+    "output_root": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0003-failed-gate-localization-v1",
+    "required_outputs": [
+      "run-contract.json",
+      "localization.json",
+      "SHA256SUMS"
+    ],
+    "scope": [
+      "Implement one deterministic analyzer that reads only the frozen repair-0003 contract, selection, and per-model alternative results.",
+      "Execute the analyzer exactly once after both Fresh-L2 contract acceptance and fresh external operator authority exist.",
+      "Verify JSON structure, bound input hashes, deterministic ordering, and the output checksum manifest without invoking model inference, evaluator scoring, or either repair runner."
+    ]
+  },
+  "created_at_utc": "2026-08-13T02:14:09Z",
+  "evidence_basis": {
+    "qk_group8_diagonal_scale32_rebalance_v1": {
+      "base_failed_checks": [
+        "integer_clamp_free",
+        "validation_minimum_improvement",
+        "validation_no_head_regression",
+        "validation_top_key_fraction"
+      ],
+      "checkpoint_176_failed_checks": [
+        "integer_clamp_free",
+        "validation_minimum_improvement",
+        "validation_no_head_regression",
+        "validation_top_key_fraction"
+      ]
+    },
+    "qk_s4_residual_cross_term_scale32_v1": {
+      "base_failed_checks": [
+        "integer_clamp_free",
+        "validation_minimum_improvement",
+        "validation_no_head_regression",
+        "validation_top_key_fraction"
+      ],
+      "checkpoint_176_failed_checks": [
+        "integer_clamp_free",
+        "validation_no_head_regression",
+        "validation_top_key_fraction"
+      ]
+    },
+    "selection_verdict": "PRE_CANDIDATE_NO_GO"
+  },
+  "frozen_bindings": {
+    "current_stage": "rtl",
+    "pipeline_state": {
+      "path": "research/PIPELINE_STATE.json",
+      "sha256": "e1638668904f54b3eb46c209cc91390c27b0c9676cb5d917f28f06f26be43358"
+    },
+    "repair_0002_manifest": {
+      "path": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0002/SHA256SUMS",
+      "sha256": "1271deb99a33fdcf42960f1dfbdd7301117be62dcbe467bf3cf61d946a43cad4"
+    },
+    "repair_0003": {
+      "determinism_check": {
+        "path": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0003/determinism-check.json",
+        "sha256": "7a0fd441dbe81bf5398fa9c47af60810621f03643c8c69718316153dbd29bf8f"
+      },
+      "generation_id": "repair-0003",
+      "manifest": {
+        "path": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0003/SHA256SUMS",
+        "sha256": "efa5d931c40aa81eaeb22c36e15c9ea85855c868e68472c67d9c1c84fbfb81e9"
+      },
+      "selection": {
+        "path": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1/repair-0003/selection.json",
+        "sha256": "cd83ab48b2a52204bf3dcfcc5b754792fccb42cf511fda23765a4f684af81a71"
+      }
+    },
+    "repair_0003_fresh_l2_acceptance": {
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/30a2f6be0a30/round-0002.json",
+      "sha256": "f57a2533aed2c1b755fc03106dc0159bac552e637e6ec14af39dbd8d8c059795",
+      "status": "done"
+    },
+    "repair_design_task": {
+      "path": "design/W4A8_C02_QK_SCORE_RANK_MARGIN_REPAIR_DESIGN_V1_TASK.json",
+      "sha256": "4bb6d81cb21705fd42642cc4c3029f05be5c0d3d86be56d72d272dd9e20c2fad"
+    }
+  },
+  "generation_id": "repair-0003-failed-gate-localization-v1",
+  "objective": "Freeze one evidence-backed structural prerequisite before any further c02 Q/K compression design: localize the sealed repair-0003 saturation and rank-order failures without replaying the stable campaign.",
+  "prohibited_actions": [
+    "Create the canonical operator-authority artifact or checksum sidecar before a fresh external human operator event binds every required field.",
+    "Create intent, namespace, marker, submission, process, job, retry, replay, resume, or more than one localization execution.",
+    "Rerun repair-0002, repair-0003, model inference, evaluator scoring, calibration capture, or any stable bootstrap stage.",
+    "Change thresholds, expected values, alternatives, frozen inputs, evaluator, score policy, source bindings, generation identifiers, or sealed evidence.",
+    "Create a candidate/package, select a compression, mutate RTL/spec/manifest/U280 state, run synthesis/PPA, or edit research/PIPELINE_STATE.json."
+  ],
+  "schema_version": 1,
+  "status": "FROZEN_AWAITING_FRESH_L2_AND_EXTERNAL_OPERATOR_AUTHORITY",
+  "structural_prerequisite": "Before a structurally different c02 Q/K compression may be designed or executed, one accepted localization must determine from sealed repair-0003 evidence where saturation occurs and which model/layer/head rank-order constraints fail. This is required because both frozen alternatives failed integer_clamp_free, validation_no_head_regression, and validation_top_key_fraction for both models, while only one model/alternative met minimum improvement."
+}

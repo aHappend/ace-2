@@ -1,0 +1,290 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "qk_gbfp8_head64_b0_external_attestation_prerequisite_static_v30_package",
+  "action_identity": {
+    "action_id": "ace2:qk-gbfp8-base-v30:b0-external-attestation-prerequisite:b0signedpreqv30:static-0001",
+    "mission_id": "b0signedpreqv30",
+    "root_id": "qk_gbfp8_head64_b0_external_attestation_prerequisite_static_v30_action_root",
+    "version": 30,
+    "distinct_from_v29": true,
+    "additive_0005_reuse_permitted": false
+  },
+  "package_state": {
+    "decision": "BUILD_READY_BLOCKED_EXTERNAL_ATTESTATION",
+    "execution_package_acceptance_ready": false,
+    "execution_readiness_claimed": false,
+    "production_authority_created": false,
+    "independent_reviewer_required": true,
+    "engineer_self_review_can_close": false,
+    "forbidden_decisions": [
+      "ACCEPT_STATIC_PACKAGE",
+      "ACCEPT_EXECUTION_PACKAGE",
+      "AUTHORIZE_B0",
+      "ADMIT_B0"
+    ]
+  },
+  "claim_boundary": {
+    "claim": "STATIC_BUILD_PREREQUISITE_ONLY_NO_EXECUTION_AUTHORITY",
+    "admission_created": false,
+    "authority_created": false,
+    "capsule_created": false,
+    "runtime_namespace_created": false,
+    "ledger_created": false,
+    "result_created": false,
+    "terminal_created": false,
+    "payload_open_count": 0,
+    "evaluator_call_count": 0,
+    "target_start_count": 0,
+    "b0_effect_count": 0
+  },
+  "production_trust_boundary": {
+    "required_attestors": [
+      {
+        "actor": "MANAGER",
+        "layer": "manager",
+        "decision": "ADMIT_EXACT_ACTION_ONCE"
+      },
+      {
+        "actor": "HUMAN_OPERATOR",
+        "layer": "operator",
+        "decision": "AUTHORIZE_EXACT_ACTION_ONCE"
+      },
+      {
+        "actor": "FRESH_L2_REVIEWER",
+        "layer": "reviewer",
+        "decision": "REVIEW_EXACT_CANDIDATE_ONCE"
+      }
+    ],
+    "signing_service_ownership": "FRAMEWORK_OWNED",
+    "private_key_access": "INACCESSIBLE_TO_ENGINEER_REVIEWER_AND_PROJECT_CODE",
+    "signing_endpoint_access": "INACCESSIBLE_TO_ENGINEER_REVIEWER_AND_PROJECT_CODE",
+    "production_verification_ownership": "FRAMEWORK_OWNED_SERVICE_ONLY",
+    "same_user_local_issuance_permitted": false,
+    "local_credential_generation_permitted": false,
+    "local_credential_inference_permitted": false,
+    "production_receipt_acceptance_enabled": false
+  },
+  "production_verification_contract": {
+    "status": "UNAVAILABLE_EXTERNAL_FRAMEWORK_CONTRACT_REQUIRED",
+    "algorithm": null,
+    "key_id": null,
+    "public_key_sha256": null,
+    "canonicalization_identifier": null,
+    "canonicalization_version": null,
+    "signed_payload_field_order": null,
+    "key_rotation_contract_sha256": null,
+    "anti_replay_contract_sha256": null,
+    "first_terminal_contract_sha256": null,
+    "framework_verifier_endpoint": null,
+    "immutable_receipt_source": null,
+    "pin_values_locally_permitted": false,
+    "accept_before_all_fields_are_externally_supplied": false
+  },
+  "canonical_receipt_contract": {
+    "bundle_schema": "reference/QK_GBFP8_HEAD64_B0_V30_SIGNED_ATTESTATION_BUNDLE_SCHEMA.json",
+    "external_framework_contract_schema": "reference/QK_GBFP8_HEAD64_B0_V30_EXTERNAL_FRAMEWORK_CONTRACT_SCHEMA.json",
+    "required_semantic_binding_paths": [
+      "action.action_id",
+      "action.decision",
+      "action.effect_class",
+      "package.package_file_sha256",
+      "package.package_tree_sha256",
+      "candidate_tree.root_id",
+      "candidate_tree.tree_sha256",
+      "interpreter.path",
+      "interpreter.sha256",
+      "interpreter.version",
+      "invocation.argv",
+      "invocation.argv_sha256",
+      "invocation.cwd",
+      "invocation.cwd_sha256",
+      "invocation.replacement_environment",
+      "invocation.replacement_environment_sha256",
+      "runtime.namespace_id",
+      "runtime.namespace_sha256",
+      "event_frontier.source_kind",
+      "event_frontier.frontier_sequence",
+      "event_frontier.frontier_sha256",
+      "event_frontier.first_terminal_sequence",
+      "event_frontier.first_terminal_sha256",
+      "call.call_id",
+      "mission.mission_id",
+      "identity.actor",
+      "identity.layer",
+      "identity.run_label",
+      "freshness.issued_at_unix_ns",
+      "freshness.not_before_unix_ns",
+      "freshness.expires_at_unix_ns",
+      "nonce.nonce",
+      "nonce.replay_scope"
+    ],
+    "canonicalization_and_field_order_source": "EXTERNAL_FRAMEWORK_CONTRACT_ONLY",
+    "exact_runtime_values_source": "FUTURE_FROZEN_EXECUTION_CONTRACT_ONLY",
+    "receipt_bundle_cardinality": 3,
+    "manager_operator_reviewer_receipts_all_required": true,
+    "copied_receipt_role_substitution_permitted": false
+  },
+  "verification_requirements": {
+    "signature": {
+      "strict_verification_required": true,
+      "algorithm_key_id_and_public_key_digest_exact_match_required": true,
+      "embedded_public_key_permitted": false,
+      "package_embedded_key_permitted": false,
+      "self_issued_signature_permitted": false,
+      "unsigned_json_permitted": false,
+      "test_key_on_production_path_permitted": false
+    },
+    "bindings": {
+      "all_required_semantic_binding_paths_exact_match_required": true,
+      "wrong_action_rejected": true,
+      "wrong_package_rejected": true,
+      "wrong_candidate_tree_rejected": true,
+      "wrong_interpreter_rejected": true,
+      "wrong_argv_rejected": true,
+      "wrong_cwd_rejected": true,
+      "wrong_replacement_environment_rejected": true,
+      "wrong_runtime_rejected": true,
+      "wrong_event_frontier_rejected": true,
+      "wrong_call_rejected": true,
+      "wrong_mission_rejected": true,
+      "wrong_actor_layer_or_run_label_rejected": true
+    },
+    "freshness": {
+      "signed_not_before_and_expiry_required": true,
+      "stale_receipt_rejected": true,
+      "future_issued_receipt_rejected": true,
+      "clock_policy_source": "EXTERNAL_FRAMEWORK_CONTRACT_ONLY"
+    },
+    "anti_replay": {
+      "framework_owned_replay_authority_required": true,
+      "same_nonce_reuse_rejected": true,
+      "copied_receipt_rejected": true,
+      "project_local_mutable_ledger_permitted": false,
+      "receipt_consumption_effect_created_by_v30": false
+    },
+    "key_rotation": {
+      "framework_owned_rotation_contract_required": true,
+      "active_epoch_and_key_id_required": true,
+      "retired_or_revoked_key_rejected": true,
+      "local_rotation_policy_permitted": false
+    },
+    "first_terminal": {
+      "framework_signed_monotonic_sequence_required": true,
+      "first_terminal_is_binding": true,
+      "receipt_after_first_terminal_rejected": true,
+      "mutable_log_ordering_permitted": false,
+      "project_local_terminal_effect_created_by_v30": false
+    }
+  },
+  "same_user_substitutes": {
+    "events_jsonl_authenticates_origin": false,
+    "mutable_framework_raw_stream_authenticates_origin": false,
+    "process_ancestry_authenticates_origin": false,
+    "thread_id_authenticates_origin": false,
+    "session_id_authenticates_origin": false,
+    "scheduler_prompt_authenticates_origin": false,
+    "local_key_authenticates_production_origin": false,
+    "copied_signature_authenticates_current_binding": false
+  },
+  "test_only_contract": {
+    "protected_data_free": true,
+    "ephemeral_private_keys_in_memory_only": true,
+    "test_algorithm": "TEST_ONLY_ED25519",
+    "test_key_id_prefix": "TEST-ONLY-",
+    "test_trust_domain": "TEST_ONLY_EPHEMERAL",
+    "test_receipts_accepted_by_production_path": false,
+    "test_keys_persisted": false,
+    "production_algorithm_inferred_from_test_algorithm": false,
+    "production_key_material_derived_from_test_keys": false
+  },
+  "local_toolchain": {
+    "interpreter_path": "/home/argustest/miniconda3/bin/python3.13",
+    "interpreter_version": "3.13.5",
+    "cryptography_version_observed": "47.0.0",
+    "jsonschema_version_observed": "4.23.0",
+    "new_dependency_installed": false,
+    "production_algorithm_selected": false,
+    "production_signature_verification_claimed": false
+  },
+  "predecessor_preservation": {
+    "tree_manifest_algorithm": "sha256(sorted TSV entries: type,relative_path,octal_mode,size,sha256-or-dash)",
+    "additive_0001": {
+      "root": "reference/qk_gbfp8_head64_b0_execution_binding_repair_static_v29_additive_0001_action_root",
+      "status": "SEALED_REJECTED_EVIDENCE_ONLY",
+      "package_file_sha256": "a1117d532e632db6eba8891ca4877e812a3b0fa35f377694d6bbbb269419b5b9",
+      "tree_manifest_sha256": "3c21ad3cdef39e69ef1c15a6e8c44b23b889230aa482c014f976d24f265858e0",
+      "entry_count": 14,
+      "candidate_report_file_sha256": "ce82027a72a60bf8e457a681f3b89c215ccd3aa20c1f8e1a611a23a8b74b935f"
+    },
+    "additive_0002": {
+      "root": "reference/qk_gbfp8_head64_b0_execution_binding_repair_static_v29_additive_0002_action_root",
+      "status": "SEALED_REJECTED_EVIDENCE_ONLY",
+      "package_file_sha256": "45cd17b76db35cc45866fdff59491b02ec5d92c44d2696b5ef1f89d9d2ac7f59",
+      "tree_manifest_sha256": "0a88a77dd0c84ebf06d9df6bd7563a99b1192c591d2040847a6b66a2777f35e8",
+      "entry_count": 15,
+      "candidate_report_file_sha256": "2c33ea5993d3fac46980e4d72f8d7f2f3deea9329db4e6c781777520ef5e7e68"
+    },
+    "additive_0003": {
+      "root": "reference/qk_gbfp8_head64_b0_execution_binding_repair_static_v29_additive_0003_action_root",
+      "status": "SEALED_REJECTED_EVIDENCE_ONLY",
+      "package_file_sha256": "ea2f8db867a55607bf31c4ad056f84e634e1d5a1365a10a1ade1d145fc2c0f65",
+      "tree_manifest_sha256": "2e7335d7971f85442ca257053444b19530e80563f63c94a7887a79144907cb6a",
+      "entry_count": 15,
+      "candidate_report_file_sha256": "ed4ceef3fa6473e9ba24bb6f5bdc52be9179f1e75aabb5041eb56cd81b832942"
+    },
+    "additive_0004": {
+      "root": "reference/qk_gbfp8_head64_b0_execution_binding_repair_static_v29_additive_0004_action_root",
+      "status": "SEALED_REJECTED_EVIDENCE_ONLY",
+      "package_file_sha256": "187f14cdc6f179dabf4ebefc2c674b731033babc4ef7dfd39f9b378fdc07daf1",
+      "tree_manifest_sha256": "8152ca64b5e61f0b6e2ab3f3cfb0989eefb2049086a79bb294632316f79ad822",
+      "entry_count": 15,
+      "candidate_report_file_sha256": "36a3e68f39990b9c1860c0da4e6d684d7bfe7774aceb44e90c0d6e0477da187b",
+      "reviewer_report_file_sha256": "36a3e68f39990b9c1860c0da4e6d684d7bfe7774aceb44e90c0d6e0477da187b"
+    },
+    "additive_0005": {
+      "root": "reference/qk_gbfp8_head64_b0_execution_binding_repair_static_v29_additive_0005_action_root",
+      "status": "TERMINATED_UNSEALED_DRAFT_NEVER_FINISH_SEAL_PROMOTE_ACCEPT_EXECUTE_OR_REUSE",
+      "package_file_sha256": "5987391036dfe5f96c8246f17c84aeb13d26cbe7bd980239468ad07f4045ab5c",
+      "tree_manifest_sha256": "9965fb84088dc1031ca154fa7224149c35c22d67fad72fece527698426f46fca",
+      "entry_count": 15,
+      "all_files_mode": "0644",
+      "all_directories_mode": "0755",
+      "fresh_l2_acceptance_must_be_absent": true,
+      "build_attempt_root_must_be_absent": "build/v29-b0-execution-binding-repair-static-0005"
+    }
+  },
+  "package_file_policy": {
+    "inventory_policy": "EXACT_STATIC_PREREQUISITE_FILES_ONLY",
+    "allowed_relative_directories": [
+      "reference",
+      "tools"
+    ],
+    "allowed_relative_files": [
+      "QK_GBFP8_HEAD64_B0_EXTERNAL_ATTESTATION_PREREQUISITE_STATIC_V30_PACKAGE.json",
+      "reference/QK_GBFP8_HEAD64_B0_V30_EXTERNAL_FRAMEWORK_CONTRACT_SCHEMA.json",
+      "reference/QK_GBFP8_HEAD64_B0_V30_SIGNED_ATTESTATION_BUNDLE_SCHEMA.json",
+      "tools/verify_static_prerequisite_v30.py"
+    ],
+    "acceptance_path": null,
+    "execution_wrapper_path": null,
+    "runtime_path": null,
+    "authority_capsule_path": null,
+    "ledger_path": null,
+    "payload_path": null
+  },
+  "review_contract": {
+    "requested_reviewer": "Fresh-L2",
+    "reviewer_must_verify": [
+      "predecessor preservation",
+      "zero effects",
+      "production and TEST-only key separation",
+      "absence of local bypass",
+      "exactly one external prerequisite"
+    ],
+    "reviewer_decision_if_contract_holds": "BUILD_READY_BLOCKED_EXTERNAL_ATTESTATION",
+    "accept_static_package_decision_permitted": false
+  },
+  "external_prerequisites": [
+    "Argus/provider must expose a framework-owned signed-attestation endpoint or immutable signed event receipts and publish the production verification key/algorithm/key-rotation contract inaccessible to role code."
+  ]
+}

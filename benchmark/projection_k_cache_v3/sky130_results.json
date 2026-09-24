@@ -1,0 +1,51 @@
+{
+  "area": {
+    "baseline_non_sram_area_mm2": 0.7482188512,
+    "candidate_non_sram_area_mm2": 0.7565668576,
+    "delta_non_sram_area_mm2": 0.0083480064,
+    "limit_mm2": 2.0,
+    "status": "PASS"
+  },
+  "cache_path_timing": {
+    "activation_cache_slack_ns": 8.6669,
+    "clock_period_ns": 10.0,
+    "status": "PASS_100MHZ",
+    "weight_cache_slack_ns": 8.2988
+  },
+  "evidence_hashes": {
+    "baseline_sta_log_sha256": "ecdbb62c298841e425490c2208a261b73a6b67588bbe940779464267b2d0fbc5",
+    "baseline_yosys_log_sha256": "6071f19795ac229912686d4fa73afea73baf4d052f3dae538e7c66cfd5136b11",
+    "cache_paths_sta_log_sha256": "26d1212141937d830957cec7bc84a39dc6e9697e1e62f8f09272887e448110a8",
+    "candidate_sta_log_sha256": "50a4565fe59e09bfd7f902ac1a3a8e29a92cf9ca3d6b3943417c3bf99b538fdd",
+    "candidate_yosys_log_sha256": "b2859d3b4bb01c5877ee7a0be21ab185aafd85c04501e9a5cca6dedefb5ff53d"
+  },
+  "flow_hashes": {
+    "baseline_sta_tcl_sha256": "b36f4df0da753650580f87d5fc62468bc4417cbd3b76804d44eba20496f38b26",
+    "baseline_yosys_sha256": "ffb5eaa78945b9b18831bd6c9498b6612ef9bb22071e52140038158a5adbb7a9",
+    "cache_paths_sta_tcl_sha256": "57f8edb5ee6eb12da743a68ff1f9f8c08c64510a1c893fdf7ca16f2dc539459a",
+    "candidate_sta_tcl_sha256": "ce86719d48162778826f34d81b00c9ad36fc3af568c221e7e39d73c7fa2c15ab",
+    "candidate_yosys_sha256": "1393ec80218daa8288c45e24f3c1b38966b0dc8d8b6cdb01d6a08ba919973e2d",
+    "constraint_sha256": "b21f8da39a0bdc5bf4db70b82013efb3d06a686347749c0070f37f37eca9e9ea",
+    "rtl_shell_sha256": "6a3db778c0c5e8b410bd4a8c19fbdac738c5cd3dbbbfa7d4ca9b4853a5b51d84"
+  },
+  "full_shell_timing": {
+    "baseline_wns_ns": -17.8663,
+    "candidate_wns_ns": -16.346,
+    "candidate_wns_improvement_ns": 1.5203,
+    "clock_period_ns": 10.0,
+    "status": "BLOCKED_PREEXISTING_GLOBAL_PATH",
+    "worst_path_scope": "shared shell control to SILU gate"
+  },
+  "limitations": [
+    "Area is hierarchical mapped-cell area from Yosys using SKY130 HD typical liberty; it is not routed or signoff area.",
+    "The new activation and weight cache selector paths meet the 100 MHz constraint.",
+    "The full shell does not meet 100 MHz in either frozen baseline or candidate. The candidate improves global WNS but this evidence does not close the pre-existing full-shell timing blocker."
+  ],
+  "schema_version": 1,
+  "status": "BOUNDED_CACHE_PATH_PASS_FULL_SHELL_TIMING_BLOCKED",
+  "tools": {
+    "container": "openroad/orfs@sha256:3bc303869d5e4caac8f72c854f2b1614c726b2961bbb372f54bc8fbc0e725e71",
+    "opensta": "3.1.0",
+    "yosys": "0.67+post"
+  }
+}

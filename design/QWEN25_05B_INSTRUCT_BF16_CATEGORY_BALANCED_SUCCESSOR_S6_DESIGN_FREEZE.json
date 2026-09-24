@@ -1,0 +1,251 @@
+{
+  "acceptance": {
+    "fresh_reviewer_required": true,
+    "required_reviewer_scope": [
+      "aggregate-only evidence basis",
+      "material mechanism difference from S5",
+      "marker-free local state",
+      "zero authority intent namespace backend job or replay state"
+    ],
+    "status_before_fresh_review": "PENDING"
+  },
+  "aggregate_diagnosis": {
+    "dev_category_deficit_to_frozen_minimum": {
+      "arithmetic": 4,
+      "concise_summary": 0,
+      "context_memory": 0,
+      "format_discipline": 7,
+      "polite_rewrite": 5,
+      "safe_refusal": 7,
+      "structured_extraction": 0
+    },
+    "dev_category_passes": {
+      "arithmetic": 2,
+      "concise_summary": 8,
+      "context_memory": 8,
+      "format_discipline": 0,
+      "polite_rewrite": 1,
+      "safe_refusal": 0,
+      "structured_extraction": 8
+    },
+    "dev_hard_pass_count": 27,
+    "dev_minimum_hard_passes": 48,
+    "diagnosis": [
+      "S5 was category-polarized rather than uniformly weak.",
+      "The S5 selector fallback locked epoch 3 although only two of seven probe category gates were satisfied.",
+      "Probe and dev category directions disagreed materially: safe_refusal was 4/4 on the locked probe and 0/8 on dev, while concise_summary and structured_extraction were each 0/4 on probe and 8/8 on dev.",
+      "A successor must change both the training objective and the pre-dev selection rule without reading row-level evaluator outputs."
+    ],
+    "locked_probe_epoch": 3,
+    "locked_probe_epoch_category_gates_satisfied": 2,
+    "locked_probe_epoch_category_passes": {
+      "arithmetic": 3,
+      "concise_summary": 0,
+      "context_memory": 4,
+      "format_discipline": 0,
+      "polite_rewrite": 3,
+      "safe_refusal": 4,
+      "structured_extraction": 0
+    }
+  },
+  "claim_boundary": "Marker-free S6 DESIGN/FREEZE specification derived only from non-hidden S5 probe/dev category aggregates and public frozen S5 contract/recipe fields. It creates no dataset, runner, package, authority, intent, namespace, backend experiment, backend job, attempt marker, model or evaluator execution, checkpoint, replay, retention, holdout, W4A8, RTL, synthesis/PPA, FPGA, U280, stage transition, or quality claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-category-balanced-successor-s6-design-freeze-v1",
+  "design_scope": {
+    "creates_execution_package": false,
+    "creates_training_data": false,
+    "stage": "specification",
+    "task_type": "DESIGN_FREEZE_ONLY"
+  },
+  "evidence_basis": {
+    "allowed_fields": {
+      "build/bf16-full-finetune-successor-s5/backend-terminal-audit-20260808T150208Z.json": [
+        "failure.classification",
+        "quality.dev.category_passes",
+        "quality.dev.category_totals",
+        "quality.dev.critical_safety_failures",
+        "quality.dev.gates",
+        "quality.dev.hard_pass_count",
+        "quality.dev.response_count",
+        "quality.probe_selection.*.category_minimum_gates_satisfied",
+        "quality.probe_selection.*.category_passes",
+        "quality.probe_selection.*.category_totals",
+        "quality.probe_selection.*.critical_safety_failures",
+        "quality.probe_selection.*.hard_pass_count",
+        "quality.selected_epoch"
+      ],
+      "design/QWEN25_05B_INSTRUCT_BF16_FULL_FINETUNE_SUCCESSOR_S5_EXECUTION_PACKAGE_CONTRACT.json": [
+        "evaluator_contract.dev",
+        "mechanism"
+      ],
+      "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/training_recipe.json": [
+        "checkpoint_lifecycle",
+        "checkpoint_policy",
+        "data counts",
+        "full_finetune",
+        "optimizer",
+        "schedule",
+        "training dtype and loss-scope fields"
+      ]
+    },
+    "excluded_inputs": [
+      "S5 checkpoint bytes",
+      "S5 response text or token arrays",
+      "S5 row-level scored outputs",
+      "S5 backend stdout or logs",
+      "S5 dev or holdout record contents",
+      "any hidden harness or golden output",
+      "any predecessor checkpoint or evaluator replay"
+    ],
+    "sources": {
+      "s5_execution_contract": {
+        "path": "design/QWEN25_05B_INSTRUCT_BF16_FULL_FINETUNE_SUCCESSOR_S5_EXECUTION_PACKAGE_CONTRACT.json",
+        "sha256": "6b9425f027bcc50f399fdded1ac91147fbdde91c9a041e10d1e00e6b3c9c0a54"
+      },
+      "s5_public_training_recipe": {
+        "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/training_recipe.json",
+        "sha256": "24a4b8acf314c0bd90a026b0a2438c424ab281a0f29c9ab9e183e9b272b42df2"
+      },
+      "s5_terminal_aggregate_audit": {
+        "path": "build/bf16-full-finetune-successor-s5/backend-terminal-audit-20260808T150208Z.json",
+        "sha256": "bd7bd5c0f55bbb63b9bd66473eb95dc0306380bdd96d53c5c71600b555c192b8"
+      }
+    }
+  },
+  "frozen_future_data_contract": {
+    "all_rows_must_be_fresh_project_authored": true,
+    "assistant_target_token_loss_only": true,
+    "category_count": 7,
+    "normalized_input_collision_with_s5_train_or_probe_allowed": false,
+    "normalized_training_inputs_unique": true,
+    "row_level_dev_or_holdout_information_allowed": false,
+    "rows_per_category": 64,
+    "scorer_clean_targets_required": true,
+    "total_training_rows": 448
+  },
+  "future_execution_boundary": {
+    "attempt_marker_creation_permitted": false,
+    "backend_submission_permitted": false,
+    "dev_access_permitted": false,
+    "execution_package_implementation_permitted": false,
+    "holdout_access_permitted": false,
+    "retention_execution_permitted": false,
+    "separate_operator_direction_required": true
+  },
+  "mechanism": {
+    "architecture_change_allowed": false,
+    "base_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "compute_dtype": "bfloat16",
+    "id": "category_normalized_conflict_projected_source_anchored_full_parameter_sft_v1",
+    "master_parameter_dtype": "float32",
+    "model": "Qwen/Qwen2.5-0.5B-Instruct",
+    "optimizer": {
+      "adam_beta1": 0.9,
+      "adam_beta2": 0.95,
+      "adam_epsilon": 1e-08,
+      "gradient_clipping_norm": 1.0,
+      "learning_rate": 2e-06,
+      "name": "adamw_torch",
+      "optimizer_moments_dtype": "float32",
+      "weight_decay": 0.01
+    },
+    "parameter_efficient_adapter_used": false,
+    "schedule": {
+      "candidate_epochs": [
+        1,
+        2,
+        3,
+        4
+      ],
+      "gradient_accumulation_steps": 7,
+      "gradient_checkpointing": true,
+      "learning_rate_scheduler": "cosine",
+      "micro_batch_size_per_category": 1,
+      "warmup_ratio": 0.1
+    },
+    "source_anchor": {
+      "form": "L2_SP_MEAN_SQUARED_DISTANCE_FROM_PINNED_SOURCE_PARAMETERS",
+      "lambda": 0.0001,
+      "source_model_outputs_used": false
+    },
+    "trainable_parameter_count": 494032768,
+    "training_objective": {
+      "canonical_category_order": [
+        "arithmetic",
+        "concise_summary",
+        "context_memory",
+        "format_discipline",
+        "polite_rewrite",
+        "safe_refusal",
+        "structured_extraction"
+      ],
+      "category_loss": "mean assistant-token negative log likelihood within category",
+      "category_loss_weight_formula": "1 + max(0, frozen_dev_category_minimum - S5_dev_category_passes)",
+      "category_loss_weights_unnormalized": {
+        "arithmetic": 5,
+        "concise_summary": 1,
+        "context_memory": 1,
+        "format_discipline": 8,
+        "polite_rewrite": 6,
+        "safe_refusal": 8,
+        "structured_extraction": 1
+      },
+      "conflict_projection": "For each deficit-category gradient in canonical order, when its dot product with the mean preservation-category gradient is negative, subtract its projection onto that preservation gradient before weighted summation.",
+      "deficit_categories": [
+        "arithmetic",
+        "format_discipline",
+        "polite_rewrite",
+        "safe_refusal"
+      ],
+      "preservation_categories": [
+        "concise_summary",
+        "context_memory",
+        "structured_extraction"
+      ],
+      "row_or_token_count_may_not_implicitly_reweight_categories": true
+    }
+  },
+  "material_difference_from_s5": {
+    "s5": "One shuffled mixed-corpus full-parameter assistant-token NLL objective, one global loss average, and a highest-score fallback lock after no probe checkpoint passed every category gate.",
+    "s6": "Seven explicit category objectives with aggregate-deficit-derived weights, preservation-gradient conflict projection, source-parameter anchoring, category-stratified accumulation, and no fallback checkpoint lock.",
+    "structurally_distinct": true
+  },
+  "schema_version": 1,
+  "selector_freeze": {
+    "candidate_checkpoint_count": 4,
+    "combined_probe_category_minimum_hard_passes": {
+      "arithmetic": 6,
+      "concise_summary": 6,
+      "context_memory": 6,
+      "format_discipline": 7,
+      "polite_rewrite": 6,
+      "safe_refusal": 7,
+      "structured_extraction": 6
+    },
+    "combined_probe_hard_pass_minimum": 48,
+    "combined_probe_response_count": 56,
+    "critical_safety_failures_maximum": 0,
+    "family_category_floor": 3,
+    "family_count": 2,
+    "family_rows_per_category": 4,
+    "fallback_checkpoint_selection_allowed": false,
+    "first_all_gates_pass_checkpoint_locks": true,
+    "normalized_probe_inputs_disjoint_from_training": true,
+    "official_dev_reselection_allowed": false,
+    "predev_disposition_if_no_checkpoint_passes": "PREDEV_NO_GO",
+    "probe_family_templates_must_be_structurally_distinct": true
+  },
+  "state_boundary": {
+    "authority_created": false,
+    "backend_experiment_created": false,
+    "backend_inventory_queried": false,
+    "backend_job_created": false,
+    "backend_submission_invoked": false,
+    "execution_namespace_created": false,
+    "hidden_or_row_level_output_included": false,
+    "intent_created": false,
+    "marker_created": false,
+    "model_or_evaluator_executed": false,
+    "replay_or_rescore_performed": false
+  },
+  "status": "FROZEN_MARKER_FREE_DESIGN_PENDING_FRESH_REVIEW"
+}

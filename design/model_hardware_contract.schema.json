@@ -89,6 +89,10 @@
           "minimum": 1,
           "type": "integer"
         },
+        "projection_scale_record_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
         "query_heads_per_kv_head": {
           "minimum": 1,
           "type": "integer"
@@ -110,6 +114,7 @@
         "packed_linear_weight_elements",
         "packed_w4_bytes",
         "projection_output_rows",
+        "projection_scale_record_count",
         "projection_metadata_bytes",
         "rmsnorm_metadata_bytes",
         "operator_aux_metadata_bytes",
@@ -351,31 +356,47 @@
         "embedding_storage": {
           "const": "bf16"
         },
+        "input_group_size": {
+          "const": 32
+        },
         "lm_head_representation": {
           "const": "separate_packed_w4_copy"
         },
         "matrix_order": {
           "const": "output_channel_major_row_major"
         },
+        "packed_group_bytes": {
+          "const": 16
+        },
+        "packed_int4_values_per_byte": {
+          "const": 2
+        },
         "packing": {
           "const": "even_input_low_nibble_odd_input_high_nibble"
         },
-        "projection_record_bytes": {
-          "const": 16
+        "scale_record_bytes": {
+          "const": 4
+        },
+        "scale_record_format": {
+          "const": "scale32_little_endian_u32"
         },
         "signed_encoding": {
           "const": "twos_complement"
         },
         "weight_scale_granularity": {
-          "const": "per_output_channel"
+          "const": "per_output_channel_per_input_group"
         }
       },
       "required": [
         "matrix_order",
         "signed_encoding",
         "packing",
+        "input_group_size",
+        "packed_int4_values_per_byte",
+        "packed_group_bytes",
         "weight_scale_granularity",
-        "projection_record_bytes",
+        "scale_record_format",
+        "scale_record_bytes",
         "embedding_storage",
         "lm_head_representation"
       ],

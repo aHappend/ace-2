@@ -1,0 +1,286 @@
+{
+  "claim_boundary": "Canonical descriptor, derived-parameter arithmetic, and static capacity planning only. This artifact does not elaborate RTL, run a simulator/formal tool, execute a model, build a bitstream, or claim product completion.",
+  "compatibility": {
+    "existing_0p5b_runtime_preflight": false,
+    "full_model_rtl_execution_validated": false,
+    "larger_model_rtl_execution_validated": false,
+    "synthesis_timing_or_u280_validated": false
+  },
+  "contract_id": "ace2-phase2-qwen2.5-3b-w4a8_scale32-v1",
+  "current_parameterization_gaps": [
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 896,
+      "id": "hidden_size",
+      "required": 2048
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation"
+      ],
+      "current": 4864,
+      "id": "intermediate_size",
+      "required": 11008
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 24,
+      "id": "num_layers",
+      "required": 36
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 14,
+      "id": "attention_heads",
+      "required": 16
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 64,
+      "id": "head_dim",
+      "required": 128
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation"
+      ],
+      "current": 128,
+      "id": "kv_width_elements",
+      "required": 256
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "host_runtime"
+      ],
+      "current": 1,
+      "id": "compute_tiles",
+      "required": 4
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "host_runtime"
+      ],
+      "current": 1,
+      "id": "memory_channels",
+      "required": 4
+    },
+    {
+      "blocking_surfaces": [
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": "sealed_0p5b_ace2rt2_package_and_image",
+      "id": "runtime_artifact_identity",
+      "required": "qwen2.5-3b_descriptor_hash_bound_package_and_image"
+    }
+  ],
+  "derived": {
+    "bf16_embedding_bytes": 622329856,
+    "estimated_weight_bytes": 2551366928,
+    "head_dim": 128,
+    "kv_bytes_per_token_per_layer": 528,
+    "kv_payload_bytes_per_token_per_layer": 512,
+    "kv_scale_metadata_bytes_per_token_per_layer": 16,
+    "kv_width_elements": 256,
+    "lm_head_input_elements": 2048,
+    "lm_head_output_elements": 151936,
+    "lm_head_tile_count": 4748,
+    "lm_head_tile_size": 32,
+    "max_context": 32768,
+    "maximum_kv_bytes": 622854144,
+    "maximum_weight_plus_kv_bytes": 3174221072,
+    "num_layers": 36,
+    "operator_aux_metadata_bytes": 176256,
+    "packed_linear_weight_elements": 3085697024,
+    "packed_w4_bytes": 1542848512,
+    "per_layer_linear_weight_elements": 77070336,
+    "per_layer_packed_w4_bytes": 38535168,
+    "per_layer_projection_metadata_bytes": 9633792,
+    "per_layer_projection_rows": 28672,
+    "per_layer_projection_scale_record_count": 2408448,
+    "projection_metadata_bytes": 385712128,
+    "projection_output_rows": 1184128,
+    "projection_scale_record_count": 96428032,
+    "qkv_k_metadata_bytes": 65536,
+    "qkv_k_scale_record_count": 16384,
+    "qkv_k_weight_bytes": 262144,
+    "qkv_metadata_offsets_q_k_v": [
+      0,
+      524288,
+      589824
+    ],
+    "qkv_metadata_span_bytes": 655360,
+    "qkv_output_offsets_q_k_v": [
+      0,
+      2048,
+      2304
+    ],
+    "qkv_output_span_bytes": 2560,
+    "qkv_q_metadata_bytes": 524288,
+    "qkv_q_scale_record_count": 131072,
+    "qkv_q_weight_bytes": 2097152,
+    "qkv_v_metadata_bytes": 65536,
+    "qkv_v_scale_record_count": 16384,
+    "qkv_v_weight_bytes": 262144,
+    "qkv_weight_offsets_q_k_v": [
+      0,
+      2097152,
+      2359296
+    ],
+    "qkv_weight_span_bytes": 2621440,
+    "query_heads_per_kv_head": 8,
+    "required_hidden_index_bits": 11,
+    "required_intermediate_index_bits": 14,
+    "required_kv_width_index_bits": 8,
+    "required_layer_id_bits": 6,
+    "required_lm_head_tile_index_bits": 13,
+    "required_sequence_position_bits": 15,
+    "required_vocab_index_bits": 18,
+    "rmsnorm_metadata_bytes": 300176,
+    "rmsnorm_record_bytes": 4112,
+    "transformer_linear_weight_elements": 2774532096
+  },
+  "dimensions": {
+    "attention_heads": 16,
+    "head_dim": 128,
+    "hidden_size": 2048,
+    "intermediate_size": 11008,
+    "kv_heads": 2,
+    "max_context": 32768,
+    "num_layers": 36,
+    "tie_word_embeddings": true,
+    "vocab_size": 151936
+  },
+  "formats": {
+    "accumulator_format": "signed_int32_dot_product",
+    "activation_format": "signed_int8",
+    "embedding_storage": "bf16",
+    "kv_format": "signed_int8_payload_scale32_per_kv_head",
+    "packed_weight_group_bytes": 16,
+    "scale_format": "scale32",
+    "weight_format": "signed_int4_packed_w4",
+    "weight_input_group_size": 32,
+    "weight_scale_format": "scale32_little_endian_u32",
+    "weight_scale_granularity": "per_output_channel_per_input_group",
+    "weight_scale_record_bytes": 4
+  },
+  "hardware_interface": {
+    "address_bits": 64,
+    "current_shell_command_widths": {
+      "address_bits": 64,
+      "completion_tag_bits": 16,
+      "k_bits": 16,
+      "layer_id_bits": 8,
+      "m_bits": 16,
+      "n_bits": 16,
+      "sequence_position_bits": 16
+    },
+    "data_width_bits": 128,
+    "lm_head_tile_size": 32,
+    "projection_tile_k": 32,
+    "projection_tile_m": 1,
+    "projection_tile_n": 32,
+    "required_command_widths": {
+      "address_bits": 64,
+      "completion_tag_bits": 16,
+      "k_bits": 16,
+      "layer_id_bits": 8,
+      "m_bits": 16,
+      "n_bits": 16,
+      "sequence_position_bits": 17
+    },
+    "vector_lanes": 16
+  },
+  "model_id": "qwen2.5-3b",
+  "product": {
+    "claim_boundary": "Phase-2 configuration contract only; compute_tiles and memory_channels are specification parameters, not measured throughput, timing, synthesis, FPGA, or U280 evidence.",
+    "compatible_tiers": [
+      "ace2_edge",
+      "ace2_pro"
+    ],
+    "compute_tiles": 4,
+    "memory_channels": 4,
+    "primary_tier": "ace2_edge"
+  },
+  "schema_version": 2,
+  "source": {
+    "config_path": "config.json",
+    "config_url": "https://huggingface.co/Qwen/Qwen2.5-3B/blob/3aab1f1954e9cc14eb9509a215f9e5ca08227a9b/config.json",
+    "repository": "Qwen/Qwen2.5-3B",
+    "revision": "3aab1f1954e9cc14eb9509a215f9e5ca08227a9b"
+  },
+  "static_capacity_checks": [
+    {
+      "evidence": "2048 % 16 == 0",
+      "id": "hidden-divisible-by-attention-heads",
+      "pass": true
+    },
+    {
+      "evidence": "16 % 2 == 0",
+      "id": "attention-heads-divisible-by-kv-heads",
+      "pass": true
+    },
+    {
+      "evidence": "hidden_size=2048, vector_lanes=16, projection_k=32",
+      "id": "hidden-aligns-to-vector-and-projection-k",
+      "pass": true
+    },
+    {
+      "evidence": "intermediate_size=11008, projection_n=32",
+      "id": "intermediate-aligns-to-projection-n",
+      "pass": true
+    },
+    {
+      "evidence": "vocab_size=151936, lm_head_tile=32",
+      "id": "vocab-aligns-to-lm-head-tile",
+      "pass": true
+    },
+    {
+      "evidence": "required bits layer=6, sequence=15, max_mnk=11008",
+      "id": "phase2-command-fields-cover-required-shapes",
+      "pass": true
+    },
+    {
+      "evidence": "maximum_weight_plus_kv_bytes=3174221072",
+      "id": "address-and-byte-counts-fit-64-bit-space",
+      "pass": true
+    },
+    {
+      "evidence": "qkv_weight=2621440, qkv_metadata=655360, qkv_output=2560",
+      "id": "qkv-spans-are-16-byte-aligned",
+      "pass": true
+    },
+    {
+      "evidence": "compute_tiles=4, memory_channels=4",
+      "id": "product-compute-and-memory-channels-positive",
+      "pass": true
+    }
+  ]
+}

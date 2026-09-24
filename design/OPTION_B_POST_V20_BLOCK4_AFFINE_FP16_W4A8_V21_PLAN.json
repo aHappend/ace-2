@@ -1,0 +1,241 @@
+{
+  "schema_version": 1,
+  "plan_id": "option-b-post-v20-block4-affine-fp16-w4a8-v21",
+  "backlog_id": "spec-v21-b4fp16-one-shot-20260807",
+  "candidate_id": "option_b_post_v20_block4_affine_fp16_offset_step_w4a8_v21",
+  "title": "Superseded diagnostic draft: block-4 affine FP16 W4A8 V21",
+  "stage": "specification",
+  "status": "SUPERSEDED_NON_AUTHORITATIVE_DO_NOT_EXECUTE",
+  "superseded_at_utc": "2026-08-07T16:44:00Z",
+  "backlog_item_created": false,
+  "backlog_id_status": "superseded_draft_identifier_only",
+  "authoritative_containment": {
+    "path": "research/probes/post-v20-bf16-w4-w4a8-summary-divergence-20260807.json",
+    "sha256": "90f339b70229099740642761f8a2f1b40cadd045ffe33ce49c3ada8d7d24b06a",
+    "fresh_v21_quantization_successor_justified": false,
+    "mechanism_class": "UNRESOLVED_PINNED_MODEL_OR_QUANTIZATION_MECHANISM",
+    "pinned_model_capability_blocker": true,
+    "required_disposition": "Stop V21 and quantizer cycling. Do not create a backlog item, official runner, namespace, marker, construction, candidate text, or quality campaign. Preserve this file only as a superseded non-authoritative diagnostic draft pending an explicit model/weights contract change."
+  },
+  "refreeze_generation": 2,
+  "refreeze_provenance": {
+    "superseded_archive": "research/archive/specification/v21-pre-freeze-codec-control-v1",
+    "reason": "The first marker-free codec control compared FP32 intermediate reconstructions while labeling the decode as final BF16. Before any official namespace, authority, runner, or candidate text existed, the control was corrected to round reconstructed values to BF16 and V21 was refrozen.",
+    "selection_changed": false,
+    "representation_changed": false,
+    "candidate_text_generated_before_refreeze": false,
+    "authority_consumed_before_refreeze": false
+  },
+  "objective": "Historical diagnostic description only. This draft must not be used to route, implement, construct, evaluate, or select a V21 candidate.",
+  "selection_boundary": {
+    "effective_at_utc": "2026-08-07T16:24:00Z",
+    "rule": "Choose from the predeclared structural affine codec set using pinned source weights only: minimum aggregate literal-BF16 reconstruction SSE, with all 169 tensors nonregressing versus V20, legal finite metadata for the complete source geometry, deterministic scalar/tensor codec identity, and an actual uint4 payload.",
+    "predeclared_policies": [
+      "block16_affine_bf16_v20_reference",
+      "block8_affine_bf16",
+      "block8_affine_fp16",
+      "block4_affine_bf16",
+      "block4_affine_fp16"
+    ],
+    "selected_policy": "block4_affine_fp16",
+    "selection_evidence": {
+      "source_weight_probe": {
+        "path": "research/probes/post-v20-structural-quantizer-comparison-20260807.json",
+        "sha256": "2ec57fd96fb09f2824b4ad9b87822da12b3f2ae731258d3c4c922ee517023b40",
+        "tool": "tools/probe_post_v20_structural_quantizers.py",
+        "tool_sha256": "bdc308457c6e570792da1e7f8049cd30f857ae774adbff1f76d5ab180a7ced82",
+        "aggregate_literal_bf16_sse": 162.79158489970018,
+        "relative_sse_vs_v20": 0.21244082983525642,
+        "per_tensor_nonregressing_vs_v20": 169,
+        "per_tensor_strictly_improved_vs_v20": 169
+      },
+      "source_independent_codec_regression": {
+        "path": "build/post-v20-block4-affine-fp16-w4a8-v21-source-independent-quantizer-regression-v2.json",
+        "sha256": "2a1f072a40bfab9738ee6631cc7377c5e4cd8464f5a69e41add48ddab69a5e9f",
+        "tool": "tools/test_block4_affine_fp16_codec.py",
+        "tool_sha256": "27f11d2c47b4307b74f65ea7dcb2e33380bda6b5bd5816f74a33d1d023fa0ce4",
+        "directed_case_count": 7,
+        "deterministic_random_block_count": 4096,
+        "deterministic_random_record_digest_sha256": "a8696491e54851addd974d2b199486b7a0325edcacd4b9e22f264ebb9af8815f",
+        "scalar_tensor_identity": true,
+        "final_bf16_reconstruction_compared": true,
+        "illegal_nan_infinity_and_zero_step_rejection": true
+      },
+      "full_source_geometry": {
+        "path": "research/probes/post-v20-block4-affine-fp16-source-geometry-20260807.json",
+        "sha256": "9af8217976498c5515b94c1ed80978d2bc28b2d2e6a1bd5eefbe48c62746ee17",
+        "tool": "tools/audit_post_v20_block4_fp16_source_geometry.py",
+        "tool_sha256": "759e013cc2cf84656586fd0d26705ca7486174edf8dab4865f9cde6945a1ba93",
+        "geometry_manifest_sha256": "9cb79eeaf5110d175dedb280182470a18bdd369e1ca9e30ed37f4cec2d764c5a",
+        "linear_tensor_count": 169,
+        "linear_weight_count": 493961216,
+        "block_count": 123490304,
+        "nonconstant_zero_fp16_step_block_count": 0,
+        "nonfinite_fp16_metadata_block_count": 0
+      }
+    },
+    "prohibited_selection_inputs": [
+      "V20 concise_summary case identity or input IDs",
+      "V20 expected sentence behavior or decoded output",
+      "V20 first-token margin or any case-specific logit observable",
+      "prompt text, token outputs, hidden harnesses, golden outputs, response gates, or product-case lookup",
+      "the diagnostic post-V20 BF16/W4/W4A8 divergence trace"
+    ],
+    "diagnostic_trace_status": "retained only as non-authoritative perturbation localization; it does not establish the cause of the V20 regression and does not justify V21",
+    "candidate_text_generated_before_freeze": false
+  },
+  "terminal_predecessor": {
+    "candidate_id": "option_b_post_v19_block16_affine_bf16_offset_step_w4a8_v20",
+    "status": "SOURCE_RELATIVE_QUALITY_NO_GO",
+    "failure_taxonomy": "SOURCE_RELATIVE_QUALITY_REGRESSION",
+    "review": {
+      "path": "research/raw/specification/v20-block16-affine-bf16-quality-no-go-review-replan-20260807T161101Z.json",
+      "sha256": "5690fc8c2a6b6b6b4992c04d08a55d1fd9a1218b9541e16dbb7154297ee2e03e"
+    },
+    "required_treatment": "Preserve V20 and its consumed one-shot evidence unchanged. Do not replay, resume, repair, regenerate, overwrite, import its runner as the V21 implementation, or use its failed case to tune V21."
+  },
+  "source": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "local_only": true,
+    "network_fallback_permitted": false
+  },
+  "representation": {
+    "scope": "all 169 nn.Linear tensors including a storage-detached lm_head; source embedding and all non-Linear tensors remain BF16",
+    "block_order": "output-row major, then contiguous four-weight input block, then lane 0 through lane 3",
+    "payload": "one unsigned uint4 affine code per Linear weight; lanes 0 and 2 occupy low nibbles and lanes 1 and 3 occupy high nibbles of their respective bytes",
+    "metadata_record": "one little-endian IEEE-754 FP16 minimum offset followed by one little-endian IEEE-754 FP16 affine step per row-local four-weight block",
+    "encode": "Read the four source BF16 values as FP32. Round the minimum to FP16 offset and round (maximum - minimum)/15 to FP16 step. For a constant block, emit zero step and four zero codes. Otherwise require decoded step greater than zero, round (value - decoded_offset)/decoded_step to nearest with ties to even, and clamp to 0..15.",
+    "decode": "For each code, compute FP32(FP16 offset) + uint4_code * FP32(FP16 step), then round the reconstructed Linear weight to BF16.",
+    "illegal": "Reject non-finite source values or metadata and reject a nonconstant block whose FP16 step is zero or nonpositive.",
+    "stochastic_rounding_prompt_ranking_output_tuning_sparse_exceptions_or_case_lookup_permitted": false
+  },
+  "storage_and_memory_contract": {
+    "linear_weight_count": 493961216,
+    "block_width": 4,
+    "block_count": 123490304,
+    "four_bit_payload_bytes": 246980608,
+    "metadata_bytes": 493961216,
+    "total_linear_weight_bytes": 740941824,
+    "exact_payload_bits_per_weight": 4.0,
+    "exact_total_bits_per_weight": 12.0,
+    "linear_weight_byte_reduction_from_bf16_percent": 25.0,
+    "abstract_memory_data_bits": 128,
+    "payload_stream": "contiguous row-major packed nibbles, with base and total length 16-byte aligned and no per-row padding",
+    "metadata_stream": "contiguous offset_u16_le,step_u16_le records, with base and total length 16-byte aligned and no per-block or per-row padding",
+    "aligned_traffic_fact": "Eight four-weight blocks cover 32 weights and consume 16 payload bytes plus 32 metadata bytes, exactly 48 bytes or three 128-bit beats.",
+    "claim_boundary": "These are exact representation and byte-traffic facts, not measured RTL latency, throughput, timing, area, power, hardware-emulation, or board results."
+  },
+  "activation_policy": {
+    "policy": "inherited authenticated grouped Dynamic Scale32 activation quantization",
+    "base_scales_path": "evidence/verification/qwen2.5-0.5b-instruct-w4a8-calibration-v1/derived_scales.json",
+    "base_scales_sha256": "cb99f71eeca54dbbc1a703dbcde4a9f3e7868ea317b0734addbf1a45d19b07ca",
+    "named_event_count": 312,
+    "saturation_or_clipping_permitted": 0,
+    "reserved_minus128_activation_payload_permitted": false,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832
+  },
+  "quality_and_chat_contract": {
+    "frozen_matrix_path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16/quality-campaign-0001/frozen_matrix.json",
+    "frozen_matrix_sha256": "829d3fc355ecba7dd01aed6a06c165b6a664cbc144591a0c40b45ae4fa27c6a1",
+    "case_count": 19,
+    "response_position_count": 23,
+    "generation": "deterministic greedy argmax with use_cache=true and termination IDs 151643 and 151645",
+    "maximum_new_tokens_per_delivered_matrix_response": 64,
+    "blocked_action": "BLOCKED_NO_ANSWER before tokenization or model forward; no software answer replacement",
+    "candidate_local_single_turn_sources": [
+      "--prompt TEXT",
+      "--prompt-file PATH",
+      "non-interactive UTF-8 stdin",
+      "interactive User: input"
+    ],
+    "candidate_local_multi_turn_source": "--conversation-file PATH containing a validated alternating messages array ending in user",
+    "candidate_local_maximum_new_tokens_range": [1, 32],
+    "required_output": "exact decoded UTF-8 candidate text, raw token IDs, actual model-forward count, prefill/decode and total wall seconds, and normal readable multi-token output for allowed prompts",
+    "no_candidate_text_before": "plan, task, runner, source/codec/geometry bindings, parser behavior, evaluator, and immutable preexecution contract are all frozen",
+    "failed_v20_case_may_be_evaluated_after_freeze": true,
+    "failed_v20_case_may_influence_v21_representation_or_code": false,
+    "software_fallback_prompt_rewriting_post_output_tuning_or_case_lookup_permitted": false
+  },
+  "preexecution_closure": {
+    "runner_path": "tools/run_option_b_post_v20_block4_affine_fp16_w4a8_v21.py",
+    "runner_must_not_exist_at_plan_freeze": true,
+    "required_commands": ["self-test", "preflight", "run-all", "verify-result", "chat"],
+    "preexecution_contract_path": "build/post-v20-block4-affine-fp16-w4a8-v21-preexecution-contract.json",
+    "required_non_consuming_checks": [
+      "official V21 namespace and every V21 marker absent",
+      "fresh full 169-tensor source geometry rerun reproduces the exact geometry manifest, package versions, and storage totals",
+      "fresh directed and deterministic-random scalar/tensor codec regression reproduces the frozen digest",
+      "runner syntax, import, and command-surface closure",
+      "source embedding/lm_head storage separation before quantization",
+      "source revision, package, matrix, evaluator, guard, activation-scale, V20 review, plan, task, and tool hashes",
+      "candidate-local single-turn and multi-turn parser validation without model output generation",
+      "self-resolving terminal checksum publication design"
+    ],
+    "runner_or_contract_change_after_freeze_permitted": false,
+    "v20_runner_import_mutation_or_execution_permitted": false
+  },
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-post-v20-block4-affine-fp16-w4a8-v21",
+    "root_must_be_absent_before_authorized_construction": true,
+    "construction_marker": "construction_started.json",
+    "quality_campaign": "quality-campaign-0001",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "construction_attempts_requested": 1,
+    "quality_campaigns_requested": 1,
+    "recovery_replay_resume_repair_regeneration_or_second_campaign_permitted": false
+  },
+  "terminal_integrity": {
+    "required_manifest": "quality-campaign-0001/SHA256SUMS",
+    "required_manifest_companion": "quality-campaign-0001/SHA256SUMS.sha256",
+    "self_resolving_definition": "SHA256SUMS uses official-root-relative paths and hashes every declared immutable terminal artifact except itself and its companion; SHA256SUMS.sha256 contains the hash and relative name of SHA256SUMS; the Fresh Reviewer submission binds both files and the complete expected path set.",
+    "partial_publication_permitted": false,
+    "overwrite_after_publication_permitted": false
+  },
+  "acceptance_gate": {
+    "deterministic_full_constructions_required": 2,
+    "candidate_a_b_payload_metadata_manifest_and_reconstruction_identity_required": true,
+    "exact_geometry_and_byte_accounting_required": true,
+    "no_regression_of_any_source_action_pass": true,
+    "minimum_action_pass_count": 12,
+    "minimum_visible_single_turn_required_observable_count": 4,
+    "minimum_visible_multi_turn_required_observable_count": 2,
+    "minimum_public_holdout_required_observable_count": 2,
+    "delivered_integrity_pass_count_required": 22,
+    "critical_delivered_safety_failure_count_required": 0,
+    "blocked_response_position_count_required": 1,
+    "deterministic_candidate_replay_required": true,
+    "candidate_local_arbitrary_text_and_multi_turn_chat_required": true,
+    "self_resolving_checksum_manifest_required": true,
+    "fresh_reviewer_acceptance_required": "A Fresh Reviewer must independently verify immutable evidence, inspect raw diverse outputs, exercise or inspect the arbitrary-text path, find no source-passing regression or critical delivered safety failure, and explicitly accept V21 as the credible quantized reference.",
+    "selected_policy_id_before_manager_action": null
+  },
+  "failure_taxonomy": {
+    "marker_free_geometry_codec_or_preexecution_failure": "PREFLIGHT_NO_GO with zero authority consumed and the official V21 namespace absent",
+    "construction_or_dynamic_preflight_failure_after_marker": "SOURCE_RELATIVE_PREFLIGHT_NO_GO; quality marker absent; immutable one-shot evidence",
+    "evaluator_no_execution": "EVALUATOR_NO_EXECUTION with zero completed candidate responses and null quality conclusion",
+    "evaluator_failure_after_campaign_consumption": "Preserve every durable response and terminal failure; no replay",
+    "valid_quality_failure": "SOURCE_RELATIVE_QUALITY_NO_GO with immutable outputs",
+    "quality_pass": "SOURCE_RELATIVE_QUALITY_READY_FOR_FRESH_REVIEW; selected_policy_id remains null until Fresh Reviewer and Manager action"
+  },
+  "authority": {
+    "authorization_status": "PROHIBITED_BY_OPERATOR_CONTAINMENT",
+    "planner_may_consume_authority": false,
+    "authority_consuming_command_may_run_in_planner_cycle": false,
+    "engineer_execution_requires_fresh_manager_route": false,
+    "engineer_execution_permitted": false,
+    "reopening_requires_explicit_model_or_weights_contract_change": true
+  },
+  "public_interface_and_stage_closure": {
+    "external_benchmark_applies": false,
+    "public_top_module": "ace2_shell",
+    "public_interface_change_permitted": false,
+    "clock_reset_or_protocol_change_permitted": false,
+    "this_plan_may_modify_rtl_or_verification_references": false,
+    "this_plan_may_modify_research_pipeline_state": false,
+    "this_plan_may_run_simulation_formal_synthesis_timing_ppa_u280_or_hardware_emulation": false,
+    "this_plan_may_retarget_live_chat_demo": false,
+    "current_stage_remains": "specification"
+  }
+}

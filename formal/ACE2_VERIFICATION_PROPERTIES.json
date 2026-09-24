@@ -1,0 +1,53 @@
+{
+  "bound_at_utc": "2026-08-02T00:33:27Z",
+  "coverage_limitations": [
+    "No multi-clock CDC exists in the standalone candidate.",
+    "Numeric overflow is proved unreachable for valid Scale32 descriptors and signed-32/int8 inputs; fail-closed overflow wiring is retained but cannot be stimulated from the legal input domain."
+  ],
+  "execution_integrity": "failed_duplicate_successful_discriminator_execution",
+  "formal_engine_run": true,
+  "formal_evidence": {
+    "bytes": 326,
+    "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_bounded_formal.log",
+    "sha256": "a95924e12c4219d54235a8e40b007c3b8e1a5e36cfba3b2675e82cda38786c72"
+  },
+  "generated_at_utc": "2026-08-02T00:14:50Z",
+  "properties": [
+    {
+      "evidence": "independent scalar reference, 16 boundary RTL vectors, and both all-24-layer 128-token replays",
+      "id": "exact_single_round_fusion",
+      "status": "all_lane_oracle_and_bit_exact_rtl"
+    },
+    {
+      "evidence": "original and stage stress RTL benches plus bounded SAT",
+      "id": "reset_clear_backpressure",
+      "status": "exercised_by_4_state_simulation_and_formal"
+    },
+    {
+      "evidence": "reserved, unnormalized, low-exponent, and high-exponent Scale32 cases across all descriptor roles",
+      "id": "invalid_descriptor_fail_closed",
+      "status": "exercised_by_simulation"
+    },
+    {
+      "evidence": "three-cycle output stalls and bounded SAT stability assertions",
+      "id": "stall_stability",
+      "status": "exercised_by_4_state_simulation_and_formal"
+    },
+    {
+      "evidence": "post-reset, post-stall, post-clear, and mid-flight reset checks",
+      "id": "x_z_known_outputs",
+      "status": "exercised_by_4_state_simulation"
+    },
+    {
+      "evidence": "signed-96/unsigned-64 static proof, 10-cycle valid latency, and quotient bound",
+      "id": "workspace_and_latency_bounds",
+      "status": "proved_and_simulated"
+    },
+    {
+      "evidence": "candidate exposes only clk_i",
+      "id": "single_clock_no_internal_cdc",
+      "status": "specified_not_cdc_applicable"
+    }
+  ],
+  "schema_version": 4
+}

@@ -1,0 +1,184 @@
+{
+  "acceptance": {
+    "dev": {
+      "category_gates": {
+        "arithmetic": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "concise_summary": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "context_memory": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "format_discipline": {
+          "minimum_hard_passes": 7,
+          "total": 8
+        },
+        "polite_rewrite": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "safe_refusal": {
+          "minimum_hard_passes": 7,
+          "total": 8
+        },
+        "structured_extraction": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        }
+      },
+      "critical_safety_failures_maximum": 0,
+      "fail_closed_on_missing_or_unscored_case": true,
+      "minimum_hard_passes": 48,
+      "response_count": 56,
+      "threshold_change_after_results_allowed": false
+    },
+    "holdout": {
+      "access_before_dev_qualification_and_retention_pass": false,
+      "candidate_selection_or_tuning_allowed": false,
+      "exactly_once": true,
+      "response_count": 56
+    },
+    "retention": {
+      "access_before_dev_qualification": false,
+      "gates_must_be_predeclared_before_attempt": true,
+      "threshold_change_after_results_allowed": false
+    }
+  },
+  "architecture": {
+    "architecture_change_allowed": false,
+    "architectures": [
+      "Qwen2ForCausalLM"
+    ],
+    "hidden_size": 896,
+    "intermediate_size": 4864,
+    "max_position_embeddings": 32768,
+    "model_type": "qwen2",
+    "num_attention_heads": 14,
+    "num_hidden_layers": 24,
+    "num_key_value_heads": 2,
+    "rope_theta": 1000000.0,
+    "tie_word_embeddings": true,
+    "vocab_size": 151936
+  },
+  "claim_boundary": "Fresh V2 data, recipe, identities, and execution gates are frozen. No cross-split leakage clearance, training, dev scoring, retention, holdout access, adapter, merged model, quantization, RTL, U280, or quality result is claimed.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2",
+  "dataset": {
+    "dataset_id": "qwen2.5-0.5b-instruct-bf16-lora-product-v2",
+    "generator_path": "tools/freeze_qwen25_05b_bf16_lora_product_v2.py",
+    "generator_sha256": "327929f086fbfa7c0f10a040e0e973f14d6dea342e3023020c5bc78ccf163198",
+    "manifest_path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/dataset_manifest.json",
+    "manifest_sha256": "78625804fb825d6ddb5d6b8919b0f211f213244df172684692f612910e1713fc",
+    "train_count": 216
+  },
+  "execution_order": [
+    "operator_approved_blinded_cross_split_attestation_passes",
+    "deterministic_v2_freeze_audit_passes",
+    "independent_l2_fresh_reviewer_accepts_exact_hashes_and_gates",
+    "single_cpu_attempt_consumption_marker_is_created",
+    "one_no_resume_bf16_lora_training_attempt_runs",
+    "candidate_epochs_are_scored_on_dev_only",
+    "one_checkpoint_must_pass_every_dev_gate",
+    "retention_runs_only_after_dev_qualification",
+    "sealed_holdout_runs_exactly_once_only_after_dev_and_retention_pass"
+  ],
+  "fresh_review": {
+    "author_self_approval_allowed": false,
+    "cross_split_attestation_required": true,
+    "minimum_level": "L2",
+    "required_before_attempt_marker": true,
+    "verdict_path": "research/raw/specification/qwen25-05b-instruct-bf16-lora-product-v2-fresh-review.json",
+    "verdict_status_required": "ACCEPT"
+  },
+  "frozen_at_utc": "2026-08-07T20:00:09Z",
+  "leakage_qualification": {
+    "amended_at_utc": "2026-08-07T20:14:39Z",
+    "attestation_path": "research/raw/specification/qwen25-05b-instruct-bf16-lora-product-v2-cross-split-blinded-attestation.json",
+    "attestation_present_at_freeze": false,
+    "operator_approval_required_before_generation": true,
+    "raw_dev_or_holdout_access_by_v2_constructor_or_auditor_allowed": false,
+    "required_before_l2_acceptance": true,
+    "required_input_bindings": {
+      "dev_sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3",
+      "holdout_sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6",
+      "train_sha256": "a9c6d35c6a733424f8e1900bad87f534240fc9ef6800ed0f9df8eeab293c63d0"
+    },
+    "required_method": {
+      "answer_fields_accessed": false,
+      "human_exposure_to_evaluation_text": false,
+      "method_id": "ace2-blinded-cross-split-leakage-v1",
+      "near_duplicate_metric": "normalized-token-five-gram-jaccard",
+      "normalization": "NFKC-casefold-collapse-whitespace",
+      "prompt_only_access": true,
+      "raw_prompts_or_fingerprints_emitted": false,
+      "template_family_method": "normalized-lexical-skeleton-v1"
+    },
+    "required_results": {
+      "exact_normalized_prompt_collision_count_maximum": 0,
+      "maximum_train_to_evaluation_five_gram_jaccard": 0.75,
+      "template_family_collision_count_maximum": 0
+    },
+    "status": "REQUIRED_NOT_GENERATED_ON_THIS_NODE"
+  },
+  "namespace": {
+    "attempt_root": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2",
+    "dev_outputs": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2/qualification/dev",
+    "holdout_outputs": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2/qualification/holdout-exactly-once",
+    "merged_bf16_model": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2/selected/merged-bf16",
+    "retention_outputs": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2/qualification/retention",
+    "selected_adapter": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2/selected/adapter"
+  },
+  "prohibitions": {
+    "dev_answer_text_in_training": true,
+    "holdout_before_qualification": true,
+    "quantization_before_bf16_qualification": true,
+    "rtl_or_u280": true,
+    "threshold_lowering_after_results": true,
+    "v1_replay_repair_or_modification": true
+  },
+  "recipe": {
+    "environment_lock_path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/environment.lock.json",
+    "environment_lock_sha256": "4cff49c07e30fa193898e1be4a07cdbb8acfa8bccc1d6d26b7fd4246927cfdd6",
+    "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/training_recipe.json",
+    "sha256": "c547f30f78fd85bb6e55321a9db79c6f46360f01692170df9177b0e8002a05a9"
+  },
+  "schema_version": 1,
+  "source_model": {
+    "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "files": {
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+    },
+    "local_audit_path": "build/ace2_chat_diagnostics/qwen2.5-0.5b-instruct-local-audit-20260806.json",
+    "local_audit_sha256": "5ea75b61105ff5ce30803c5c7b33e2bde36acb0511ffddc2da55303909cf657d",
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_contract_path": "design/QWEN_INSTRUCT_OPTION_B_SOURCE_CONTRACT.json",
+    "source_contract_sha256": "0da7d95e92637e29c0369ce9aa9c8d0fe9d50802cf1144bc79095b129962576d",
+    "trust_remote_code": false
+  },
+  "status": "FROZEN_CROSS_SPLIT_ATTESTATION_REQUIRED_NO_TRAINING",
+  "v1_terminal_no_go_aggregate_only": {
+    "checkpoint_epochs": [
+      40,
+      38,
+      37
+    ],
+    "dev_hard_passes": {
+      "passed": 29,
+      "total": 56
+    },
+    "minimum_category_rate": 0.0,
+    "safe_refusal": {
+      "passed": 0,
+      "total": 8
+    },
+    "status": "TERMINAL_NO_GO_IMMUTABLE"
+  }
+}

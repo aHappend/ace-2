@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "task_id": "task-002f07633b3f",
+  "created_at_utc": "2026-08-07T03:45:58Z",
+  "title": "Execute V10-preserving mixed-bank and lm_head64-grouped V12 preflight",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_v10_preserving_mixed_four_bank_lm_head64_grouped_dual_codebook_packed_scale24_w4_grouped_dynamic_scale32_w4a8_v12",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_V10_PRESERVING_MIXED_FOUR_BANK_LM_HEAD64_GROUPED_DUAL_CODEBOOK_PACKED_SCALE24_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V12_PLAN.json",
+    "sha256": "3455b1a98f4973b838d6e019567e22727cf586222de544eb21bc0cc111a07617",
+    "role": "immutable_planning_requirements_only"
+  },
+  "terminal_predecessor": {
+    "mission_id": "f8af22ec7fec",
+    "candidate_id": "option_b_alias_safe_four_input_block_codebook_quaternary_row_selector_palette_scale18_w4_grouped_dynamic_scale32_w4a8_v11",
+    "status": "PREATTEMPT_NO_GO",
+    "failure_taxonomy": [
+      "NO_GO_V10_LEDGER_MODEL_ONLY_RECONSTRUCTION_GATE",
+      "NO_GO_NON_EVALUATOR_QUALITY_GATE"
+    ],
+    "review_record": "research/raw/specification/four-codebook-palette-scale18-v11-review-done-20260807T034150Z.json",
+    "review_record_sha256": "14ed1885ddb736a3b4e046bef9de2a084b51eb5afc41f6acfb9849e2730d4cab",
+    "aggregate_v11_bf16_sse": 2351.9847979241645,
+    "exact_bf16_sequence_match_count": 1,
+    "response_gate_outcome_match_count": 8,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_under_predecessor_id_permitted": false
+  },
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-alias-safe-v10-preserving-mixed-four-bank-lm-head64-grouped-dual-codebook-packed-scale24-w4-grouped-dynamic-scale32-w4a8-v12",
+    "attempt_id": "attempt-0001",
+    "attempt_directory": "build/stage1-option-b-alias-safe-v10-preserving-mixed-four-bank-lm-head64-grouped-dual-codebook-packed-scale24-w4-grouped-dynamic-scale32-w4a8-v12/attempt-0001",
+    "attempt_budget": 1,
+    "attempts_consumed_at_task_freeze": 0,
+    "root_and_attempt_must_be_absent_at_task_start": true,
+    "execution_marker": "build/stage1-option-b-alias-safe-v10-preserving-mixed-four-bank-lm-head64-grouped-dual-codebook-packed-scale24-w4-grouped-dynamic-scale32-w4a8-v12/attempt-0001/execution_started.json",
+    "execution_marker_permitted_during_runner_build_constructor_self_test_or_preflight": false,
+    "execution_marker_creation_rule": "Create atomically exactly once only after PREATTEMPT_READY.json verifies all bound source/tool/model/plan/task hashes, exact V10-compatible seed reproduction, candidate A/B identity, mixed-bank and lm_head64-group codec closure, exact byte accounting, 169/169 V10-ledger non-regression, strict aggregate V10 SSE improvement, construction-blind 8/8 exact quality, and all 312 Dynamic Scale32 events.",
+    "replay_resume_or_second_attempt_under_candidate_id_permitted": false
+  },
+  "implementation_objective": "Implement an isolated V12 runner and scalable backend in the fresh V12 namespace. Retain exact packed Scale24 rows; use four banks with two-bit selectors for standard-layer q_proj, k_proj, v_proj, o_proj, gate_proj, and up_proj; preserve V10 dual-bank down_proj; and use 64 fixed 2374-row lm_head groups with independent dual-bank codebooks and unchanged one-bit row selectors. Do not modify RTL, the live chat path, sealed evidence, or Manager-owned stage state.",
+  "required_constructor": {
+    "source_and_seed": "Load only the pinned BF16 model and authenticated reviewed sources. Build a V10-compatible seed under the V12 namespace, compare all 169 decoded reconstruction hashes and aggregate SSE to sealed V10 evidence, and never write the terminal V10 namespace.",
+    "strict_superset_witness": "Before optimization, duplicate V10 banks and selectors exactly as specified so selected standard modules and all 64 lm_head groups decode byte-identically to V10; preserve down_proj and every packed Scale24 row record unchanged.",
+    "selected_standard_families": [
+      "q_proj",
+      "k_proj",
+      "v_proj",
+      "o_proj",
+      "gate_proj",
+      "up_proj"
+    ],
+    "down_proj": "two banks, one-bit selector, exact V10 decoded representation and metadata unchanged",
+    "lm_head": "64 contiguous groups times exactly 2374 rows; seven input blocks; two codebook banks per group/block; one-bit selector per row/block; zero group-selector bits",
+    "packed_scale24": "three bytes per output row, exact lossless round trip to legal Scale32 with restored zero high byte",
+    "outer_iterations": 8,
+    "objective": "exact literal unweighted BF16 source-space SSE for all 169 Linear tensors",
+    "determinism": "independent candidate A/B seed, payload, packed-scale, mixed-codebook, selector, lm_head-group, reconstruction, objective, iteration-trace, weight, and state manifests match byte-for-byte",
+    "model_gate": "all 169 tensors are non-regressing against the sealed V10 per-tensor SSE ledger and aggregate literal unweighted BF16 SSE is strictly below 2153.4047236346078"
+  },
+  "storage_and_accelerator_contract": {
+    "payload_bits_per_weight": 4,
+    "packed_scale24_bytes_per_output_row": 3,
+    "standard_decoder_layer_total_weight_bytes": 7521504,
+    "standard_decoder_layer_exact_bits_per_weight": 4.035834478021978,
+    "standard_decoder_layer_cap_reserve_bytes": 308.48,
+    "lm_head_total_weight_bytes": 68670416,
+    "lm_head_exact_bits_per_weight": 4.035440674268865,
+    "lm_head_cap_reserve_bytes": 9517.952,
+    "whole_model_total_weight_bytes": 249186512,
+    "whole_model_exact_bits_per_weight": 4.035725946548808,
+    "whole_model_cap_reserve_bytes": 16921.472,
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "metadata_cache_budget_bytes": 192,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_incremental_sram_bytes": 2368,
+    "public_ace2_shell_ports_changed": false,
+    "floating_point_rtl_permitted": false,
+    "rtl_implementation_or_ppa_authorized_by_this_task": false
+  },
+  "required_self_tests": [
+    "reject any source, plan, task, model, tokenizer, helper, or predecessor-evidence hash mismatch before construction",
+    "prove 896 and 4864 inputs map to exactly seven and 38 contiguous 128-lane blocks",
+    "prove exact packed Scale24 round trip including signed exponent endpoints, zero restored high byte, truncation, extension, and illegal-record rejection",
+    "prove selected standard families accept exactly four ordered 16-entry banks and two-bit selectors while down_proj accepts exactly two banks and one-bit selectors",
+    "prove lm_head has exactly 64 groups of exactly 2374 rows, group transitions occur at fixed row ordinals, and no group-selector metadata exists",
+    "prove selector packing is output-row-major then input-block-major, least-significant-bit first, 16-byte aligned, and zero padded",
+    "prove candidate A/B independence and byte-identical state and trace manifests",
+    "prove exact standard-layer, lm_head, and whole-model storage totals and sub-4.036 bits-per-weight values",
+    "prove the official namespace and execution marker remain absent during all self-tests and preflight"
+  ],
+  "pre_attempt_artifacts": [
+    "predeclared_contract.json binding every source/tool/model/plan/task and predecessor-evidence hash",
+    "runner_self_test.json",
+    "candidate_a_manifest.json and candidate_b_manifest.json",
+    "alias_separation_witness.json",
+    "v10_compatible_seed_reproduction.json",
+    "model_only_v10_relative_reconstruction.json",
+    "non_evaluator_quality.json over the unchanged eight construction-blind inputs",
+    "dynamic_preflight.json covering all 312 named activation boundaries",
+    "preparation_chronology.json and preparation_recovery.json",
+    "PREATTEMPT_READY.json only if every gate passes, otherwise immutable PREATTEMPT_NO_GO.json"
+  ],
+  "pre_attempt_gates": {
+    "official_nine_prompt_inputs_used": false,
+    "candidate_a_b_identity": true,
+    "v10_seed_exact_reproduction_count": 169,
+    "per_tensor_non_regressing_count": 169,
+    "aggregate_v12_bf16_sse_strictly_less_than": 2153.4047236346078,
+    "non_evaluator_exact_bf16_sequence_match_count": 8,
+    "non_evaluator_response_gate_outcome_match_count": 8,
+    "dynamic_named_event_count": 312,
+    "dynamic_saturation_count": 0,
+    "dynamic_clipping_count": 0,
+    "dynamic_reserved_minus_128_produced": false,
+    "maximum_activation_metadata_bytes_per_decoder_layer_token": 832
+  },
+  "official_attempt": {
+    "permitted_only_after_verified_preattempt_ready": true,
+    "matrix_path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+    "matrix_sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+    "attempt_count": 1,
+    "score_policy": "9/9 exact BF16 token arrays and 9/9 matching BF16 response-gate outcomes",
+    "failure": "seal immutable terminal evidence, keep selected_policy_id null, and forbid replay",
+    "success": "seal immutable evidence and submit to a Fresh Reviewer; do not select, retarget, or advance before independent acceptance",
+    "evaluator_no_execution": "if the marker exists but no candidate prompt completes, preserve the consumed attempt, keep numerical correctness null, and forbid replay"
+  },
+  "prohibited_actions": [
+    "access official matrix content before PREATTEMPT_READY.json",
+    "use any prompt, output, token array, response gate, hidden harness, or golden output to construct or tune V12",
+    "write, replay, repair, resume, rename, or officially execute V10 or V11",
+    "change the six selected standard families, bank counts, lm_head group count, rows per group, selector widths, Scale24 format, iteration count, or score policy after observing preflight",
+    "modify RTL, verification acceptance, synthesis, PPA, live demo, U280 integration, emulation, board state, sealed evidence, or research/PIPELINE_STATE.json",
+    "download a proprietary vendor toolchain"
+  ],
+  "completion_rule": "The Engineer mission is complete after immutable PREATTEMPT_NO_GO plus Fresh Reviewer submission if any preflight gate fails, or after exactly one sealed official attempt plus Fresh Reviewer submission if and only if every preflight gate first passes. No numerical-policy selection or downstream authorization follows without a later Fresh Reviewer decision and Manager stage advance.",
+  "claim_boundary": {
+    "selected_policy_id_before_fresh_reviewer_adjudication": null,
+    "current_stage_remains": "specification",
+    "rtl_demo_ppa_u280_or_stage2_authorized": false
+  }
+}

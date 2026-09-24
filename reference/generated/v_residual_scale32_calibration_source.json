@@ -1,0 +1,240 @@
+{
+  "calibration_scope": {
+    "config": "en",
+    "dataset": "allenai/c4",
+    "purpose": "freeze_the_same_baseline_v_scale_provenance_used_by_the_128_token_focused_discriminator",
+    "record_indices": {
+      "start": 0,
+      "stop": 1
+    },
+    "revision": "1588ec454efa1a09f29cd18ddd04fe05fc8653a2",
+    "split": "validation",
+    "token_limit": 32
+  },
+  "classification": "calibration_only_no_quality_metric",
+  "contract_id": "shared_v_residual_value_correction_attention_v1",
+  "generated_at_utc": "2026-08-01T19:18:11Z",
+  "input_observations": {
+    "record_count": 1,
+    "record_sha256": "2a3a0ca3a728b47ed8a825c136c34d56e04b82ecb1117465199113985ed9087f",
+    "tokenized": {
+      "sequence_count": 1,
+      "token_count": 32,
+      "token_sequence_sha256": "ccfe0c716347008eb6c725370351dd6ad9faf291415a192f760dd5192f040423"
+    }
+  },
+  "integrity": {
+    "algorithm": "sha256-canonical-json-v1",
+    "canonical_sha256": "347cabe20c23f4526c526161b0e46468b10d17eea908352da28eac76d62bf1be"
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B",
+    "resolved_revision": "060db6499f32faf8b98477b0a26969ef7d8b9987",
+    "revision": "060db6499f32faf8b98477b0a26969ef7d8b9987"
+  },
+  "quality_metrics_executed": false,
+  "records": [
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.0021376722440944883,
+      "layer": 0,
+      "module": "model.layers.0.self_attn.v_proj",
+      "observed_output_absmax": 0.271484375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.021530511811023622,
+      "layer": 1,
+      "module": "model.layers.1.self_attn.v_proj",
+      "observed_output_absmax": 2.734375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.016117125984251968,
+      "layer": 2,
+      "module": "model.layers.2.self_attn.v_proj",
+      "observed_output_absmax": 2.046875
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.023991141732283464,
+      "layer": 3,
+      "module": "model.layers.3.self_attn.v_proj",
+      "observed_output_absmax": 3.046875
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.022391732283464565,
+      "layer": 4,
+      "module": "model.layers.4.self_attn.v_proj",
+      "observed_output_absmax": 2.84375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.02620570866141732,
+      "layer": 5,
+      "module": "model.layers.5.self_attn.v_proj",
+      "observed_output_absmax": 3.328125
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.022268700787401573,
+      "layer": 6,
+      "module": "model.layers.6.self_attn.v_proj",
+      "observed_output_absmax": 2.828125
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.030019685039370077,
+      "layer": 7,
+      "module": "model.layers.7.self_attn.v_proj",
+      "observed_output_absmax": 3.8125
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.0296505905511811,
+      "layer": 8,
+      "module": "model.layers.8.self_attn.v_proj",
+      "observed_output_absmax": 3.765625
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.032234251968503935,
+      "layer": 9,
+      "module": "model.layers.9.self_attn.v_proj",
+      "observed_output_absmax": 4.09375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.02645177165354331,
+      "layer": 10,
+      "module": "model.layers.10.self_attn.v_proj",
+      "observed_output_absmax": 3.359375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.03321850393700788,
+      "layer": 11,
+      "module": "model.layers.11.self_attn.v_proj",
+      "observed_output_absmax": 4.21875
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.022391732283464565,
+      "layer": 12,
+      "module": "model.layers.12.self_attn.v_proj",
+      "observed_output_absmax": 2.84375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.020546259842519687,
+      "layer": 13,
+      "module": "model.layers.13.self_attn.v_proj",
+      "observed_output_absmax": 2.609375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.023499015748031496,
+      "layer": 14,
+      "module": "model.layers.14.self_attn.v_proj",
+      "observed_output_absmax": 2.984375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.028543307086614175,
+      "layer": 15,
+      "module": "model.layers.15.self_attn.v_proj",
+      "observed_output_absmax": 3.625
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.031003937007874016,
+      "layer": 16,
+      "module": "model.layers.16.self_attn.v_proj",
+      "observed_output_absmax": 3.9375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.03789370078740158,
+      "layer": 17,
+      "module": "model.layers.17.self_attn.v_proj",
+      "observed_output_absmax": 4.8125
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.039124015748031496,
+      "layer": 18,
+      "module": "model.layers.18.self_attn.v_proj",
+      "observed_output_absmax": 4.96875
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.03666338582677165,
+      "layer": 19,
+      "module": "model.layers.19.self_attn.v_proj",
+      "observed_output_absmax": 4.65625
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.08169291338582677,
+      "layer": 20,
+      "module": "model.layers.20.self_attn.v_proj",
+      "observed_output_absmax": 10.375
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.09202755905511811,
+      "layer": 21,
+      "module": "model.layers.21.self_attn.v_proj",
+      "observed_output_absmax": 11.6875
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.15649606299212598,
+      "layer": 22,
+      "module": "model.layers.22.self_attn.v_proj",
+      "observed_output_absmax": 19.875
+    },
+    {
+      "baseline_scale_rule": "maximum_absolute_observed_bf16_value_divided_by_127",
+      "baseline_v_output_scale": 0.06594488188976377,
+      "layer": 23,
+      "module": "model.layers.23.self_attn.v_proj",
+      "observed_output_absmax": 8.375
+    }
+  ],
+  "regeneration_command": ".venv/bin/python tools/calibrate_v_residual_scale32_source.py --output reference/generated/v_residual_scale32_calibration_source.json",
+  "runtime": {
+    "device": "cpu",
+    "packages": {
+      "datasets": "4.8.5",
+      "lm_eval": "0.4.9.2",
+      "torch": "2.11.0",
+      "transformers": "4.57.6"
+    },
+    "torch": "2.11.0+cu130"
+  },
+  "schema_version": 1,
+  "source_contracts": {
+    "calibration_runner": {
+      "bytes": 6014,
+      "path": "tools/calibrate_v_residual_scale32_source.py",
+      "sha256": "91d508d4dd46b8b787270d28022712e1d5ded1a3add36f97c2fcc85412b9ec85"
+    },
+    "full_model_runner": {
+      "bytes": 226277,
+      "path": "tools/ace2_full_model_fixed_point.py",
+      "sha256": "53a7f54cafa76fe5d843d80a858ce9e30c3d7d399697d27300db53e8d28d9d61"
+    },
+    "prompt_manifest": {
+      "bytes": 3028,
+      "path": "benchmark/quality/PROMPT_MANIFEST.json",
+      "sha256": "9ee394d7d344d6f14e6829cbf8bea27b5508c7fe5344d941495f5668ca32335c"
+    },
+    "quality_config": {
+      "bytes": 5007,
+      "path": "benchmark/quality/QUALITY_CONFIG.json",
+      "sha256": "50fe8c986c556bd1247e156c9f65de1e1137ed87542aca9112d089b15d226588"
+    }
+  }
+}

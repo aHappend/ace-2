@@ -1,0 +1,91 @@
+{
+  "acceptance_check": "A Fresh Reviewer verifies that Manager-owned current_stage was specification before consumption; exactly one hash-bound V7 authority, no more than one backend lifecycle job, and exactly one attempt marker exist; the accepted execution tree is unchanged; terminal selector/dev/retention/holdout evidence is complete in contract order or the first failure is honestly fail-closed; and no RTL, W4A8, chat, FPGA, U280, V5 replay, or qualification replay occurred.",
+  "accepted_inputs": {
+    "execution_contract": {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_FULL_FINETUNE_PRODUCT_V7_EXECUTION_PACKAGE_CONTRACT.json",
+      "sha256": "67d54880dbf30d4e870f08b58a92684ef21be4bd0c2764c9ece0f2d058ebec31"
+    },
+    "execution_l2_acceptance": {
+      "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/execution-package-l2-acceptance.json",
+      "sha256": "6c0f2b82acbe2e1942ef2a61ec797655b79043ac7561ed44a08c4221d9f93678"
+    },
+    "execution_manifest": {
+      "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/v7-execution-package-manifest.json",
+      "sha256": "fe4704b5a4a87fe865090c966d69ffa8953abc23e35ded6de870262bc1085939"
+    },
+    "execution_self_test": {
+      "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-product-v7/v7-execution-package-self-test.json",
+      "sha256": "36a4acbf2b0a00e71e44dddfd3278259a824d055b32318d1280fa9847aec7b8d"
+    },
+    "execution_tree_sha256": "99adb88967a4ebd16f8f6b342147a6dea1d9e8f55b6042a8d6fe88d4139ec2c2",
+    "freeze_manifest": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-product-v7/freeze_manifest.json",
+      "sha256": "d0c75f3a070aea566cf861911c1b4cc2851c1a92c604fcaf2f661e79b4f711f7"
+    },
+    "one_b200_qualification": {
+      "check_count": 90,
+      "path": "research/qualification/qwen25_full_finetune_v7_one_gpu_20260808/downloaded/results/ace2-v7-volcano-qualification-20260808/ace2-v7-qualification-one-b200/qualification-result.json",
+      "sha256": "afed88d91bc02f9be9d15b39828ed56666dfc32d4e714bf3a4716a95d3c261ce",
+      "status": "PASS_NON_CONSUMING_QUALIFICATION"
+    }
+  },
+  "authority_boundary": {
+    "attempt": 1,
+    "engineer_may_materialize_exactly_one_authority": true,
+    "planner_created_attempt_authority": false,
+    "source": "Authoritative live operator supersession dated 2026-08-08",
+    "standing_authorization": true,
+    "status_required": "AUTHORIZE_SINGLE_V7_FULL_FINETUNE_ATTEMPT"
+  },
+  "backend": {
+    "amlt_project": "argus-IR01",
+    "job_sku_constraint": "G1",
+    "qualified_gpu": "NVIDIA B200",
+    "queue": "bonete01",
+    "service": "volcano",
+    "target": "oidc@msr02"
+  },
+  "claim_boundary": "Exactly-once V7 BF16 full-model lifecycle only. This task does not authorize V5 replay, qualification replay, RTL, W4A8, chat, FPGA, U280, synthesis/PPA, stage advancement, or a quality PASS absent complete terminal evaluator evidence and Fresh Review.",
+  "created_at_utc": "2026-08-08T08:03:15Z",
+  "execution_requirements": [
+    "Fail closed before creating authority, launch intent, namespace, marker, or backend job unless research/PIPELINE_STATE.json and its checksum companion still report the Fresh-Reviewer-certified current_stage=specification state with mission 6416068ef27b's false RTL projection absent.",
+    "Recompute and verify every accepted input hash and execution tree hash; do not edit, regenerate, or refreeze the accepted V7 runner, data, evaluator, score policy, thresholds, expected values, or model bytes.",
+    "Inventory matching V7 lifecycle experiments and jobs immediately before submission. If any prior lifecycle job or V7 official namespace/authority/marker exists, stop without creating new state and preserve the conflict evidence.",
+    "Prepare the remote submission wrapper and result-copy procedure outside the accepted execution tree. It must stage the exact accepted repository subset and source-model bytes used by qualification, run on one qualified B200, invoke the accepted detached launcher exactly once, wait for terminal worker status, and copy the complete official namespace, offline launch/status records, console, environment record, and backend logs to immutable downloadable results.",
+    "Materialize the sole V7 attempt authority and companion atomically with exclusive-create semantics. Bind attempt 1, freeze manifest, execution contract, execution manifest, execution self-test, execution L2 acceptance, tree hash, Python hash seed 26080705, qualified B200 target, prohibited actions, and no-resume/no-relaunch policy.",
+    "Run the accepted launch-readiness path once and submit no more than one lifecycle backend job. Any pre-job failure after authority creation is terminal for this authorization; any created job is the sole job even if it fails, is preempted, times out, or produces incomplete evidence.",
+    "Preserve the exact training attempt marker and raw training/checkpoint evidence. Execute official dev once on the contract-selected checkpoint, prohibit reselection after dev, run retention only after dev qualification, and open the exactly-once holdout only after retention passes.",
+    "Classify evaluator no-execution separately from model-quality failure. Stop at the first genuine failed gate, preserve partial evidence, and make no RTL correctness, W4A8 quality, synthesis, timing, FPGA, U280, or product-completion claim.",
+    "After terminal evidence is downloaded, request Fresh Reviewer disposition over the exact authority, backend identity, logs, official namespace, marker counts, selector/dev/retention/holdout ordering, hashes, and claim boundary. Do not change current_stage; only the Manager may advance or roll it back."
+  ],
+  "objective": "With the Manager rollback to specification freshly certified, materialize one hash-bound V7 attempt authority under the standing operator authorization, execute the accepted detached BF16 full-model lifecycle once on the qualified one-B200 Volcano path, preserve complete terminal training/selector/dev/retention/holdout and backend evidence, and obtain Fresh Reviewer disposition.",
+  "precondition": {
+    "active_pipeline_observed_sha256": "1fdc818abc8458749eeccb2fa3dc6a09d2dc2ab7fd6ea2e446ee222f777999bc",
+    "active_pipeline_observed_stage": "specification",
+    "attempt_authority_absent_at_task_creation": true,
+    "manager_rollback_fresh_review": {
+      "mission_id": "4d8d5656ca45",
+      "reviewer_status": "done",
+      "reviewed_handoff_sha256": "cec33b86330a46cf6b58ea95575b74e9cb10c4b69464f5cd151fb5d7f9c0570b"
+    },
+    "manager_action_required_before_execution": null,
+    "official_namespace_absent_at_task_creation": true,
+    "qualification_is_non_consuming_only": true,
+    "required_stage_before_consumption": "specification"
+  },
+  "prohibited_actions": [
+    "create authority, launch intent, namespace, marker, or backend job unless the certified specification-stage pipeline and checksum remain exact",
+    "submit a second V7 lifecycle job or relaunch after authenticated intent",
+    "replay V5 or the one-B200 qualification",
+    "modify the accepted V7 execution tree or frozen evaluator contract",
+    "inspect or expose hidden/golden evaluator rows",
+    "resume from partial V7 state or repair a consumed attempt in place",
+    "edit research/PIPELINE_STATE.json or advance current_stage",
+    "start RTL, W4A8, chat, synthesis/PPA, FPGA, or U280 work before V7 Fresh Review"
+  ],
+  "schema_version": 1,
+  "scope": "bounded",
+  "stage": "specification",
+  "status": "READY_NOT_STARTED_BACKEND_INVENTORY_REQUIRED",
+  "task_title": "Execute exactly one authorized V7 B200 full-model lifecycle"
+}

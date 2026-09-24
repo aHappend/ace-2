@@ -1,0 +1,194 @@
+{
+  "schema_version": 1,
+  "artifact_id": "ace2-qk-gbfp8-head64-v21-order-independent-binding-terminal-coverage-replacement-batch-v4",
+  "created_at_utc": "2026-08-14T13:33:13Z",
+  "revised_at_utc": "2026-08-14T14:07:16Z",
+  "revision_binding": {
+    "superseded_content_sha256": "6696245975fd57d369b2daa05c67fb51f708e5c6856c4e108285e2ac2ea8d0ec",
+    "superseded_v2_content_sha256": "3441b4bcc7e2f2e4b0d4350af44c54a53f3249de7d106432df0adf512ff1e29c",
+    "superseded_v3_content_sha256": "2d2b41f67c414cf998ccd43d54674c2af53da658973ded4170373256cdaa7a1f",
+    "reason": "The Reviewer round was regenerated again after the v3 batch was written; bind the current observed raw round bytes and retain every earlier digest only as superseded planning provenance.",
+    "reviewer_round_observed_mtime_utc": "2026-08-14T14:05:09.358016276Z"
+  },
+  "stage": "rtl",
+  "scope": "bounded",
+  "replaces": {
+    "failed_mission_id": "bf14acc1c558",
+    "retired_action_id": "ace2:qk-gbfp8-base-v20:execute-once:a81f2916:additive-0001",
+    "retired_package_path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v20_bound_path_repair_action_root/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_EXECUTION_V20_BOUND_PATH_REPAIR_PACKAGE.json",
+    "retired_package_sha256": "e1ab2b55dd07b6cfc9f8540d42eb3fd9b387cb57aadf0704933a29fe6c05c314",
+    "retired_static_acceptance_path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v20_bound_path_repair_action_root/review/FRESH_L2_STATIC_ACCEPTANCE.json",
+    "retired_static_acceptance_sha256": "516f3007e0bedc00b98748d835b5240fb09b08b189ccc87286aef9ea1bfbe963",
+    "retired_terminal_observation_path": "build/v20-bound-path-repair-attempt-0001/sole-v20-transport-terminal-observation.json",
+    "retired_terminal_observation_sha256": "289140ba983b6808ef0a2bb56381579857ecfc50c35349e96c266ac2b0c75d33",
+    "retired_stderr_path": "build/v20-bound-path-repair-attempt-0001/sole-v20-transport-stderr.log",
+    "retired_stderr_sha256": "6470257db40ccc24d46277d34818419f11cc1a4752dba8263d6c742d321a9e4d",
+    "reviewer_handoff_path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/bf14acc1c558/round-0001.json",
+    "reviewer_handoff_sha256": "14ae87aeb20b87f9fad45bbd9dbcd4848de7df3e9191bba14baa9d935b57e55d",
+    "failure_taxonomy": "PRECONSUMPTION_PRE_OWNER_PREPARE_EXECUTION_BINDING_ORDER_MISMATCH",
+    "failure_stage": "V18_BINDING",
+    "transport_invocations_performed": 1,
+    "launcher_started": true,
+    "runtime_namespace_present": false,
+    "authority_materialized": false,
+    "credential_materialized": false,
+    "official_payload_open_count": 0,
+    "official_evaluator_invocation_count": 0,
+    "result_present": false,
+    "selected_quantization": null,
+    "retry_or_resume": false,
+    "repair_or_replacement_under_v20_identity": false,
+    "replacement_is_distinct": true
+  },
+  "evidence_backed_root_cause": {
+    "frozen_core_package_path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v17_evaluator_diagnostic_preauthority_repair_1_action_root/accepted/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.canonical.json",
+    "frozen_core_package_sha256": "3d36df763e775bc8f3fb5d106eaf842f7b74482c236b9697906bb93647c44832",
+    "observed_tensor_record_keys": [
+      "bf16_oracle_scores",
+      "realized_key_source",
+      "realized_query_source"
+    ],
+    "observed_tensor_name_iteration_order": [
+      "bf16.qk_scaled_scores",
+      "bf16.k_rope",
+      "bf16.q_rope"
+    ],
+    "v20_required_order": [
+      "bf16.k_rope",
+      "bf16.q_rope",
+      "bf16.qk_scaled_scores"
+    ],
+    "semantic_name_sets_equal": true,
+    "defective_source_path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v20_bound_path_repair_action_root/tools/qk_gbfp8_head64_granularity_sweep_execute_once_wrapper_v20.py",
+    "defective_source_line": 243,
+    "defect": "V20 prepare_execution compares a list derived from mapping insertion order with the canonical expected list instead of resolving and validating the three tensor bindings by tensor_name identity.",
+    "terminal_gap": "The V18_BINDING exception occurs after transport spawn but before run_execution, so V20 main lets it escape and no canonical first-terminal is published.",
+    "rtl_failure_supported": false
+  },
+  "frozen_benchmark_contract": {
+    "candidate_order": [
+      "G8",
+      "G4",
+      "G2",
+      "G1"
+    ],
+    "selection_policy": "FIRST_PASSING_CANDIDATE_IN_FIXED_ORDER_WITH_EVERY_HARD_GATE_REQUIRED",
+    "official_evaluator": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_static_v8_action_root/reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v8.py",
+      "sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63"
+    },
+    "result_schema": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v17_evaluator_diagnostic_preauthority_repair_1_action_root/accepted/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_RESULT_SCHEMA.canonical.json",
+      "sha256": "07f818190e7f97032a6bc3724914f00f36070f429f1cd549c67e4e7b026ae720"
+    },
+    "runtime_package": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v17_evaluator_diagnostic_preauthority_repair_1_action_root/accepted/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.canonical.json",
+      "sha256": "3d36df763e775bc8f3fb5d106eaf842f7b74482c236b9697906bb93647c44832"
+    },
+    "core_manifest": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v17_evaluator_diagnostic_preauthority_repair_1_action_root/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_EXECUTION_V17_EVALUATOR_DIAGNOSTIC_PREAUTHORITY_PACKAGE.json",
+      "sha256": "9e120e0e831ec736df45bd1b9f825217ce3368c5e22dbf3e4fc67ac537ea61f1"
+    },
+    "c02_binding_table": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v18_c02_binding_repair_static_action_root/bindings/C02_EXACT_BINDINGS_25.json",
+      "sha256": "87ab3deb25f77d89b0797d72004b4436f9541987da13a42f44a2bff7f9fa9655",
+      "record_count": 25,
+      "numerical_tensor_count": 3,
+      "canonical_tensor_names": [
+        "bf16.k_rope",
+        "bf16.q_rope",
+        "bf16.qk_scaled_scores"
+      ]
+    },
+    "official_identities": {
+      "input_tokens_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+      "lane_metadata_sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a",
+      "model_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+      "tensor_bundle_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"
+    },
+    "interpreter": {
+      "path": "/home/argustest/miniconda3/bin/python3.13",
+      "sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad",
+      "version": "3.13.5"
+    },
+    "prompt_evaluator_inputs_tool_versions_score_policy_and_semantics_frozen": true,
+    "semantic_changes_permitted": false
+  },
+  "replacement_nodes": [
+    {
+      "node_id": "v21-static-order-independent-binding-terminal-coverage",
+      "title": "Build and Fresh-L2 accept V21 binding-order and terminal-coverage repair",
+      "dependencies": [],
+      "objective": "Construct a distinct immutable V21 static exactly-once package that preserves the accepted benchmark and V20 numerical intent, resolves the frozen core tensors by identity rather than mapping order, and publishes a canonical terminal for every caught launcher preparation failure before any payload or evaluator action.",
+      "new_identity": {
+        "action_id": "ace2:qk-gbfp8-base-v21:execute-once:289140ba:additive-0001",
+        "action_root": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root",
+        "runtime_namespace": "runtime/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_289140ba",
+        "build_root": "build/v21-order-independent-binding-terminal-coverage-attempt-0001",
+        "identity_suffix_source": "first eight hexadecimal characters of the immutable V20 terminal-observation SHA-256"
+      },
+      "required_implementation": [
+        "Generate every V21 file additively. Preserve the entire V20 action root, V20 build evidence, V20 stderr, V20 terminal observation, Reviewer handoff, and all predecessor roots byte-identically.",
+        "Freeze the evaluator, official inputs, result schema, runtime package, interpreter, candidate order G8/G4/G2/G1, hard gates, score policy, 25-record C02 table, and three-tensor numerical selection exactly as recorded in this batch.",
+        "In the V21 production prepare_execution path, index frozen core tensor records by each record's tensor_name, reject duplicate names, reject missing or unexpected names, require exact set equality with the three canonical V18 selected names, and emit the canonical V18 name order independently of source mapping insertion order.",
+        "Do not sort arbitrary source keys or infer semantics from record keys. Bind each canonical tensor name to exactly one frozen core record and preserve all associated record content byte-for-byte.",
+        "Refactor only as needed so the exact production V21 prepare_execution function can be called marker-free by the static regression with the real frozen core package and integrated V18 binding table. The production launcher and the regression must call the same implementation, not parallel copies.",
+        "Run a non-consuming production-path regression over all six permutations of the same three tensor records and require identical canonical numerical_tensor_names and binding identities for every permutation. Add deterministic duplicate-name, missing-name, unexpected-name, malformed-record, and altered-V18-table negative cases.",
+        "The production-path regression may deserialize the non-secret canonical JSON package and binding table, but must not open, deserialize, inspect, or hash-read the sealed official tensor payload and must not start the official evaluator, transport, launcher subprocess, or target process.",
+        "Wrap parse, schema loading, read-only preflight, and prepare_execution in the V21 launcher so every caught pre-owner preparation exception retires the V21 action through the exactly-once engine with a schema-valid canonical primary or fallback terminal, zero authority, zero credential, zero payload opens, and zero evaluator starts.",
+        "Preserve the specific preparation failure stage in wrapper_diagnostic.failure_stage, including V18_BINDING, while retaining the terminal schema's preconsumption status and reason-code semantics.",
+        "Add synthetic tests for canonical terminal publication from argument, schema, core binding, V18 binding, module import, and prepare_execution failures, including primary-terminal-write failure followed by fallback publication and duplicate invocation exclusion.",
+        "Retain atomic owner claim, cardinality-one authority and credential, one payload-open boundary, one evaluator invocation, owner-only result/terminal publication, loser exclusion, and postconsumption orphan semantics for the later authorized execution path.",
+        "Add AST or equivalent source checks proving no V21 production selected-tensor validation uses mapping iteration order or ordered list equality before identity resolution, and proving every caught preparation path reaches canonical retirement.",
+        "Obtain Fresh-L2 static acceptance with decision ACCEPT_STATIC_PACKAGE and claim boundary STATIC_ONLY_NO_EXECUTION_AUTHORITY after an acceptance-aware inert rerun. Static acceptance must not create execution authority."
+      ],
+      "acceptance_check": "Fresh-L2 accepts the immutable V21 static package after independently reproducing the exact production prepare_execution path against the frozen core package, all six same-set tensor-record permutations, duplicate/missing/unexpected negative cases, canonical terminal publication for injected preparation failures, the exact 25-record/3-tensor numerical binding, zero official payload opens, zero evaluator or target starts, absent V21 runtime state after inert checks, and byte-identical V20/predecessor preservation.",
+      "authority": {
+        "execution_authority_granted": false,
+        "authority_or_credential_creation_permitted": false,
+        "transport_or_launcher_invocation_permitted": false,
+        "planner_consuming_action_permitted": false
+      }
+    },
+    {
+      "node_id": "v21-execute-once",
+      "title": "Execute Fresh-L2 accepted V21 once",
+      "dependencies": [
+        "v21-static-order-independent-binding-terminal-coverage"
+      ],
+      "objective": "After separate fresh operator authority, invoke the exact Fresh-L2 accepted V21 transport once, preserve its immutable schema-valid result or canonical structured terminal, and obtain Fresh Reviewer classification without retry, replay, fallback, or a second credential.",
+      "required_preconditions": [
+        "The V21 static package and Fresh-L2 acceptance hashes are final and recorded by the completed dependency.",
+        "The declared V21 runtime namespace is absent and the acceptance-aware non-consuming production-path regression passes before any authority or credential materialization.",
+        "A distinct one-use operator authority explicitly names the V21 action ID, accepted package hash, acceptance hash, interpreter, argv, cwd, environment, and runtime namespace.",
+        "No V20 path, action, authority, credential, observation, terminal, runtime file, or evidence file is reused or modified."
+      ],
+      "execution_contract": {
+        "transport_invocations_maximum": 1,
+        "owners_maximum": 1,
+        "authority_consumptions_maximum": 1,
+        "credential_consumptions_maximum": 1,
+        "official_payload_opens_maximum": 1,
+        "official_evaluator_invocations_maximum": 1,
+        "official_target_process_starts_maximum": 1,
+        "retry_replay_resume_repair_replacement_or_fallback_permitted": false
+      },
+      "acceptance_check": "Fresh Reviewer verifies that the sole V21 invocation produced a schema-valid G8/G4/G2/G1 Base result bound to the exact accepted V21 package and all frozen benchmark identities, with a selected Base quantization and no replay or fallback. A canonical structured terminal failure is preserved honestly but does not satisfy this node and must return to replan.",
+      "authority": {
+        "status": "NOT_GRANTED_BY_THIS_BATCH",
+        "planner_may_consume": false,
+        "engineer_execution_requires_fresh_operator_authority": true
+      }
+    }
+  ],
+  "prohibited_actions": [
+    "retry, replay, resume, repair, replace in place, mutate, or reinterpret the retired V20 action, package, evidence, or sole invocation",
+    "create a V21 action root, build root, runtime namespace, owner claim, authority, credential, ledger, result, terminal, attempt marker, or execution marker in this Planner cycle",
+    "invoke any V21 transport, launcher, evaluator, model, official payload, or G8/G4/G2/G1 sweep before the execution node receives fresh authority",
+    "alter the evaluator, official inputs, candidate order, hard gates, score policy, result schema, C02 record set, or numerical tensor selection",
+    "inspect hidden harnesses, golden outputs, or sealed tensor content during static repair or regression",
+    "modify RTL, verification references, constraints, certified PPA evidence, research/PIPELINE_STATE.json, current_stage, XRT, FPGA, HBM2, or U280 state",
+    "claim a Base result, RTL correctness, verification success, synthesis/PPA, arbitrary-text demo completion, hardware emulation, or board deployment from static package checks"
+  ],
+  "claim_boundary": "This replacement batch retires the failed V20 node and defines one marker-free V21 static repair node followed by one separately authorized future execution node. It creates no V21 package, acceptance, action root, build root, runtime state, authority, credential, payload access, evaluator execution, Base result, RTL modification, stage transition, verification result, synthesis/PPA result, chat-demo result, FPGA result, or U280 deployment result."
+}

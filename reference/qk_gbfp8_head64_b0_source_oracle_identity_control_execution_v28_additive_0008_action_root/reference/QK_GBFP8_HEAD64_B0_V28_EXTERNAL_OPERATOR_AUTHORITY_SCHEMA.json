@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_B0_V28_EXTERNAL_OPERATOR_AUTHORITY_SCHEMA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_kind", "actor", "decision", "affirmative", "fresh", "issued_at_utc", "not_after_utc", "provenance_event_sha256", "manager_admission_file_sha256", "reservation_nonce_sha256", "future_execution_action_id", "source_static_acceptance", "execution_package_file_sha256", "execution_package_content_sha256", "execution_package_acceptance_file_sha256", "execution_package_acceptance_self_sha256", "execution_binding", "issuer_provenance", "capsule_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_kind": {"const": "qk_gbfp8_head64_b0_v28_external_operator_authority"},
+    "actor": {"const": "operator"},
+    "decision": {"const": "AUTHORIZE_B0_ONCE"},
+    "affirmative": {"const": true},
+    "fresh": {"const": true},
+    "issued_at_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "not_after_utc": {"type": "string", "pattern": "^[0-9]{4}-[0-9]{2}-[0-9]{2}T[0-9]{2}:[0-9]{2}:[0-9]{2}Z$"},
+    "provenance_event_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "manager_admission_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "reservation_nonce_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "future_execution_action_id": {"const": "ace2:qk-gbfp8-base-v28:b0-source-oracle-identity-control-execute-once:38571d38:additive-0008"},
+    "source_static_acceptance": {"type": "object"},
+    "execution_package_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "execution_package_content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "execution_package_acceptance_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "execution_package_acceptance_self_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "execution_binding": {"type": "object"},
+    "issuer_provenance": {"$ref": "#/$defs/issuerProvenance"},
+    "capsule_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "issuerProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authoritative_event_source", "event_log_device", "event_log_inode", "event_log_snapshot_byte_count", "event_log_snapshot_sha256", "event_line_number", "event_line_sha256", "intent_id", "authorization_text_sha256", "provenance_identity_sha256"],
+      "properties": {
+        "authoritative_event_source": {"const": "ARGUS_PROJECT_EVENTS_JSONL"},
+        "event_log_device": {"type": "integer", "minimum": 0},
+        "event_log_inode": {"type": "integer", "minimum": 1},
+        "event_log_snapshot_byte_count": {"type": "integer", "minimum": 1},
+        "event_log_snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "event_line_number": {"type": "integer", "minimum": 1},
+        "event_line_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "intent_id": {"type": "string", "minLength": 1},
+        "authorization_text_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "provenance_identity_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

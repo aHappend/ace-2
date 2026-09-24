@@ -1,0 +1,87 @@
+{
+  "calibration": {
+    "activation_quantization": "static signed A8 from exact chat-formatted BF16 calibration absmax divided by 127",
+    "base_scale_artifact_reuse_allowed": false,
+    "calibration_id": "qwen2.5-0.5b-instruct-w4a8-calibration-v1",
+    "chat_messages": "one fixed public system message plus four fixed public user instructions",
+    "image_id": "build-qwen2.5-0.5b-instruct-w4a8-image-v1",
+    "weight_quantization": "symmetric signed W4 per output channel from exact Instruct BF16 weights, absmax divided by 7"
+  },
+  "contract_id": "qwen2.5-0.5b-instruct-option-b-source-v1",
+  "generation_policy": {
+    "add_generation_prompt": true,
+    "chat_template": true,
+    "greedy_argmax": true,
+    "max_new_tokens_range": [
+      1,
+      32
+    ],
+    "sampling": false,
+    "termination_token_ids": [
+      151643,
+      151645
+    ]
+  },
+  "manager_decision": {
+    "base_model_substitution_allowed": false,
+    "demo_retarget_before_identity_freeze_allowed": false,
+    "selected": "option_b_genuine_instruct_chat"
+  },
+  "response_gate": {
+    "identity": "qwen-instruct-option-b-response-gate-v1",
+    "semantic_challenge": "Reviewer-selected non-frozen exact nonce instruction",
+    "success": "NFC-and-strip normalized decoded text equals the nonce, contains at least two non-terminating generated tokens, and contains no control, surrogate, or replacement character"
+  },
+  "schema_version": 1,
+  "source_model": {
+    "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+    "files": {
+      "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+      "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+      "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+      "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+    },
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_audit": {
+      "path": "build/ace2_chat_diagnostics/qwen2.5-0.5b-instruct-local-audit-20260806.json",
+      "sha256": "5ea75b61105ff5ce30803c5c7b33e2bde36acb0511ffddc2da55303909cf657d",
+      "status": "PASS_LOCAL_INSTRUCT_ARTIFACT_AVAILABLE"
+    }
+  },
+  "status": "FROZEN_OPTION_B_SOURCE_CONTRACT",
+  "tools": {
+    "accepted_fixed_point_semantics": {
+      "path": "tools/ace2_full_model_fixed_point.py",
+      "sha256": "daec4fdfda7f04be70bb99bf7e2c15dad2d42438cc7491721fc5447cd92f909f"
+    },
+    "accepted_image_geometry_builder": {
+      "path": "tools/build_full_qwen_image_v2.py",
+      "sha256": "5dee7877b665d399ce4d604b142b77ee0ea669ad6c01d266c923c53f4e425810"
+    },
+    "builder": {
+      "path": "tools/build_qwen_instruct_w4a8_image.py",
+      "sha256": "9c073adb2d653ab9236b7ee137a9f2ad9bbfa5fee83905e25806cbb3969f6a5c"
+    },
+    "calibrator": {
+      "path": "tools/calibrate_qwen_instruct_w4a8.py",
+      "sha256": "9531057c9761165267ac4296810dd612c08122d486cb89e0ed4fdf5ffb75136b"
+    },
+    "freeze_tool": {
+      "path": "tools/freeze_qwen_instruct_option_b_identities.py",
+      "sha256": "97d1a2bfd605b7dbc627f6d81a70a955f61554ea1cd99cfdcbd11251e8a0114b"
+    },
+    "oracle": {
+      "path": "tools/qwen_instruct_w4a8_oracle.py",
+      "sha256": "d9c5aaf0f4f87d85d7a29bdb94b69d82f50033acb5a90da0a39e9ffa2c13b591"
+    },
+    "response_gate": {
+      "path": "tools/qwen_instruct_response_gate.py",
+      "sha256": "5906f85f461b379249aee23efb00c5bc5d677d53dafbe84af7e8a9fe54398226"
+    },
+    "shared_identity": {
+      "path": "tools/qwen_instruct_option_b.py",
+      "sha256": "ebe344dadeff417fe52a181718273506cab36a0f5692b1c82bcc98ab3670b44c"
+    }
+  }
+}

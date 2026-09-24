@@ -109,8 +109,12 @@ WEIGHT_LAYOUT = {
     "matrix_order": "output_channel_major_row_major",
     "signed_encoding": "twos_complement",
     "packing": "even_input_low_nibble_odd_input_high_nibble",
-    "weight_scale_granularity": "per_output_channel",
-    "projection_record_bytes": 16,
+    "input_group_size": 32,
+    "packed_int4_values_per_byte": 2,
+    "packed_group_bytes": 16,
+    "weight_scale_granularity": "per_output_channel_per_input_group",
+    "scale_record_format": "scale32_little_endian_u32",
+    "scale_record_bytes": 4,
     "embedding_storage": "bf16",
     "lm_head_representation": "separate_packed_w4_copy",
 }
@@ -163,6 +167,7 @@ DERIVED_FIELDS = (
     "packed_linear_weight_elements",
     "packed_w4_bytes",
     "projection_output_rows",
+    "projection_scale_record_count",
     "projection_metadata_bytes",
     "rmsnorm_metadata_bytes",
     "operator_aux_metadata_bytes",
@@ -298,9 +303,13 @@ def derive(config: QwenConfig) -> dict[str, int]:
     projection_rows = (
         config.num_hidden_layers * projection_rows_per_layer + config.vocab_size
     )
-    packed_w4_bytes = (packed_weights + 1) // 2
+    group_size = WEIGHT_LAYOUT["input_group_size"]
+    packed_w4_bytes = (
+        packed_weights + WEIGHT_LAYOUT["packed_int4_values_per_byte"] - 1
+    ) // WEIGHT_LAYOUT["packed_int4_values_per_byte"]
+    projection_scale_records = packed_weights // group_size
     projection_metadata_bytes = (
-        projection_rows * WEIGHT_LAYOUT["projection_record_bytes"]
+        projection_scale_records * WEIGHT_LAYOUT["scale_record_bytes"]
     )
     rmsnorm_metadata_bytes = (2 * config.num_hidden_layers + 1) * (
         config.hidden_size * 2 + 16
@@ -345,6 +354,7 @@ def derive(config: QwenConfig) -> dict[str, int]:
         "packed_linear_weight_elements": packed_weights,
         "packed_w4_bytes": packed_w4_bytes,
         "projection_output_rows": projection_rows,
+        "projection_scale_record_count": projection_scale_records,
         "projection_metadata_bytes": projection_metadata_bytes,
         "rmsnorm_metadata_bytes": rmsnorm_metadata_bytes,
         "operator_aux_metadata_bytes": operator_aux_metadata_bytes,
@@ -393,9 +403,9 @@ def build_descriptor(config: QwenConfig) -> dict[str, Any]:
         "derived": derive(config),
         "estimate_scope": {
             "weight": (
-                "packed W4 transformer and LM-head matrices, 16-byte per-output "
-                "projection records, RMSNorm/operator metadata, and one BF16 "
-                "input embedding table"
+                "packed W4 transformer and LM-head matrices, one little-endian "
+                "4-byte Scale32 record per output channel and 32-input group, "
+                "RMSNorm/operator metadata, and one BF16 input embedding table"
             ),
             "kv_cache": (
                 "all layers at max_position_embeddings with signed-int8 K/V "

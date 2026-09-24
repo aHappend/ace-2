@@ -1,0 +1,1097 @@
+{
+  "active_architecture_contract": {
+    "architecture_accepted": true,
+    "architecture_checklist": {
+      "architecture.area-reuse-plan": true,
+      "architecture.compute-memory-model": true,
+      "architecture.interface-control": true,
+      "architecture.leverage-risk": true
+    },
+    "authority": "manager_exercising_live_operator_guidance",
+    "baseline_or_candidate_execution_authorized": false,
+    "candidate_capability_accepted": false,
+    "candidate_or_model_execution_count": 0,
+    "certified_harness_chain": {
+      "candidate_or_model_execution_count": 0,
+      "decision": "PASS",
+      "independent_l2_review": {
+        "bytes": 2032,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+        "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+      },
+      "manager_recovery_seal": {
+        "bytes": 8842,
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "manifest": {
+        "bytes": 2034,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+        "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+      },
+      "protected_artifact_count": 264,
+      "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+      "public_certification": {
+        "bytes": 1855,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+        "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+      },
+      "report": {
+        "bytes": 4216,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+        "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+      },
+      "status": "independently_certified_pass"
+    },
+    "contract_id": "shared_token_group_dynamic_scale32_v1",
+    "current_stage": "architecture",
+    "downstream_runs": {
+      "benchmark": "unrun",
+      "paired": "unrun",
+      "physical": "unrun",
+      "ppa": "unrun",
+      "prototype": "unrun",
+      "shell": "unrun",
+      "signoff": "unrun"
+    },
+    "first_unsupported_layer_operator": "layer_0.rope_q",
+    "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+    "historical_ppa_frontier": {
+      "candidate_ppa_run": false,
+      "cells": 62199,
+      "non_sram_area_mm2": 0.6108746272,
+      "remaining_area_reserve_mm2": 1.3891253728,
+      "setup_slack_ns_at_100mhz": 0.1502,
+      "status": "accepted_historical_frontier_not_successor_ppa"
+    },
+    "id": "shared_token_group_dynamic_scale32_v1",
+    "implementation_authorized": false,
+    "independent_architecture_review": {
+      "bytes": 7462,
+      "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+      "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+    },
+    "manager_freeze": {
+      "bytes": 8318,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+      "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+    },
+    "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+    "mode": "ADVANCE",
+    "next_action_queue": [
+      {
+        "allowed_work": [
+          "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+          "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+          "independent_environment_review"
+        ],
+        "candidate_or_model_execution_authorized": false,
+        "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+        "implementation_authorized": false,
+        "prohibited_work": [
+          "rtl_implementation",
+          "rtl_simulation_or_formal_for_successor",
+          "baseline_or_candidate_quality_execution",
+          "shell_regression",
+          "canonical_ppa",
+          "prototype_benchmark_or_signoff"
+        ],
+        "scope": "environment_compatibility_rebind_and_independent_review_only",
+        "stage": "environment",
+        "stage_closing": true,
+        "status": "queued_pending_manager_stage_advance"
+      }
+    ],
+    "no_execution_claim": true,
+    "ordered_supported_layer_operator_prefix": [
+      "layer_0.input_rmsnorm",
+      "layer_0.q_proj",
+      "layer_0.k_proj",
+      "layer_0.v_proj"
+    ],
+    "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+    "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+    "proposal": {
+      "bytes": 17146,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+      "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+    },
+    "proposal_companion": {
+      "bytes": 80,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+      "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+    },
+    "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+    "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+    "same_contract_rtl_authorized": false,
+    "sealed_predecessor": {
+      "baseline_or_candidate_execution_authorized": false,
+      "baseline_reproducibility": {
+        "gate": "before_any_candidate_execution",
+        "required": true,
+        "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+      },
+      "candidate_capability_accepted": false,
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "excluded_residual_families": [
+        "q_k_residual",
+        "v_residual",
+        "down_projection_residual_fusion_parameter_variant"
+      ],
+      "id": "cross_layer_quantization_error_carry_final_output_v1",
+      "mechanism": {
+        "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+        "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+        "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+      },
+      "predecessor": "shared_down_projection_residual_fusion_v1",
+      "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+      "same_contract_rtl_authorized": false,
+      "seal_evidence": {
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "sealed": true,
+      "state": "sealed_terminal_baseline_protocol_no_go",
+      "successor_freeze_authorized": false
+    },
+    "stage_closing": false,
+    "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "successor_freeze_authorized": false,
+    "successor_frozen": true,
+    "targets": {
+      "abstract_streaming_memory_boundary_bits": 128,
+      "frequency_floor_mhz": 100.0,
+      "non_sram_area_cap_mm2": 2.0
+    }
+  },
+  "advance_continue_delta_area_threshold_percent": 3.0,
+  "area_cap_non_sram_mm2": 2.0,
+  "authority": "operator",
+  "baseline_harness_hardening_gate": {
+    "candidate_entrypoint_permitted": false,
+    "candidate_independent": true,
+    "candidate_or_model_execution_permitted": false,
+    "certification": {
+      "binder": {
+        "bytes": 29673,
+        "path": "tools/bind_synthetic_baseline_harness_certification.py",
+        "sha256": "2d9f3e379d82a25bb813ec0323ef5c4efa0dcd9f6efdcdf7bfd339972886d170"
+      },
+      "candidate_or_model_execution_count": 0,
+      "certified_at_utc": "2026-08-02T05:48:21Z",
+      "decision": "PASS",
+      "evidence_id": "candidate_independent_synthetic_baseline_harness_v1",
+      "failed_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+      "failed_contract_status": "sealed_terminal_baseline_protocol_no_go",
+      "implementation_authorized": false,
+      "independent_acceptance_check_count": 12,
+      "independent_l2_review": {
+        "bytes": 2032,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+        "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+      },
+      "manager_recovery_seal": {
+        "bytes": 8842,
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "manifest": {
+        "bytes": 2034,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+        "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+      },
+      "protected_artifact_count": 264,
+      "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+      "report": {
+        "bytes": 4216,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+        "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+      },
+      "required_manager_action": "freeze_structurally_distinct_successor_or_record_architecture_no_go",
+      "required_properties": [
+        "atomic_artifact_and_companion_hash_commit",
+        "exact_provenance_binding",
+        "durable_exactly_one_reservation_and_run_ledger",
+        "stage_authorization_before_execution",
+        "candidate_entrypoint_interlock",
+        "crash_recovery",
+        "missing_or_mismatched_artifact_fail_closed"
+      ],
+      "same_contract_repair_or_execution_permitted": false,
+      "schema_version": 1,
+      "scope": "candidate-independent synthetic/dry-fixture harness only",
+      "status": "independently_certified_pass",
+      "successor_freeze_authority": "Manager",
+      "successor_freeze_precondition_satisfied": true,
+      "successor_frozen": false
+    },
+    "dry_fixture_only": true,
+    "independent_review_required": true,
+    "independent_review_satisfied": true,
+    "manager_recovery_seal": {
+      "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+      "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+    },
+    "required_properties": [
+      "atomic_artifact_and_companion_hash_commit",
+      "exact_provenance_binding",
+      "durable_exactly_one_reservation_and_run_ledger",
+      "stage_authorization_before_execution",
+      "candidate_entrypoint_interlock",
+      "crash_recovery",
+      "missing_or_mismatched_artifact_fail_closed"
+    ],
+    "status": "independently_certified_pass",
+    "successor_freeze_authority": "Manager",
+    "successor_freeze_permitted": false,
+    "successor_freeze_precondition_satisfied": true,
+    "successor_frozen": true
+  },
+  "bootstrap_once": [
+    "definition",
+    "architecture",
+    "environment"
+  ],
+  "compression_continue_threshold_percent": 3.0,
+  "decision_rules": {
+    "advance_delta_area_gte_3_percent": "pause_for_global_reuse_folding_review_and_compression",
+    "advance_delta_area_lt_3_percent": "continue_advancing",
+    "area_over_cap": "enter_GLOBAL_COMPRESSION_across_the_whole_design",
+    "compression_improvement_gte_3_percent_with_correctness_and_fmax": "continue_same_global_compression_direction",
+    "compression_improvement_lt_3_percent_or_correctness_or_fmax_failure": "stop_direction_and_resume_advance_or_choose_structurally_different_global_mechanism"
+  },
+  "environment_compatibility_queue": [
+    {
+      "allowed_work": [
+        "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+        "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+        "independent_environment_review"
+      ],
+      "candidate_or_model_execution_authorized": false,
+      "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+      "implementation_authorized": false,
+      "prohibited_work": [
+        "rtl_implementation",
+        "rtl_simulation_or_formal_for_successor",
+        "baseline_or_candidate_quality_execution",
+        "shell_regression",
+        "canonical_ppa",
+        "prototype_benchmark_or_signoff"
+      ],
+      "scope": "environment_compatibility_rebind_and_independent_review_only",
+      "stage": "environment",
+      "stage_closing": true,
+      "status": "queued_pending_manager_stage_advance"
+    }
+  ],
+  "fast_loop": [
+    "rtl_implementation",
+    "full_regression",
+    "fresh_canonical_sky130_ppa",
+    "evidence_binding"
+  ],
+  "framework_self_maintenance": {
+    "allowed_only_when_concrete_defect_blocks_execution": true,
+    "bounded_repair_then_return_to_chip_progress": true
+  },
+  "frequency_floor_mhz": 100.0,
+  "frontier_required_fields": [
+    "ordered_supported_layer_operator_prefix",
+    "first_unsupported_layer_operator",
+    "mode",
+    "decision",
+    "rtl_hash",
+    "constraint_hash",
+    "cells",
+    "non_sram_area_mm2",
+    "fmax_mhz",
+    "cycle_or_tokens_per_second_impact",
+    "delta_area_percent",
+    "compression_improvement_percent",
+    "remaining_area_reserve_mm2",
+    "remaining_frequency_reserve_mhz"
+  ],
+  "global_reuse_scope": [
+    "mac_lanes",
+    "accumulators",
+    "requantization",
+    "vector_sfu",
+    "divider",
+    "round_saturate",
+    "dma",
+    "buffers",
+    "mutually_exclusive_state",
+    "control"
+  ],
+  "historical_ppa_frontier": {
+    "candidate_compression_improvement_percent": null,
+    "candidate_constraint_hash": null,
+    "candidate_cycle_or_tokens_per_second_impact": null,
+    "candidate_delta_area_percent": null,
+    "candidate_rtl_hash": null,
+    "cells": 62199,
+    "non_sram_area_mm2": 0.6108746272,
+    "remaining_area_reserve_mm2": 1.3891253728,
+    "setup_slack_ns_at_100mhz": 0.1502,
+    "status": "accepted_historical_frontier_not_successor_ppa"
+  },
+  "layer_replication_policy": {
+    "batch_same_family_operators_under_one_contract": true,
+    "new_rtl_per_transformer_layer": false,
+    "shared_hardware_across_24_layers": true
+  },
+  "manager_recommendation": "advance_to_environment_for_compatibility_rebind_review_only",
+  "mode": "ADVANCE",
+  "next_successor": {
+    "architecture_checklist_closed": true,
+    "baseline_harness_precondition_satisfied": true,
+    "contract_id": "shared_token_group_dynamic_scale32_v1",
+    "implementation_authorized": false,
+    "manager_freeze": {
+      "bytes": 8318,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+      "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+    },
+    "next_action_queue": [
+      {
+        "allowed_work": [
+          "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+          "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+          "independent_environment_review"
+        ],
+        "candidate_or_model_execution_authorized": false,
+        "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+        "implementation_authorized": false,
+        "prohibited_work": [
+          "rtl_implementation",
+          "rtl_simulation_or_formal_for_successor",
+          "baseline_or_candidate_quality_execution",
+          "shell_regression",
+          "canonical_ppa",
+          "prototype_benchmark_or_signoff"
+        ],
+        "scope": "environment_compatibility_rebind_and_independent_review_only",
+        "stage": "environment",
+        "stage_closing": true,
+        "status": "queued_pending_manager_stage_advance"
+      }
+    ],
+    "planner_proposal": {
+      "architecture_checklist_ready_for_manager_review": {
+        "architecture.area-reuse-plan": true,
+        "architecture.compute-memory-model": true,
+        "architecture.interface-control": true,
+        "architecture.leverage-risk": true
+      },
+      "area_cap_non_sram_mm2": 2.0,
+      "baseline_harness_certification": {
+        "candidate_or_model_execution_count": 0,
+        "claim_boundary": "Synthetic harness certification only; no baseline, candidate, model, RTL, verification, PPA, prototype, benchmark, signoff, tapeout, or silicon execution claim.",
+        "decision": "PASS",
+        "exact_evidence": {
+          "independent_l2_review": {
+            "bytes": 2032,
+            "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+            "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+          },
+          "manager_recovery_seal": {
+            "bytes": 8842,
+            "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+            "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+          },
+          "manifest": {
+            "bytes": 2034,
+            "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+            "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+          },
+          "report": {
+            "bytes": 4216,
+            "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+            "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+          }
+        },
+        "implementation_authorized": false,
+        "public_certification": {
+          "bytes": 1855,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+          "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+        },
+        "required_properties_in_execution_order": [
+          "stage_authorization_before_execution",
+          "durable_exactly_one_reservation_and_run_ledger",
+          "atomic_artifact_and_companion_hash_commit",
+          "exact_provenance_binding",
+          "candidate_entrypoint_interlock",
+          "crash_recovery",
+          "missing_or_mismatched_artifact_fail_closed"
+        ],
+        "status": "independently_certified_pass"
+      },
+      "claim_boundary": "Planner-authored architecture proposal only. It is not a Manager freeze, implementation authorization, independent review, RTL, verification, PPA, prototype, benchmark, signoff, tapeout, or silicon evidence.",
+      "contract_id": "shared_token_group_dynamic_scale32_v1",
+      "evidence": {
+        "bytes": 17146,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+        "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+      },
+      "execution_gates": {
+        "downstream_release_stages": "prototype_full_benchmark_and_signoff_reserved_for_complete_workload_or_model_system_release_milestone",
+        "no_execution_claim": true,
+        "ppa_stage": {
+          "fresh_canonical_sky130_ppa": "prohibited_until_independent_candidate_quality_GO_full_shell_acceptance_and_separate_Manager_transition_to_ppa"
+        },
+        "rtl_stage": {
+          "allowed_checks": [
+            "reference_and_vector_generation",
+            "lint",
+            "elaboration",
+            "bit_exact_simulation",
+            "interface_checks",
+            "minimal_formal"
+          ],
+          "allowed_only_after_manager_freeze_and_stage_advance": true,
+          "prohibited": [
+            "disabled_mode_baseline_execution",
+            "candidate_quality_execution",
+            "full_shell_regression",
+            "canonical_sky130_ppa"
+          ],
+          "stage_closing": false
+        },
+        "verification_stage": {
+          "allowed_only_after_separate_manager_transition": true,
+          "full_shell_regression": "prohibited_until_independent_candidate_quality_GO_and_fresh_separate_Manager_authorization",
+          "tasks_in_strict_order": [
+            {
+              "candidate_entrypoint_interlocked": true,
+              "execution_limit": 1,
+              "independent_review_required": true,
+              "name": "exactly_one_disabled_mode_baseline_via_certified_harness",
+              "task": 1
+            },
+            {
+              "entry_condition": "independent_task_1_baseline_PASS",
+              "execution_limit": 1,
+              "independent_review_required": true,
+              "name": "exactly_one_candidate_quality_run",
+              "task": 2
+            }
+          ]
+        }
+      },
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "frequency_floor_mhz": 100.0,
+      "implementation_authorized": false,
+      "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+      "mode": "ADVANCE",
+      "new_ppa_run": false,
+      "no_execution_claim": true,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ],
+      "required_manager_action": "hold_freeze_until_fresh_independent_architecture_review_then_freeze_this_successor_or_record_architecture_no_go",
+      "stage_closing": false,
+      "status": "planner_architecture_corrected_ready_for_fresh_independent_review",
+      "successor_frozen": false
+    },
+    "required_distinction": "structurally_distinct_from_cross_layer_quantization_error_carry_final_output_v1",
+    "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+    "selection_authority": "Manager",
+    "status": "architecture_frozen",
+    "successor_frozen": true,
+    "successor_selection_authorized": false
+  },
+  "non_milestone_operator_uplift": {
+    "forbidden_separate_closeouts": [
+      "verification_stage_closeout",
+      "ppa_stage_closeout"
+    ],
+    "manager_stage_advance_out_of_rtl": "not_requested_for_intermediate_operator_uplift",
+    "required_contents": [
+      "rtl_implementation",
+      "full_regression",
+      "fresh_canonical_sky130_ppa",
+      "evidence_binding"
+    ],
+    "single_bounded_rtl_task": true,
+    "stage_closing": false
+  },
+  "planner_architecture_proposal": {
+    "architecture_checklist": {
+      "architecture.area-reuse-plan": true,
+      "architecture.compute-memory-model": true,
+      "architecture.interface-control": true,
+      "architecture.leverage-risk": true
+    },
+    "authority": {
+      "author": "L4_Planner",
+      "implementation_authorized": false,
+      "manager_owned_stage_unchanged": "architecture",
+      "operator_targets_unchanged": {
+        "frequency_floor_mhz": 100.0,
+        "memory_boundary_bits": 128,
+        "non_sram_area_cap_mm2": 2.0,
+        "quality_limit_perplexity_ratio": 1.05
+      },
+      "required_manager_action": "hold_freeze_until_fresh_independent_architecture_review_then_freeze_this_successor_or_record_architecture_no_go",
+      "stage_closing": false,
+      "successor_frozen": false
+    },
+    "baseline_harness_certification": {
+      "candidate_or_model_execution_count": 0,
+      "claim_boundary": "Synthetic harness certification only; no baseline, candidate, model, RTL, verification, PPA, prototype, benchmark, signoff, tapeout, or silicon execution claim.",
+      "decision": "PASS",
+      "exact_evidence": {
+        "independent_l2_review": {
+          "bytes": 2032,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+          "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+        },
+        "manager_recovery_seal": {
+          "bytes": 8842,
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "manifest": {
+          "bytes": 2034,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+          "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+        },
+        "report": {
+          "bytes": 4216,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+          "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+        }
+      },
+      "implementation_authorized": false,
+      "public_certification": {
+        "bytes": 1855,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+        "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+      },
+      "required_properties_in_execution_order": [
+        "stage_authorization_before_execution",
+        "durable_exactly_one_reservation_and_run_ledger",
+        "atomic_artifact_and_companion_hash_commit",
+        "exact_provenance_binding",
+        "candidate_entrypoint_interlock",
+        "crash_recovery",
+        "missing_or_mismatched_artifact_fail_closed"
+      ],
+      "status": "independently_certified_pass"
+    },
+    "claim_boundary": "Planner-authored architecture proposal only. It is not a Manager freeze, implementation authorization, independent review, RTL, verification, PPA, prototype, benchmark, signoff, tapeout, or silicon evidence.",
+    "compute_memory_model": {
+      "bandwidth_sweep": [
+        {
+          "bytes_per_cycle": 1,
+          "dma_cycles_with_64_cycle_setup_hook": 7454784,
+          "nonoverlapped_layer_cycles": 11182144,
+          "roofline_bottleneck": "memory",
+          "weight_payload_cycles": 7454720
+        },
+        {
+          "bytes_per_cycle": 2,
+          "dma_cycles_with_64_cycle_setup_hook": 3727424,
+          "nonoverlapped_layer_cycles": 7454784,
+          "roofline_bottleneck": "compute_memory_balance",
+          "weight_payload_cycles": 3727360
+        },
+        {
+          "bytes_per_cycle": 4,
+          "dma_cycles_with_64_cycle_setup_hook": 1863744,
+          "nonoverlapped_layer_cycles": 5591104,
+          "roofline_bottleneck": "compute",
+          "weight_payload_cycles": 1863680
+        },
+        {
+          "bytes_per_cycle": 8,
+          "dma_cycles_with_64_cycle_setup_hook": 931904,
+          "nonoverlapped_layer_cycles": 4659264,
+          "roofline_bottleneck": "compute",
+          "weight_payload_cycles": 931840
+        },
+        {
+          "bytes_per_cycle": 16,
+          "dma_cycles_with_64_cycle_setup_hook": 465984,
+          "nonoverlapped_layer_cycles": 4193344,
+          "roofline_bottleneck": "compute",
+          "weight_payload_cycles": 465920
+        }
+      ],
+      "claim_boundary": "architecture equations and zero-backpressure planning hooks only; no candidate RTL latency, tokens_per_second, PPA, or power measurement",
+      "compute_memory_balance_bytes_per_cycle": 2.0,
+      "dynamic_finalize_fraction_of_projection_cycles_percent": 0.041772192651098904,
+      "dynamic_group_finalize_cycles_planning_hook": 1557,
+      "dynamic_groups_per_layer": 181,
+      "packed_w4_weight_bytes_per_layer": 7454720,
+      "projection_compute_cycles_per_layer_token": 3727360,
+      "projection_lanes": 4,
+      "projection_macs": {
+        "k_proj": 114688,
+        "mlp_down_proj": 4358144,
+        "mlp_gate_proj": 4358144,
+        "mlp_up_proj": 4358144,
+        "o_proj": 802816,
+        "q_proj": 802816,
+        "v_proj": 114688
+      },
+      "projection_macs_per_layer_token": 14909440,
+      "representative_shape": "one_batch1_decoder_layer_token_excluding_attention_context_length_dependent_dot_products",
+      "shared_aligner_utilization_percent": 3.125,
+      "tagged_partial_events_per_layer": 116480,
+      "weight_only_arithmetic_intensity_macs_per_byte": 2.0
+    },
+    "contract_id": "shared_token_group_dynamic_scale32_v1",
+    "execution_gates": {
+      "downstream_release_stages": "prototype_full_benchmark_and_signoff_reserved_for_complete_workload_or_model_system_release_milestone",
+      "no_execution_claim": true,
+      "ppa_stage": {
+        "fresh_canonical_sky130_ppa": "prohibited_until_independent_candidate_quality_GO_full_shell_acceptance_and_separate_Manager_transition_to_ppa"
+      },
+      "rtl_stage": {
+        "allowed_checks": [
+          "reference_and_vector_generation",
+          "lint",
+          "elaboration",
+          "bit_exact_simulation",
+          "interface_checks",
+          "minimal_formal"
+        ],
+        "allowed_only_after_manager_freeze_and_stage_advance": true,
+        "prohibited": [
+          "disabled_mode_baseline_execution",
+          "candidate_quality_execution",
+          "full_shell_regression",
+          "canonical_sky130_ppa"
+        ],
+        "stage_closing": false
+      },
+      "verification_stage": {
+        "allowed_only_after_separate_manager_transition": true,
+        "full_shell_regression": "prohibited_until_independent_candidate_quality_GO_and_fresh_separate_Manager_authorization",
+        "tasks_in_strict_order": [
+          {
+            "candidate_entrypoint_interlocked": true,
+            "execution_limit": 1,
+            "independent_review_required": true,
+            "name": "exactly_one_disabled_mode_baseline_via_certified_harness",
+            "task": 1
+          },
+          {
+            "entry_condition": "independent_task_1_baseline_PASS",
+            "execution_limit": 1,
+            "independent_review_required": true,
+            "name": "exactly_one_candidate_quality_run",
+            "task": 2
+          }
+        ]
+      }
+    },
+    "frontier": {
+      "accepted_prefix_advanced": false,
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "historical_ppa_ledger": {
+        "bytes": 713817,
+        "path": "design/PPA_FRONTIER_LEDGER.json",
+        "sha256": "4d505c2de9f3449ec700b21379c9485f5ed061f7a319448ec0ce772788614d13"
+      },
+      "mode": "ADVANCE",
+      "new_ppa_run": false,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ]
+    },
+    "generated_at_utc": "2026-08-02T06:20:32Z",
+    "interface_contract": {
+      "backpressure": "all input, output, sidecar, DMA, and SRAM channels may stall without lane reorder, exponent change, duplicate publication, or lost sticky bits",
+      "consumer_validation": "magic, schema, shape, group count, producer tag, layer/opcode, model identity, exponent range, reserved bytes, address range, and dependency must pass before payload issue",
+      "descriptor_bytes": 64,
+      "interrupt_error_completion": "existing interrupt and result codes are retained; candidate validation errors publish no successful tag or usable destination",
+      "proposal_flag": "flags[6]=1",
+      "publication": "payload_and_sidecar_become_valid_atomically_with_successful_completion",
+      "reset_clock_cdc": "single clock; asynchronous reset assertion and synchronous deassertion clear all sidecar-valid, tagged-accumulator, DMA, completion, and error state",
+      "sealed_qecr_flag": "flags[7] must remain zero",
+      "sidecar_layout": {
+        "byte_10": "layer_id",
+        "byte_11": "producer_opcode",
+        "byte_4": "schema_version_1",
+        "byte_5": "group_lanes_64_or_128",
+        "byte_6": "group_count_1_to_38",
+        "byte_7": "flags_reserved_zero",
+        "bytes_0_3": "ASCII BFP1",
+        "bytes_12_15": "tensor_elements_u32",
+        "bytes_16_23": "model_identity64",
+        "bytes_24_61": "signed_dynamic_exponent_deltas_then_zero_fill",
+        "bytes_62_63": "reserved_zero",
+        "bytes_8_9": "producer_completion_tag_u16"
+      },
+      "tensor_payload_alignment_bytes": 64,
+      "tensor_sidecar_location": "the 64 bytes immediately preceding each candidate-mode tensor payload in the same address space"
+    },
+    "memory_model": {
+      "external_stream_width_bits": 128,
+      "incremental_kv_scale_bytes": 0,
+      "internal_noc": "none",
+      "kv_reason": "the frozen workload already requires one four-byte Scale32 record per layer, token, and K/V head; proposal makes those records dynamic rather than adding records",
+      "lifetime": "one ping-pong wide group buffer, sidecar header, aligner, and control state are reused across every mutually exclusive operator and all 24 layers",
+      "maximum_cached_tokens": 32768,
+      "maximum_sidecar_exponents": 38,
+      "maximum_simultaneous_64_byte_tensor_sidecars": 13,
+      "planned_peak_sram_bytes": 379968,
+      "preserved_noncandidate_live_set_bytes": 377600,
+      "proposal_incremental_sram_bytes": 2368,
+      "remaining_sram_margin_bytes": 144320,
+      "runtime_state_bytes": 256,
+      "sram_banks": 8,
+      "sram_capacity_bytes": 524288,
+      "tensor_sidecar_bytes": 64,
+      "tensor_sidecar_live_bytes": 832,
+      "wide_group_ping_pong_bytes": 1280,
+      "worst_case_external_sidecar_bytes_per_layer_if_every_intermediate_spills": 832
+    },
+    "numeric_contract": {
+      "base_scale": "existing_immutable_normalized_Scale32_for_the_tensor_group",
+      "dynamic_delta_range": [
+        -24,
+        24
+      ],
+      "effective_scale": "base_Scale32_significand_with_exponent_plus_dynamic_delta",
+      "effective_scale32_exponent_range": [
+        -24,
+        4
+      ],
+      "failure": "invalid header, illegal exponent, reserved mantissa, overflow, or identity mismatch is numeric_overflow_or_descriptor_error_with_no_success",
+      "floating_point_rtl": false,
+      "grouping": {
+        "head_width": 64,
+        "hidden_and_intermediate_tensors": 128,
+        "kv_heads": 2,
+        "q_heads": 14,
+        "q_k_v_rope_sensitive_tensors": 64
+      },
+      "kv_rule": "write dynamic normalized Scale32 per layer, token, K/V head in the already-required four-byte scale records",
+      "projection_rule": "form signed32 W4A8 partial sums per 128-input group, attach the exact effective activation and weight Scale32 product, align in one shared tagged wide accumulator, and round only at final requantization",
+      "reserved_value": -128,
+      "residual_rule": "align both input group Scale32 values before add, then select one fresh output delta",
+      "rmsnorm_rule": "square group mantissas, align squared group sums by twice the effective exponent, then apply the frozen integer RMSNorm rounding and saturation",
+      "rope_rule": "each 64-lane head shares one effective Scale32 so every RoPE pair has identical scale and rotation remains integer Q1.15",
+      "rounding": "round_to_nearest_ties_to_even",
+      "selection_rule": "choose the smallest legal integer delta for which every group lane rounded-to-nearest-ties-to-even into effective_scale is in [-127,127]; all-zero group uses delta zero",
+      "silu_rule": "multiply gate/up mantissas, add effective exponents, use the existing integer SiLU approximation, then select one fresh output delta",
+      "stored_mantissa": "signed_int8_symmetric_range_minus127_to_plus127"
+    },
+    "resource_sharing": [
+      {
+        "area_reason": "avoids_duplicate_MAC_array",
+        "dedicated_alternative": "separate_dynamic_scale_projection_array",
+        "expected_cycle_cost": 0,
+        "resource": "W4A8_MACs",
+        "selected": "reuse_existing_four_projection_lanes"
+      },
+      {
+        "dedicated_alternative": "one_per_projection_or_operator",
+        "expected_cycle_cost": "one_event_per_input_group_hidden_under_32_or_more_MAC_cycles_per_group",
+        "expected_utilization_percent": 3.125,
+        "resource": "tagged_align_accumulate",
+        "selected": "one_pipelined_shared_wide_aligner_accumulator"
+      },
+      {
+        "area_reason": "all_producers_are_lifetime_mutually_exclusive",
+        "dedicated_alternative": "one_detector_per_tensor_producer",
+        "expected_cycle_cost": 1557,
+        "resource": "max_abs_and_exponent_select",
+        "selected": "reuse_one_16_lane_vector_max_and_leading_bit_unit"
+      },
+      {
+        "dedicated_alternative": "private_buffer_per_operator",
+        "expected_cycle_cost": "second_pass_quantization_in_dynamic_group_finalize_hook",
+        "resource": "wide_group_buffer",
+        "selected": "one_128_lane_ping_pong_buffer_reused_globally",
+        "selected_bytes": 1280
+      },
+      {
+        "dedicated_alternative": "candidate_local_rounders_and_SFUs",
+        "expected_cycle_cost": "included_in_dynamic_group_finalize_hook",
+        "resource": "round_saturate_SFU",
+        "selected": "reuse_existing_vector_round_saturate_RMSNorm_and_SiLU_resources"
+      },
+      {
+        "dedicated_alternative": "private_sidecar_DMA_and_control_path",
+        "expected_cycle_cost": "64_byte_sidecar_transfers_only_when_tensor_is_spilled",
+        "resource": "DMA_SRAM_control",
+        "selected": "reuse_existing_DMA_eight_banks_descriptor_engine_interrupts_and_errors"
+      }
+    ],
+    "roofline_amdahl_risk": {
+      "fallbacks_requiring_fresh_architecture_review": [
+        "uniform_128_lane_groups_including_qkv",
+        "external_sidecar_stream_instead_of_prepayload_header",
+        "wider_tagged_accumulator_or_two_pass_exact_alignment"
+      ],
+      "highest_risks": [
+        "dynamic scale selection may improve local tensors but still fail C4 final-output fidelity",
+        "mixed Scale32 projection accumulation must avoid repeated rounding",
+        "RMSNorm square-sum exponent alignment requires proved width bounds",
+        "sidecar atomicity and identity must survive backpressure, reset, and tensor reuse",
+        "the shared aligner and leading-bit detector must preserve at least 100 MHz"
+      ],
+      "leverage": "corrects every recurrent activation quantization boundary in all layers and final output rather than one attention-local tensor",
+      "maximum_candidate_overhead_is_not_a_measured_result": true,
+      "stop_rules": [
+        "seal the direction if either frozen dataset fails the candidate admission gate",
+        "do not retune group sizes or exponent rules under the same approval",
+        "if verified area increment reaches 3 percent, perform global sharing review before capability advancement",
+        "if total non-SRAM area exceeds 2.0 mm2, enter GLOBAL_COMPRESSION without relaxing the cap",
+        "do not advance if Fmax is below 100 MHz"
+      ],
+      "verification_strategy": [
+        "independent scalar oracle for every rounding, exponent, reserved-value, overflow, and sidecar rule",
+        "RTL stage limited to reference/vector generation, lint, elaboration, bit-exact simulation, interface checks, and minimal formal",
+        "verification task 1 is exactly one disabled-mode baseline via the certified harness followed by independent review",
+        "verification task 2 is exactly one all-24-layer two-dataset candidate run only after independent baseline PASS, followed by independent review",
+        "full shell regression remains prohibited until candidate quality GO and fresh separate Manager authorization",
+        "fresh canonical SKY130 PPA remains prohibited until shell acceptance and a separate Manager transition to ppa"
+      ]
+    },
+    "schema_version": 2,
+    "selection": {
+      "evidence_basis": [
+        "attention-local mechanisms repeatedly improved layer-0 score/value metrics without preserving C4 final-output improvement",
+        "the sealed QECR direction never produced an admissible candidate run and cannot be reused",
+        "a recurrent activation-boundary mechanism has higher Amdahl leverage than another attention-local correction"
+      ],
+      "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+      "scope": "all_24_layers_plus_final_rmsnorm_and_lm_head_activation_boundaries",
+      "structurally_distinct_from": [
+        "attention_score_storage_or_softmax_representations",
+        "per_head_qk_static_or_dynamic_scale_only",
+        "qk_or_v_residual_cross_terms",
+        "down_projection_residual_fusion",
+        "cross_layer_quantization_error_carry"
+      ]
+    },
+    "status": "planner_architecture_corrected_ready_for_fresh_independent_review"
+  },
+  "public_comparison_requirements": {
+    "commercial_market_context_is_not_fair_open_baseline": true,
+    "match": [
+      "workload",
+      "quantization_and_quality",
+      "memory_bandwidth",
+      "host_offload_boundary",
+      "resource_or_area_budget",
+      "clock_and_tool_flow",
+      "measurement_protocol"
+    ],
+    "optional_relevant_baselines": [
+      "vta",
+      "nvdla"
+    ],
+    "required_baselines": [
+      "gemmini"
+    ]
+  },
+  "release_milestones": [
+    "complete_decoder_block",
+    "complete_qwen_single_token",
+    "operator_requested_release"
+  ],
+  "release_only_stages": [
+    "prototype",
+    "full_benchmark",
+    "signoff"
+  ],
+  "schema_version": 2,
+  "selected_replacement_contract": {
+    "architecture_accepted": true,
+    "architecture_checklist": {
+      "architecture.area-reuse-plan": true,
+      "architecture.compute-memory-model": true,
+      "architecture.interface-control": true,
+      "architecture.leverage-risk": true
+    },
+    "authority": "manager_exercising_live_operator_guidance",
+    "baseline_or_candidate_execution_authorized": false,
+    "candidate_capability_accepted": false,
+    "candidate_or_model_execution_count": 0,
+    "certified_harness_chain": {
+      "candidate_or_model_execution_count": 0,
+      "decision": "PASS",
+      "independent_l2_review": {
+        "bytes": 2032,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+        "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+      },
+      "manager_recovery_seal": {
+        "bytes": 8842,
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "manifest": {
+        "bytes": 2034,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+        "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+      },
+      "protected_artifact_count": 264,
+      "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+      "public_certification": {
+        "bytes": 1855,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+        "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+      },
+      "report": {
+        "bytes": 4216,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+        "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+      },
+      "status": "independently_certified_pass"
+    },
+    "contract_id": "shared_token_group_dynamic_scale32_v1",
+    "current_stage": "architecture",
+    "downstream_runs": {
+      "benchmark": "unrun",
+      "paired": "unrun",
+      "physical": "unrun",
+      "ppa": "unrun",
+      "prototype": "unrun",
+      "shell": "unrun",
+      "signoff": "unrun"
+    },
+    "first_unsupported_layer_operator": "layer_0.rope_q",
+    "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+    "historical_ppa_frontier": {
+      "candidate_ppa_run": false,
+      "cells": 62199,
+      "non_sram_area_mm2": 0.6108746272,
+      "remaining_area_reserve_mm2": 1.3891253728,
+      "setup_slack_ns_at_100mhz": 0.1502,
+      "status": "accepted_historical_frontier_not_successor_ppa"
+    },
+    "id": "shared_token_group_dynamic_scale32_v1",
+    "implementation_authorized": false,
+    "independent_architecture_review": {
+      "bytes": 7462,
+      "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+      "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+    },
+    "manager_freeze": {
+      "bytes": 8318,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+      "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+    },
+    "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+    "mode": "ADVANCE",
+    "next_action_queue": [
+      {
+        "allowed_work": [
+          "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+          "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+          "independent_environment_review"
+        ],
+        "candidate_or_model_execution_authorized": false,
+        "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+        "implementation_authorized": false,
+        "prohibited_work": [
+          "rtl_implementation",
+          "rtl_simulation_or_formal_for_successor",
+          "baseline_or_candidate_quality_execution",
+          "shell_regression",
+          "canonical_ppa",
+          "prototype_benchmark_or_signoff"
+        ],
+        "scope": "environment_compatibility_rebind_and_independent_review_only",
+        "stage": "environment",
+        "stage_closing": true,
+        "status": "queued_pending_manager_stage_advance"
+      }
+    ],
+    "no_execution_claim": true,
+    "ordered_supported_layer_operator_prefix": [
+      "layer_0.input_rmsnorm",
+      "layer_0.q_proj",
+      "layer_0.k_proj",
+      "layer_0.v_proj"
+    ],
+    "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+    "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+    "proposal": {
+      "bytes": 17146,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+      "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+    },
+    "proposal_companion": {
+      "bytes": 80,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+      "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+    },
+    "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+    "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+    "same_contract_rtl_authorized": false,
+    "sealed_predecessor": {
+      "baseline_or_candidate_execution_authorized": false,
+      "baseline_reproducibility": {
+        "gate": "before_any_candidate_execution",
+        "required": true,
+        "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+      },
+      "candidate_capability_accepted": false,
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "excluded_residual_families": [
+        "q_k_residual",
+        "v_residual",
+        "down_projection_residual_fusion_parameter_variant"
+      ],
+      "id": "cross_layer_quantization_error_carry_final_output_v1",
+      "mechanism": {
+        "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+        "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+        "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+      },
+      "predecessor": "shared_down_projection_residual_fusion_v1",
+      "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+      "same_contract_rtl_authorized": false,
+      "seal_evidence": {
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "sealed": true,
+      "state": "sealed_terminal_baseline_protocol_no_go",
+      "successor_freeze_authorized": false
+    },
+    "stage_closing": false,
+    "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "successor_freeze_authorized": false,
+    "successor_frozen": true,
+    "targets": {
+      "abstract_streaming_memory_boundary_bits": 128,
+      "frequency_floor_mhz": 100.0,
+      "non_sram_area_cap_mm2": 2.0
+    }
+  }
+}

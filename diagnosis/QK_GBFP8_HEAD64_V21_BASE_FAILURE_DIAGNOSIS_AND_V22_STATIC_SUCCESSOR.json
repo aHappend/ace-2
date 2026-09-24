@@ -1,0 +1,533 @@
+{
+  "schema_version": 1,
+  "artifact_id": "ace2-qk-gbfp8-head64-v21-base-failure-diagnosis-v22-static-source-oracle-attribution-v1",
+  "created_date_utc": "2026-08-14",
+  "status": "PENDING_FRESH_L2_ACCEPTANCE",
+  "claim_boundary": {
+    "diagnostic_only": true,
+    "static_only": true,
+    "v21_replay_or_mutation_permitted": false,
+    "official_payload_access_performed": false,
+    "official_evaluator_invocation_performed": false,
+    "v22_execution_authority_granted": false,
+    "authority_or_credential_creation_performed": false,
+    "rtl_verification_xrt_u280_activity_performed": false,
+    "quantization_success_claimed": false
+  },
+  "immutable_v21_evidence": {
+    "result_path": "runtime/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_289140ba/primary/result/base/result.json",
+    "result_file_sha256": "4901c835dd9b8700cb3a3dd5ecac54f2d1112f7f2f6e909a7ad37ee35ab8941f",
+    "result_byte_count": 8767,
+    "embedded_result_sha256": "17b1809ce603504f1e91082c0cd77e1e7d082e242d406ba66a49af7583587689",
+    "irreversible_action_id": "ace2:qk-gbfp8-base-v21:execute-once:289140ba:additive-0001",
+    "terminal_status": "FAILED_TERMINAL",
+    "terminal_reason_code": "HARD_THRESHOLD_FAILED",
+    "invocation_count_performed": 1,
+    "tensor_open_count": 1,
+    "retry_replay_resume_repair_permitted": false,
+    "selected_candidate": null,
+    "candidate_order": [
+      "G8",
+      "G4",
+      "G2",
+      "G1"
+    ],
+    "evaluator_sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63",
+    "package_sha256": "3d36df763e775bc8f3fb5d106eaf842f7b74482c236b9697906bb93647c44832",
+    "result_schema_sha256": "07f818190e7f97032a6bc3724914f00f36070f429f1cd549c67e4e7b026ae720",
+    "tensor_bundle_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175",
+    "tensor_record_count": 25,
+    "sealed_set_id": "w4a8-c02-attention-substage-trace-v2",
+    "evidence_limit": "Only the published result and public static source/metadata were read. No sealed tensor bytes or hidden harness/golden output were inspected. Aggregate V21 metrics do not identify the individual rows responsible for G1's ten-match regression."
+  },
+  "hard_gate_recomputation": {
+    "formulas": {
+      "top_key_matching_fraction": "matching_row_count / row_count",
+      "top_key_mismatch_count": "row_count - matching_row_count",
+      "unique_oracle_positive_margin_preserved_fraction": "preserved_positive_margin_row_count / unique_oracle_top_row_count",
+      "rank_margin_violation_count": "unique_oracle_top_row_count - preserved_positive_margin_row_count",
+      "count_maximum_gate": "actual <= limit",
+      "fraction_minimum_gate": "actual.numerator * limit.denominator >= limit.numerator * actual.denominator",
+      "all_hard_gates_pass": "logical AND of all nine hard-gate pass values",
+      "mean_signed_score_error_q12_20": "sum_signed_error_q12_20_lsb / valid_value_count / 1048576",
+      "mean_absolute_score_error_q12_20": "sum_absolute_error_q12_20_lsb / valid_value_count / 1048576",
+      "rmse_q12_20": "sqrt(sum_squared_error_q40_40_lsb2 / valid_value_count) / 1048576"
+    },
+    "hard_limits": {
+      "cross_lane_record_count_maximum": 0,
+      "invalid_or_non_finite_value_count_maximum": 0,
+      "normalization_rejection_count_maximum": 0,
+      "positive_centered_realized_score_count_maximum": 0,
+      "rank_margin_violation_count_maximum": 0,
+      "saturation_event_count_maximum": 0,
+      "top_key_matching_fraction_minimum": {
+        "numerator": 1,
+        "denominator": 1
+      },
+      "top_key_mismatch_count_maximum": 0,
+      "unique_oracle_positive_margin_preserved_fraction_minimum": {
+        "numerator": 1,
+        "denominator": 1
+      }
+    },
+    "passing_gate_names_for_every_candidate": [
+      "cross_lane_record_count_maximum",
+      "invalid_or_non_finite_value_count_maximum",
+      "normalization_rejection_count_maximum",
+      "positive_centered_realized_score_count_maximum",
+      "saturation_event_count_maximum"
+    ],
+    "failing_gate_names_for_every_candidate": [
+      "rank_margin_violation_count_maximum",
+      "top_key_matching_fraction_minimum",
+      "top_key_mismatch_count_maximum",
+      "unique_oracle_positive_margin_preserved_fraction_minimum"
+    ],
+    "score_error_is_tracking_only_not_a_hard_gate": true,
+    "candidates": [
+      {
+        "label": "G8",
+        "group_size": 8,
+        "top_key": {
+          "matching_row_count": 346,
+          "mismatch_count": 228,
+          "row_count": 574,
+          "matching_percentage": "60.278745644599"
+        },
+        "rank_margin": {
+          "preserved_positive_margin_row_count": 276,
+          "unique_oracle_top_row_count": 346,
+          "violation_count": 70,
+          "preserved_percentage": "79.768786127168",
+          "minimum_realized_margin_q12_20_lsb": -6479104,
+          "minimum_realized_margin_q12_20": "-6.178955078125"
+        },
+        "score_error": {
+          "valid_value_count": 12054,
+          "maximum_absolute_error_q12_20_lsb": 13922304,
+          "sum_absolute_error_q12_20_lsb": 16223937736,
+          "sum_signed_error_q12_20_lsb": -6620941976,
+          "sum_squared_error_q40_40_lsb2": 48747653603558720,
+          "mean_absolute_error_q12_20": "1.283586587838",
+          "mean_signed_error_q12_20": "-0.523827966893",
+          "rmse_q12_20": "1.917835491204",
+          "signed_to_absolute_sum_ratio": "-0.408097102179"
+        },
+        "failed_hard_gate_count": 4,
+        "all_hard_gates_pass": false
+      },
+      {
+        "label": "G4",
+        "group_size": 4,
+        "top_key": {
+          "matching_row_count": 370,
+          "mismatch_count": 204,
+          "row_count": 574,
+          "matching_percentage": "64.459930313589"
+        },
+        "rank_margin": {
+          "preserved_positive_margin_row_count": 306,
+          "unique_oracle_top_row_count": 346,
+          "violation_count": 40,
+          "preserved_percentage": "88.439306358382",
+          "minimum_realized_margin_q12_20_lsb": -3596112,
+          "minimum_realized_margin_q12_20": "-3.429519653320"
+        },
+        "score_error": {
+          "valid_value_count": 12054,
+          "maximum_absolute_error_q12_20_lsb": 14435968,
+          "sum_absolute_error_q12_20_lsb": 11602903991,
+          "sum_signed_error_q12_20_lsb": -4791566725,
+          "sum_squared_error_q40_40_lsb2": 26581063995297761,
+          "mean_absolute_error_q12_20": "0.917985028368",
+          "mean_signed_error_q12_20": "-0.379093588931",
+          "rmse_q12_20": "1.416187229052",
+          "signed_to_absolute_sum_ratio": "-0.412962714224"
+        },
+        "failed_hard_gate_count": 4,
+        "all_hard_gates_pass": false
+      },
+      {
+        "label": "G2",
+        "group_size": 2,
+        "top_key": {
+          "matching_row_count": 440,
+          "mismatch_count": 134,
+          "row_count": 574,
+          "matching_percentage": "76.655052264808"
+        },
+        "rank_margin": {
+          "preserved_positive_margin_row_count": 328,
+          "unique_oracle_top_row_count": 346,
+          "violation_count": 18,
+          "preserved_percentage": "94.797687861272",
+          "minimum_realized_margin_q12_20_lsb": -2143768,
+          "minimum_realized_margin_q12_20": "-2.044456481934"
+        },
+        "score_error": {
+          "valid_value_count": 12054,
+          "maximum_absolute_error_q12_20_lsb": 13646232,
+          "sum_absolute_error_q12_20_lsb": 9092350907,
+          "sum_signed_error_q12_20_lsb": -2877009333,
+          "sum_squared_error_q40_40_lsb2": 18606137513360117,
+          "mean_absolute_error_q12_20": "0.719358016904",
+          "mean_signed_error_q12_20": "-0.227619869665",
+          "rmse_q12_20": "1.184847908744",
+          "signed_to_absolute_sum_ratio": "-0.316420842357"
+        },
+        "failed_hard_gate_count": 4,
+        "all_hard_gates_pass": false
+      },
+      {
+        "label": "G1",
+        "group_size": 1,
+        "top_key": {
+          "matching_row_count": 430,
+          "mismatch_count": 144,
+          "row_count": 574,
+          "matching_percentage": "74.912891986063"
+        },
+        "rank_margin": {
+          "preserved_positive_margin_row_count": 338,
+          "unique_oracle_top_row_count": 346,
+          "violation_count": 8,
+          "preserved_percentage": "97.687861271676",
+          "minimum_realized_margin_q12_20_lsb": -1598372,
+          "minimum_realized_margin_q12_20": "-1.524326324463"
+        },
+        "score_error": {
+          "valid_value_count": 12054,
+          "maximum_absolute_error_q12_20_lsb": 12375246,
+          "sum_absolute_error_q12_20_lsb": 7287524861,
+          "sum_signed_error_q12_20_lsb": -1678617717,
+          "sum_squared_error_q40_40_lsb2": 14730147705389921,
+          "mean_absolute_error_q12_20": "0.576565894318",
+          "mean_signed_error_q12_20": "-0.132806919178",
+          "rmse_q12_20": "1.054236489412",
+          "signed_to_absolute_sum_ratio": "-0.230341267991"
+        },
+        "failed_hard_gate_count": 4,
+        "all_hard_gates_pass": false
+      }
+    ]
+  },
+  "cross_candidate_trends": {
+    "successive_deltas": [
+      {
+        "from": "G8",
+        "to": "G4",
+        "top_key_matching_row_count": 24,
+        "rank_margin_violation_count": -30,
+        "minimum_realized_margin_q12_20_lsb": 2882992,
+        "sum_absolute_error_q12_20_lsb": -4621033745,
+        "sum_signed_error_q12_20_lsb": 1829375251,
+        "sum_squared_error_q40_40_lsb2": -22166589608260959,
+        "maximum_absolute_error_q12_20_lsb": 513664
+      },
+      {
+        "from": "G4",
+        "to": "G2",
+        "top_key_matching_row_count": 70,
+        "rank_margin_violation_count": -22,
+        "minimum_realized_margin_q12_20_lsb": 1452344,
+        "sum_absolute_error_q12_20_lsb": -2510553084,
+        "sum_signed_error_q12_20_lsb": 1914557392,
+        "sum_squared_error_q40_40_lsb2": -7974926481937644,
+        "maximum_absolute_error_q12_20_lsb": -789736
+      },
+      {
+        "from": "G2",
+        "to": "G1",
+        "top_key_matching_row_count": -10,
+        "rank_margin_violation_count": -10,
+        "minimum_realized_margin_q12_20_lsb": 545396,
+        "sum_absolute_error_q12_20_lsb": -1804826046,
+        "sum_signed_error_q12_20_lsb": 1198391616,
+        "sum_squared_error_q40_40_lsb2": -3875989807970196,
+        "maximum_absolute_error_q12_20_lsb": -1270986
+      }
+    ],
+    "g1_relative_to_g2": {
+      "top_key_matching_rows": -10,
+      "top_key_mismatches": 10,
+      "top_key_matching_fraction_delta": {
+        "numerator": -10,
+        "denominator": 574
+      },
+      "top_key_matching_percentage_point_delta": "-1.742160278746",
+      "mismatch_count_relative_increase_percentage": "7.462686567164",
+      "rank_margin_violations": -10,
+      "preserved_unique_oracle_rows": 10,
+      "minimum_margin_improvement_q12_20_lsb": 545396,
+      "sum_absolute_error_reduction_q12_20_lsb": 1804826046,
+      "signed_error_shift_toward_zero_q12_20_lsb": 1198391616,
+      "squared_error_reduction_q40_40_lsb2": 3875989807970196,
+      "maximum_absolute_error_reduction_q12_20_lsb": 1270986,
+      "observed_conclusion": "G1 improves every published rank-margin and aggregate score-error measure relative to G2, yet loses ten top-key matches. Aggregate error reduction is therefore not sufficient for exact row-wise argmax preservation."
+    },
+    "strict_observations": [
+      "Rank-margin violation count decreases 70, 40, 18, 8 as groups become finer.",
+      "Minimum realized margin remains negative for every candidate, proving at least one strict oracle-top ordering failure at each granularity.",
+      "Sum absolute error and sum squared error strictly decrease from G8 through G1.",
+      "Sum signed error is negative for every candidate and moves monotonically toward zero as groups become finer.",
+      "Maximum absolute error is not monotonic: G4 is 513664 Q12.20 LSB worse than G8 before improving at G2 and G1.",
+      "Top-key matching improves through G2 and then regresses at G1."
+    ],
+    "population_caveat": "Top-key metrics cover all 574 causal rows. Rank-margin metrics cover only the 346 nonsingleton rows with one exact oracle maximum. The aggregate result cannot determine whether G1's ten lost top matches are oracle-tied rows, different unique-top rows, or a mixture; no row-level claim is justified."
+  },
+  "mechanism_assessment": [
+    {
+      "mechanism": "quantizer_arithmetic",
+      "classification": "SUPPORTED_AS_ERROR_SOURCE_BUT_NO_STATIC_IMPLEMENTATION_DEFECT_IDENTIFIED",
+      "observed_fact": "Finer grouping reduces aggregate score error and rank-margin violations, while the evaluator uses exact integer BF16 decomposition, round-to-nearest ties-to-even, exact integer products, and one Q12.20 realization boundary.",
+      "hypothesis_or_limit": "The published aggregates show approximation error but cannot distinguish intended 8-bit quantization loss from an arithmetic implementation defect.",
+      "discriminator": "Exhaustive public finite-BF16 encoding checks and an independent rational/integer dot-and-normalization oracle."
+    },
+    {
+      "mechanism": "exponent_grouping",
+      "classification": "SUPPORTED_CONTRIBUTOR_NOT_SOLE_CAUSE",
+      "observed_fact": "G8 to G2 improves top-key accuracy, rank margins, absolute error, and squared error as exponent sharing decreases. G1 eliminates cross-lane exponent sharing but still has 144 top mismatches and 8 margin violations.",
+      "hypothesis_or_limit": "Shared exponents contribute at G8/G4/G2, but residual G1 failure cannot be attributed to cross-lane grouping.",
+      "discriminator": "Compare each grouped candidate to a source-Q/K identity control and to G1 on the same rows in a future separately authorized diagnostic."
+    },
+    {
+      "mechanism": "rounding_and_saturation",
+      "classification": "ROUNDING_UNRESOLVED_SATURATION_OBSERVED_ABSENT",
+      "observed_fact": "Every candidate reports zero saturation events; the frozen encoder rejects clamp/saturation and uses independent RNE quantization of Q and K. G1 still rounds each BF16 lane to an 8-bit mantissa.",
+      "hypothesis_or_limit": "Independent operand rounding is a plausible residual source and can produce non-monotonic argmax behavior near small row margins. Saturation is not supported as a V21 cause.",
+      "discriminator": "Public tie-boundary and near-tie vector regressions plus future row-level identity-versus-G1 residual counts."
+    },
+    {
+      "mechanism": "scale_and_zero_point",
+      "classification": "ZERO_POINT_NOT_APPLICABLE_SCALE_BUG_STATICALLY_DISFAVORED",
+      "observed_fact": "The format is symmetric grouped BFP with no affine zero-point. The score path applies exact HEAD64 scale 1/8 and Q12.20 through exponent offset +17. All realized rows satisfy nonpositive centering.",
+      "hypothesis_or_limit": "Negative signed error alone does not prove scale bias because both oracle and realized rows are independently maximum-centered. A frozen-reference accumulation or casting difference remains unresolved.",
+      "discriminator": "Independent public scale/centering oracle and future unquantized source-Q/K identity control against the frozen oracle."
+    },
+    {
+      "mechanism": "tensor_mapping",
+      "classification": "STATICALLY_DISFAVORED_NOT_PAYLOAD_REVERIFIED",
+      "observed_fact": "V21 resolves records by tensor_name, rejects duplicate/missing/unexpected names, requires the canonical k/q/oracle set, passes the full 25-record V18 table to the worker, and the evaluator closes all expected metric populations.",
+      "hypothesis_or_limit": "No published evidence points to a remaining mapping-order defect. The sealed bytes were intentionally not reopened, so content identity is accepted from immutable hashes rather than independently reverified here.",
+      "discriminator": "Retain six-permutation and duplicate/missing/unexpected-name public regressions; any failure rejects V22 before authority."
+    },
+    {
+      "mechanism": "score_reconstruction",
+      "classification": "INTERNALLY_COHERENT_BUT_REFERENCE_EQUIVALENCE_UNRESOLVED",
+      "observed_fact": "The evaluator forms exact grouped integer dot terms, aligns exponents, applies HEAD64 scale and Q12.20 rounding, centers each row, and compares against separately decoded BF16 qk_scaled_scores.",
+      "hypothesis_or_limit": "The published result contains no unquantized source-Q/K control, so it cannot show whether reconstruction from BF16 Q/K already differs from the frozen score tensor before quantization.",
+      "discriminator": "Add a nonselecting identity-control sidecar in a future separately authorized V22 experiment while leaving the official V1 result unchanged."
+    },
+    {
+      "mechanism": "threshold_infeasibility",
+      "classification": "EMPIRICALLY_INFEASIBLE_FOR_CURRENT_FOUR_IMPLEMENTATIONS_ONLY",
+      "observed_fact": "No V21 candidate meets exact 1/1 top matching, zero top mismatches, zero margin violations, and 1/1 unique-margin preservation. G1 is the finest available grouping and still fails all four ranking gates.",
+      "hypothesis_or_limit": "This proves no current V8 G8/G4/G2/G1 implementation passes; it does not prove the thresholds are mathematically infeasible for every fixed-contract successor.",
+      "discriminator": "If an unquantized source-Q/K identity control fails the same oracle ranking gates, quantizer-only repair is infeasible under the frozen score reconstruction. If it passes, the thresholds remain achievable in principle and quantization is causal."
+    },
+    {
+      "mechanism": "frozen_reference_mismatch",
+      "classification": "UNRESOLVED_PLAUSIBLE_CONTROL_REQUIRED",
+      "observed_fact": "The oracle is the frozen BF16 qk_scaled_scores tensor; the evaluator does not recompute the oracle from Q/K. All candidate signed-error sums are negative but improve toward zero with finer grouping.",
+      "hypothesis_or_limit": "The sign trend is compatible with quantization loss and also with source-score accumulation/casting differences. Aggregate metrics cannot choose between them.",
+      "discriminator": "Compare exact unquantized BF16 Q/K reconstruction to the frozen BF16 oracle before evaluating any repair."
+    }
+  ],
+  "production_path_trace": [
+    {
+      "order": 1,
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/tools/qk_gbfp8_head64_granularity_sweep_execute_once_wrapper_v21.py",
+      "sha256": "751c28ae2744b695e0bffe364680ba4451a21332624411b9a94d1a0aee42e9b2",
+      "line_range": "242-280",
+      "function": "prepare_execution",
+      "semantics": "Resolve frozen records by tensor_name through the V21 binding resolver; bind the full V18 table; load the production adapter bridge and result validator."
+    },
+    {
+      "order": 2,
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/tools/qk_gbfp8_head64_granularity_sweep_v21_binding_resolution.py",
+      "sha256": "02f3d808b036e706f981253b9bcbf713dfe999034d3704400e4b9975534054ea",
+      "line_range": "52-124",
+      "function": "resolve_core_tensor_records / resolve_production_selection",
+      "semantics": "Reject malformed, duplicate, missing, or unexpected tensor names and emit canonical k/q/oracle ordering independent of mapping insertion order."
+    },
+    {
+      "order": 3,
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/tools/qk_gbfp8_head64_granularity_sweep_execute_once_wrapper_v21.py",
+      "sha256": "751c28ae2744b695e0bffe364680ba4451a21332624411b9a94d1a0aee42e9b2",
+      "line_range": "337-386",
+      "function": "run_launcher / invoke_once",
+      "semantics": "After exactly-once ownership, read the official payload once, bind result identities, and call the production bridge."
+    },
+    {
+      "order": 4,
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/tools/qk_gbfp8_head64_granularity_sweep_production_adapter_bridge_v21.py",
+      "sha256": "201e84ba8c5ae1460698a4595c00d51ca698646eab4dd250708a1c4d25ce39e0",
+      "line_range": "26-64",
+      "function": "pack_production_input / invoke_production_evaluator",
+      "semantics": "Create the canonical payload/binding/context envelope and invoke the bound worker with exact argv, cwd, and environment."
+    },
+    {
+      "order": 5,
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/tools/qk_gbfp8_head64_granularity_sweep_evaluator_adapter_v21.py",
+      "sha256": "64ac5f95ba9876ad84244b9c66d09115303dfcaf8c111216b2b44dc821487e04",
+      "line_range": "176-252",
+      "function": "invoke_evaluator",
+      "semantics": "Spawn once without a shell, require clean stdout/stderr/return code, validate schema and bound record, then publish immutable result bytes."
+    },
+    {
+      "order": 6,
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/tools/qk_gbfp8_head64_granularity_sweep_evaluator_worker_v21.py",
+      "sha256": "c16be825cef50b92bd70e171fca0cc1eedf2a73fc39327cc84ceae23b1451367",
+      "line_range": "74-99",
+      "function": "production",
+      "semantics": "Require exact package/acceptance/action and full V18 binding table equality, decode the one payload envelope, load the frozen parser/evaluator, and call evaluate_bundle_once."
+    },
+    {
+      "order": 7,
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_static_v8_action_root/reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v8.py",
+      "sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63",
+      "line_range": "244-257,287-450,482-525,528-655,665-765",
+      "function": "finite scan; encode; dot; normalize; oracle; thresholds; result sealing; evaluate_bundle_once",
+      "semantics": "Cross-parse the exact bundle, evaluate G8/G4/G2/G1 with canonical grouped-BFP8 arithmetic, compare to the frozen BF16 oracle, derive nine hard gates, select the first full pass, and self-seal canonical result bytes."
+    }
+  ],
+  "v22_static_successor": {
+    "identity": {
+      "artifact_id": "ace2-qk-gbfp8-head64-v22-source-oracle-attribution-static-v1",
+      "action_id": "ace2:qk-gbfp8-base-v22:source-oracle-attribution:4901c835:additive-0001",
+      "predecessor_action_id": "ace2:qk-gbfp8-base-v21:execute-once:289140ba:additive-0001",
+      "identity_suffix_source": "first eight hexadecimal characters of the immutable published V21 result file SHA-256",
+      "additive_successor": true,
+      "runtime_namespace": null,
+      "execution_authority_granted": false,
+      "authority_or_credential_creation_permitted": false
+    },
+    "narrowest_semantically_justified_change": "Add independently checkable public/synthetic arithmetic regressions and specify a future nonselecting source-Q/K identity-control diagnostic sidecar. Do not change the frozen official evaluator result, candidate implementations, candidate order, hard gates, score policy, or selection policy until the identity control attributes the residual error.",
+    "frozen_bindings": {
+      "benchmark_package_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE",
+      "benchmark_package_path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v17_evaluator_diagnostic_preauthority_repair_1_action_root/accepted/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.canonical.json",
+      "benchmark_package_sha256": "3d36df763e775bc8f3fb5d106eaf842f7b74482c236b9697906bb93647c44832",
+      "official_evaluator_path": "reference/qk_gbfp8_head64_granularity_sweep_static_v8_action_root/reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v8.py",
+      "official_evaluator_sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63",
+      "official_result_schema_path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v17_evaluator_diagnostic_preauthority_repair_1_action_root/accepted/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_RESULT_SCHEMA.canonical.json",
+      "official_result_schema_sha256": "07f818190e7f97032a6bc3724914f00f36070f429f1cd549c67e4e7b026ae720",
+      "sealed_set_id": "w4a8-c02-attention-substage-trace-v2",
+      "tensor_bundle_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175",
+      "tensor_record_count": 25,
+      "selected_tensor_names": [
+        "bf16.k_rope",
+        "bf16.q_rope",
+        "bf16.qk_scaled_scores"
+      ],
+      "binding_table_path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v21_order_independent_binding_terminal_coverage_action_root/bindings/C02_EXACT_BINDINGS_25.json",
+      "binding_table_sha256": "87ab3deb25f77d89b0797d72004b4436f9541987da13a42f44a2bff7f9fa9655",
+      "candidate_order": [
+        "G8",
+        "G4",
+        "G2",
+        "G1"
+      ],
+      "selection_policy": "FIRST_PASSING_CANDIDATE_IN_FIXED_ORDER",
+      "require_every_hard_gate": true,
+      "score_error_affects_selection": false,
+      "hard_gates": {
+        "cross_lane_record_count_maximum": 0,
+        "invalid_or_non_finite_value_count_maximum": 0,
+        "normalization_rejection_count_maximum": 0,
+        "positive_centered_realized_score_count_maximum": 0,
+        "rank_margin_violation_count_maximum": 0,
+        "saturation_event_count_maximum": 0,
+        "top_key_matching_fraction_minimum": {
+          "numerator": 1,
+          "denominator": 1
+        },
+        "top_key_mismatch_count_maximum": 0,
+        "unique_oracle_positive_margin_preserved_fraction_minimum": {
+          "numerator": 1,
+          "denominator": 1
+        }
+      }
+    },
+    "hypotheses": [
+      {
+        "id": "H_IMPL",
+        "statement": "The production grouped-BFP8 integer implementation disagrees with an independent exact public arithmetic oracle.",
+        "reject_if": "All exhaustive scalar, group exponent, pack/unpack, dot, normalization, tie, and Q12.20 public regressions agree exactly."
+      },
+      {
+        "id": "H_GROUP",
+        "statement": "Shared exponents are the dominant G8/G4/G2 error contributor.",
+        "reject_if": "Grouped-to-G1 residuals do not shrink as sharing decreases on public and future bound row diagnostics."
+      },
+      {
+        "id": "H_RNE",
+        "statement": "Independent 8-bit operand rounding is the residual G1 cause and can improve aggregate error while worsening selected row argmaxes.",
+        "reject_if": "The source-Q/K identity control fails before quantization, or G1 is bit-exact to identity on failing rows."
+      },
+      {
+        "id": "H_REFERENCE",
+        "statement": "Exact unquantized BF16 Q/K reconstruction under the frozen score path disagrees with frozen BF16 qk_scaled_scores because of accumulation, casting, scale, or reference-generation semantics.",
+        "reject_if": "The identity control has zero top mismatches, zero unique-margin violations, and zero score error against the frozen oracle."
+      },
+      {
+        "id": "H_MAPPING",
+        "statement": "A tensor-role mapping error remains after V21's order-independent binding repair.",
+        "reject_if": "All name permutations and binding identities close and the identity control uses the exact frozen records/hashes."
+      }
+    ],
+    "public_or_synthetic_regressions_required_before_any_future_authority": [
+      "Exhaust all 65280 finite BF16 words for sign, subnormal, normal, signed-zero, RNE tie, exponent, and G1 encode/decode agreement against an independent integer oracle.",
+      "Exercise G8/G4/G2/G1 group-exponent minimality with zero, boundary, extreme-dynamic-range, and permutation-generated 64-lane public vectors; reject any clamp, saturation, reserved -128 mantissa, or noncanonical exponent.",
+      "Require pack/unpack byte-exact round trips for all generated grouped heads.",
+      "Compare grouped_dot_score_pair and normalize_score_row_q12_20 to an independent Python Fraction/integer oracle, including cancellation, mixed exponents, underflow rounding, exact ties, and lowest-key-index tie breaking.",
+      "Verify HEAD64 scale 1/8 plus Q12.20 exponent offset +17 and maximum centering with hand-derived public vectors; zero-point behavior must remain absent.",
+      "Generate a deterministic public near-tie corpus that includes at least one witness where G1 has lower aggregate score error than G2 but a worse top key, proving that the V21 non-monotonic pattern is arithmetically possible without invoking the official payload.",
+      "Retain all six tensor-record insertion-order permutations plus duplicate, missing, unexpected, malformed, and altered-binding-table negative cases through the exact production binding resolver.",
+      "Static regressions must not open, inspect, deserialize, or hash-read the official tensor payload and must not start the official evaluator or create a runtime namespace."
+    ],
+    "future_separately_authorized_experiment_design": {
+      "authority_status": "NOT_GRANTED_BY_THIS_ARTIFACT",
+      "official_payload_open_count_maximum": 1,
+      "official_evaluator_invocation_count_maximum": 1,
+      "candidate_order_or_gate_changes_permitted": false,
+      "official_v1_result_schema_changes_permitted": false,
+      "official_v1_selection_influence_from_diagnostics_permitted": false,
+      "diagnostic_sidecar": "A separately schema-bound, nonselecting aggregate-only report may add an exact unquantized source-Q/K identity control and row-class counts/digests. It must expose no tensor values and cannot satisfy quantization acceptance.",
+      "controls": [
+        "B0 identity: decode frozen BF16 Q and K exactly, perform the same HEAD64 scale, causal mask, row centering, tie rule, and Q12.20 realization with no grouped-BFP8 quantization, then compare to frozen BF16 qk_scaled_scores.",
+        "B1 existing G1: compare G1 to B0 to isolate per-lane 8-bit operand rounding from exponent grouping.",
+        "B2 grouped residuals: compare G2, G4, and G8 to G1/B0 to isolate additional shared-exponent effects.",
+        "Publish only aggregate gate counts, signed/absolute/squared error totals, bounded row-class counts, and cryptographic digests under a new diagnostic schema; preserve the official V1 result byte semantics."
+      ],
+      "decision_rules": [
+        "If B0 fails frozen-oracle top or margin gates, reject every quantizer-only repair under the current reconstruction and classify score/reference semantics before proposing another quantizer.",
+        "If B0 passes and B1 fails, attribute residual failure to per-lane 8-bit Q/K quantization/rounding; exponent grouping is not the G1 cause.",
+        "If B0 and B1 pass but coarser groups fail, exponent sharing is causal and a grouping repair may be justified.",
+        "If independent public arithmetic regressions disagree with production functions, repair the smallest mismatching arithmetic function before any official execution.",
+        "If binding regressions fail, stop at tensor mapping; do not interpret numerical results."
+      ]
+    },
+    "fail_closed_acceptance_criteria": [
+      "Fresh-L2 independently recomputes every V21 gate and all successive deltas from the immutable result SHA-256 4901c835dd9b8700cb3a3dd5ecac54f2d1112f7f2f6e909a7ad37ee35ab8941f.",
+      "The frozen evaluator, benchmark package, input hashes, result schema, candidate order, hard gates, score policy, and selection policy match this artifact exactly.",
+      "All public/synthetic regressions are additive, deterministic, and payload/evaluator/runtime inert.",
+      "The V22 identity is distinct and static-only; acceptance grants no execution authority and creates no authority, credential, ledger, runtime, result, or terminal.",
+      "Any future official experiment requires separate operator authority and may publish diagnostics only as a nonselecting sidecar while preserving the official V1 result schema and hard gates.",
+      "No software fallback, threshold relaxation, candidate reordering, failed-result reinterpretation, or quantization-success claim is permitted."
+    ],
+    "automatic_rejection_conditions": [
+      "Any byte change to V21 runtime, package, acceptance, result, terminal, consumed ledger, or predecessor evidence.",
+      "Any official tensor payload read or evaluator invocation during static V22 construction/review.",
+      "Any change to a hard threshold, candidate order, score-error selection policy, or official V1 result schema.",
+      "Any use of B0 identity or a software path as quantization completion.",
+      "Any claim that aggregate V21 metrics identify the ten G1 regression rows or prove a unique root cause."
+    ]
+  },
+  "review": {
+    "required_role": "Fresh-L2",
+    "engineer_self_review_can_close": false,
+    "status": "PENDING",
+    "requested_decision": "ACCEPT_STATIC_DIAGNOSIS_AND_V22_PLAN",
+    "accepted_execution_authority": false
+  }
+}

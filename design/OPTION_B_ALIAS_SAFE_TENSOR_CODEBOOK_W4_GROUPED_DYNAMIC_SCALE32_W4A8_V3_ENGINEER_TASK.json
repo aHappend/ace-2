@@ -1,0 +1,173 @@
+{
+  "schema_version": 1,
+  "task_id": "task-904869143c15",
+  "created_at_utc": "2026-08-06T14:04:56Z",
+  "title": "Execute alias-safe tensor-codebook W4 plus grouped Dynamic Scale32 candidate",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v3",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_TENSOR_CODEBOOK_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V3_PLAN.json",
+    "sha256": "e46298c5a2d4afefee53af4d7f23068900acbaf5a90413ab59e97e6da5ab86f6",
+    "role": "immutable_planning_requirements_only"
+  },
+  "terminal_predecessors": [
+    {
+      "mission_id": "daa1cf3e365f",
+      "candidate_id": "option_b_alias_safe_post_w4_static_position_class_group_scale_w4a8_v2",
+      "attempt_status": "BLOCKED_EVALUATOR_NO_EXECUTION",
+      "failure_taxonomy": "EVALUATOR_NO_EXECUTION_STATIC_SCALE_RANGE_OVERFLOW",
+      "replay_resume_repair_or_replacement_under_candidate_id_permitted": false,
+      "review_record": "research/raw/specification/alias-safe-static-v2-review-replan-20260806T130920Z.json"
+    },
+    {
+      "mission_id": "e29633380586",
+      "candidate_id": "option_b_alias_safe_post_w4_grouped_dynamic_scale32_w4a8_v2",
+      "attempt_status": "BLOCKED_EXACT_BF16_DISAGREEMENT",
+      "failure_taxonomy": "NUMERICAL_EXACT_BF16_DISAGREEMENT",
+      "exact_bf16_sequence_match_count": 1,
+      "response_gate_outcome_match_count": 6,
+      "replay_resume_repair_or_replacement_under_candidate_id_permitted": false,
+      "review_record": "research/raw/specification/alias-safe-dynamic-v2-review-replan-20260806T140045Z.json",
+      "review_record_sha256": "465c78df3bbdfa28e92046c43ccac8bceea09308f7562dc85d113e234c4eb7b1"
+    }
+  ],
+  "fresh_attempt_namespace": {
+    "root": "build/stage1-option-b-alias-safe-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v3",
+    "attempt_id": "attempt-0001",
+    "attempt_directory": "build/stage1-option-b-alias-safe-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v3/attempt-0001",
+    "attempt_budget": 1,
+    "attempts_consumed_at_task_freeze": 0,
+    "namespace_must_be_absent_at_task_start": true,
+    "execution_marker": "build/stage1-option-b-alias-safe-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v3/attempt-0001/execution_started.json",
+    "execution_marker_permitted_during_runner_build_or_preflight": false,
+    "execution_marker_creation_rule": "Create atomically exactly once only after the complete pre-attempt artifact set, model-only error gate, non-evaluator 8/8 quality gate, dynamic 312-event gate, and every bound hash pass verification.",
+    "replay_resume_or_second_attempt_under_candidate_id_permitted": false
+  },
+  "implementation_objective": "Implement an isolated candidate-specific runner that preserves the verified alias-safe lm_head split and grouped Dynamic Scale32 activation policy while replacing uniform signed-int4 weight values with deterministic per-Linear 16-entry signed-Q4.4 codebooks addressed by 4-bit indices. Do not modify or import mutable state from any consumed attempt directory.",
+  "model_and_alias_policy": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f",
+    "source_alias_assertion": "lm_head.weight and model.embed_tokens.weight are the same Parameter and storage immediately after pinned-model load",
+    "split_operation": "Clone the complete embedding tensor into a detached non-trainable lm_head Parameter before codebook construction and set only the in-memory config tie_word_embeddings field false",
+    "retie_forbidden": true,
+    "quantization_scope": "exactly 168 transformer Linear weights plus the separated lm_head weight",
+    "embedding_preservation": "original embedding Parameter object, storage pointer, shape, dtype, and complete BF16 bytes remain unchanged",
+    "fresh_candidate_a_and_b_state_manifest_equality_required": true
+  },
+  "tensor_codebook_weight_policy": {
+    "payload": "unsigned 4-bit codebook index 0 through 15; even flat element low nibble, odd flat element high nibble",
+    "row_scale": "preserve the authenticated 32-bit per-output-row Scale32 record",
+    "codebook": "exactly one aligned 16-byte record per Linear tensor; byte i is strictly increasing signed-Q4.4 codepoint i",
+    "construction": "pinned BF16 weights only; exact Q4.4 histogram; initial codepoints [-128,-112,-96,-80,-64,-48,-32,-16,0,16,32,48,64,80,96,112]; exactly 32 Lloyd-Max iterations; nearest assignment ties choose lower index; centroid updates round ties-to-even; empty clusters retain prior point; duplicate or out-of-range points fail closed",
+    "reconstruction": "decoded row Scale32 multiplied by signed codebook int8 and divided by 16",
+    "prompt_output_or_gate_control_permitted": false,
+    "per_scalar_or_per_group_weight_metadata_permitted": false,
+    "model_only_preflight": {
+      "per_tensor_sum_squared_error_may_increase": false,
+      "aggregate_sum_squared_error_must_strictly_decrease": true,
+      "independent_payload_row_scale_codebook_and_state_manifests_must_match": true
+    },
+    "storage": {
+      "maximum_total_stored_bits_per_weight": 4.036,
+      "standard_decoder_layer_exact_bits_per_weight": 4.027257898351649,
+      "lm_head_exact_bits_per_weight": 4.035715225959803,
+      "whole_model_codebook_bytes": 2704
+    }
+  },
+  "dynamic_activation_policy": {
+    "event_family_count_per_layer": 13,
+    "event_count_all_24_layers": 312,
+    "group_lanes": [64, 128],
+    "payload_range": "signed A8 -127 through +127; -128 reserved",
+    "selection": "preserve each frozen base Scale32 significand and select the minimum legal exponent delta in [-24,+24] that keeps the effective exponent in [-24,+4] and covers every finite group lane",
+    "rounding": "round_to_nearest_ties_to_even",
+    "all_zero_group_delta": 0,
+    "static_prompt_range_table_permitted": false,
+    "runtime_saturation_or_silent_clipping_permitted": false,
+    "dataset_prompt_token_or_gate_control_permitted": false
+  },
+  "accelerator_facing_contract": {
+    "public_ace2_shell_ports_changed": false,
+    "weight_payload_bytes_changed": false,
+    "codebook_transport": "one 128-bit aligned external-memory beat per Linear tensor, cached before the tensor's weight stream",
+    "maximum_codebook_cache_bytes": 32,
+    "row_scale_transport_changed": false,
+    "fixed_point_compute": "A8 times signed-Q4.4 codepoint with integer accumulation and fixed fractional shift four; no floating-point RTL",
+    "rtl_implementation_or_ppa_authorized_by_this_task": false
+  },
+  "pre_attempt_artifact_set": {
+    "non_evaluator_inputs": "the immutable four-prompt calibration contract plus Name one primary color in one lowercase word.; Return only the integer result of 9 multiplied by 7.; In five words, describe gentle rain.; Answer yes or no: Is water wet?",
+    "official_nine_prompt_inputs_permitted": false,
+    "required_before_marker": [
+      "hash-bound runner source and self-test result",
+      "candidate A and B state, payload, row-scale, and codebook manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "codebook self-test covering determinism, exact iteration count, ties-to-even, assignment ties, empty clusters, duplicate rejection, range rejection, nibble packing, and hash mismatch rejection",
+      "model-only reconstruction report with no per-tensor regression and strict aggregate improvement",
+      "8/8 non-evaluator exact BF16 token arrays and 8/8 matching response-gate outcomes",
+      "fresh-candidate dynamic preflight with all 312 layer/event names, legal delta range, zero saturation, zero clipping, and no reserved -128 activation payload",
+      "predeclared contract binding every source, model, matrix, runner, tool-version, format, and policy hash",
+      "PREATTEMPT_READY.json that verifies all prior artifacts without creating execution_started.json"
+    ],
+    "runner_verify_mode_must_not_create_marker": true,
+    "preflight_mode_must_not_create_marker": true,
+    "official_mode_must_refuse_if_any_bound_hash_changes": true,
+    "preflight_failure_disposition": "Preserve the no-go evidence, leave the official attempt unconsumed, keep selected_policy_id null, and submit the bounded result for Fresh Review without accessing official inputs."
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "maximum_scale_metadata_bits_per_activation": 0.5,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_tensor_sidecars_per_decoder_layer_token": 13,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "maximum_incremental_sram_bytes": 2368,
+    "new_public_ace2_shell_ports_permitted": false,
+    "floating_point_rtl_permitted": false,
+    "saturation_or_silent_exponent_clipping_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0,
+    "rtl_ppa_or_latency_measurement_claimed_by_this_task": false
+  },
+  "official_attempt_contract": {
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "selected_policy_id_before_fresh_reviewer_adjudication": null,
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false,
+    "evaluator_no_execution_rule": "If execution_started.json exists but no candidate prompt completes, preserve the attempt, keep numerical correctness null, and forbid replay.",
+    "numerical_failure_rule": "If any candidate prompt completes but the binary gate is not met, set eligible=false, preserve exact disagreements, keep selected_policy_id null, and forbid replay.",
+    "numerical_success_rule": "If the 9/9 binary gate is met, seal immutable evidence and submit it to a Fresh Reviewer; do not select the policy or authorize downstream work before independent acceptance."
+  },
+  "engineer_objective": "Implement and self-test the fresh tensor-codebook runner without modifying consumed artifacts; prove exact alias-safe candidate A/B construction and model-only reconstruction improvement; pass 8/8 non-evaluator exactness and the 312-event dynamic preflight without an attempt marker; then, only if every pre-attempt gate passes, consume exactly one attempt-0001 over the unchanged nine-prompt matrix and submit immutable evidence to a Fresh Reviewer.",
+  "acceptance_check": "A Fresh Reviewer independently verifies task/hash closure, source-tied then runtime-split lm_head behavior, preserved embedding bytes, deterministic 169-tensor codebook construction within 4.036 bits/weight, passed pre-attempt gates, legal Dynamic Scale32 execution, and—if the official marker was created—9/9 exact BF16 token sequences plus 9/9 matching response-gate outcomes; selected_policy_id changes only after that adjudication.",
+  "prohibited_work": [
+    "modify, reclaim, resume, rename, replay, complete, or reinterpret any consumed Option-B attempt",
+    "create the new execution marker during planning, runner development, codebook construction, or preflight",
+    "use any official nine-prompt input, output, token array, or response gate for codebook construction or preflight",
+    "add per-group or per-scalar weight metadata, sparse prompt-specific exceptions, or more than one 16-byte codebook per Linear tensor",
+    "modify research/PIPELINE_STATE.json",
+    "modify RTL, testbenches, formal properties, synthesis constraints, certified PPA evidence, or the sealed two-token record",
+    "retarget or claim the arbitrary-text demo",
+    "begin U280 integration, emulation, bitstream, or board work",
+    "download a proprietary vendor toolchain"
+  ],
+  "claim_boundary": {
+    "task_authority_created": true,
+    "official_attempt_started": false,
+    "official_attempt_consumed": false,
+    "runner_frozen": false,
+    "preflight_complete": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

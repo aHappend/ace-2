@@ -1,0 +1,494 @@
+{
+  "artifact_policy": {
+    "base_root": "build/w4a8-full-model-software-contract-v1/base",
+    "bf16_control_namespace": "bf16-control-v2",
+    "candidate_attempt_name": "attempt-0001",
+    "candidate_attempts_per_model": 1,
+    "checkpoint176_root": "build/w4a8-full-model-software-contract-v1/checkpoint-176",
+    "first_genuine_attempt_immutable": true,
+    "forbidden_cross_model_reuse": [
+      "packed_w4_weights",
+      "weight_scale32",
+      "activation_scale32",
+      "operator_scale32",
+      "kv_cache_scale32",
+      "calibration_observations"
+    ],
+    "legacy_bf16_control_namespace": "bf16-control",
+    "manifest_required_fields": [
+      "model_identity_sha256",
+      "candidate_id",
+      "calibration_input_sha256",
+      "packed_w4_sha256",
+      "weight_scale32_sha256",
+      "activation_scale32_sha256",
+      "operator_scale32_sha256",
+      "raw_output_sha256",
+      "configuration_sha256"
+    ],
+    "model_artifacts_generated_independently": true,
+    "no_candidate_artifact_exists_at_freeze": true
+  },
+  "candidate_matrix": [
+    {
+      "candidate_id": "c00-rtn-absmax",
+      "description": "Deterministic signed-W4 round-to-nearest-even control with one full-row scale per output channel.",
+      "ordered_index": 0,
+      "weight_generation": {
+        "code_selection": "round_to_nearest_ties_to_even_then_saturate_signed_w4",
+        "scale": "maximum_absolute_bf16_weight_in_complete_output_row_divided_by_7",
+        "search": "none"
+      }
+    },
+    {
+      "candidate_id": "c01-mse-clip-grid",
+      "description": "Predeclared per-row clipping grid selected by exact BF16 weight reconstruction MSE.",
+      "ordered_index": 1,
+      "weight_generation": {
+        "clip_ratio_denominator": 1000,
+        "clip_ratio_numerators": [
+          1000,
+          990,
+          975,
+          950,
+          925,
+          900
+        ],
+        "code_selection": "round_to_nearest_ties_to_even_then_saturate_signed_w4",
+        "objective": "sum_of_squared_bf16_weight_error_accumulated_in_binary64",
+        "tie_break": "larger_clip_ratio_then_lower_candidate_index"
+      }
+    },
+    {
+      "candidate_id": "c02-qqq-block-hessian-round",
+      "description": "QQQ-informed activation-Hessian block reconstruction while preserving the common runtime W4A8 format.",
+      "ordered_index": 2,
+      "weight_generation": {
+        "block_columns": 128,
+        "initialization": "c01-mse-clip-grid",
+        "objective": "minimize_squared_X_times_W_minus_QS_on_the_frozen_model_specific_calibration_activations",
+        "pass_order": [
+          "ascending_columns",
+          "descending_columns",
+          "ascending_columns",
+          "descending_columns"
+        ],
+        "passes": 4,
+        "per_coordinate_code_candidates": "current_code_and_adjacent_representable_signed_w4_codes",
+        "scale_update": "disabled_after_c01_selection",
+        "tie_break": "lower_objective_then_smaller_absolute_code_then_lower_signed_code"
+      }
+    },
+    {
+      "candidate_id": "c03-qserve-progressive-block-reconstruction",
+      "description": "QServe-informed progressive 128-column reconstruction and final low-nibble-first packing under the unchanged runtime contract.",
+      "ordered_index": 3,
+      "weight_generation": {
+        "block_columns": 128,
+        "initialization": "c02-qqq-block-hessian-round",
+        "objective": "minimize_cumulative_output_residual_on_frozen_model_specific_calibration_activations",
+        "pass_order": [
+          "ascending_blocks",
+          "descending_blocks"
+        ],
+        "passes": 2,
+        "runtime_outlier_path": "forbidden",
+        "scale_update": "one_full_row_scale_may_be_reselected_only_from_the_c01_grid_after_each_complete_pass",
+        "tie_break": "lower_objective_then_larger_clip_ratio_then_lexicographically_lower_packed_bytes"
+      }
+    }
+  ],
+  "claim_boundary": "This corrected v2 freeze authorizes only fresh BF16 semantic-equivalence controls and their separate numerical diagnostics. It selects no PTQ candidate, consumes no official generation attempt, authorizes no RTL integration, and establishes no quality, timing, area, or hardware-correctness claim. PTQ remains blocked until Fresh-L2 accepts the v2 controls.",
+  "contract_id": "qwen2.5-0.5b-base-vs-ace2-lora-v4-checkpoint176-w4a8-full-model-software-v2",
+  "created_at_utc": "2026-08-12T00:00:00Z",
+  "evaluation_contract": {
+    "bf16_control": {
+      "allowed_numerical_diagnostic_classifications": [
+        "BF16_NUMERICAL_DIAGNOSTIC_WITHIN_BOUND",
+        "BF16_NUMERICAL_DIAGNOSTIC_BOUND_EXCEEDED_FP32_EXONERATED"
+      ],
+      "bf16_logit_max_abs_difference_bound": 0.25,
+      "cache_equivalence_fields": [
+        "generated_token_ids",
+        "per_step_selected_token",
+        "termination_reason"
+      ],
+      "cache_equivalence_required": true,
+      "cache_logit_comparison": "enforce_0p25_bound_as_a_separate_numerical_diagnostic_with_only_the_frozen_FP32_exoneration_while_semantic_equivalence_requires_exact_selected_tokens_and_termination",
+      "control_dtype": "torch_bfloat16",
+      "exact_replay_count": 2,
+      "fp32_exonerated_models": [
+        "base"
+      ],
+      "fp32_required_classification": "FP32_NUMERICALLY_CONSISTENT",
+      "identity_fields": [
+        "chat_template_input_ids",
+        "generated_token_ids",
+        "per_step_selected_token",
+        "per_step_full_bf16_logit_tensor_sha256",
+        "termination_reason"
+      ],
+      "models_run_separately": true,
+      "production_path": "one_prefill_with_use_cache_true_then_one_token_decode_steps_with_returned_kv_cache",
+      "ptq_unlock_requires_fresh_l2_acceptance": true,
+      "required_before_ptq": true,
+      "semantic_equivalence_rule": "every_cache_step_selected_token_must_equal_full_prefix_and_duplicate_replays_must_match_generated_tokens_selected_tokens_and_termination",
+      "status": "PENDING_V2_EXECUTION"
+    },
+    "bounded_quality_sets": {
+      "c4_perplexity": {
+        "config": "en",
+        "record_indices": {
+          "start": 64,
+          "stop": 128
+        },
+        "repository": "allenai/c4",
+        "revision": "1588ec454efa1a09f29cd18ddd04fe05fc8653a2",
+        "sequence_length": 512,
+        "split": "validation"
+      },
+      "lm_eval": {
+        "fewshot": 0,
+        "limit_per_task": 64,
+        "metric": "acc_norm,none",
+        "tasks": [
+          "arc_challenge",
+          "arc_easy",
+          "hellaswag",
+          "piqa",
+          "winogrande"
+        ]
+      },
+      "wikitext2_perplexity": {
+        "config": "wikitext-2-raw-v1",
+        "first_complete_windows": 64,
+        "repository": "Salesforce/wikitext",
+        "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+        "sequence_length": 512,
+        "split": "validation",
+        "stride": 512
+      }
+    },
+    "calibration_set": {
+      "chat_wrapping": "each nonempty C4 text is one user message after the canonical system message",
+      "config": "en",
+      "model_specific_observation_runs": true,
+      "record_indices": {
+        "start": 0,
+        "stop": 64
+      },
+      "repository": "allenai/c4",
+      "revision": "1588ec454efa1a09f29cd18ddd04fe05fc8653a2",
+      "split": "validation",
+      "token_limit": 512
+    },
+    "canonical_generation_prompts": [
+      {
+        "prompt_id": "g00-arithmetic-short",
+        "short_answer_exception": true,
+        "user": "Return only the decimal result of 14 + 5.",
+        "validator": "strip_ascii_whitespace_then_exactly_19"
+      },
+      {
+        "prompt_id": "g01-rtl-explanation",
+        "short_answer_exception": false,
+        "user": "Write one grammatical sentence explaining why a clocked register retains state between rising edges.",
+        "validator": "readability_only"
+      },
+      {
+        "prompt_id": "g02-json",
+        "short_answer_exception": false,
+        "user": "Respond with only a JSON object whose keys are status and count, with values ok and 3.",
+        "validator": "parse_json_then_exact_object_status_ok_count_3"
+      },
+      {
+        "prompt_id": "g03-three-lines",
+        "short_answer_exception": false,
+        "user": "Give exactly three short lines naming three common colors, with no introductory sentence.",
+        "validator": "exactly_three_nonempty_lines_each_containing_a_unicode_letter"
+      },
+      {
+        "prompt_id": "g04-paraphrase",
+        "short_answer_exception": false,
+        "user": "Paraphrase this sentence without changing its meaning: The small robot crossed the quiet room before sunrise.",
+        "validator": "readability_only"
+      },
+      {
+        "prompt_id": "g05-translation-short",
+        "short_answer_exception": true,
+        "user": "Translate Good morning into Spanish. Return only the translation.",
+        "validator": "unicode_casefold_strip_terminal_punctuation_in_buenos_dias_set"
+      },
+      {
+        "prompt_id": "g06-safety-list",
+        "short_answer_exception": false,
+        "user": "Give two concise safety checks to perform before changing an RTL reset path.",
+        "validator": "exactly_two_list_items_with_unicode_letters"
+      },
+      {
+        "prompt_id": "g07-comparison",
+        "short_answer_exception": false,
+        "user": "In two sentences, explain the difference between combinational logic and sequential logic.",
+        "validator": "readability_only"
+      }
+    ],
+    "generation_gate": {
+      "all_prompt_validators_must_pass": true,
+      "maximum_identical_token_run": 4,
+      "minimum_alphanumeric_character_fraction": 0.35,
+      "minimum_unique_token_fraction_when_at_least_8_tokens": 0.2,
+      "minimum_visible_tokens": 2,
+      "punctuation_only_output_rejected": true,
+      "replacement_surrogate_or_control_character_rejected": true,
+      "short_answer_minimum_visible_tokens": 1
+    },
+    "quality_gate": {
+      "applies_independently_to_both_models": true,
+      "c4_perplexity_ratio_to_model_specific_bf16_max": 1.1,
+      "lm_eval_average_normalized_accuracy_drop_percentage_points_max": 3.0,
+      "lm_eval_individual_task_drop_percentage_points_max": 8.0,
+      "mission_local_not_project_final_emnlp_gate": true,
+      "wikitext2_perplexity_ratio_to_model_specific_bf16_max": 1.1
+    }
+  },
+  "frozen_references": {
+    "absolute_rope_online_attention": {
+      "path": "tools/ace2_absolute_rope_online_attention_reference.py",
+      "sha256": "c8f6c59f2a5dffa8c38a8936c455983c16fe7d4570fb02113726adf3ad408287"
+    },
+    "contract_runner": {
+      "path": "tools/run_w4a8_full_model_software_contract.py",
+      "sha256": "f2c8befce1966db5101483067b91bb6dfa9eaa4b5d4a384ce05c951cbd3aa318"
+    },
+    "contract_verifier": {
+      "path": "tools/verify_w4a8_full_model_software_contract.py",
+      "sha256": "b59b10403cbf28e78a86238da2c2c467ce16c5c4d7529300357f95ba67622449"
+    },
+    "environment_lock": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/environment.lock.json",
+      "sha256": "4cff49c07e30fa193898e1be4a07cdbb8acfa8bccc1d6d26b7fd4246927cfdd6"
+    },
+    "fixed_point_reference": {
+      "path": "tools/ace2_full_model_fixed_point.py",
+      "sha256": "daec4fdfda7f04be70bb99bf7e2c15dad2d42438cc7491721fc5447cd92f909f"
+    },
+    "fp32_cache_diagnostic": {
+      "path": "evidence/diagnostics/w4a8-base-cache-fp32-worst-step-v1/result.json",
+      "sha256": "2a7e0685f5fc5d51d8e3efa29024d081d4573148365f17bddb3b3d586eab27e3"
+    },
+    "quality_config": {
+      "path": "benchmark/quality/QUALITY_CONFIG.json",
+      "sha256": "af1990258c7840f73a6666aaf575ced5fb185eac17e9d9b5ec3c76d14f6e60ae"
+    },
+    "quality_prompt_manifest": {
+      "path": "benchmark/quality/PROMPT_MANIFEST.json",
+      "sha256": "1e3860feee760ecc8615adcc4f5f95de5715f3dd5a7f47db80410636b3375c4d"
+    },
+    "round3_ptq_containment": {
+      "path": "evidence/diagnostics/w4a8-round3-unauthorized-ptq-containment-v1/record.json",
+      "sha256": "1448ef4edd89b5e704d4eff5fb07eedfa6a332b2e1a6c7573163aba2cac71337"
+    },
+    "scale32_reference": {
+      "path": "tools/ace2_quality_contracts.py",
+      "sha256": "be80d612786d1623d211d69302125db7568cec026d6e5ed500fbb90b39924368"
+    },
+    "v4_training_result": {
+      "path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/attempt-0001/training_result.json",
+      "sha256": "421481ddb2036ae0ea5cb56778401c50232cbf38f2fb38983713ed1fd23aca9f"
+    }
+  },
+  "method_lineage": {
+    "qqq": "Informs activation-Hessian-aware deterministic W4 reconstruction only; this contract does not claim an exact QQQ reproduction.",
+    "qserve": "Informs progressive 128-column reconstruction, packed W4 layout, and integer-only W4A8 runtime constraints; KV remains signed A8 under this contract and this is not an exact QServe reproduction."
+  },
+  "model_identities": {
+    "ace2_lora_v4_checkpoint176": {
+      "adapter": {
+        "adapter_config": {
+          "path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/attempt-0001/checkpoints/checkpoint-176/adapter_config.json",
+          "sha256": "9261b3480065c0d1bdf8b0a33b01279f1cfdb285ca7aaf3aa850fb62ab894664"
+        },
+        "adapter_model": {
+          "path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/attempt-0001/checkpoints/checkpoint-176/adapter_model.safetensors",
+          "sha256": "c9476d6ccc687a4d68de1951eb889b689daaf9c5d3822b4c5acfc26a1cd38a28"
+        },
+        "checkpoint_tree_sha256": "8cee9b9343e49b66ee2ea427578f87335ffa259919356cdd119cd8712ff7eeee",
+        "lora_alpha": 32,
+        "lora_rank": 16,
+        "merge_policy": "load_pinned_base_in_bf16_apply_checkpoint176_adapter_then_merge_and_unload_in_bf16_before_independent_w4_generation",
+        "peft_version": "0.20.0",
+        "target_modules": [
+          "down_proj",
+          "gate_proj",
+          "k_proj",
+          "o_proj",
+          "q_proj",
+          "up_proj",
+          "v_proj"
+        ]
+      },
+      "base_model_identity": "qwen2.5-0.5b-instruct",
+      "model_id": "ace2-lora-v4-checkpoint-176"
+    },
+    "qwen2.5-0.5b-instruct": {
+      "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "config": {
+        "head_dim": 64,
+        "hidden_size": 896,
+        "intermediate_size": 4864,
+        "max_position_embeddings": 32768,
+        "num_attention_heads": 14,
+        "num_hidden_layers": 24,
+        "num_key_value_heads": 2,
+        "rms_norm_eps": 1e-06,
+        "rope_theta": 1000000.0,
+        "tie_word_embeddings": true,
+        "vocab_size": 151936
+      },
+      "files": {
+        "config.json": "18e18afcaccafade98daf13a54092927904649e1dd4eba8299ab717d5d94ff45",
+        "model.safetensors": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+        "tokenizer.json": "c0382117ea329cdf097041132f6d735924b697924d6f6fc3945713e96ce87539",
+        "tokenizer_config.json": "5b5d4f65d0acd3b2d56a35b56d374a36cbc1c8fa5cf3b3febbbfabf22f359583"
+      },
+      "model_id": "qwen2.5-0.5b-instruct",
+      "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+      "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+    }
+  },
+  "negative_evidence": [
+    {
+      "classification": "REJECTED_OPTION_B_PUNCTUATION_COLLAPSE_DIAGNOSTIC_ONLY",
+      "decoded_text": "'''\"",
+      "model_id": "qwen2.5-0.5b-instruct",
+      "path": "build/manual-comparison/w4a8-option-b-base-smoke/arithmetic-001.json",
+      "sha256": "3fca091d1e63890655f7d609acf1321c755d978c14cb002c25b8662177301c2b"
+    },
+    {
+      "classification": "REJECTED_OPTION_B_PUNCTUATION_COLLAPSE_AND_CROSS_MODEL_CALIBRATION_REUSE_DIAGNOSTIC_ONLY",
+      "decoded_text": "''''",
+      "model_id": "ace2-lora-v4-checkpoint-176",
+      "path": "build/manual-comparison/w4a8-option-b-checkpoint176-smoke/arithmetic-001.json",
+      "sha256": "965465a44eef196d5f1536cbb8939dc2d8219712a54e50623f22205cfcf1f04a"
+    }
+  ],
+  "schema_version": 2,
+  "scope_guards": {
+    "complete_rtl_integration_authorized": false,
+    "hidden_or_golden_outputs_may_be_inspected": false,
+    "official_generation_attempts_consumed": 0,
+    "ptq_candidate_execution_authorized": false,
+    "retraining_authorized": false,
+    "stage1_completion_claimed": false,
+    "u280_authorized": false
+  },
+  "shared_w4a8_contract": {
+    "accumulation": {
+      "bias": "if_present_quantize_to_the_exact_activation_times_weight_scale_with_ties_to_even_and_add_once_before_requantization",
+      "overflow_policy": "any_mathematical_projection_sum_outside_signed_int32_is_a_candidate_failure",
+      "reduction": "one_signed_int32_sum_of_signed_int4_times_signed_int8_products_across_the_complete_projection_input_dimension",
+      "width": 32
+    },
+    "activation_a8": {
+      "calibration": "model_specific_bf16_observation_on_the_exact_frozen_calibration_set",
+      "cross_model_scale_reuse": "forbidden",
+      "grouping": "one_static_scale_per_complete_linear_input_tensor_and_one_static_scale_per_complete_linear_output_tensor_except_dynamic_qk_rope_head_scales",
+      "integer_range": [
+        -128,
+        127
+      ],
+      "quantization": "round_to_nearest_ties_to_even_of_bf16_value_divided_by_positive_scale_then_signed_int8_saturation",
+      "scale_derivation": "maximum_absolute_observed_bf16_value_divided_by_127_then_ceil_to_Scale32",
+      "zero_point": 0
+    },
+    "generation": {
+      "add_generation_prompt": true,
+      "argmax_tie_break": "lowest_token_id_among_equal_maximum_integer_logits",
+      "canonical_system_message": "You are a helpful assistant. Follow the user's requested response format exactly.",
+      "chat_template_sha256": "cd8e9439f0570856fd70470bf8889ebd8b5d1107207f67a5efb46e342330527f",
+      "clean_up_tokenization_spaces": false,
+      "decode": "greedy_one_token_at_a_time",
+      "max_new_tokens": 32,
+      "padding_token_id": 151643,
+      "sampling": false,
+      "termination_token_ids": [
+        151643,
+        151645
+      ],
+      "use_cache": true
+    },
+    "kv_cache": {
+      "append_order": "layer_then_token_then_kv_head_then_lane",
+      "key_payload": "signed_int8_post_rope_key_with_one_ProducerScale32_per_token_per_64_lane_kv_head",
+      "past_entry_requantization": "forbidden",
+      "repeat_kv": "map_each_of_14_query_heads_to_kv_head_floor_query_head_divided_by_7_without_copy_dependent_rescaling",
+      "value_payload": "signed_int8_v_projection_output_with_the_frozen_model_specific_v_output_Scale32",
+      "width": 8
+    },
+    "nonlinearities": {
+      "attention": "causal_online_softmax_with_row_max_Q12_20_logits_Q1_31_exponential_table_unsigned48_denominator_signed56_value_numerators_and_final_ties_to_even_division_to_signed_int8",
+      "rmsnorm": "signed_int8_input_sum_of_squares_in_signed64_nearest_integer_mean_square_ceiling_integer_square_root_floor_Q30_reciprocal_signed_Q7_8_gain_product_ties_to_even_shift_38_then_signed_int8_saturation",
+      "rope": "split_half_64_lane_absolute_rope_coefficients_generated_F32_then_BF16_then_signed_Q1_15_rotated_in_signed25_and_scaled_with_per_token_per_head_Scale32",
+      "silu": "signed_int8_gate_and_up_to_Q6_9_gate_uses_frozen_129_entry_Q3_12_SiLU_table_then_Q9_21_product_and_common_multiplier_shift_requantization",
+      "source_of_bit_exact_tables": "frozen_references.fixed_point_reference_and_frozen_references.absolute_rope_online_attention"
+    },
+    "requantization": {
+      "fixed_multiplier": "choose_the_largest_right_shift_in_0_through_63_whose_ties_to_even_real_multiplier_times_2_to_shift_fits_signed_int32",
+      "operation": "signed_accumulator_times_signed_int32_multiplier_then_round_to_nearest_ties_to_even_right_shift_then_signed_int8_saturation",
+      "saturation_point": "after_bias_residual_or_group_alignment_as_applicable",
+      "signed_int8_range": [
+        -128,
+        127
+      ]
+    },
+    "scale32": {
+      "all_zero_tensor_record": "0x00E88000",
+      "encoding": "bits15_0_unsigned_normalized_significand_bits23_16_signed_twos_complement_exponent_bits31_24_zero",
+      "exponent_range": [
+        -24,
+        4
+      ],
+      "positive_value": "significand_times_2_to_the_power_exponent_minus_15",
+      "selection": "smallest_representable_positive_Scale32_greater_than_or_equal_to_the_exact_required_scale",
+      "significand_range": [
+        32768,
+        65535
+      ]
+    },
+    "weight_w4": {
+      "integer_range": [
+        -8,
+        7
+      ],
+      "packing": "two_signed_twos_complement_int4_codes_per_byte_low_input_index_in_low_nibble",
+      "packing_group_size": 128,
+      "runtime_scale_granularity": "one_positive_Scale32_per_output_channel_across_the_complete_projection_reduction",
+      "zero_point": 0
+    }
+  },
+  "status": "FROZEN_PRE_PTQ_V2_CONTROLS_PENDING_FRESH_L2",
+  "stopping_rules": {
+    "candidate_pass": "one_candidate_id_must_pass_every_bit_exact_generation_readability_and_bounded_quality_gate_for_both_independently_generated_model_artifacts",
+    "evaluation_order": "ascending_ordered_index",
+    "first_shared_pass_selected": true,
+    "maximum_genuine_candidate_model_attempts": 8,
+    "no_execution": "evaluator_or_environment_no_execution_is_classified_separately_and_consumes_no_genuine_candidate_attempt",
+    "no_ptq_pass_prerequisite": "Produce a replacement model state under this exact frozen arithmetic using fake-quantized W4 weights A8 activations integer nonlinearities and A8 KV cache during training: full QAT for a failing base state or quantization-aware LoRA from checkpoint-176 for a failing adapter state; no RTL compensation is permitted.",
+    "repair_policy": "repair_harness_defects_before_a_genuine_attempt_or_record_a_separate_non_scoring_repair_attempt_without_overwriting_attempt_0001"
+  },
+  "tool_environment": {
+    "network_access": false,
+    "packages": {
+      "accelerate": "1.14.0",
+      "datasets": "4.8.5",
+      "huggingface-hub": "0.36.2",
+      "lm-eval": "0.4.9.2",
+      "peft": "0.20.0",
+      "safetensors": "0.8.0",
+      "tokenizers": "0.22.2",
+      "torch": "2.11.0+cu130",
+      "transformers": "4.57.6"
+    },
+    "python": "3.13.5"
+  }
+}

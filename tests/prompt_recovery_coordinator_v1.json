@@ -1,0 +1,18 @@
+{
+  "schema": "ace2-prompt-recovery-coordinator-v1",
+  "scope_authorization_id": "user-ace2-one-case2-retry-after-review-20260915-01",
+  "authority_id": "ace2-case2-retry-20260915-01",
+  "suite_config": "tests/prompt_suite_rtl_oracle_strict_fresh_v1.json",
+  "preserved_case_id": "multilingual-greeting",
+  "preserved_oracle_result": "reports/verification/prompt-suite-rtl-oracle-regression-0005/cases/multilingual-greeting/full-chain-oracle/result.json",
+  "preserved_source_registry": ".argus_subagents/fresh-three-prompt-rtl-regression-0005.json",
+  "case2_id": "verification-question",
+  "case3_id": "kv-cache-question",
+  "output": "reports/verification/prompt-suite-rtl-oracle-recovery-0001/scientific-output",
+  "case_timeout_seconds": 90000,
+  "oracle_timeout_seconds": 18000,
+  "overall_timeout_seconds": 230400,
+  "health_cadence_seconds": 180,
+  "minimum_launch_free_bytes": 8589934592,
+  "minimum_next_case_free_bytes": 6442450944
+}

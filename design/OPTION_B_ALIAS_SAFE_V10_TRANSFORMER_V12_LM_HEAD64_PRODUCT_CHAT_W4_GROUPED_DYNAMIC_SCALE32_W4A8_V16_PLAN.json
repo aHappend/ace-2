@@ -1,0 +1,179 @@
+{
+  "schema_version": 1,
+  "candidate_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v16",
+  "created_at_utc": "2026-08-07T09:05:00Z",
+  "stage": "specification",
+  "status": "frozen_not_started",
+  "objective": "Preserve the exact V15 quantized representation and inherited product-quality acceptance contract while repairing only the evaluator's response-count versus model-forward-count mismatch and its failure-unsafe raw-output publication order under one fresh V16 authority.",
+  "terminal_predecessor": {
+    "candidate_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v15",
+    "plan": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V15_PLAN.json",
+    "plan_sha256": "0bd404fa215f429ce5e112459f5f17b7fbf31d9ff062e3577ae01bbfdc4a196a",
+    "engineer_task": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V15_ENGINEER_TASK.json",
+    "engineer_task_sha256": "324c12fe62f1db5be9e06ecaa7b486f62de1b86937517298ac2aa5f5dbbc647d",
+    "construction_marker_sha256": "08aeb5a9e5621a137aeb2c7ba39d54c61e33ee8ab230b37567a56f2ba02ed508",
+    "quality_marker_sha256": "4b10a51df8678821bf7fa61e2898a0805b92fd53fe45fa18b12e32ade0b27d54",
+    "terminal_status": "EVALUATOR_FAILURE_AFTER_CAMPAIGN_CONSUMPTION",
+    "failure_taxonomy": "EVALUATOR_INTEGRATION_FAILURE_AFTER_CAMPAIGN_CONSUMPTION",
+    "terminal_failure_sha256": "371c4217c5f7b2a1b823b5536d9523033fb494624427a5197cdc1b428a845446",
+    "fresh_reviewer_submission_sha256": "b1784394460c36285fec04721a1ead21d1d2b46f38c1096adb45306638726eb8",
+    "review_record": "research/raw/specification/v15-evaluator-counter-mismatch-review-done-20260807T084955Z.json",
+    "review_record_sha256": "4a5db7140876c3b652c410b36ccda0d9a11003b16c88a7cf33a33b3cb35edca9",
+    "review_status": "done",
+    "completed_response_generation_count": 23,
+    "actual_model_forward_count": 461,
+    "incorrect_comparison_count": 23,
+    "quality_conclusion": null,
+    "selected_policy_id": null,
+    "replay_resume_repair_or_second_campaign_permitted": false
+  },
+  "inherited_v15_acceptance_contract": {
+    "path": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V15_PLAN.json",
+    "sha256": "0bd404fa215f429ce5e112459f5f17b7fbf31d9ff062e3577ae01bbfdc4a196a",
+    "acceptance_changes": [],
+    "inheritance_rule": "V16 changes evaluator accounting, failure-safe publication ordering, execution authority, source bindings, task identity, and namespace only. Weight construction, activation quantization, generation settings, product-quality prompts, holdouts, rubric, quantized-reference-to-accelerator agreement, clock/reset/protocol rules, and public ace2_shell interface remain byte-semantically identical to the V13 contract inherited through V15.",
+    "sections": {
+      "weight_policy": "bb82b8d89946ab2e91808a00549a962dc53e6d4607e67f9a78dee95ba5dbf3c7",
+      "storage_and_accelerator_accounting": "ea02e80643c7c06ed02df6ca783a574c8d87156813e6d60572716352c395d5d0",
+      "activation_policy": "512288c00417a83b9849f8ed5f143c1e585a42aa17a3680979c73025c2b7e490",
+      "generation_contract": "9e8e2a5cdf04bd6015319b5d38ab720ecfac71ec266c07523ecf31b05d567d43",
+      "frozen_product_quality_matrix": "312942cdb47fb294e6f7d402052c4bfec1cf94b48ecfd64995f9b65e7e3dff36",
+      "quality_rubric": "f8e8bf4e9dfe04503b72cabd91edd6d96a14f8e0a427c9247400dc779c50f814",
+      "quantized_reference_to_accelerator_contract": "e4a967125dfdf0ad228511732027a192352a39a852d5608430a9b5cfd9108cbd",
+      "clock_reset_and_protocol": "251fd1e7b66fd392ed38dc6dc8ea82203d47b9d0e267fb9321f8c211a362135c"
+    }
+  },
+  "frozen_product_quality_matrix_source": {
+    "matrix_id": "ace2-v13-product-quality-v1",
+    "source_path": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V13_PLAN.json#frozen_product_quality_matrix",
+    "canonical_sha256": "312942cdb47fb294e6f7d402052c4bfec1cf94b48ecfd64995f9b65e7e3dff36",
+    "single_turn_case_count": 12,
+    "multi_turn_dialogue_count": 3,
+    "fresh_reviewer_holdout_count": 4,
+    "response_count": 23,
+    "maximum_new_tokens_per_response": 32,
+    "frozen_before_v13_v14_v15_or_v16_candidate_output": true,
+    "prompt_tuning_replacement_or_rubric_change_permitted": false
+  },
+  "corrected_execution_binding": {
+    "frozen_algorithm_backend": {
+      "path": "tools/v13_v10_transformer_v12_lm_head64_backend.py",
+      "bytes": 75023,
+      "sha256": "4b06fb0c84f8bd3dbca1915882d59038d2bc40577fa07d5d7543c4741518c82f"
+    },
+    "v16_authority_adapter": {
+      "path": "tools/v16_v10_transformer_v12_lm_head64_backend.py",
+      "bytes": 35019,
+      "sha256": "44879f707e8d5417f250d07750f6107c27a7c0c68a11d4e945104295c459f460"
+    },
+    "v16_runner": {
+      "path": "tools/run_option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v16_stage1.py",
+      "bytes": 1746,
+      "sha256": "622aabcf98877d50bb2010d6c0240657d543a254bc0729aea3e1c46921a2d720"
+    },
+    "v15_review_record": {
+      "path": "research/raw/specification/v15-evaluator-counter-mismatch-review-done-20260807T084955Z.json",
+      "bytes": 4353,
+      "sha256": "4a5db7140876c3b652c410b36ccda0d9a11003b16c88a7cf33a33b3cb35edca9"
+    },
+    "v15_terminal_failure": {
+      "path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v15/quality-campaign-0001/failure.json",
+      "bytes": 1703,
+      "sha256": "371c4217c5f7b2a1b823b5536d9523033fb494624427a5197cdc1b428a845446"
+    },
+    "v15_fresh_reviewer_submission": {
+      "path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v15/fresh_reviewer_submission.json",
+      "bytes": 5770,
+      "sha256": "b1784394460c36285fec04721a1ead21d1d2b46f38c1096adb45306638726eb8"
+    }
+  },
+  "evaluator_repair": {
+    "failure_class": "EVALUATOR_COUNTER_DIMENSION_MISMATCH",
+    "failed_v15_behavior": "The campaign passed len(outputs), equal to 23 responses, to the activation summary while activation hooks counted 461 model forwards.",
+    "v16_model_forward_count_rule": "Each response record carries model_forward_count equal to the number of generation-loop model invocations. Campaign activation auditing receives the exact sum across all response records.",
+    "v16_failure_safe_publication_rule": "For the campaign run only, raw_outputs.jsonl is opened exclusively before generation, each completed response record is appended and fsynced immediately, and the file is closed before the post-generation activation summary assertion. The later publication call must verify byte identity and must not rewrite the file.",
+    "deterministic_replay_rule": "Replay uses the same generation and actual-forward accounting path, must exactly reproduce every generated token ID and decoded output, and does not overwrite the preserved campaign raw-output file.",
+    "terminal_verification_rule": "verify-result checks all six quality files against SHA256SUMS, checks the raw response count, checks deterministic replay, and proves campaign model_forward_count equals the sum of per-response generation steps and is not substituted with response count.",
+    "candidate_numerics_changed": false,
+    "generation_settings_changed": false,
+    "quality_matrix_or_rubric_changed": false
+  },
+  "required_non_consuming_regression": {
+    "official_namespace_must_be_absent": true,
+    "quality_marker_must_be_absent": true,
+    "fixture_scope": "synthetic evaluator control and publication path only; no Qwen candidate construction or candidate output",
+    "required_scenarios": [
+      "variable-length single-turn response generation",
+      "variable-length two-turn response generation",
+      "response_count distinct from actual model-forward count",
+      "successful campaign and deterministic replay publication through raw outputs, token/latency, rubric, RESULT, SHA256SUMS, and terminal quality-bundle verification",
+      "forced post-generation activation assertion after all responses with all raw campaign records already durable"
+    ],
+    "pass_required_before_official_authority": true
+  },
+  "fresh_authority": {
+    "task_id": "task-7c95f6e2a841",
+    "root": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16",
+    "root_must_be_absent_before_construction": true,
+    "construction_marker": "construction_started.json",
+    "quality_campaign": "quality-campaign-0001",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "construction_attempts_authorized": 1,
+    "quality_campaigns_authorized": 1,
+    "recovery_replay_or_second_campaign_permitted": false,
+    "planner_may_consume_authority": false
+  },
+  "required_closure": {
+    "transformer_exact_v10_tensor_count": 168,
+    "lm_head_exact_v12_tensor_count": 1,
+    "lm_head_group_count": 64,
+    "whole_model_weight_count": 493961216,
+    "whole_model_four_bit_payload_bytes": 246980608,
+    "whole_model_weight_metadata_bytes": 1926352,
+    "whole_model_total_weight_bytes": 248906960,
+    "whole_model_exact_bits_per_weight": 4.031198433198448,
+    "dynamic_scale32_named_event_count": 312,
+    "maximum_activation_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "public_ace2_shell_parameter_count": 12,
+    "public_ace2_shell_port_count": 64,
+    "public_interface_change_permitted": false
+  },
+  "clock_reset_and_protocol_closure": {
+    "clock_domains": 1,
+    "clock_port": "clk_i",
+    "reset_port": "rst_ni",
+    "reset_polarity": "active_low",
+    "reset_assertion": "asynchronous",
+    "reset_release": "synchronized",
+    "memory_protocol": "independent ready_valid request and response channels with legal backpressure",
+    "latency_and_throughput": "unchanged from the frozen public ace2_shell specification; V16 is a specification-stage software-reference evaluator repair and changes no RTL cycles"
+  },
+  "quality_gate": {
+    "hard_check_response_pass_rate": "100%",
+    "minimum_single_turn_cases_meeting_required_observable": 11,
+    "required_multi_turn_cases_meeting_required_observable": 3,
+    "required_fresh_reviewer_holdouts_meeting_required_observable": 4,
+    "case_with_any_zero_dimension_permitted": 0,
+    "minimum_overall_mean_dimension_score": 1.75,
+    "critical_factual_safety_or_instruction_failure_permitted": 0,
+    "required_fresh_reviewer_status": "done_with_product_quality_pass",
+    "bf16_token_identity_is_acceptance_criterion": false,
+    "software_only_result_completes_stage_1_product": false
+  },
+  "stage_routing": {
+    "this_plan_may_modify_rtl": false,
+    "this_plan_may_retarget_live_chat_demo": false,
+    "this_plan_may_run_simulation_formal_synthesis_ppa_or_u280_tools": false,
+    "quality_pass_effect": "submit immutable evidence to a Fresh Reviewer; policy selection and specification-to-rtl transition remain Manager decisions",
+    "quality_fail_effect": "preserve immutable V16 evidence and route only from the observed failure taxonomy",
+    "current_stage_remains": "specification"
+  },
+  "claim_boundary": {
+    "planning_requirements_frozen": true,
+    "candidate_construction_started": false,
+    "quality_execution_started": false,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "project_completion_eligible": false
+  }
+}

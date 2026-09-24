@@ -1,0 +1,149 @@
+{
+  "attempt_authority": {
+    "attempt": 1,
+    "attempt_marker_creation_authorized_required": true,
+    "path": "research/raw/specification/qwen25-05b-instruct-bf16-lora-product-v5-attempt-operator-authority.json",
+    "required_status": "AUTHORIZE_SINGLE_V5_ATTEMPT",
+    "separate_fresh_operator_authority_required": true
+  },
+  "claim_boundary": "Execution-package implementation contract only. It authorizes construction, selector calibration, and non-consuming validation of the V5 package, but grants no V5 run namespace, attempt marker, training, official evaluation, merge, quantization, RTL, PPA, FPGA, or product claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5-execution-package-v1",
+  "environment_resolution": {
+    "device": "cpu",
+    "package_versions_cuda_runtime_and_non_seed_launch_variables_source": {
+      "bytes": 730,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/environment.lock.json",
+      "sha256": "4cff49c07e30fa193898e1be4a07cdbb8acfa8bccc1d6d26b7fd4246927cfdd6"
+    },
+    "pythonhashseed_conflict": {
+      "environment_lock_value": "260817",
+      "resolution": "The V5 recipe-specific seed controls V5 execution; the reused environment lock controls package versions, runtime, offline flags, and other launch variables.",
+      "selected_value": "26080805",
+      "training_recipe_value": "26080805"
+    }
+  },
+  "execution_order": [
+    "non_consuming_package_self_test",
+    "fresh_independent_l2_exact_package_acceptance",
+    "fresh_operator_attempt_authority",
+    "non_consuming_launch_preflight",
+    "create_attempt_marker_then_continue_v1_parent",
+    "score_half_then_full_candidate_on_frozen_selector",
+    "stop_predev_no_go_if_neither_candidate_passes_without_official_dev_access",
+    "qualify_exactly_one_selector_locked_checkpoint_on_official_dev",
+    "merge_then_retention_then_exactly_once_holdout_only_after_prior_passes"
+  ],
+  "failure_policy": {
+    "evaluator_no_execution_classified_separately": true,
+    "first_genuine_failed_gate_stops_later_stages": true,
+    "no_checkpoint_fallback": true,
+    "no_resume": true,
+    "preserve_partial_evidence": true
+  },
+  "frozen_inputs": {
+    "dataset_manifest": {
+      "bytes": 5721,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v5/dataset_manifest.json",
+      "sha256": "90830076270affcb7628596e5ca1c2037a75b0ba489992da29b4b5481d3e55e0"
+    },
+    "freeze_contract": {
+      "bytes": 5396,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v5/freeze_contract.json",
+      "sha256": "98bc6a72c242e48d031a364fe018d14b51c0e77f948a869c5b3913cb448d63ad"
+    },
+    "freeze_manifest": {
+      "bytes": 4237,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v5/freeze_manifest.json",
+      "sha256": "ddec1e6c30b5dc0b5f200f950df941c47b059ccf838cf944d3b4a667002e0ad0"
+    },
+    "parent_adapter": {
+      "bytes": 17640136,
+      "path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v1/attempt-0001/checkpoints/checkpoint-18/adapter_model.safetensors",
+      "sha256": "37acd8f25f78eeeec102840a7a21c978b3391470993b8e7c685dec0aaf2b2116"
+    },
+    "parent_adapter_config": {
+      "bytes": 1256,
+      "path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v1/attempt-0001/checkpoints/checkpoint-18/adapter_config.json",
+      "sha256": "37e336283ea289b7cc7fecfa32ea739010a996fd702339f44d73f72c85ccd793"
+    },
+    "selector_calibration": {
+      "bytes": 80180,
+      "path": "research/diagnostics/qwen25_lora_v5_selector_calibration.json",
+      "sha256": "f740e73c4660e515b791c5ad95252b02598026a569c0621fc386284f52caafd0"
+    },
+    "selector_cases": {
+      "bytes": 36077,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v5/selector.jsonl",
+      "sha256": "d1e46afb7ad80026e955a951fa2f5448daaff0a34eb23c92ada60140b7eff8c4"
+    },
+    "train": {
+      "bytes": 199242,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v5/train.jsonl",
+      "sha256": "3175c190ad7024cad3f0ccd242324bba0e1a5ede7384ed8e8feb2b165918b8a5"
+    },
+    "training_recipe": {
+      "bytes": 6123,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v5/training_recipe.json",
+      "sha256": "1914c14e12139167312f2d2e1e331df0f5a9ab870cfc670c4dbf020cf0adf875"
+    }
+  },
+  "independent_execution_package_review": {
+    "author_self_approval_allowed": false,
+    "minimum_level": "L2",
+    "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5/execution-package-l2-acceptance.json",
+    "required_before_preflight_or_attempt_marker": true,
+    "required_status": "ACCEPTED_V5_EXACT_PACKAGE_NO_ATTEMPT"
+  },
+  "namespace": {
+    "attempt": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5/attempt-0001",
+    "dev": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5/qualification/dev",
+    "holdout": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5/qualification/holdout-exactly-once",
+    "merged_model": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5/selected/merged-bf16",
+    "model_root": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5",
+    "offline_root": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5",
+    "retention": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5/qualification/retention",
+    "selected_adapter": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v5/selected/adapter"
+  },
+  "package": {
+    "frozen_non_executing_package_preserved": "pilot/qwen25_05b_bf16_lora_product_v5",
+    "runner": "pilot/qwen25_05b_bf16_lora_product_v5_runner"
+  },
+  "schema_version": 1,
+  "selector_lock": {
+    "candidate_checkpoints": [
+      "half_epoch",
+      "full_epoch"
+    ],
+    "candidate_steps": [
+      10,
+      20
+    ],
+    "dev_access_before_lock": false,
+    "fallback_allowed": false,
+    "official_dev_checkpoint_count": 1,
+    "official_dev_reselection_allowed": false,
+    "selection_inputs": [
+      "fresh_disjoint_selector_cases"
+    ],
+    "training_loss_selects_checkpoint": false
+  },
+  "source_and_evaluator": {
+    "frozen_scorer": {
+      "bytes": 28409,
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "bytes": 3450,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "bytes": 7673,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    }
+  },
+  "stage": "v5_execution_package",
+  "status": "IMPLEMENTED_PENDING_SELF_TEST_AND_INDEPENDENT_L2"
+}

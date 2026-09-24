@@ -1,0 +1,58 @@
+{
+  "candidate_status": "PARTIAL_LAYER16_DOWN_PROJ_ACCUMULATOR_REQUANT_RANK_IMPROVED",
+  "expected": {
+    "down_saturation_count": 0,
+    "reference_rank": 31879,
+    "top_token_id": 37865
+  },
+  "schema_version": 1,
+  "selected_as_repair": true,
+  "shape": {
+    "down_output_group_size": 4,
+    "down_output_groups": 224,
+    "down_outputs": 896
+  },
+  "sources": {
+    "accumulator": {
+      "bytes": 7168,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/groups/group-004/down_accumulator_s32.bin",
+      "sha256": "ce7dcb06952e5e98ec432c7f53641b044388e625f9e374b4843e03a3cafd7da0"
+    },
+    "candidate_result": {
+      "bytes": 15772,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/result.json",
+      "sha256": "db3063be5ce638076e134f63f99d0b75e7b48b717fb4829dd8c1121e91f2d4ca"
+    },
+    "expected_s8": {
+      "bytes": 896,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/groups/group-004/down_output_s8.bin",
+      "sha256": "d37971e185d79d5d34dc1135793363a9aac92303d99b4840cf02503fec6f4fd3"
+    },
+    "group_result": {
+      "bytes": 19247,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/groups/group-004/result.json",
+      "sha256": "28321eaf199ec6c4e3ab43226f85720801cac06db4ea4be4e15e7c5ca6247be4"
+    },
+    "multiplier": {
+      "bytes": 7168,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/groups/group-004/down_multiplier_s32.bin",
+      "sha256": "01343f64307e81ee5ba4b1c4b0c601cb6699440d2363c3946eb0a209bd879b3e"
+    },
+    "saturation": {
+      "bytes": 896,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/groups/group-004/down_saturation.bin",
+      "sha256": "d54f02b97ed5bc2a642756268b41d4b8f7a077e73224e1580d22436834a14db5"
+    },
+    "scale32": {
+      "bytes": 1792,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/groups/group-004/down_output_group_scale32.bin",
+      "sha256": "6a5131529256fac41e859bf8c924afd88186d4f691229e59a15637148fc1d8a6"
+    },
+    "shift": {
+      "bytes": 7168,
+      "path": "evidence/candidates/w4a8-layer16-down-proj-accumulator-requantization-repair-v1/candidate-0002/groups/group-004/down_shift_u6.bin",
+      "sha256": "6d1f6f203853dbce360f643a2fe04cd9a8462870c03f4a0ba031a568a058dfc3"
+    }
+  },
+  "validation_group_size": 4
+}

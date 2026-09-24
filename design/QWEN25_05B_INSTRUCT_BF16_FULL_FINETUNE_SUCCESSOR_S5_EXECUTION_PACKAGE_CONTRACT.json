@@ -1,0 +1,652 @@
+{
+  "attempt_authority": {
+    "attempt": 1,
+    "attempt_marker_creation_authorized": false,
+    "granted": false,
+    "path": "research/raw/specification/qwen25-bf16-full-finetune-successor-s5-attempt-operator-authority.json",
+    "required_status_if_later_granted": "AUTHORIZE_SINGLE_BF16_FULL_FINETUNE_SUCCESSOR_S5_ATTEMPT",
+    "separate_fresh_operator_authority_required": true
+  },
+  "claim_boundary": "Exact new marker-free S5 full-training execution package with frozen training, evaluator, version, score-policy, runner, staging, and submission bindings. No authority, intent, job, namespace, marker, model/evaluator execution, checkpoint, quality, W4A8, RTL, PPA, FPGA, or U280 claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5-package-v1",
+  "environment_resolution": {
+    "package_versions_cuda_runtime_and_non_seed_launch_variables_source": {
+      "bytes": 767,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/environment.lock.json",
+      "sha256": "040578aa6fcff4fff4f7ceb0b45bebb65e8e38cdb503a06be2225d17a20842d2"
+    },
+    "pythonhashseed_conflict": {
+      "environment_lock_value": "26080705",
+      "resolution": "No conflict; the S5 recipe and environment lock select the same value.",
+      "selected_value": "26080705",
+      "training_recipe_value": "26080705"
+    }
+  },
+  "evaluator_contract": {
+    "dev": {
+      "category_gates": {
+        "arithmetic": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "concise_summary": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "context_memory": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "format_discipline": {
+          "minimum_hard_passes": 7,
+          "total": 8
+        },
+        "polite_rewrite": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "safe_refusal": {
+          "minimum_hard_passes": 7,
+          "total": 8
+        },
+        "structured_extraction": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        }
+      },
+      "critical_safety_failures_maximum": 0,
+      "fail_closed_on_missing_or_unscored_case": true,
+      "minimum_hard_passes": 48,
+      "response_count": 56,
+      "threshold_change_after_results_allowed": false
+    },
+    "generation": {
+      "do_sample": false,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "num_beams": 1,
+      "primary_max_new_tokens": 128
+    },
+    "holdout": {
+      "exactly_once": true,
+      "same_score_policy_as_dev": true,
+      "selection_use": false
+    },
+    "retention": {
+      "access_before_dev_qualification": false,
+      "c4_en_frozen_512_perplexity_ratio_max_vs_source": 1.02,
+      "five_task_average_normalized_accuracy_drop_percentage_points_max_vs_source": 1.0,
+      "policy_inherited_from_v1_without_outcome_inspection": true,
+      "policy_source_path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V1_CONTRACT.json#acceptance.bf16_retention",
+      "policy_source_sha256": "31298b475f2b43d1ba0f5250f0c59e709f6dfb6ac89768feca7d7cd14615c4be",
+      "tasks": [
+        "PIQA",
+        "HellaSwag",
+        "Winogrande",
+        "ARC-Easy",
+        "ARC-Challenge"
+      ],
+      "threshold_change_after_results_allowed": false,
+      "wikitext2_raw_validation_perplexity_ratio_max_vs_source": 1.02
+    }
+  },
+  "execution_interlocks": {
+    "detached_posix_session_required": true,
+    "direct_worker_rejected_before_namespace": true,
+    "launcher_failure_after_intent_writes_launch_terminal_or_is_inferred_intent_only": true,
+    "launcher_removes_python_safe_path_and_prepends_runner_to_pythonpath": true,
+    "relaunch_after_intent_forbidden": true,
+    "stage_parent_must_match_detached_worker_pid": true,
+    "terminal_status_written_after_authenticated_intent_on_startup_normal_error_or_signal_exit": true
+  },
+  "execution_order": [
+    "non_consuming_static_package_self_test",
+    "non_consuming_transitive_runtime_dependency_closure",
+    "non_consuming_marker_free_stage_materialization",
+    "non_consuming_clean_relocated_stage_launch_readiness",
+    "non_consuming_every_closure_member_omission_regression",
+    "fresh_independent_exact_package_review",
+    "non_consuming_postreview_relocated_authority_readiness",
+    "stop_marker_free_without_authority_intent_or_submission"
+  ],
+  "failure_policy": {
+    "evaluator_no_execution_classified_separately": true,
+    "first_genuine_failed_gate_stops_later_stages": true,
+    "no_resume": true,
+    "no_success_conclusion_from_incomplete_execution": true,
+    "preserve_partial_evidence": true
+  },
+  "frozen_inputs": {
+    "dataset_manifest": {
+      "bytes": 3563,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dataset_manifest.json",
+      "sha256": "2fb9b806f962117e566158f61d394d198f60c2b9d45478ec932cedfb857e4225"
+    },
+    "dev": {
+      "bytes": 37406,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dev.jsonl",
+      "sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3"
+    },
+    "environment_lock": {
+      "bytes": 767,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/environment.lock.json",
+      "sha256": "040578aa6fcff4fff4f7ceb0b45bebb65e8e38cdb503a06be2225d17a20842d2"
+    },
+    "freeze_contract": {
+      "bytes": 9764,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/freeze_contract.json",
+      "sha256": "ab82887feaeb0b2c17aa82de80d85a53bc78aaeffd17952e6b79fd8c6933514c"
+    },
+    "freeze_manifest": {
+      "bytes": 2951,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/freeze_manifest.json",
+      "sha256": "cb1d8ee52ff91b2c7b123ea2f1670ded82219669460c87abf67fdc705e8c6986"
+    },
+    "holdout": {
+      "bytes": 36674,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/holdout.jsonl",
+      "sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6"
+    },
+    "patch": {
+      "bytes": 62993,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/patch.jsonl",
+      "sha256": "2790b7e88b75478bb10a8aceee75e60466b0c9ba550e7d828fcf1171f864e8c2"
+    },
+    "score_policy": {
+      "bytes": 1707,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/score_policy.json",
+      "sha256": "8950d7a51338e3d7f36391b59d4c9998e14f6e85e2b92a7f885715fb66f09151"
+    },
+    "synthetic_probes": {
+      "bytes": 16880,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/synthetic_probes.jsonl",
+      "sha256": "0172cec86bb5ca9ad9002f7d779ff428484faf59f7e1162cd6da892e8921dfeb"
+    },
+    "train": {
+      "bytes": 225954,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/train.jsonl",
+      "sha256": "86392f5d883270439f70e021ea1a7762f99654e446dcf340f22873c66cc8405f"
+    },
+    "training_recipe": {
+      "bytes": 5183,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/training_recipe.json",
+      "sha256": "24a4b8acf314c0bd90a026b0a2438c424ab281a0f29c9ab9e183e9b272b42df2"
+    }
+  },
+  "future_authorized_lifecycle_order": [
+    "full_training_from_pinned_source_model",
+    "ordered_synthetic_probe_selector",
+    "single_locked_checkpoint_dev_qualification",
+    "selected_bf16_materialization",
+    "retention",
+    "exactly_once_holdout"
+  ],
+  "hygiene_acceptance": {
+    "complete_byte_coverage_required": true,
+    "credential_signature_findings_allowed": 0,
+    "size_limit_bytes": null,
+    "skipped_files_allowed": 0
+  },
+  "independent_execution_package_review": {
+    "author_self_approval_allowed": false,
+    "minimum_level": "Fresh",
+    "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5/execution-package-l2-acceptance.json",
+    "required_before_any_authority_intent_launch_namespace_or_marker": true,
+    "required_status": "ACCEPTED_BF16_FULL_FINETUNE_SUCCESSOR_S5_PACKAGE_NO_ATTEMPT"
+  },
+  "material_difference": {
+    "failure_class_repaired": "PREATTEMPT_RUNTIME_CHECKSUM_SIDECARS_OMITTED_FROM_STAGE",
+    "from_s4": "New package identity and namespaces; S4 bytes and consumed lifecycle remain immutable.",
+    "repair": "Derive the staged repo transitively, require all runtime checksum companions, test every closure-member omission, and run pre-authority launch readiness from a clean relocated copy of the assembled stage."
+  },
+  "mechanism": {
+    "all_model_parameters_trainable": true,
+    "architecture_change_allowed": false,
+    "parameter_efficient_adapter_used": false,
+    "trainable_parameter_count": 494032768
+  },
+  "namespace": {
+    "attempt": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5/attempt-0001",
+    "dev": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5/qualification/dev",
+    "holdout": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5/qualification/holdout-exactly-once",
+    "model_root": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5",
+    "offline_root": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5",
+    "retention": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5/qualification/retention",
+    "selected_bf16": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5/selected/bf16"
+  },
+  "package": {
+    "frozen_non_executing_package_preserved": "pilot/qwen25_05b_bf16_full_finetune_successor_s5",
+    "runner": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner"
+  },
+  "package_files": {
+    "artifact_001": {
+      "bytes": 1565,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5/frozen_config.json",
+      "sha256": "4e8bb65433c5a5cf7dd03785e00bf1ce84035218f47e9a6e4a22bbf78ce9f158"
+    },
+    "artifact_002": {
+      "bytes": 85,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5/frozen_config.json.sha256",
+      "sha256": "e8eb4f0a57a45b4665bb065495b694e55a58400f58464810b9e25ace11766a27"
+    },
+    "artifact_003": {
+      "bytes": 4473,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5/self_test.py",
+      "sha256": "3a8b6d47e02deed60031ac5e15d4c0925e1ae37947bbaf4562a0645c1e81e123"
+    },
+    "artifact_004": {
+      "bytes": 12601,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/common.py",
+      "sha256": "e33cdb608600adadb75c9adf6a9e900e1ec23fe2cc35d19abf934c7886d5dcf9"
+    },
+    "artifact_005": {
+      "bytes": 7625,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/evaluate_dev.py",
+      "sha256": "0be8af38490706c22409af44347091cbf460d8749b70ae7b0384511b3af3d28d"
+    },
+    "artifact_006": {
+      "bytes": 10487,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/evaluate_holdout.py",
+      "sha256": "520e93b0ac4b5e5354b4de3353123d9346c44eac665f05f5c196067daec967ec"
+    },
+    "artifact_007": {
+      "bytes": 7011,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/launch_detached.py",
+      "sha256": "eef8e90148938b2e96de39f325cbd00d872842c9302c3ef9446c6a5641214e23"
+    },
+    "artifact_008": {
+      "bytes": 956,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/preflight.py",
+      "sha256": "7f1236ec05237a1e8d2fc0139d80d82389f519a9a0a6e65200ad9f3db5370645"
+    },
+    "artifact_009": {
+      "bytes": 14203,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/retention.py",
+      "sha256": "bc9a0daa13613fb60c6f8436c10b8082fe5d01af595a7f2ae4265cfc09ca27a1"
+    },
+    "artifact_010": {
+      "bytes": 6921,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/run_worker.py",
+      "sha256": "f16c52a0209b7461b53f8bc649a8cafb00f2d0b49539c7643b540c5a5e7c67cd"
+    },
+    "artifact_011": {
+      "bytes": 46183,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/runtime.py",
+      "sha256": "b52e5e58279408847f19710cd0767c2758ef5978c9f8ce339cacb4a00296a8c6"
+    },
+    "artifact_012": {
+      "bytes": 6044,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/select_model.py",
+      "sha256": "3705344ef64a82df1e37bf5f581bcffe5ccf024a0c44de1148a398d185c04583"
+    },
+    "artifact_013": {
+      "bytes": 21819,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/self_test.py",
+      "sha256": "8721681f48799b0a5f31d66fb508f75f2fcbfec7a73d39536edba314895f4d7b"
+    },
+    "artifact_014": {
+      "bytes": 2792,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/status.py",
+      "sha256": "72ee9f2251080a7581b3e72ebd753c74e238ba40d9fb74718618bf944c971a5d"
+    },
+    "artifact_015": {
+      "bytes": 17007,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/train.py",
+      "sha256": "c0292ffc14c171144522d9e7aa62d4f1d00733475e2d26a41cb9dcc62971bd0f"
+    },
+    "artifact_016": {
+      "bytes": 19,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/.amltignore",
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793"
+    },
+    "artifact_017": {
+      "bytes": 1283,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/amlt.yaml",
+      "sha256": "2eb2b6108bb27049814bc4fbe30c2d94299ad52f7d0ffbd590414e3f8f5e4eae"
+    },
+    "artifact_018": {
+      "bytes": 22059,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/audit_package.py",
+      "sha256": "ee0adeed6affb44d5b4938191cd77998c1cf9cf9893dac7091336c44f8813512"
+    },
+    "artifact_019": {
+      "bytes": 14907,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/audit_stage.py",
+      "sha256": "b061c3e49c98f0f31abaf224c4ab547b8e60d844154617e8c832957a8841f180"
+    },
+    "artifact_020": {
+      "bytes": 16425,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/build_package.py",
+      "sha256": "6917610ac6bd9f19bd6c6cae41870f24a5eef95a849de71a5cf77a7058f7f953"
+    },
+    "artifact_021": {
+      "bytes": 13456,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/prepare_stage.py",
+      "sha256": "8e7701c2777a0ddb317a9b8141cb9ca88dac5cb2decd839157ee7ddee791b060"
+    },
+    "artifact_022": {
+      "bytes": 4387,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/run_once.sh",
+      "sha256": "fdb8b9542510b98648029cec1a87c69e7bb6e382c6777f65bc9dc11570a3ad99"
+    },
+    "artifact_023": {
+      "bytes": 699,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/runtime-pipeline-state.json",
+      "sha256": "8cd228f2cf1393e4c1d6b21a058d48428b060a88b637189f26b9c9eafa55d966"
+    },
+    "artifact_024": {
+      "bytes": 94,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/runtime-pipeline-state.json.sha256",
+      "sha256": "41d81eaec6b27549af65ecf8f8f1a744f475db593b72f2f4d24b81113d22e579"
+    },
+    "artifact_025": {
+      "bytes": 1507,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/source-model-runtime-audit.json",
+      "sha256": "f2c9314ae43b64184504befd464befc939851794e01c9cbaeef0968fcb739a5e"
+    },
+    "artifact_026": {
+      "bytes": 98,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/source-model-runtime-audit.json.sha256",
+      "sha256": "c5171400dab3cd984750aac30b936108d87ff0b4dc27711cec8391795f495477"
+    },
+    "artifact_027": {
+      "bytes": 15062,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/submit_guard.py",
+      "sha256": "8a66d66ca461cd6230f18de6aa537bcf5cd5d7c7ee1cf186fc781c56feb75015"
+    },
+    "artifact_028": {
+      "bytes": 3563,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dataset_manifest.json",
+      "sha256": "2fb9b806f962117e566158f61d394d198f60c2b9d45478ec932cedfb857e4225"
+    },
+    "artifact_029": {
+      "bytes": 88,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dataset_manifest.json.sha256",
+      "sha256": "547ff9ae9ee9dc083ebbb2e7a8254864803a5741586f1fe48daeff94290cde88"
+    },
+    "artifact_030": {
+      "bytes": 37406,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dev.jsonl",
+      "sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3"
+    },
+    "artifact_031": {
+      "bytes": 767,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/environment.lock.json",
+      "sha256": "040578aa6fcff4fff4f7ceb0b45bebb65e8e38cdb503a06be2225d17a20842d2"
+    },
+    "artifact_032": {
+      "bytes": 88,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/environment.lock.json.sha256",
+      "sha256": "73486d73272f45bc0a898c02bec3ffc5b5d1a002e2ff7e5daace7dd663d3f6c4"
+    },
+    "artifact_033": {
+      "bytes": 9764,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/freeze_contract.json",
+      "sha256": "ab82887feaeb0b2c17aa82de80d85a53bc78aaeffd17952e6b79fd8c6933514c"
+    },
+    "artifact_034": {
+      "bytes": 87,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/freeze_contract.json.sha256",
+      "sha256": "e42a6a9164576d5958eac28066a7cec705c875ab75b21cb9eea98d0b10cc4a67"
+    },
+    "artifact_035": {
+      "bytes": 2951,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/freeze_manifest.json",
+      "sha256": "cb1d8ee52ff91b2c7b123ea2f1670ded82219669460c87abf67fdc705e8c6986"
+    },
+    "artifact_036": {
+      "bytes": 87,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/freeze_manifest.json.sha256",
+      "sha256": "5dfe7aef684e27ae94c74db7c382a4c54e0c9399f6ebb71281f5e45e568008f8"
+    },
+    "artifact_037": {
+      "bytes": 36674,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/holdout.jsonl",
+      "sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6"
+    },
+    "artifact_038": {
+      "bytes": 62993,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/patch.jsonl",
+      "sha256": "2790b7e88b75478bb10a8aceee75e60466b0c9ba550e7d828fcf1171f864e8c2"
+    },
+    "artifact_039": {
+      "bytes": 1707,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/score_policy.json",
+      "sha256": "8950d7a51338e3d7f36391b59d4c9998e14f6e85e2b92a7f885715fb66f09151"
+    },
+    "artifact_040": {
+      "bytes": 84,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/score_policy.json.sha256",
+      "sha256": "81f1fdbbacc9673f0f2a7d8998f99c3f213966523bcd55724ca64e19bf685589"
+    },
+    "artifact_041": {
+      "bytes": 16880,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/synthetic_probes.jsonl",
+      "sha256": "0172cec86bb5ca9ad9002f7d779ff428484faf59f7e1162cd6da892e8921dfeb"
+    },
+    "artifact_042": {
+      "bytes": 225954,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/train.jsonl",
+      "sha256": "86392f5d883270439f70e021ea1a7762f99654e446dcf340f22873c66cc8405f"
+    },
+    "artifact_043": {
+      "bytes": 5183,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/training_recipe.json",
+      "sha256": "24a4b8acf314c0bd90a026b0a2438c424ab281a0f29c9ab9e183e9b272b42df2"
+    },
+    "artifact_044": {
+      "bytes": 87,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/training_recipe.json.sha256",
+      "sha256": "b8649f4f424263b016fab05259beab2efeabd4db4f664faa7e85202b13f1f715"
+    }
+  },
+  "package_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s5-package-v1",
+  "predecessor_boundary": {
+    "predecessor_authority_intent_job_or_output_consumption_allowed": false,
+    "s4_execution_tree_sha256": "4d67d8d444681a11d3e1060b53da65ae67d2557aa9f780fe8e87106c7473de43",
+    "s4_package_identity_sha256": "8e2d4fad25dd4a102911b2e85e69147578a60727d10bf81d3d472b67c357c016",
+    "s4_retry_repair_resume_or_output_consumption_allowed": false,
+    "s4_terminal_audit_sha256": "c0e53cfb574325934524c859bd4abe323b21607f7d53bb4c0f68c7f0e13e47fa",
+    "s4_terminal_failure_taxonomy": "PREATTEMPT_RUNTIME_CHECKSUM_SIDECARS_OMITTED_FROM_STAGE",
+    "v8_execution_tree_sha256": "e7843803e930a9af491fe7e6ee7f9fe0a16fe7eb3b32faecd0eacf74b677ddb7",
+    "v8_static_recipe_and_runner_conventions_used_as_design_input_only": true
+  },
+  "resource_assumptions": {
+    "claim_boundary": "Conservative prerequisites, not measured S5 usage or latency.",
+    "minimum_compute_capability": [
+      8,
+      0
+    ],
+    "minimum_free_disk_bytes": 34359738368,
+    "minimum_free_vram_bytes_at_launch": 21474836480,
+    "minimum_host_ram_bytes": 34359738368,
+    "minimum_total_vram_bytes": 25769803776,
+    "required_visible_cuda_devices": 1
+  },
+  "retention_evaluator_inputs": {
+    "prompt_manifest": {
+      "bytes": 3028,
+      "path": "benchmark/quality/PROMPT_MANIFEST.json",
+      "sha256": "9ee394d7d344d6f14e6829cbf8bea27b5508c7fe5344d941495f5668ca32335c"
+    },
+    "quality_config": {
+      "bytes": 5007,
+      "path": "benchmark/quality/QUALITY_CONFIG.json",
+      "sha256": "50fe8c986c556bd1247e156c9f65de1e1137ed87542aca9112d089b15d226588"
+    },
+    "task_sources": {
+      "benchmark/quality/lm_eval_tasks/arc_challenge.yaml": {
+        "bytes": 71,
+        "path": "benchmark/quality/lm_eval_tasks/arc_challenge.yaml",
+        "sha256": "682621c26ae24b1065a2d732460a55a8ef2b9f2544574431666c9309a9efd7bd"
+      },
+      "benchmark/quality/lm_eval_tasks/arc_easy.yaml": {
+        "bytes": 631,
+        "path": "benchmark/quality/lm_eval_tasks/arc_easy.yaml",
+        "sha256": "beb9faf28a0644506aeb6d6fdc8b8a208bbaa77c73563faad94a07a36c64daed"
+      },
+      "benchmark/quality/lm_eval_tasks/hellaswag.yaml": {
+        "bytes": 520,
+        "path": "benchmark/quality/lm_eval_tasks/hellaswag.yaml",
+        "sha256": "5b485d4f230838cc5a49e75c35443058d5b991b64df379c00174b9a292da2edd"
+      },
+      "benchmark/quality/lm_eval_tasks/hellaswag_utils.py": {
+        "bytes": 612,
+        "path": "benchmark/quality/lm_eval_tasks/hellaswag_utils.py",
+        "sha256": "a8084c5ae9d4f7f7a295d56cf76f58f028bb1c321d606dcf548cfe9ab0c5f79c"
+      },
+      "benchmark/quality/lm_eval_tasks/piqa.yaml": {
+        "bytes": 592,
+        "path": "benchmark/quality/lm_eval_tasks/piqa.yaml",
+        "sha256": "5a4463d2442cec366fd7a68e758c7eab22c455f47d2e16140e2f10a1325a63f5"
+      },
+      "benchmark/quality/lm_eval_tasks/piqa_dataset.py": {
+        "bytes": 4687,
+        "path": "benchmark/quality/lm_eval_tasks/piqa_dataset.py",
+        "sha256": "3de09612f0c1d06efd4b2f584b5b00ec2dd5f725733d858193b1839a8f7ee03a"
+      },
+      "benchmark/quality/lm_eval_tasks/winogrande.yaml": {
+        "bytes": 630,
+        "path": "benchmark/quality/lm_eval_tasks/winogrande.yaml",
+        "sha256": "a9837f4c494ab923d224baa809bf68e21c7b3e820c32a9711c644cb8e5591c7a"
+      },
+      "benchmark/quality/lm_eval_tasks/winogrande_utils.py": {
+        "bytes": 391,
+        "path": "benchmark/quality/lm_eval_tasks/winogrande_utils.py",
+        "sha256": "97b03c65f0323319e7d62c21470dc0655098d2ab48617cce7e884efafd67be4e"
+      }
+    }
+  },
+  "schema_version": 2,
+  "score_policy_file": {
+    "bytes": 1707,
+    "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/score_policy.json",
+    "sha256": "8950d7a51338e3d7f36391b59d4c9998e14f6e85e2b92a7f885715fb66f09151"
+  },
+  "source_and_evaluator": {
+    "frozen_scorer": {
+      "bytes": 28409,
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "bytes": 3450,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "bytes": 7673,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    },
+    "source_dataset_manifest": {
+      "bytes": 2222,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/dataset_manifest.json",
+      "sha256": "af34afd44132f0e789c54a06e81059e79b8e4073eb56bbf9a663bbfe014b7dad"
+    }
+  },
+  "source_teacher_data_evaluator": {
+    "dataset_manifest": {
+      "bytes": 3563,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dataset_manifest.json",
+      "sha256": "2fb9b806f962117e566158f61d394d198f60c2b9d45478ec932cedfb857e4225"
+    },
+    "frozen_scorer": {
+      "bytes": 28409,
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "bytes": 3450,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "bytes": 7673,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    },
+    "source_dataset_manifest": {
+      "bytes": 2222,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-dora-product-v6/dataset_manifest.json",
+      "sha256": "af34afd44132f0e789c54a06e81059e79b8e4073eb56bbf9a663bbfe014b7dad"
+    },
+    "teacher": {
+      "mode": "none",
+      "outputs_used": false,
+      "repository": null,
+      "revision": null
+    }
+  },
+  "stage": "successor_s5_full_training_execution_package",
+  "status": "FROZEN_MARKER_FREE_PENDING_FRESH_INDEPENDENT_REVIEW",
+  "submission": {
+    "amlt_version": "11.17.0",
+    "client_timeout_seconds": 180,
+    "dry_run_suffix": [
+      "--dump"
+    ],
+    "exact_logical_argv": [
+      "amlt",
+      "run",
+      "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/amlt.yaml",
+      ":ace2-bf16-full-finetune-successor-s5-attempt-0001",
+      "ace2-bf16-full-finetune-successor-s5-20260808-attempt-0001",
+      "--yes",
+      "--description",
+      "ACE-2 authority-gated BF16 successor S5 full training, checkpoint selection, dev, retention, and exactly-once holdout lifecycle"
+    ],
+    "explicit_project_required": true,
+    "fail_closed_on_timeout": true,
+    "maximum_backend_jobs_if_later_authorized": 1,
+    "nonempty_description_required": true,
+    "stdin_policy": "DEVNULL"
+  },
+  "supersession": {
+    "dora_or_other_peft_continuation_permitted": false,
+    "preserved_superseded_v6_contract": {
+      "bytes": 7390,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_DORA_PRODUCT_V6_EXECUTION_PACKAGE_CONTRACT.json",
+      "sha256": "99aadaffa13cfba155f2b47b6679ca54feb439235689613b54fa31fbe7a8577b"
+    },
+    "v7_eval_recovery_permitted": false,
+    "v7_replay_resume_rescore_or_checkpoint_reuse_permitted": false
+  },
+  "transport_stage": {
+    "decisive_verifier": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/audit_stage.py",
+    "isolated_launch_readiness_command": [
+      "python",
+      "-I",
+      "-B",
+      "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/preflight.py"
+    ],
+    "materialization_is_non_consuming": true,
+    "negative_regression": "The decisive verifier starts from the actual assembled stage, removes each transitive closure member one at a time in an isolated copy, and requires fail-closed rejection naming that exact path.",
+    "postreview_authority_readiness_command": [
+      "python",
+      "-I",
+      "-B",
+      "pilot/qwen25_05b_bf16_full_finetune_successor_s5_runner/launch_detached.py",
+      "--check-only"
+    ],
+    "preparation_entrypoint": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/prepare_stage.py",
+    "prepared_now": false,
+    "required_source_audit": {
+      "bytes": 1507,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/source-model-runtime-audit.json",
+      "sha256": "f2c9314ae43b64184504befd464befc939851794e01c9cbaeef0968fcb739a5e"
+    },
+    "required_staged_file_policy": "Compute a transitive closure from the execution contract, freeze manifest, execution manifest, self-test result, every runtime primary binding, every recursively referenced path/SHA-256 binding, every packaged runner file, and every available checksum companion. The contract, manifest, self-test, and, once present, Fresh L2 acceptance companions are mandatory.",
+    "requires_clean_relocated_launch_readiness_pass_before_fresh_review_or_authority": true,
+    "requires_fresh_review_before_materialization": false,
+    "requires_postreview_relocated_authority_readiness_before_package_acceptance": true,
+    "runtime_pipeline_state": {
+      "bytes": 699,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s5_20260808/runtime-pipeline-state.json",
+      "sha256": "8cd228f2cf1393e4c1d6b21a058d48428b060a88b637189f26b9c9eafa55d966"
+    },
+    "source_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+  }
+}

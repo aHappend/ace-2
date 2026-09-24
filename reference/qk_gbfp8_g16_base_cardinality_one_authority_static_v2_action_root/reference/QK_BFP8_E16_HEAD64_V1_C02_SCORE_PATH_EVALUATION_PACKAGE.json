@@ -1,0 +1,750 @@
+{
+  "artifact_kind": "qk_bfp8_e16_head64_v1_c02_score_path_pre_execution_package",
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "claim_boundary": {
+    "authority_consumed": false,
+    "calibration_or_generation_performed": false,
+    "candidate_or_execution_namespace_created": false,
+    "fixed_input_execution_or_score_computation_performed": false,
+    "model_loaded_or_executed": false,
+    "repair_replay_resume_or_retry_performed": false,
+    "rtl_spec_manifest_u280_or_stage_state_modified": false
+  },
+  "evaluation_contract": {
+    "authoritative_tensor_mapping": {
+      "axes": {
+        "bf16_oracle_scores": [
+          "batch",
+          "query_head",
+          "query_index",
+          "key_index"
+        ],
+        "realized_key_source": [
+          "batch",
+          "kv_head",
+          "key_index",
+          "head_lane"
+        ],
+        "realized_query_source": [
+          "batch",
+          "query_head",
+          "query_index",
+          "head_lane"
+        ]
+      },
+      "batch_index": 0,
+      "causal_validity": "a key slot is valid if and only if key_index <= query_index; all 41 key slots are supplied to normalization and the authoritative valid-key bitmap marks exactly those valid slots",
+      "excluded_tensor_records": [
+        "bf16.qk_centered_scores",
+        "w4.score_key_s8",
+        "w4.score_key_scale32",
+        "w4.score_query_s8",
+        "w4.score_query_scale32",
+        "w4.scores_q6_9",
+        "w4.softmax_input_q6_9"
+      ],
+      "key_head_mapping": "kv_head = floor(query_head / 7) for query_head 0 through 13",
+      "roles": {
+        "bf16_oracle_scores": {
+          "dtype": "torch.bfloat16",
+          "shape": [
+            1,
+            14,
+            41,
+            41
+          ],
+          "tensor_name": "bf16.qk_scaled_scores"
+        },
+        "realized_key_source": {
+          "dtype": "torch.bfloat16",
+          "shape": [
+            1,
+            2,
+            41,
+            64
+          ],
+          "tensor_name": "bf16.k_rope"
+        },
+        "realized_query_source": {
+          "dtype": "torch.bfloat16",
+          "shape": [
+            1,
+            14,
+            41,
+            64
+          ],
+          "tensor_name": "bf16.q_rope"
+        }
+      },
+      "sequence_length": 41
+    },
+    "bf16_oracle": {
+      "centering": "decode each valid stored BF16 score as an exact dyadic, align exponents without rounding, and subtract the exact maximum over valid causal keys",
+      "non_finite_policy": "any NaN or infinity in any selected oracle, query-source, or key-source record rejects the complete lane before metrics or threshold publication",
+      "oracle_q12_20": "convert each exact centered oracle dyadic to signed-int64 Q12.20 by multiplying by 2^20 and rounding to nearest ties to even; reject the lane on a result outside signed-int64 or above zero",
+      "score_error_sign": "error_q12_20_lsb = realized_q12_20_lsb - oracle_q12_20_lsb",
+      "source": "use only bf16.qk_scaled_scores[0,query_head,query_index,key_index]; do not recompute the oracle from Q/K and do not use bf16.qk_centered_scores",
+      "stored_scale": "bf16.qk_scaled_scores is already post-HEAD64 scale 1/8, so no additional scale is applied",
+      "top_key_tie": "lowest valid key index among exact equal maxima"
+    },
+    "comparison_metrics": {
+      "invalid_accounting": {
+        "accounting": "counts are complete-lane nonnegative integers; any nonzero hard-gated count fails the lane and no invalid record may contribute to score, top-key, or rank-margin aggregates",
+        "fields": [
+          "cross_lane_record_count",
+          "invalid_or_non_finite_value_count",
+          "normalization_rejection_count",
+          "positive_centered_realized_score_count",
+          "saturation_event_count"
+        ],
+        "gate_mode": "HARD"
+      },
+      "rank_margin": {
+        "accounting": "a singleton row has exactly one valid causal key and is excluded from both unique-oracle and oracle-tied rank-margin populations; for each row with at least two valid keys and one unique exact BF16 maximum, realized_margin = realized score at that oracle top key minus the greatest realized score over all other valid keys",
+        "empty_set_encoding": "minimum_realized_margin_q12_20_lsb and preserved_positive_margin_fraction are null if unique_oracle_top_row_count is zero; an empty population never passes the preservation-fraction threshold",
+        "fields": [
+          "singleton_valid_key_row_count",
+          "unique_oracle_top_row_count",
+          "preserved_positive_margin_row_count",
+          "violation_count",
+          "minimum_realized_margin_q12_20_lsb",
+          "oracle_tied_row_count",
+          "preserved_positive_margin_fraction"
+        ],
+        "fraction": "when unique_oracle_top_row_count is nonzero, numerator is preserved_positive_margin_row_count and denominator is unique_oracle_top_row_count, reduced to lowest terms",
+        "gate_mode": "HARD",
+        "invariants": "singleton_valid_key_row_count + unique_oracle_top_row_count + oracle_tied_row_count = top_key.row_count; preserved_positive_margin_row_count + violation_count = unique_oracle_top_row_count; preservation requires realized_margin strictly greater than zero"
+      },
+      "score_error": {
+        "acceptance_threshold": null,
+        "accounting": "over every valid causal key in deterministic row/key order, accumulate the exact integer error defined by bf16_oracle.score_error_sign; sums use unbounded exact integers and maximum_absolute_error_q12_20_lsb is null only when valid_value_count is zero",
+        "fields": [
+          "valid_value_count",
+          "sum_signed_error_q12_20_lsb",
+          "sum_absolute_error_q12_20_lsb",
+          "sum_squared_error_q40_40_lsb2",
+          "maximum_absolute_error_q12_20_lsb"
+        ],
+        "gate_mode": "TRACKING"
+      },
+      "top_key": {
+        "accounting": "one observation per causal row; BF16 and realized ties both choose the lowest valid key index",
+        "empty_set_encoding": "matching_fraction is null if row_count is zero, and a null actual fraction never passes the minimum threshold",
+        "fields": [
+          "row_count",
+          "matching_row_count",
+          "mismatch_count",
+          "matching_fraction"
+        ],
+        "fraction": "when row_count is nonzero, numerator is matching_row_count and denominator is row_count, reduced to lowest terms",
+        "gate_mode": "HARD"
+      }
+    },
+    "deterministic_ordering": {
+      "head_lane_order": "increasing head_lane 0 through 63 for every QK_BFP8 head encoding and dot product",
+      "key_order": "increasing sealed key index",
+      "lane_order": [
+        "Base",
+        "checkpoint-176"
+      ],
+      "row_order": "within each isolated lane: batch index 0 only, then increasing query_head 0 through 13, then increasing query_index 0 through 40; parallel completion order may not alter publication"
+    },
+    "realized_q12_20": {
+      "container": "signed int64",
+      "fractional_bits": 20,
+      "head_encoding": "independently encode each selected finite BF16 64-lane Q or K source vector with the exact least-exponent and round-to-nearest-ties-to-even rules of QK_BFP8_E16_HEAD64_V1; sealed W4 int8/Scale32 records are forbidden inputs",
+      "masked_keys": "masked future-key outputs are deterministic zero filler from normalization and are excluded from every metric and top-key/rank comparison",
+      "normalization_contract_id": "QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_V2",
+      "normalization_contract_sha256": "539ff95d8f1ad253880c9999fa59e6ac41840761908b188cf2c4bce09f3c1b01",
+      "representation_contract_id": "QK_BFP8_E16_HEAD64_V1",
+      "representation_contract_sha256": "92840df94b6f9bc2b1bfc752fd4e24da58cde64f811b2fd84190462badd1a4ef",
+      "rounding": "round to nearest, ties to even, exactly as the bound normalization contract",
+      "row_input": "for each row form 41 exact score pairs in increasing key order, pair them with the exact causal bitmap, and normalize the complete row once",
+      "score_pair": "score_mantissa is the exact sum over head_lane 0 through 63 of query_mantissa times key_mantissa; score_exponent is query_exponent plus key_exponent; no intermediate rounding, saturation, clamping, or host floating point is allowed",
+      "score_unit": "one integer unit equals 2^-20 after HEAD64 scale and exact row-max centering",
+      "source": "query vector bf16.q_rope[0,query_head,query_index,:] and key vector bf16.k_rope[0,floor(query_head/7),key_index,:]"
+    },
+    "thresholds": {
+      "cross_lane_record_count_maximum": 0,
+      "invalid_or_non_finite_value_count_maximum": 0,
+      "normalization_rejection_count_maximum": 0,
+      "positive_centered_realized_score_count_maximum": 0,
+      "rank_margin_violation_count_maximum": 0,
+      "saturation_event_count_maximum": 0,
+      "top_key_matching_fraction_minimum": {
+        "denominator": 1,
+        "numerator": 1
+      },
+      "top_key_mismatch_count_maximum": 0,
+      "unique_oracle_positive_margin_preserved_fraction_minimum": {
+        "denominator": 1,
+        "numerator": 1
+      }
+    }
+  },
+  "evaluator": {
+    "evaluator_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATOR_SPEC_V1",
+    "implementation_boundary": "The checksum-bound evaluation contract is the evaluator identity; no executable evaluator or execution authority is included in this package.",
+    "spec_sha256": "b719d18f571e664b25c926ecb972f9972f2a13c4b8013d89f8bf970cf8a99756",
+    "toolchain": {
+      "canonical_json_profile": "python-json-sort-keys-compact-ascii-no-nan-v1",
+      "implementation": "CPython",
+      "version": "3.13.5"
+    }
+  },
+  "input_set": {
+    "lanes": [
+      {
+        "authoritative_tensors": {
+          "bf16_oracle_scores": {
+            "dtype": "torch.bfloat16",
+            "sha256": "49627e8364e534c61f4db8208d82798e53409c3c10d5d5e28c3c1462ef617765",
+            "shape": [
+              1,
+              14,
+              41,
+              41
+            ],
+            "tensor_name": "bf16.qk_scaled_scores"
+          },
+          "realized_key_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "401cdb0dc4a8def3190ac424f96df272c2bcf11241874759977d692845a19c0a",
+            "shape": [
+              1,
+              2,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.k_rope"
+          },
+          "realized_query_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "285e064ffea9571b7e3ed192a7083bf831dc5d444e0139558d3d51f084995429",
+            "shape": [
+              1,
+              14,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.q_rope"
+          }
+        },
+        "generation_id": "c02-score-path-eval-base-v1",
+        "input_token_ids_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+        "label": "Base",
+        "metadata": {
+          "byte_count": 20057,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/result.json",
+          "sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a"
+        },
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+        "namespace_label": "base",
+        "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/base/result.json",
+        "tensor_bundle": {
+          "byte_count": 1305797,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/attention-substage-tensors.bin",
+          "sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"
+        }
+      },
+      {
+        "authoritative_tensors": {
+          "bf16_oracle_scores": {
+            "dtype": "torch.bfloat16",
+            "sha256": "776be2e58246c8641fa483e331e0d63896f96f14b3756548e15af3870d89c456",
+            "shape": [
+              1,
+              14,
+              41,
+              41
+            ],
+            "tensor_name": "bf16.qk_scaled_scores"
+          },
+          "realized_key_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "2c4b99f5bc97d0f95b886dfebf62242148940d7cc9021e197dfdee0aed9e9902",
+            "shape": [
+              1,
+              2,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.k_rope"
+          },
+          "realized_query_source": {
+            "dtype": "torch.bfloat16",
+            "sha256": "18671805abe3835d8f2e23bffb041ced6a05f41b8eac4f698f41d302def73b18",
+            "shape": [
+              1,
+              14,
+              41,
+              64
+            ],
+            "tensor_name": "bf16.q_rope"
+          }
+        },
+        "generation_id": "c02-score-path-eval-checkpoint-176-v1",
+        "input_token_ids_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+        "label": "checkpoint-176",
+        "metadata": {
+          "byte_count": 20070,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/result.json",
+          "sha256": "3f73b5359e021ddb6183ec468ae154b3cda0807365b248773d80466e477b4e86"
+        },
+        "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98",
+        "namespace_label": "checkpoint-176",
+        "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/checkpoint-176/result.json",
+        "tensor_bundle": {
+          "byte_count": 1305797,
+          "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/attention-substage-tensors.bin",
+          "sha256": "07743a5df6bfa00d5e977dc622b70e90af9b6789feaeb5ae689448ac803ceb59"
+        }
+      }
+    ],
+    "sealed_set_id": "w4a8-c02-attention-substage-trace-v2",
+    "shared": {
+      "aggregate_metadata": {
+        "byte_count": 4556,
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/result.json",
+        "sha256": "935b079f3ea5328c38d65c978e94ba2c8dcff6ab384f3943e9869eabb9f59343"
+      },
+      "software_contract": {
+        "byte_count": 22042,
+        "path": "design/QWEN25_05B_W4A8_FULL_MODEL_SOFTWARE_CONTRACT_V1.json",
+        "sha256": "8f037b438f53bb378c60eded9cf15593a8173b11dd42130b40ea7658939140ef"
+      }
+    }
+  },
+  "invocations": [
+    {
+      "descriptor": {
+        "authoritative_tensors_sha256": "aa0d327f251e86cdbb5c00b4a2498bdfa4bbb5b167d55e2f370c1dd83a2285bd",
+        "environment": {
+          "LANG": "C",
+          "LC_ALL": "C",
+          "PYTHONHASHSEED": "0",
+          "TZ": "UTC"
+        },
+        "evaluator_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATOR_SPEC_V1",
+        "evaluator_spec_sha256": "b719d18f571e664b25c926ecb972f9972f2a13c4b8013d89f8bf970cf8a99756",
+        "generation_id": "c02-score-path-eval-base-v1",
+        "input_metadata_sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a",
+        "input_tensor_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175",
+        "invocation_cardinality": 1,
+        "lane_label": "Base",
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+        "namespace_label": "base",
+        "normalization_contract_sha256": "539ff95d8f1ad253880c9999fa59e6ac41840761908b188cf2c4bce09f3c1b01",
+        "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/base/result.json",
+        "package_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATION_PACKAGE_V1",
+        "representation_contract_sha256": "92840df94b6f9bc2b1bfc752fd4e24da58cde64f811b2fd84190462badd1a4ef",
+        "terminal_no_retry_replay_resume_repair": true,
+        "toolchain": {
+          "implementation": "CPython",
+          "version": "3.13.5"
+        }
+      },
+      "invocation_sha256": "58b90f06f10d179cb12820ee5a376cf3807eb9f2af929990dacac138a8fa6731"
+    },
+    {
+      "descriptor": {
+        "authoritative_tensors_sha256": "5af500371148338636f078e0ec69973666f54f70d3c0f19d350456cf74c5bdb2",
+        "environment": {
+          "LANG": "C",
+          "LC_ALL": "C",
+          "PYTHONHASHSEED": "0",
+          "TZ": "UTC"
+        },
+        "evaluator_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATOR_SPEC_V1",
+        "evaluator_spec_sha256": "b719d18f571e664b25c926ecb972f9972f2a13c4b8013d89f8bf970cf8a99756",
+        "generation_id": "c02-score-path-eval-checkpoint-176-v1",
+        "input_metadata_sha256": "3f73b5359e021ddb6183ec468ae154b3cda0807365b248773d80466e477b4e86",
+        "input_tensor_sha256": "07743a5df6bfa00d5e977dc622b70e90af9b6789feaeb5ae689448ac803ceb59",
+        "invocation_cardinality": 1,
+        "lane_label": "checkpoint-176",
+        "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98",
+        "namespace_label": "checkpoint-176",
+        "normalization_contract_sha256": "539ff95d8f1ad253880c9999fa59e6ac41840761908b188cf2c4bce09f3c1b01",
+        "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/checkpoint-176/result.json",
+        "package_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATION_PACKAGE_V1",
+        "representation_contract_sha256": "92840df94b6f9bc2b1bfc752fd4e24da58cde64f811b2fd84190462badd1a4ef",
+        "terminal_no_retry_replay_resume_repair": true,
+        "toolchain": {
+          "implementation": "CPython",
+          "version": "3.13.5"
+        }
+      },
+      "invocation_sha256": "78e83c2f2ad2a5ec15a96dc320bd3e86f5ed3fbedbf3de9871a03b40225c829b"
+    }
+  ],
+  "isolation": {
+    "cross_lane_reads_or_writes_forbidden": true,
+    "execution_namespace_must_be_absent_during_static_verification": true,
+    "lane_outputs": {
+      "Base": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/base/result.json",
+      "checkpoint-176": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/checkpoint-176/result.json"
+    },
+    "output_root": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1",
+    "partial_or_cross_lane_result_substitution_forbidden": true
+  },
+  "normalization_bindings": {
+    "contract": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 11221,
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_CONTRACT.json",
+      "sha256": "539ff95d8f1ad253880c9999fa59e6ac41840761908b188cf2c4bce09f3c1b01"
+    },
+    "pure_reference": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 11499,
+      "path": "reference/qk_bfp8_e16_head64_v1_score_normalization.py",
+      "sha256": "8b1db0b13ee3a4534848814e75d13cea9946e380cd09b8bec0e76a527df098a3"
+    },
+    "qualifying_fresh_l2_review": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 882,
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/7d4f89c0ec7b/round-0002.json",
+      "sha256": "416853a915893be6116c6911940f9055b219d2348ed6e6e02c1afa5063a825eb"
+    },
+    "readiness": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 2216,
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_READINESS.json",
+      "sha256": "3fb8229b5b7940d9667b4220356b2f10a8532898f9e69a6839704e7f1001fea3"
+    },
+    "static_verifier": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 26672,
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_score_normalization.py",
+      "sha256": "1aaddcaa74045c3de83b833af016a25c492c878b1120ed9cf557ec548a89c5af"
+    }
+  },
+  "output_schema": {
+    "additional_top_level_fields_permitted": false,
+    "binding_rules": {
+      "evaluator_spec_sha256": "must equal evaluator.spec_sha256 from this package",
+      "input_bindings": "must exactly reproduce the selected lane bindings and authoritative tensor records from this package",
+      "invocation_sha256": "must equal the selected lane invocation_sha256 from this package",
+      "lane_identity": "lane_label, namespace_label, generation_id, and model_identity_sha256 must equal the same selected lane and may not be mixed across lanes",
+      "package_id": "must equal this package_id"
+    },
+    "fraction_encoding": {
+      "empty_population": "encode as JSON null; denominator-zero objects are forbidden",
+      "nonempty_population": "encode as an object with exactly integer numerator and denominator fields, denominator greater than zero, 0 <= numerator <= denominator, and gcd(numerator,denominator)=1",
+      "threshold_on_null_actual": "pass must be false",
+      "threshold_ordering": "compare fractions by exact integer cross multiplication without host floating point"
+    },
+    "integer_encoding": "all counts, Q12.20 values, sums, squared sums, limits, and margins are exact JSON integers; booleans are not integers; NaN, Infinity, decimal, and exponent-number encodings are forbidden",
+    "nested_objects": {
+      "artifact_binding": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "byte_count": "nonnegative_integer",
+          "path": "string",
+          "sha256": "lowercase_64_hex_string"
+        }
+      },
+      "authoritative_tensor_record_map": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "bf16_oracle_scores": "tensor_record",
+          "realized_key_source": "tensor_record",
+          "realized_query_source": "tensor_record"
+        }
+      },
+      "fraction": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "denominator": "positive_integer",
+          "numerator": "nonnegative_integer"
+        }
+      },
+      "fraction_minimum_check": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "actual": "fraction_or_null",
+          "limit": "fraction",
+          "pass": "boolean"
+        }
+      },
+      "input_bindings": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "input_token_ids_sha256": "lowercase_64_hex_string",
+          "lane_metadata": "artifact_binding",
+          "normalization_contract_sha256": "lowercase_64_hex_string",
+          "representation_contract_sha256": "lowercase_64_hex_string",
+          "sealed_set_id": "string",
+          "tensor_bundle": "artifact_binding",
+          "tensor_records": "authoritative_tensor_record_map"
+        }
+      },
+      "integer_maximum_check": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "actual": "nonnegative_integer",
+          "limit": "nonnegative_integer",
+          "pass": "boolean"
+        }
+      },
+      "invalid_accounting_metrics": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "cross_lane_record_count": "nonnegative_integer",
+          "invalid_or_non_finite_value_count": "nonnegative_integer",
+          "normalization_rejection_count": "nonnegative_integer",
+          "positive_centered_realized_score_count": "nonnegative_integer",
+          "saturation_event_count": "nonnegative_integer"
+        }
+      },
+      "metrics": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "invalid_accounting": "invalid_accounting_metrics",
+          "rank_margin": "rank_margin_metrics",
+          "score_error": "score_error_metrics",
+          "top_key": "top_key_metrics"
+        }
+      },
+      "rank_margin_metrics": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "minimum_realized_margin_q12_20_lsb": "integer_or_null",
+          "oracle_tied_row_count": "nonnegative_integer",
+          "preserved_positive_margin_fraction": "fraction_or_null",
+          "preserved_positive_margin_row_count": "nonnegative_integer",
+          "singleton_valid_key_row_count": "nonnegative_integer",
+          "unique_oracle_top_row_count": "nonnegative_integer",
+          "violation_count": "nonnegative_integer"
+        }
+      },
+      "score_error_metrics": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "maximum_absolute_error_q12_20_lsb": "nonnegative_integer_or_null",
+          "sum_absolute_error_q12_20_lsb": "nonnegative_integer",
+          "sum_signed_error_q12_20_lsb": "integer",
+          "sum_squared_error_q40_40_lsb2": "nonnegative_integer",
+          "valid_value_count": "nonnegative_integer"
+        }
+      },
+      "tensor_record": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "dtype": "string",
+          "sha256": "lowercase_64_hex_string",
+          "shape": "array_of_positive_integers",
+          "tensor_name": "string"
+        }
+      },
+      "terminal": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "first_record_immutable": "boolean_const_true",
+          "invocation_count_performed": "integer_0_or_1",
+          "metrics_published": "boolean",
+          "reason_code": "terminal_reason_code",
+          "retry_replay_resume_repair_permitted": "boolean_const_false",
+          "status": "terminal_status",
+          "thresholds_evaluated": "boolean"
+        }
+      },
+      "threshold_evaluation": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "all_hard_thresholds_pass": "boolean",
+          "cross_lane_record_count_maximum": "integer_maximum_check",
+          "invalid_or_non_finite_value_count_maximum": "integer_maximum_check",
+          "normalization_rejection_count_maximum": "integer_maximum_check",
+          "positive_centered_realized_score_count_maximum": "integer_maximum_check",
+          "rank_margin_violation_count_maximum": "integer_maximum_check",
+          "saturation_event_count_maximum": "integer_maximum_check",
+          "top_key_matching_fraction_minimum": "fraction_minimum_check",
+          "top_key_mismatch_count_maximum": "integer_maximum_check",
+          "unique_oracle_positive_margin_preserved_fraction_minimum": "fraction_minimum_check"
+        }
+      },
+      "top_key_metrics": {
+        "additional_fields_permitted": false,
+        "fields": {
+          "matching_fraction": "fraction_or_null",
+          "matching_row_count": "nonnegative_integer",
+          "mismatch_count": "nonnegative_integer",
+          "row_count": "nonnegative_integer"
+        }
+      }
+    },
+    "nullability_and_invariants": {
+      "metric_population_relations": "top_key.matching_row_count + top_key.mismatch_count = top_key.row_count; rank_margin singleton + unique + tied = top_key.row_count; rank_margin preserved + violation = unique; score_error valid_value_count is the sum of valid causal keys over all rows",
+      "rank_margin_empty": "minimum_realized_margin_q12_20_lsb and preserved_positive_margin_fraction are both null if and only if unique_oracle_top_row_count is zero",
+      "score_error_empty": "maximum_absolute_error_q12_20_lsb is null if and only if valid_value_count is zero; all three sums are zero when valid_value_count is zero",
+      "top_key_empty": "matching_fraction is null if and only if row_count is zero"
+    },
+    "required_fields": [
+      "schema_id",
+      "package_id",
+      "evaluator_spec_sha256",
+      "lane_label",
+      "namespace_label",
+      "generation_id",
+      "invocation_sha256",
+      "model_identity_sha256",
+      "input_bindings",
+      "terminal",
+      "metrics",
+      "threshold_evaluation",
+      "result_sha256"
+    ],
+    "result_sha256_rule": "SHA-256 of the canonical result object with result_sha256 omitted",
+    "schema_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_RESULT_V1",
+    "serialization": "UTF-8 canonical JSON: sorted keys, separators comma/colon, ASCII escapes, no NaN or Infinity, one trailing LF",
+    "terminal_reason_code_values": [
+      "CROSS_LANE_REJECTED",
+      "HARD_THRESHOLDS_PASSED",
+      "HARD_THRESHOLD_FAILED",
+      "INPUT_BINDING_REJECTED",
+      "INPUT_SCHEMA_REJECTED",
+      "NON_FINITE_ORACLE_REJECTED",
+      "NORMALIZATION_REJECTED",
+      "NO_EXECUTION_AUTHORITY",
+      "OUTPUT_PUBLICATION_REJECTED",
+      "REPRESENTATION_REJECTED",
+      "RESULT_SCHEMA_REJECTED"
+    ],
+    "terminal_state_rules": {
+      "FAILED_TERMINAL": {
+        "hard_threshold_failure": {
+          "invocation_count_performed": 1,
+          "metrics": "metrics object",
+          "metrics_published": true,
+          "reason_code": "HARD_THRESHOLD_FAILED",
+          "threshold_evaluation": "threshold_evaluation object with all_hard_thresholds_pass=false",
+          "thresholds_evaluated": true
+        },
+        "pre_metric_failure": {
+          "invocation_count_performed": 1,
+          "metrics": null,
+          "metrics_published": false,
+          "reason_code_values": [
+            "CROSS_LANE_REJECTED",
+            "INPUT_BINDING_REJECTED",
+            "INPUT_SCHEMA_REJECTED",
+            "NON_FINITE_ORACLE_REJECTED",
+            "NORMALIZATION_REJECTED",
+            "OUTPUT_PUBLICATION_REJECTED",
+            "REPRESENTATION_REJECTED",
+            "RESULT_SCHEMA_REJECTED"
+          ],
+          "threshold_evaluation": null,
+          "thresholds_evaluated": false
+        }
+      },
+      "NO_EXECUTION_TERMINAL": {
+        "invocation_count_performed": 0,
+        "metrics": null,
+        "metrics_published": false,
+        "reason_code": "NO_EXECUTION_AUTHORITY",
+        "threshold_evaluation": null,
+        "thresholds_evaluated": false
+      },
+      "SUCCEEDED_TERMINAL": {
+        "invocation_count_performed": 1,
+        "metrics": "metrics object",
+        "metrics_published": true,
+        "reason_code": "HARD_THRESHOLDS_PASSED",
+        "threshold_evaluation": "threshold_evaluation object with all_hard_thresholds_pass=true",
+        "thresholds_evaluated": true
+      }
+    },
+    "terminal_status_values": [
+      "SUCCEEDED_TERMINAL",
+      "FAILED_TERMINAL",
+      "NO_EXECUTION_TERMINAL"
+    ],
+    "threshold_rules": {
+      "all_hard_thresholds_pass": "true if and only if every one of the nine hard-threshold pass fields is true",
+      "fraction_minimum": "pass is false for null actual; otherwise pass is actual.numerator * limit.denominator >= limit.numerator * actual.denominator",
+      "integer_maximum": "pass is actual <= limit",
+      "score_error": "tracking-only and absent from threshold_evaluation"
+    },
+    "top_level_field_types": {
+      "evaluator_spec_sha256": "lowercase_64_hex_string",
+      "generation_id": "string",
+      "input_bindings": "input_bindings",
+      "invocation_sha256": "lowercase_64_hex_string",
+      "lane_label": "Base_or_checkpoint-176",
+      "metrics": "metrics_or_null_as_required_by_terminal_state",
+      "model_identity_sha256": "lowercase_64_hex_string",
+      "namespace_label": "base_or_checkpoint-176",
+      "package_id": "const_QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATION_PACKAGE_V1",
+      "result_sha256": "lowercase_64_hex_string",
+      "schema_id": "const_QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_RESULT_V1",
+      "terminal": "terminal",
+      "threshold_evaluation": "threshold_evaluation_or_null_as_required_by_terminal_state"
+    }
+  },
+  "package_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATION_PACKAGE_V1",
+  "package_verifier": {
+    "authority": "NO_EXECUTION_AUTHORITY",
+    "byte_count": 49140,
+    "path": "tools/verify_qk_bfp8_e16_head64_v1_c02_score_path_evaluation_package.py",
+    "sha256": "701bdf27b8a412956ed8b1fb2a34edde8a6a5dff1aedc68010f0dd69ba0beb49"
+  },
+  "prohibited_actions": [
+    "load or execute a model",
+    "execute or deserialize the sealed fixed-input tensor bundles",
+    "compute evaluation scores or calibration statistics",
+    "create a candidate, attempt, or execution namespace",
+    "consume, mint, or reuse execution authority",
+    "retry, replay, resume, repair, recalibrate, or regenerate under any outcome",
+    "modify RTL, specifications, manifests, U280 configuration, constraints, or stage state"
+  ],
+  "representation_bindings": {
+    "contract": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 15489,
+      "path": "design/W4A8_C02_SATURATION_FREE_JOINT_QK_REPRESENTATION_PREREQUISITE_V1.json",
+      "sha256": "92840df94b6f9bc2b1bfc752fd4e24da58cde64f811b2fd84190462badd1a4ef"
+    },
+    "pure_reference": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 7959,
+      "path": "reference/qk_bfp8_e16_head64_v1.py",
+      "sha256": "bfb8b0d95ef8a8b939694fe8fec710d4acb1abff8b38b4bbbb4a43bdea5bb704"
+    },
+    "readiness": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 5475,
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_READINESS.json",
+      "sha256": "400d4a4a8b627cd71e930f670852b89e5deead83f14be3f528e752f6d1705fa7"
+    },
+    "static_verifier": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "byte_count": 32890,
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_readiness.py",
+      "sha256": "ea40e12f39351fe6240d861a68488a4bc22517dab72434762f05a8bdf88fdd2e"
+    }
+  },
+  "schema_version": 1,
+  "terminal_semantics": {
+    "authority_cardinality_in_this_package": 0,
+    "first_record_immutability": "the first terminal record for a lane is final and may never be replaced or amended",
+    "lane_independence": "Base and checkpoint-176 have distinct generation ids, invocation hashes, namespaces, outputs, and terminal outcomes; neither may satisfy or mask the other",
+    "planned_external_invocation_cardinality_per_lane": 1,
+    "terminal_outcomes": [
+      "SUCCEEDED_TERMINAL",
+      "FAILED_TERMINAL",
+      "NO_EXECUTION_TERMINAL"
+    ],
+    "unconditional_prohibitions": [
+      "retry",
+      "replay",
+      "resume",
+      "repair",
+      "recalibration",
+      "regeneration",
+      "authority reuse",
+      "partial-result substitution"
+    ]
+  }
+}

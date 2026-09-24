@@ -1,0 +1,9 @@
+localparam integer MODEL_STREAM_CHANNELS = 4864;
+localparam integer MODEL_STREAM_COUNT = 2;
+localparam integer MODEL_OUTPUTS = 9728;
+localparam integer MODEL_OUTPUT_GROUP_SIZE = 4864;
+localparam integer MODEL_GROUPS_PER_STREAM = 1;
+localparam integer MODEL_SCALE_RECORDS = 2;
+localparam integer MODEL_SATURATION_COUNT = 0;
+localparam integer MODEL_SELECTED_REFERENCE_RANK = 3252;
+localparam integer MODEL_BASELINE_REFERENCE_RANK = 3252;

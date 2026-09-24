@@ -1,0 +1,47 @@
+{
+  "schema_version": 1,
+  "blocker_id": "s7-control-plane-binding-20260810",
+  "classification": "NO_SAFE_QUERY_BINDING",
+  "created_at_utc": "2026-08-10T03:55:00Z",
+  "local_engineer_action_required_before_mount": false,
+  "canonical_viability_verdict": "The accepted S7 package is build-ready, but no safe control-plane query or node-1 preflight is possible until one exact, mutually consistent owned-reservation binding is supplied.",
+  "required_external_targets": [
+    "external/s7-owned-reservation-control-plane-binding.accepted.json"
+  ],
+  "next_owner": "operator or infrastructure owner",
+  "required_target_contract": {
+    "path": "external/s7-owned-reservation-control-plane-binding.accepted.json",
+    "required_fields": [
+      "amlt_project_applicability_or_exact_project",
+      "subscription",
+      "resource_group",
+      "azureml_workspace",
+      "backend_job_name_or_id",
+      "expected_owner_binding"
+    ],
+    "requirements": [
+      "All values must identify the exact owned a100s-idle/gpu4x2-a100-idle reservation.",
+      "The values must be mutually consistent and accepted into repo-local evidence.",
+      "No discovery, inference, substitution, cached status, alternate reservation, or other-user resource may satisfy the contract."
+    ]
+  },
+  "accepted_evidence": {
+    "binding_refresh": {
+      "path": "research/raw/specification/s7-owned-reservation-control-plane-binding-refresh-20260810T031042Z.json",
+      "sha256": "559a9b573dcd65203cd3c72a9a4b4f4b6f2b5cf7cc63493c7d98515090a8cc47"
+    },
+    "fresh_l2_governance_binding": {
+      "path": "research/raw/specification/s7-blocker-ds32-contract-drift-fresh-l2-review-binding-20260810T033752Z.json",
+      "status": "done"
+    }
+  },
+  "authority_boundary": {
+    "amlt_or_azure_query": false,
+    "ssh_or_node1_preflight": false,
+    "gpu_or_s7_execution": false,
+    "alternate_resource": false,
+    "rtl_or_host_implementation": false,
+    "stage_transition": false,
+    "v4_replay": false
+  }
+}

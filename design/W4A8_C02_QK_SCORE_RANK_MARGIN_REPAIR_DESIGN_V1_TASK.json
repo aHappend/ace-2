@@ -1,0 +1,199 @@
+{
+  "acceptance": {
+    "determinism": {
+      "independent_repeat_count": 2,
+      "required_byte_identical_artifacts": [
+        "captured calibration tensor manifests",
+        "fitted parameter records",
+        "per-alternative metrics",
+        "selection result"
+      ]
+    },
+    "fail_closed_outcomes": {
+      "no_alternative_passes": "PRE_CANDIDATE_NO_GO",
+      "one_alternative_passes": "PASS_PRE_CANDIDATE_REPAIR_DESIGN",
+      "tie_or_nondeterminism": "PRE_CANDIDATE_NO_GO",
+      "unbound_or_drifted_input": "PRE_CANDIDATE_NO_EXECUTION"
+    },
+    "fixed_diagnostic_gate_per_model": {
+      "corrected_centered_score_severity": "TRACKING",
+      "corrected_probability_severity": "TRACKING",
+      "fixed_softmax_realization_severity": "TRACKING",
+      "top_key_index_equal_fraction": 1.0
+    },
+    "frozen_calibration_validation_gate_per_model": {
+      "corrected_centered_score_severity": "TRACKING",
+      "corrected_probability_severity": "TRACKING",
+      "minimum_absolute_top_key_agreement_improvement": 0.2,
+      "minimum_top_key_index_equal_fraction": 0.9,
+      "no_head_may_regress_top_key_agreement": true
+    },
+    "integer_safety": {
+      "clamp_events": 0,
+      "non_finite_values": 0,
+      "overflow_events": 0,
+      "reserved_negative_128_payloads": 0
+    },
+    "selection_tie_break": [
+      "lower validation corrected-probability relative RMSE summed across both models",
+      "fewer model-specific metadata bytes",
+      "lower declared maximum signed arithmetic width",
+      "lexicographically lower alternative_id"
+    ]
+  },
+  "artifact_isolation": {
+    "allowed_output_root": "evidence/diagnostics/w4a8-c02-qk-score-rank-margin-repair-design-v1",
+    "candidate_or_attempt_path_component_forbidden": true,
+    "immutable_input_verification_required_before_model_load": true,
+    "output_root_must_be_absent_at_start": true,
+    "required_outputs": [
+      "run-contract.json",
+      "base/calibration-capture-manifest.json",
+      "base/alternative-results.json",
+      "checkpoint-176/calibration-capture-manifest.json",
+      "checkpoint-176/alternative-results.json",
+      "selection.json",
+      "SHA256SUMS"
+    ],
+    "write_policy": "new additive diagnostic files only; never write below build/w4a8-full-model-software-contract-v1 or any sealed evidence root"
+  },
+  "alternatives": [
+    {
+      "alternative_id": "qk_s4_residual_cross_term_scale32_v1",
+      "calibration": "For each model, layer, and Q/K head, derive one positive residual Scale32 from the frozen fit split as the smallest legal Scale32 that bounds the absolute post-projection residual divided by 7. Exact ties use the lower packed Scale32 record.",
+      "model_specific_parameters": "24 * (14 query + 2 key) residual Scale32 records per model; 1536 bytes per model",
+      "ptq_credibility": "No retraining. Residual codes are deterministically derived from the existing projection accumulator and the unchanged c01 baseline reconstruction.",
+      "runtime_realization": "Preserve the unchanged c01 Q/K int8 projection and RoPE result as the authoritative base. Quantize signed residuals to [-7,+7], rotate them with the same RoPE coefficients, and add base-by-residual, residual-by-base, and residual-by-residual score terms before causal masking, row centering, and the unchanged softmax.",
+      "runtime_storage": "Query residuals are transient. Key residuals require a packed signed-4 sideband adjacent to the existing key-cache payload; the design report must account for exactly 64 residual bytes per token per layer before any candidate package."
+    },
+    {
+      "alternative_id": "qk_group8_diagonal_scale32_rebalance_v1",
+      "calibration": "For each model, layer, Q/K head, and contiguous 8-lane group, solve deterministic non-negative least squares from c01 dequantized post-RoPE values to BF16 post-RoPE values on the frozen fit split, quantize the gain upward to legal Scale32, and use lexicographically lower packed records for exact objective ties.",
+      "model_specific_parameters": "24 * (14 query + 2 key) * 8 group-gain Scale32 records per model; 12288 bytes per model",
+      "ptq_credibility": "No retraining and no prompt-dependent state. Only fixed calibration-derived per-model metadata is added.",
+      "runtime_realization": "Apply positive Scale32 gains to contiguous 8-lane Q/K groups after the unchanged c01 RoPE coding and before the dot-product reduction. Accumulate all eight group partial products in a declared wide signed accumulator, then perform the unchanged causal mask, centering, Q6.9 realization, and softmax.",
+      "runtime_storage": "No KV residual sideband. Gain metadata is read-only and model-specific; the design report must state the exact accumulator-width bound before any candidate package."
+    }
+  ],
+  "calibration_protocol": {
+    "fit_records": {
+      "start": 0,
+      "stop": 48
+    },
+    "input_contract": "The existing model-specific C4 validation records 0..63, canonical chat wrapping, and token limit 512 from the frozen software contract. Capture only Q/K projection, post-RoPE, centered score, and ideal-softmax tensors; do not generate continuation text.",
+    "model_specific_observation_required": true,
+    "validation_records": {
+      "start": 48,
+      "stop": 64
+    }
+  },
+  "claim_boundary": {
+    "benchmark_or_official_score": null,
+    "candidate_package_created": false,
+    "continuation_text_generated": false,
+    "current_stage_remains": "rtl",
+    "model_or_evaluator_correctness_claim": null,
+    "rtl_or_synthesis_conclusion": null,
+    "stage1_complete": false,
+    "task_authority": "additive non-scoring repair design only"
+  },
+  "created_at_utc": "2026-08-13T00:17:33Z",
+  "frozen_inputs": {
+    "c01": {
+      "base": {
+        "calibration_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001/calibration-observations.json",
+          "sha256": "b335a93738e7c12ab9e3fd38c123b488126547a4abed95c319e1a4b2ded3567f"
+        },
+        "command": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001-command-scale32-corrected-v1/command.json",
+          "sha256": "7b79612a5ab14a5f7af64872b107b7e32ca70e8858f913d61f4b458d7b6d4c68"
+        },
+        "input_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001/input-observations.json",
+          "sha256": "1c7844d1e17c56031d055f8ec893b3ac0c5f58af2dd90c57a1f8030140b76c4b"
+        },
+        "manifest": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001/manifest.json",
+          "sha256": "130431a0e5f681a5947b5baae7ae9aa0db4d6ce501f23fe6ab4b7ce952b066cf"
+        },
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7"
+      },
+      "checkpoint-176": {
+        "calibration_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001/calibration-observations.json",
+          "sha256": "86a1f0d80b0250314961fea9879bb11ddbc957aec2c174e1a4b5153c8c766303"
+        },
+        "command": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001-command-scale32-corrected-v1/command.json",
+          "sha256": "5737b0e0c374fecd77515370346d0fb4db423d337a08d6d122a95798f6b7c822"
+        },
+        "input_observations": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001/input-observations.json",
+          "sha256": "1c7844d1e17c56031d055f8ec893b3ac0c5f58af2dd90c57a1f8030140b76c4b"
+        },
+        "manifest": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001/manifest.json",
+          "sha256": "3b1e8f8cd15d481c40fc9cb7f73c20ebb754a80bcdeebcaf3cf422574c96b2c7"
+        },
+        "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98"
+      }
+    },
+    "c02_attention_substage": {
+      "aggregate_result": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/result.json",
+        "sha256": "935b079f3ea5328c38d65c978e94ba2c8dcff6ab384f3943e9869eabb9f59343"
+      },
+      "base_result": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/result.json",
+        "sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a"
+      },
+      "base_tensors": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/base/attention-substage-tensors.bin",
+        "sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"
+      },
+      "checkpoint_176_result": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/result.json",
+        "sha256": "3f73b5359e021ddb6183ec468ae154b3cda0807365b248773d80466e477b4e86"
+      },
+      "checkpoint_176_tensors": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2/checkpoint-176/attention-substage-tensors.bin",
+        "sha256": "07743a5df6bfa00d5e977dc622b70e90af9b6789feaeb5ae689448ac803ceb59"
+      },
+      "fresh_l2_rerun_result": {
+        "path": "evidence/diagnostics/w4a8-c02-attention-substage-trace-v2-fresh-l2-reviewer-rerun/result.json",
+        "sha256": "935b079f3ea5328c38d65c978e94ba2c8dcff6ab384f3943e9869eabb9f59343"
+      }
+    },
+    "fresh_l2_acceptance": {
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/63e4fb4d8c21/round-0001.json",
+      "sha256": "96558e4a4d120a4b33e91e02c844743c3dd8363b950bec7f653917ee099af7c0",
+      "status": "done"
+    },
+    "software_contract": {
+      "path": "design/QWEN25_05B_W4A8_FULL_MODEL_SOFTWARE_CONTRACT_V1.json",
+      "sha256": "8f037b438f53bb378c60eded9cf15593a8173b11dd42130b40ea7658939140ef"
+    }
+  },
+  "implementation_objective": "Compare exactly two deterministic PTQ-credible Q/K score realizations for Base and checkpoint-176 using only frozen diagnostic and model-specific calibration inputs, then select at most one shared runtime topology whose model-specific metadata satisfies the pre-softmax rank-margin invariant before any candidate package exists.",
+  "prohibited_work": [
+    "modify or replay c01 commands, attempts, runner, evaluator, kernel, contract, or sealed evidence",
+    "create, execute, score, or name an official or candidate attempt",
+    "write beneath any path component named candidate or attempt",
+    "generate continuation text or access generation validators, quality sets, or hidden outputs",
+    "retrain, fine-tune, distill, or change model weights",
+    "modify RTL, design/SPEC.md, design/BENCHMARK_INTERFACE.json, design/RTL_MANIFEST.json, constraints, U280 files, or research/PIPELINE_STATE.json",
+    "run synthesis, timing, area, PPA, FPGA emulation, bitstream generation, or board execution",
+    "advance the Manager-owned stage"
+  ],
+  "schema_version": 1,
+  "shared_runtime_invariant": {
+    "id": "QK_SCORE_RANK_MARGIN_PRESERVATION_BEFORE_SOFTMAX",
+    "implementable_statement": "For every valid causal attention row, the corrected integer score path must preserve the BF16 top-key index and keep centered score/probability error below the frozen TRACKING thresholds before invoking the unchanged Q0.15 softmax realization.",
+    "placement": "after Q/K RoPE realization and before causal row centering, Q6.9 score realization, and softmax",
+    "shared_topology_model_specific_parameters_permitted": true
+  },
+  "scope": "bounded",
+  "stage": "rtl",
+  "status": "ready_for_additive_non_scoring_repair_design"
+}

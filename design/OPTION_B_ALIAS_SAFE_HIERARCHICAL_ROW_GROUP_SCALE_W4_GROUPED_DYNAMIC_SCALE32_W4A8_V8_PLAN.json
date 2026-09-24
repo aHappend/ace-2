@@ -1,0 +1,229 @@
+{
+  "schema_version": 1,
+  "contract_id": "option_b_alias_safe_hierarchical_row_group_scale_w4_grouped_dynamic_scale32_w4a8_v8",
+  "candidate_id": "option_b_alias_safe_hierarchical_row_group_scale_w4_grouped_dynamic_scale32_w4a8_v8",
+  "status": "planner_frozen_preexecution_requirements_no_attempt_authority",
+  "stage": "specification",
+  "selected_policy_id": null,
+  "predecessor": {
+    "mission_id": "326dbf31d460",
+    "candidate_id": "option_b_alias_safe_input_block_codebook_w4_grouped_dynamic_scale32_w4a8_v7",
+    "disposition": "fresh_reviewer_accepted_terminal_preattempt_no_go",
+    "failure_taxonomy": "NO_GO_NON_EVALUATOR_QUALITY_GATE",
+    "terminal_no_go": {
+      "path": "build/stage1-option-b-alias-safe-input-block-codebook-w4-grouped-dynamic-scale32-w4a8-v7/PREATTEMPT_NO_GO.json",
+      "sha256": "0c1eccef426246e7342c3560a168ef9520bc1319efc72a06ef1f76ba2453f107"
+    },
+    "review_record": "research/raw/specification/input-block-codebook-v7-review-done-20260806T193852Z.json",
+    "review_record_sha256": "a38231a7c5404f3f98e057678e34e3af9bfb686672799532c41bf26afa25996f",
+    "fresh_v4_exact_reproduction_count": 169,
+    "per_tensor_non_regressing_count": 169,
+    "aggregate_fresh_v4_unweighted_bf16_sse": 2387.058149454451,
+    "aggregate_v7_unweighted_bf16_sse": 2303.224223882074,
+    "non_evaluator_exact_bf16_sequence_match_count": 2,
+    "non_evaluator_response_gate_outcome_match_count": 8,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_permitted": false
+  },
+  "evidence_backed_direction": {
+    "measured_failure": "V7 increased codebook locality and reduced aggregate unweighted BF16 weight SSE from 2387.058149454451 to 2303.224223882074, but exact construction-blind token identity remained 2/8. This shows that another tensor-shape codebook refinement is not justified by the visible token evidence.",
+    "replacement_hypothesis": "Replace codebook-index weights and one full Scale32 record per row with ordinary signed-int4 weights plus hierarchical local scaling: one 4-bit row-base selector per output row and one signed 4-bit exponent delta per contiguous 128 weights. The row selector chooses one of sixteen positive Scale32 base records for the Linear tensor; each group delta shifts only the selected base exponent. This spends the frozen metadata budget on row-and-group scale locality rather than additional codepoint tables.",
+    "distinctness": "V8 changes both payload semantics and weight metadata geometry. Payload nibbles are signed W4 values rather than codebook indices; V3 through V7 codebooks and per-row 32-bit Scale32 records are absent. A standard layer carries 58,240 bytes of group deltas, 6,336 bytes of row selectors, and 448 bytes of row-base tables while retaining the unchanged grouped Dynamic Scale32 A8 policy and public shell ports."
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_config_tie_word_embeddings": true,
+    "source_embedding_tensor": "model.embed_tokens.weight",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f"
+  },
+  "candidate_state_construction": {
+    "initial_invariant": "lm_head.weight and model.embed_tokens.weight are the same Parameter object and storage immediately after pinned-model load",
+    "separation_rule": "Before construction, replace only lm_head.weight with a detached byte-identical non-trainable clone and set only the in-memory candidate configuration tie_word_embeddings field to false.",
+    "retie_forbidden": true,
+    "quantization_scope": "exactly 168 transformer Linear weights plus the separated lm_head weight",
+    "post_quantization_embedding_invariant": "The original embedding Parameter object, storage pointer, shape, dtype, and complete BF16 byte stream remain unchanged.",
+    "independent_candidate_a_and_b_manifest_equality_required": true,
+    "module_counts": {
+      "transformer_linears": 168,
+      "lm_head": 1,
+      "total_linears": 169
+    }
+  },
+  "weight_policy": {
+    "payload_bits_per_weight": 4,
+    "payload_semantics": "signed two's-complement integer -8 through +7",
+    "payload_packing": "row-major output row then input lane; even flat weight index in the low nibble and odd flat weight index in the high nibble",
+    "weight_group": {
+      "lanes": 128,
+      "ordering": "output-row major, then increasing contiguous 128-input-lane block",
+      "legal_input_feature_counts": [896, 4864],
+      "groups_per_output_row": [7, 38]
+    },
+    "row_base_selector": {
+      "bits_per_output_row": 4,
+      "semantics": "unsigned index 0 through 15 into the tensor-local row-base Scale32 table",
+      "packing": "even output row in low nibble and odd output row in high nibble; an unused high nibble, if any, is zero"
+    },
+    "row_base_table": {
+      "scope": "one table per Linear tensor",
+      "entry_count": 16,
+      "entry_bytes": 4,
+      "record_bytes": 64,
+      "alignment_bytes": 16,
+      "entry_format": "existing normalized unsigned-Q1.15 Scale32 significand plus signed exponent",
+      "legal_significand_range": [32768, 65535],
+      "legal_exponent_range": [-24, 4],
+      "ordering": "strictly increasing positive decoded scale; byte offset four times selector",
+      "all_zero_tensor_rule": "use the first sixteen legal positive Scale32 records in increasing order and select entry zero for every all-zero row"
+    },
+    "group_exponent_delta": {
+      "bits_per_128_weight_group": 4,
+      "semantics": "signed two's-complement exponent delta -8 through +7",
+      "packing": "even group ordinal in low nibble and odd group ordinal in high nibble; group ordinal follows weight_group.ordering",
+      "effective_scale_rule": "preserve the selected row-base significand and add the signed group delta to its exponent",
+      "effective_exponent_range": [-24, 4],
+      "overflow_underflow_clipping_or_saturation_permitted": false
+    },
+    "hierarchical_construction_algorithm": {
+      "data_source": "pinned BF16 weights and authenticated Scale32 semantics only",
+      "official_prompt_output_token_or_gate_access_permitted": false,
+      "initialization": "For each row, use its freshly reconstructed V7 row Scale32 value only as a deterministic seed. Sort seeds by decoded scale, select sixteen deterministic weighted quantiles for the initial strictly increasing tensor table, and repair duplicate seeds with the nearest legal Scale32 neighbors using smaller decoded scale then smaller packed record as the tie order.",
+      "outer_iterations": 8,
+      "row_assignment_and_group_step": "For every output row and each candidate row-base table entry, independently try every legal group delta -8 through +7 for each contiguous 128-weight group. For each effective scale, assign every BF16 source weight to the signed-int4 value -8 through +7 with minimum exact dyadic squared error; exact ties choose the smaller signed payload. Sum all group costs, then choose the row-base selector with minimum complete-row cost, smaller selector on ties.",
+      "table_update_step": "With row selectors, group deltas, and signed-int4 payload fixed, form the exact dyadic least-squares ideal base scale for each nonempty selector cluster after undoing each group power-of-two delta. Evaluate legal Scale32 records bracketing the ideal, their immediate normalized-significand neighbors, and the prior entry. Use dynamic programming to select the globally minimum-cost strictly increasing sixteen-entry table; empty selector clusters retain their prior entry and exact cost ties choose the lexicographically smaller packed table.",
+      "iteration_acceptance": "Reassign all rows and groups after each table update. Exact tensor unweighted BF16 source-space SSE may not increase from the preceding outer iteration; a violation fails closed. Execute all eight iterations even at a fixed point.",
+      "final_reconstruction": "decoded_weight = signed_int4_payload * decoded_row_base_scale * 2^signed_group_delta",
+      "floating_point_nondeterminism_stochastic_rounding_prompt_ranking_bisection_or_gate_tuning_permitted": false
+    },
+    "pre_attempt_model_only_gate": {
+      "fresh_v7_reference": {
+        "path": "build/stage1-option-b-alias-safe-input-block-codebook-w4-grouped-dynamic-scale32-w4a8-v7/preattempt/model_only_input_block_reconstruction.json",
+        "sha256": "6e320fc03ccbbae91b253eaab231ddd5e4a69b99fba44aa2079f28c7ee3f38c5",
+        "aggregate_unweighted_bf16_sse": 2303.224223882074
+      },
+      "fresh_v7_reconstruction_required": true,
+      "all_169_tensors_must_construct_with_legal_selectors_deltas_and_effective_exponents": true,
+      "aggregate_unweighted_bf16_sse_must_strictly_decrease_against_fresh_v7": true,
+      "per_tensor_regressions_must_be_reported_but_are_not_an_independent_rejection_gate": true,
+      "candidate_a_and_b_payload_row_selector_group_delta_table_reconstruction_iteration_trace_weight_and_state_manifests_must_match": true
+    }
+  },
+  "activation_policy": {
+    "payload": "signed A8 symmetric range -127 through +127 with -128 reserved",
+    "rounding": "round_to_nearest_ties_to_even",
+    "event_family_count_per_layer": 13,
+    "event_count_all_24_layers": 312,
+    "group_lanes": [64, 128],
+    "base_record_source": "the same frozen authenticated activation Scale32 significands used by V3 through V7",
+    "selection_rule": "For each live finite group, preserve the base activation Scale32 significand and choose the minimum integer exponent delta in [-24,+24] whose effective exponent remains in [-24,+4] and covers every lane without saturation.",
+    "all_zero_group_rule": "use exponent delta zero",
+    "failure_rule": "If no legal delta covers a finite group, fail closed; never clip, saturate, or mutate the base activation significand.",
+    "prompt_or_dataset_specific_runtime_scale_control_permitted": false
+  },
+  "accelerator_facing_format": {
+    "public_ace2_shell_contract_changed": false,
+    "weight_payload_transport": "existing 128-bit external-memory read channel; every 128-weight group occupies four 128-bit payload beats",
+    "row_selector_transport": "packed selector stream, one nibble per output row, authenticated with tensor identity and row count",
+    "group_delta_transport": "packed delta stream, one nibble per 128-weight group, consumed in output-row-major then input-block-major order",
+    "row_base_table_transport": "four aligned 128-bit beats per Linear tensor before its first row issues",
+    "metadata_cache_budget_bytes": 96,
+    "cache_policy": "64 bytes hold the active row-base table and two 16-byte banks prefetch group-delta lines; payload issue is forbidden until the selected base record and matching delta are resident and authenticated",
+    "compute_primitive": "signed A8 multiplied by signed W4 with integer accumulation; group partial sums are exponent-aligned using the selected Scale32 base exponent plus signed four-bit delta",
+    "additional_product_runtime_transport_or_sram_bytes": {
+      "standard_decoder_layer_group_delta_bytes": 58240,
+      "standard_decoder_layer_row_selector_bytes": 6336,
+      "standard_decoder_layer_row_base_table_bytes": 448,
+      "whole_model_group_delta_bytes": 1929536,
+      "whole_model_row_selector_bytes": 228032,
+      "whole_model_row_base_table_bytes": 10816,
+      "incremental_sram_bytes": 0
+    },
+    "floating_point_rtl_permitted": false,
+    "cycle_accurate_rtl_or_ppa_claimed_by_this_plan": false
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "standard_decoder_layer_weight_count": 14909440,
+    "standard_decoder_layer_output_row_count": 12672,
+    "standard_decoder_layer_weight_group_count": 116480,
+    "standard_decoder_layer_packed_w4_payload_bytes": 7454720,
+    "standard_decoder_layer_group_delta_bytes": 58240,
+    "standard_decoder_layer_row_selector_bytes": 6336,
+    "standard_decoder_layer_row_base_table_bytes": 448,
+    "standard_decoder_layer_total_weight_bytes": 7519744,
+    "standard_decoder_layer_exact_bits_per_weight": 4.03489010989011,
+    "standard_decoder_layer_cap_reserve_bytes": 2068.48,
+    "lm_head_shape": [151936, 896],
+    "lm_head_weight_count": 136134656,
+    "lm_head_group_delta_bytes": 531776,
+    "lm_head_row_selector_bytes": 75968,
+    "lm_head_row_base_table_bytes": 64,
+    "lm_head_total_weight_bytes": 68675136,
+    "lm_head_exact_bits_per_weight": 4.035718046696354,
+    "whole_model_weight_count": 493961216,
+    "whole_model_output_row_count": 456064,
+    "whole_model_weight_group_count": 3859072,
+    "whole_model_total_weight_bytes": 249148992,
+    "whole_model_exact_bits_per_weight": 4.03511828750539,
+    "maximum_scale_metadata_bits_per_activation": 0.5,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_tensor_sidecars_per_decoder_layer_token": 13,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "maximum_incremental_sram_bytes": 2368,
+    "new_public_ace2_shell_ports_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0
+  },
+  "pre_attempt_closure": {
+    "official_execution_marker_permitted": false,
+    "official_nine_prompt_inputs_permitted_for_preflight": false,
+    "network_access_permitted": false,
+    "representation_gate": "Two independent V8 builds must match byte-for-byte, all 169 tensors must use legal row selectors, signed group deltas, effective exponents, and signed-int4 payloads, and aggregate unweighted BF16 SSE must strictly improve against a fresh V7 reconstruction.",
+    "non_evaluator_quality_gate": "The unchanged eight construction-blind non-evaluator inputs must achieve 8/8 exact BF16 token arrays and 8/8 matching BF16 response-gate outcomes before an official marker may be created.",
+    "dynamic_gate": "A fresh V8 candidate must cover all 312 named activation boundaries with legal deltas, zero saturation, zero clipping, no reserved -128 payload, and no more than 832 activation-metadata bytes per decoder-layer token.",
+    "required_artifacts": [
+      "hash-bound candidate-specific runner, scalable backend, and exact hierarchical-scale constructor self-test",
+      "fresh V7 reconstruction and aggregate comparison witness",
+      "candidate A and B payload, row-selector, group-delta, row-base-table, reconstruction, objective, iteration-trace, weight, and state manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "constructor tests for row and group counts, nibble packing, signed delta decode, effective-exponent range, exact payload tie order, Scale32 bracketing and neighbors, strictly increasing table dynamic program, empty clusters, all-zero tensors, metadata sequencing, and hash rejection",
+      "model-only report with all 169 tensors legal and strict aggregate V7-relative SSE improvement",
+      "8/8 construction-blind non-evaluator exact-sequence and response-gate report",
+      "fresh-candidate 312-event Dynamic Scale32 report",
+      "predeclared contract binding every source, model, matrix, runner, tool version, format, byte count, and policy hash",
+      "PREATTEMPT_READY.json that verifies all prior artifacts without creating execution_started.json"
+    ],
+    "failure_disposition": "Preserve PREATTEMPT_NO_GO, leave the official attempt unconsumed, keep selected_policy_id null, and submit the bounded result for Fresh Review without accessing official inputs."
+  },
+  "official_attempt": {
+    "attempts_authorized_by_this_file": 0,
+    "required_fresh_attempt_directory": "build/stage1-option-b-alias-safe-hierarchical-row-group-scale-w4-grouped-dynamic-scale32-w4a8-v8/attempt-0001",
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false,
+    "fresh_reviewer_required": true
+  },
+  "risk_register": [
+    "The format is not a representational superset of V7; aggregate model SSE and the eight-input exact-token gate must be measured rather than inferred.",
+    "The 4.03489010989011-bit standard-layer format leaves only 2,068.48 bytes below the frozen cap, so padding, alignment, authentication, or duplicate metadata may not be hidden in the weight-byte accounting.",
+    "Signed four-bit group exponent deltas provide only power-of-two local adjustment. If that grid is too coarse, V8 must fail closed rather than widen metadata or relax the quality gate.",
+    "The eventual RTL must authenticate row-selector and group-delta streams and align group partial sums without changing public ports; no RTL work is authorized at specification stage.",
+    "Any accepted policy still requires Manager stage advance, focused RTL regression, fresh tree-specific PPA, local demo acceptance, and later U280 work."
+  ],
+  "claim_boundary": {
+    "planning_requirements_frozen": true,
+    "attempt_authority_created": false,
+    "official_attempt_started": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

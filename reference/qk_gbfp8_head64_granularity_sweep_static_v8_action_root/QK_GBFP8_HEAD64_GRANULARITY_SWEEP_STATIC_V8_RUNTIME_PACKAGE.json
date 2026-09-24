@@ -1,0 +1,92 @@
+{
+  "artifact_kind": "qk_gbfp8_head64_granularity_sweep_static_v8_runtime_package",
+  "claim_boundary": {
+    "execution_authorized": false,
+    "payload_included": false,
+    "runtime_complete": true,
+    "status": "STATIC_EXECUTABLE_BUT_INERT"
+  },
+  "files": [
+    {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_c02_static_v8.py",
+      "sha256": "ff9216d58bcd1584361e17d8d1854f3bcb96923c17927b1f309861546807bdb1"
+    },
+    {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v8.py",
+      "sha256": "faab3064733be0d0fc68c565f00dd2c77022b7f4974d39b798eda1f150d55aa4"
+    },
+    {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v8.py",
+      "sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63"
+    },
+    {
+      "path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.json",
+      "sha256": "b7c758c7141d7ac8037502da4a00fe9e0780d30501e2af483e9b8c571451493a"
+    },
+    {
+      "path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_RESULT_SCHEMA.json",
+      "sha256": "fc5cf29d7ec7486b106edac592787b5888557c4b1b7453cb0a668b02fca113ec"
+    }
+  ],
+  "future_invocation": {
+    "controller_argv": [
+      "/home/argustest/miniconda3/bin/python3.13",
+      "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v8.py",
+      "--package",
+      "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.json",
+      "--authority",
+      "build/qk-gbfp8-head64-granularity-sweep-v8-authority/base/authority.json",
+      "--credential",
+      "build/qk-gbfp8-head64-granularity-sweep-v8-authority/base/credential.json",
+      "--ledger",
+      "build/qk-gbfp8-head64-granularity-sweep-v8-authority/base/authority-ledger.json",
+      "--result",
+      "build/qk-gbfp8-head64-granularity-sweep-v8/base/result.json",
+      "--first-terminal",
+      "build/qk-gbfp8-head64-granularity-sweep-v8-authority/base/first-terminal.json",
+      "--irreversible-action-id",
+      "<NEW_IRREVERSIBLE_ACTION_ID>"
+    ],
+    "environment": {
+      "LANG": "C",
+      "LC_ALL": "C",
+      "PYTHONDONTWRITEBYTECODE": "1",
+      "PYTHONHASHSEED": "0",
+      "TZ": "UTC"
+    },
+    "evaluator_argv": [
+      "/home/argustest/miniconda3/bin/python3.13",
+      "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v8.py",
+      "--package",
+      "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.json",
+      "--consumed-ledger",
+      "build/qk-gbfp8-head64-granularity-sweep-v8-authority/base/authority-ledger.json",
+      "--result",
+      "build/qk-gbfp8-head64-granularity-sweep-v8/base/result.json",
+      "--irreversible-action-id",
+      "<NEW_IRREVERSIBLE_ACTION_ID>"
+    ],
+    "interpreter": {
+      "path": "/home/argustest/miniconda3/bin/python3.13",
+      "sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad",
+      "version": "3.13.5"
+    },
+    "reviewer": {
+      "acceptance_artifact": "review/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_REVIEW.json",
+      "role": "Fresh-L2",
+      "status": "PENDING_INDEPENDENT_REVIEW"
+    },
+    "schema_validation_stack": {
+      "attrs": "26.1.0",
+      "jsonschema": "4.23.0",
+      "jsonschema-specifications": "2025.9.1",
+      "referencing": "0.37.0",
+      "rpds-py": "0.30.0"
+    }
+  },
+  "mission_id": "f0fa5c269681",
+  "package_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE",
+  "package_sha256": "b7c758c7141d7ac8037502da4a00fe9e0780d30501e2af483e9b8c571451493a",
+  "runtime_package_schema_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_RUNTIME_PACKAGE_V1",
+  "schema_version": 1
+}

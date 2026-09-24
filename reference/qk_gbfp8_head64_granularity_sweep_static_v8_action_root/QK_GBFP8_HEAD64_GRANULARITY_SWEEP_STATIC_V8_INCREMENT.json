@@ -1,0 +1,58 @@
+{
+  "artifact_bindings": [
+    {"path": "reference/qk_gbfp8_head64_granularity_sweep_c02_static_v8.py", "sha256": "ff9216d58bcd1584361e17d8d1854f3bcb96923c17927b1f309861546807bdb1"},
+    {"path": "tools/verify_qk_gbfp8_head64_granularity_sweep_c02_static_v8.py", "sha256": "2adaf2b2a262b636c85cfe0cc379ce069ffbacc1fd4d2b53cc9374589462fd15"}
+  ],
+  "artifact_kind": "qk_gbfp8_head64_granularity_sweep_static_v8_c02_component",
+  "claim_boundary": {
+    "authority_materialized": false,
+    "checkpoint_176_activity": false,
+    "controller_or_evaluator_process_executed": false,
+    "credential_materialized": false,
+    "fresh_l2_accepted": false,
+    "hardware_or_rtl_activity": false,
+    "ledger_result_or_terminal_materialized": false,
+    "sealed_tensor_opened_read_or_hashed": false,
+    "static_acceptance_grants_execution_authority": false,
+    "tensor_projection_performed": false
+  },
+  "frozen_inputs": {
+    "sealed_tensor_lstat": {"byte_count": 1305797, "file_type": "regular", "mode_octal": "0400"},
+    "v6_files": {
+      "first-terminal.json": "83a875fab228f552e6b26cfeacf021296ad65b122981873570d65ea9c4f367e6",
+      "result.json": "74b5d8fded1e344848023144336d0f8de8e0409c6f589fb8c9a7b642fade695c",
+      "round-0001.json": "0d20e696e77e47e425a761d726fa10ab57c09733d7d3af066ea6f874b7debd49",
+      "v6ns-r2-aftermath-recompute.json": "7f17929b5b087764e3d321b8354e750ac42542aad772fe18cb4f4942e01b53fb"
+    },
+    "v7_files": {
+      "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_MANIFEST.json": "e06e83f9a939d005d86bd1d428fa1ccfa3c41624e561a622e0a788d8aa682a7a",
+      "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RUNTIME_PACKAGE.json": "9b908efdcd78d646c7c69dbf364f02f050cc507492666cfe38892ccd4380498d",
+      "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE.json": "424c16dd9a352158c13518b077224eca7b05ec87509e0e1c7afe6e8088cdd102",
+      "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RESULT_SCHEMA.json": "6be8515a19952f85776af525b234dd5db8bb77df86cd205becc101888670f3d7",
+      "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v7.py": "565dd9727458199157f8eba0edb3aa39a13d78bfc076f259433022efc49d9474",
+      "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v7.py": "13eb6348aeb180722c1addee3220454119fbb4a428c36a63d5f8416759feac1e",
+      "tools/verify_qk_gbfp8_head64_granularity_sweep_static_v7_schema_compatibility.py": "a8c45cce3cdf740ee1e3a12ef226a4bacda394835107b45160552ff5a37b2237"
+    }
+  },
+  "grammar_contract": {
+    "accepted_reader_implementation": "BytesIO plus Struct with independent binding, digest, geometry, nonfinite, and EOF checks",
+    "digest": "sha256(dtype_ascii || NUL || rank_u32_be || dimensions_u64_be || payload)",
+    "full_record_bf16_nonfinite_rejection_before_return": true,
+    "magic": "ACE2-C02-TENSORS-V1\n",
+    "payload_boundary": "declared bytes exact; BF16 bytes equal 2*product(shape)",
+    "producer_parser_implementation": "cursor plus int.from_bytes with independent binding, digest, geometry, nonfinite, and EOF checks",
+    "record": "name_u16_be+utf8, dtype_u8+ascii, rank_u8, dimensions_u64_be, payload_size_u64_be, payload",
+    "record_name_order": "strictly increasing Unicode tensor name order matching producer sorted(tensors)",
+    "strict_eof": true
+  },
+  "increment_scope": "SORTED_DUAL_C02_READERS_COMPONENT_OF_FULL_BASE",
+  "mission_id": "f0fa5c269681",
+  "root_id": "qk_gbfp8_head64_granularity_sweep_static_v8_action_root",
+  "schema_version": 1,
+  "toolchain": {
+    "interpreter_path": "/home/argustest/miniconda3/bin/python3.13",
+    "interpreter_sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad",
+    "interpreter_version": "3.13.5",
+    "verification_mode": "synthetic_bytes_static_only"
+  }
+}

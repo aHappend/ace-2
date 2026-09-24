@@ -1,0 +1,758 @@
+{
+  "attempt_authority": {
+    "attempt": 1,
+    "attempt_marker_creation_authorized": false,
+    "granted": false,
+    "path": "research/raw/specification/qwen25-bf16-full-finetune-successor-s6-attempt-operator-authority.json",
+    "required_status_if_later_granted": "AUTHORIZE_SINGLE_BF16_FULL_FINETUNE_SUCCESSOR_S6_ATTEMPT",
+    "separate_fresh_operator_authority_required": true
+  },
+  "claim_boundary": "Exact new marker-free S6 category-balanced conflict-projected full-training execution package with frozen training, evaluator, version, score-policy, runner, staging, and submission bindings. No authority, intent, job, namespace, marker, model/evaluator execution, checkpoint, quality, W4A8, RTL, PPA, FPGA, or U280 claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6-package-v1",
+  "environment_resolution": {
+    "package_versions_cuda_runtime_and_non_seed_launch_variables_source": {
+      "bytes": 767,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/environment.lock.json",
+      "sha256": "5badd433a2c4fdf8e3e3d4cd639f0efd2823b2c7f3bc0f74859d6973f03549a9"
+    },
+    "pythonhashseed_conflict": {
+      "environment_lock_value": "26080806",
+      "resolution": "No conflict; the S6 recipe and environment lock select the same value.",
+      "selected_value": "26080806",
+      "training_recipe_value": "26080806"
+    }
+  },
+  "evaluator_contract": {
+    "dev": {
+      "category_gates": {
+        "arithmetic": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "concise_summary": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "context_memory": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "format_discipline": {
+          "minimum_hard_passes": 7,
+          "total": 8
+        },
+        "polite_rewrite": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        },
+        "safe_refusal": {
+          "minimum_hard_passes": 7,
+          "total": 8
+        },
+        "structured_extraction": {
+          "minimum_hard_passes": 6,
+          "total": 8
+        }
+      },
+      "critical_safety_failures_maximum": 0,
+      "fail_closed_on_missing_or_unscored_case": true,
+      "minimum_hard_passes": 48,
+      "response_count": 56,
+      "threshold_change_after_results_allowed": false
+    },
+    "generation": {
+      "do_sample": false,
+      "eos_token_ids": [
+        151643,
+        151645
+      ],
+      "num_beams": 1,
+      "primary_max_new_tokens": 128
+    },
+    "holdout": {
+      "exactly_once": true,
+      "same_score_policy_as_dev": true,
+      "selection_use": false
+    },
+    "retention": {
+      "access_before_dev_qualification": false,
+      "c4_en_frozen_512_perplexity_ratio_max_vs_source": 1.02,
+      "five_task_average_normalized_accuracy_drop_percentage_points_max_vs_source": 1.0,
+      "policy_inherited_from_v1_without_outcome_inspection": true,
+      "policy_source_path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V1_CONTRACT.json#acceptance.bf16_retention",
+      "policy_source_sha256": "31298b475f2b43d1ba0f5250f0c59e709f6dfb6ac89768feca7d7cd14615c4be",
+      "tasks": [
+        "PIQA",
+        "HellaSwag",
+        "Winogrande",
+        "ARC-Easy",
+        "ARC-Challenge"
+      ],
+      "threshold_change_after_results_allowed": false,
+      "wikitext2_raw_validation_perplexity_ratio_max_vs_source": 1.02
+    }
+  },
+  "execution_interlocks": {
+    "detached_posix_session_required": true,
+    "direct_worker_rejected_before_namespace": true,
+    "launcher_failure_after_intent_writes_launch_terminal_or_is_inferred_intent_only": true,
+    "launcher_removes_python_safe_path_and_prepends_runner_to_pythonpath": true,
+    "relaunch_after_intent_forbidden": true,
+    "stage_parent_must_match_detached_worker_pid": true,
+    "terminal_status_written_after_authenticated_intent_on_startup_normal_error_or_signal_exit": true
+  },
+  "execution_order": [
+    "non_consuming_static_package_self_test",
+    "non_consuming_transitive_runtime_dependency_closure",
+    "non_consuming_marker_free_stage_materialization",
+    "non_consuming_clean_relocated_stage_launch_readiness",
+    "non_consuming_every_closure_member_omission_regression",
+    "fresh_independent_exact_package_review",
+    "non_consuming_postreview_relocated_authority_readiness",
+    "stop_marker_free_without_authority_intent_or_submission"
+  ],
+  "failure_policy": {
+    "evaluator_no_execution_classified_separately": true,
+    "first_genuine_failed_gate_stops_later_stages": true,
+    "no_resume": true,
+    "no_success_conclusion_from_incomplete_execution": true,
+    "preserve_partial_evidence": true
+  },
+  "frozen_inputs": {
+    "category_sidecar": {
+      "bytes": 92418,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/category_sidecar.jsonl",
+      "sha256": "59ff6b11341e02de770385af9c0ff24b843ffd04d26a0d8e80b863e45e71b750"
+    },
+    "dataset_manifest": {
+      "bytes": 5047,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/dataset_manifest.json",
+      "sha256": "43c1735ee55f382c2dd55945eb9e76e37052ea07dce0480fa06c554906a23be0"
+    },
+    "design_freeze": {
+      "bytes": 13862,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_CATEGORY_BALANCED_CONFLICT_PROJECTED_SUCCESSOR_S6_CLEAN_ROOM_V2_DESIGN_FREEZE.json",
+      "sha256": "99bc106c2738a5cdfcba52485d2e4b6f61dac41ea74202bd884f00168070d6d5"
+    },
+    "design_review": {
+      "bytes": 1202,
+      "path": "research/raw/specification/qwen25-bf16-successor-s6-clean-room-v2-fresh-review-20260808.json",
+      "sha256": "c7dc8a566723e3c7e9498fd356f7dc6a5c526c684197a29f037558a66b783d9d"
+    },
+    "dev": {
+      "bytes": 37406,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/dev.jsonl",
+      "sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3"
+    },
+    "environment_lock": {
+      "bytes": 767,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/environment.lock.json",
+      "sha256": "5badd433a2c4fdf8e3e3d4cd639f0efd2823b2c7f3bc0f74859d6973f03549a9"
+    },
+    "freeze_contract": {
+      "bytes": 12794,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/freeze_contract.json",
+      "sha256": "ce74e154caa92d65dcead54a92cb3e5c05a00df70285d139c94b3eeab6081092"
+    },
+    "freeze_manifest": {
+      "bytes": 3839,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/freeze_manifest.json",
+      "sha256": "ca0ad7d0f6e6f8b80d118bc68c287ea491c8aabda224b573435dda2aac083272"
+    },
+    "holdout": {
+      "bytes": 36674,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/holdout.jsonl",
+      "sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6"
+    },
+    "optimizer_schedule": {
+      "bytes": 64276,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/optimizer_schedule.json",
+      "sha256": "c3090775cf1cc2e903fe2a4097790f4b56ff32a70c52cbeac4c691453d48afa6"
+    },
+    "patch": {
+      "bytes": 47811,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/patch.jsonl",
+      "sha256": "6dac9f23578f965512e98421d22d269d653d0a2a5657df1d63f91f419f17368b"
+    },
+    "score_policy": {
+      "bytes": 1707,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/score_policy.json",
+      "sha256": "8950d7a51338e3d7f36391b59d4c9998e14f6e85e2b92a7f885715fb66f09151"
+    },
+    "synthetic_probes": {
+      "bytes": 16880,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/synthetic_probes.jsonl",
+      "sha256": "0172cec86bb5ca9ad9002f7d779ff428484faf59f7e1162cd6da892e8921dfeb"
+    },
+    "train": {
+      "bytes": 210772,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/train.jsonl",
+      "sha256": "af1f935cbc89a11eddd323b1f824f6923db49428cf5e639cc62f067da594ffca"
+    },
+    "training_recipe": {
+      "bytes": 8614,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/training_recipe.json",
+      "sha256": "95293d70bff32e8c6cda426b2f65d21fc3311230042cb9198e6810d4c958d24d"
+    }
+  },
+  "future_authorized_lifecycle_order": [
+    "full_training_from_pinned_source_model",
+    "ordered_synthetic_probe_selector",
+    "single_locked_checkpoint_dev_qualification",
+    "selected_bf16_materialization",
+    "retention",
+    "exactly_once_holdout"
+  ],
+  "hygiene_acceptance": {
+    "complete_byte_coverage_required": true,
+    "credential_signature_findings_allowed": 0,
+    "size_limit_bytes": null,
+    "skipped_files_allowed": 0
+  },
+  "independent_execution_package_review": {
+    "author_self_approval_allowed": false,
+    "minimum_level": "Fresh",
+    "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6/execution-package-l2-acceptance.json",
+    "required_before_any_authority_intent_launch_namespace_or_marker": true,
+    "required_status": "ACCEPTED_BF16_FULL_FINETUNE_SUCCESSOR_S6_PACKAGE_NO_ATTEMPT"
+  },
+  "material_difference": {
+    "failure_class_repaired": "DEV_QUALITY_GATE_FAILURE",
+    "from_s5": "New package identity and namespaces; S5 bytes and consumed lifecycle remain immutable.",
+    "repair": "Implement the accepted category-balanced, source-anchored, conflict-projected mechanism with strict no-fallback probe selection while retaining complete transitive relocated runtime closure."
+  },
+  "mechanism": {
+    "category_order": [
+      "arithmetic",
+      "concise_summary",
+      "context_memory",
+      "format_discipline",
+      "polite_rewrite",
+      "safe_refusal",
+      "structured_extraction"
+    ],
+    "conflict_projection": {
+      "arithmetic_dtype": "float32",
+      "combined_gradient": "mean(p_i for all seven categories)",
+      "deterministic_pair_order": true,
+      "initial_value": "p_i=g_i",
+      "missing_category_disposition": "FAIL_CLOSED_NO_OPTIMIZER_STEP",
+      "nonfinite_gradient_disposition": "FAIL_CLOSED_NO_OPTIMIZER_STEP",
+      "post_combine_gradient_clipping_norm": 1.0,
+      "projection_rule": "for i then j in category_order, if dot(p_i,g_j)<0 set p_i=p_i-dot(p_i,g_j)/max(norm2(g_j),1e-12)*g_j",
+      "raw_gradient_symbol": "g_i for category i",
+      "reference_gradient_rule": "use immutable raw g_j during all projections"
+    },
+    "marker_policy": {
+      "category_label_in_model_input": false,
+      "category_label_in_target": false,
+      "fail_closed_if_metadata_leaks_into_tokens": true,
+      "metadata_transport": "external sampler sidecar removed before tokenization",
+      "score_or_gate_label_in_model_input_or_target": false,
+      "special_control_tokens_added": false
+    },
+    "material_difference_from_permitted_s5_mechanism": {
+      "new_capabilities": [
+        "each optimizer superstep contains every evaluator category",
+        "each category has equal weight after within-category loss averaging",
+        "negative inter-category gradient components are deterministically projected away before the optimizer update",
+        "checkpoint selection has no best-effort fallback when synthetic gates fail"
+      ],
+      "s5_declared_mechanism": {
+        "all_model_parameters_trainable": true,
+        "architecture_change_allowed": false,
+        "parameter_efficient_adapter_used": false,
+        "trainable_parameter_count": 494032768
+      }
+    },
+    "model_parameterization": {
+      "all_model_parameters_trainable": true,
+      "architecture_change_allowed": false,
+      "parameter_efficient_adapter_used": false,
+      "trainable_parameter_count": 494032768
+    },
+    "name": "marker-free category-balanced conflict-projected full fine-tuning",
+    "optimizer_superstep": {
+      "bridge_rule": "split a bridge-row loss equally across its declared categories; bridge metadata never enters tokens",
+      "eighth_microbatch": "rotating category extra for 42 steps, then one bridge row for each of the final two steps",
+      "equal_category_weight_after_averaging": true,
+      "micro_batch_size": 1,
+      "microbatches": 8,
+      "required_base_microbatches": "one from each of the seven categories",
+      "within_category_rule": "average all row losses assigned to a category before taking that category gradient"
+    }
+  },
+  "namespace": {
+    "attempt": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6/attempt-0001",
+    "dev": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6/qualification/dev",
+    "holdout": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6/qualification/holdout-exactly-once",
+    "model_root": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6",
+    "offline_root": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6",
+    "retention": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6/qualification/retention",
+    "selected_bf16": "build/qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6/selected/bf16"
+  },
+  "package": {
+    "frozen_non_executing_package_preserved": "pilot/qwen25_05b_bf16_full_finetune_successor_s6",
+    "runner": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner"
+  },
+  "package_files": {
+    "artifact_001": {
+      "bytes": 1603,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6/frozen_config.json",
+      "sha256": "a62b717b0682ff825ef30696d2c59362b16551af60d8a323bf40073b0e2adc46"
+    },
+    "artifact_002": {
+      "bytes": 85,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6/frozen_config.json.sha256",
+      "sha256": "ee31ef5a014020e74a3775d362e5a90f6422f705df087f6070a50e1340adc97e"
+    },
+    "artifact_003": {
+      "bytes": 5187,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6/self_test.py",
+      "sha256": "df12a9604c0c9d17ae7f57731ac674a333aa5cfc5003e5599de7d81533b71132"
+    },
+    "artifact_004": {
+      "bytes": 12601,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/common.py",
+      "sha256": "4ce6ad375d5159f07501f6b98626c180b04e41faa92df7245b8a3405bdd1bcf6"
+    },
+    "artifact_005": {
+      "bytes": 7625,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/evaluate_dev.py",
+      "sha256": "23b29b2f0f966d8f93b535a67aafc8ed81d11b51dae358e6c9b237b56bcdeb2b"
+    },
+    "artifact_006": {
+      "bytes": 10487,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/evaluate_holdout.py",
+      "sha256": "c61ddc938a38cbf5e1182e7be289c7cc286ce3ebfd081f850132af061a8cb50f"
+    },
+    "artifact_007": {
+      "bytes": 7011,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/launch_detached.py",
+      "sha256": "48020d5039d8d7766f253b92477762417ef535409a71610ab96bfff78d00a634"
+    },
+    "artifact_008": {
+      "bytes": 956,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/preflight.py",
+      "sha256": "a5805934b5eefd78be49ff369b33d64168a6040d7b9a9d57e984c3baedb41cf9"
+    },
+    "artifact_009": {
+      "bytes": 14203,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/retention.py",
+      "sha256": "4fbbc0066c26e08f5978404e3d92d96580ac93ee839911ce3c4a78ff4cf52e38"
+    },
+    "artifact_010": {
+      "bytes": 6921,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/run_worker.py",
+      "sha256": "2112c9f8054a8685b8da08ab43e2a6fd28f5e8ef533fa8774bd4bc842e96c4d5"
+    },
+    "artifact_011": {
+      "bytes": 52906,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/runtime.py",
+      "sha256": "53744fa67858063a7ea85cac98ba069bbd1d656b45bd9bcf31e9dd5b1560cb42"
+    },
+    "artifact_012": {
+      "bytes": 6044,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/select_model.py",
+      "sha256": "d250d45435f71882f5642b24bfb17b45d983734376bc9490686159a675f8b719"
+    },
+    "artifact_013": {
+      "bytes": 24396,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/self_test.py",
+      "sha256": "3bf75ff6f297fd694b59eaa1d64c6c63dd2c3a675b2845f0fd4addd67d562091"
+    },
+    "artifact_014": {
+      "bytes": 2792,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/status.py",
+      "sha256": "8d98001c577558d51bc02ee20c3d8fcac3c21da3988905aa34f7da41e281a129"
+    },
+    "artifact_015": {
+      "bytes": 19458,
+      "path": "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/train.py",
+      "sha256": "d6c6dc07dedcfff4e9f453f4012121158f89eea28cda85eb20d8c9afc6f096ba"
+    },
+    "artifact_016": {
+      "bytes": 19,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/.amltignore",
+      "sha256": "862263fa1f46c20f0d1e4dac5ffcc75abd55c08211b2c3864c5f8764b9d87793"
+    },
+    "artifact_017": {
+      "bytes": 1283,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/amlt.yaml",
+      "sha256": "3fe897f53234f7eaa4348ed226342684f2b75cc2916b13dbd9da15e184f87b5d"
+    },
+    "artifact_018": {
+      "bytes": 23544,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/audit_package.py",
+      "sha256": "9a70ce69921fccf8ed61d34d91c2a9679a0442af282587f87b2883bfffa1487c"
+    },
+    "artifact_019": {
+      "bytes": 15090,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/audit_stage.py",
+      "sha256": "70680972b79d02e443b606e7c683d9315abd710232a0a0e15a1eb210e4ac8ed1"
+    },
+    "artifact_020": {
+      "bytes": 18705,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/build_package.py",
+      "sha256": "765f597ed7f5d89d27abc988f8926b33fbc0bd39f9c976f077595a72deb2ae15"
+    },
+    "artifact_021": {
+      "bytes": 13456,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/prepare_stage.py",
+      "sha256": "f06b115574230b407a0356d7c444e0482e13ba4beaba07a48c324d165bef3ea8"
+    },
+    "artifact_022": {
+      "bytes": 4387,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/run_once.sh",
+      "sha256": "3d0f86ac945ee584cf7ab7cd9bb5b5f55fd9170f69d4cc183b2e1dba296ffe47"
+    },
+    "artifact_023": {
+      "bytes": 699,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/runtime-pipeline-state.json",
+      "sha256": "69498878e3aa6bb4f24318cc7a686fe5800346a90838966d6e5e9e34eb56f24b"
+    },
+    "artifact_024": {
+      "bytes": 94,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/runtime-pipeline-state.json.sha256",
+      "sha256": "f1be192c1465db0d8f3ac41e07dfc4ecdf2167d4965c9d22e89465bd10abf05b"
+    },
+    "artifact_025": {
+      "bytes": 1507,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/source-model-runtime-audit.json",
+      "sha256": "f2c9314ae43b64184504befd464befc939851794e01c9cbaeef0968fcb739a5e"
+    },
+    "artifact_026": {
+      "bytes": 98,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/source-model-runtime-audit.json.sha256",
+      "sha256": "c5171400dab3cd984750aac30b936108d87ff0b4dc27711cec8391795f495477"
+    },
+    "artifact_027": {
+      "bytes": 15062,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/submit_guard.py",
+      "sha256": "30c944a2cffb0df435ce9d2b0b1a39a391e773bcb13b264a6de79c690b7c858c"
+    },
+    "artifact_028": {
+      "bytes": 92418,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/category_sidecar.jsonl",
+      "sha256": "59ff6b11341e02de770385af9c0ff24b843ffd04d26a0d8e80b863e45e71b750"
+    },
+    "artifact_029": {
+      "bytes": 5047,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/dataset_manifest.json",
+      "sha256": "43c1735ee55f382c2dd55945eb9e76e37052ea07dce0480fa06c554906a23be0"
+    },
+    "artifact_030": {
+      "bytes": 88,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/dataset_manifest.json.sha256",
+      "sha256": "f33dad8ec18c7915b1ed2546dc15d1771c954aa2c0f719e234acd962addadcc6"
+    },
+    "artifact_031": {
+      "bytes": 37406,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/dev.jsonl",
+      "sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3"
+    },
+    "artifact_032": {
+      "bytes": 767,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/environment.lock.json",
+      "sha256": "5badd433a2c4fdf8e3e3d4cd639f0efd2823b2c7f3bc0f74859d6973f03549a9"
+    },
+    "artifact_033": {
+      "bytes": 88,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/environment.lock.json.sha256",
+      "sha256": "542e5dcec0563c5bc12fe609ea55650392811da7237de0d5998c047ad5f898b3"
+    },
+    "artifact_034": {
+      "bytes": 12794,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/freeze_contract.json",
+      "sha256": "ce74e154caa92d65dcead54a92cb3e5c05a00df70285d139c94b3eeab6081092"
+    },
+    "artifact_035": {
+      "bytes": 87,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/freeze_contract.json.sha256",
+      "sha256": "59ef9374dd9792048d26567158840f7520e7be75d238a055b3b2f6e3f7dd8abf"
+    },
+    "artifact_036": {
+      "bytes": 3839,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/freeze_manifest.json",
+      "sha256": "ca0ad7d0f6e6f8b80d118bc68c287ea491c8aabda224b573435dda2aac083272"
+    },
+    "artifact_037": {
+      "bytes": 87,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/freeze_manifest.json.sha256",
+      "sha256": "fb97ffe77e926700ca3f3169cac264d4acb828d5d8c707195fde138cdc9c8352"
+    },
+    "artifact_038": {
+      "bytes": 36674,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/holdout.jsonl",
+      "sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6"
+    },
+    "artifact_039": {
+      "bytes": 64276,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/optimizer_schedule.json",
+      "sha256": "c3090775cf1cc2e903fe2a4097790f4b56ff32a70c52cbeac4c691453d48afa6"
+    },
+    "artifact_040": {
+      "bytes": 90,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/optimizer_schedule.json.sha256",
+      "sha256": "f5ccd77a9982b3f0fff1551b26f5b209cba07d1bac206f2618791162acc55a02"
+    },
+    "artifact_041": {
+      "bytes": 47811,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/patch.jsonl",
+      "sha256": "6dac9f23578f965512e98421d22d269d653d0a2a5657df1d63f91f419f17368b"
+    },
+    "artifact_042": {
+      "bytes": 1707,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/score_policy.json",
+      "sha256": "8950d7a51338e3d7f36391b59d4c9998e14f6e85e2b92a7f885715fb66f09151"
+    },
+    "artifact_043": {
+      "bytes": 84,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/score_policy.json.sha256",
+      "sha256": "81f1fdbbacc9673f0f2a7d8998f99c3f213966523bcd55724ca64e19bf685589"
+    },
+    "artifact_044": {
+      "bytes": 16880,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/synthetic_probes.jsonl",
+      "sha256": "0172cec86bb5ca9ad9002f7d779ff428484faf59f7e1162cd6da892e8921dfeb"
+    },
+    "artifact_045": {
+      "bytes": 210772,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/train.jsonl",
+      "sha256": "af1f935cbc89a11eddd323b1f824f6923db49428cf5e639cc62f067da594ffca"
+    },
+    "artifact_046": {
+      "bytes": 8614,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/training_recipe.json",
+      "sha256": "95293d70bff32e8c6cda426b2f65d21fc3311230042cb9198e6810d4c958d24d"
+    },
+    "artifact_047": {
+      "bytes": 87,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/training_recipe.json.sha256",
+      "sha256": "fa0856b0b28785825f06a06d00c428ef59a9e9da3936817055d2afc5b1d302bc"
+    },
+    "artifact_048": {
+      "bytes": 30463,
+      "path": "tools/freeze_bf16_successor_s6_execution_package.py",
+      "sha256": "1ae8ccc0d05acfeb9f1e3e58130dd265c4e396c00ccf331cea5cfe5a9faabaa4"
+    }
+  },
+  "package_id": "qwen2.5-0.5b-instruct-ace2-bf16-full-finetune-successor-s6-package-v1",
+  "predecessor_boundary": {
+    "accepted_s6_design_freeze": {
+      "bytes": 13862,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_CATEGORY_BALANCED_CONFLICT_PROJECTED_SUCCESSOR_S6_CLEAN_ROOM_V2_DESIGN_FREEZE.json",
+      "sha256": "99bc106c2738a5cdfcba52485d2e4b6f61dac41ea74202bd884f00168070d6d5"
+    },
+    "accepted_s6_design_review": {
+      "bytes": 1202,
+      "path": "research/raw/specification/qwen25-bf16-successor-s6-clean-room-v2-fresh-review-20260808.json",
+      "sha256": "c7dc8a566723e3c7e9498fd356f7dc6a5c526c684197a29f037558a66b783d9d"
+    },
+    "predecessor_authority_intent_job_or_output_consumption_allowed": false,
+    "s5_execution_tree_sha256": "54602351773e85fc28e0347aacbee988cc787157306f01913bd74ff190f79a0a",
+    "s5_package_identity_sha256": "0487a96540d733eeee88bbef1342b4af5f99204ec334d56c50092be6a5c28a02",
+    "s5_retry_repair_resume_rescore_or_output_consumption_allowed": false,
+    "s5_terminal_audit_sha256": "bd7bd5c0f55bbb63b9bd66473eb95dc0306380bdd96d53c5c71600b555c192b8",
+    "s5_terminal_failure_taxonomy": "DEV_QUALITY_GATE_FAILURE",
+    "s5_terminal_review_sha256": "8e8e891c51bf5bc8989c0d4a3d71225b7751c62b25c19ef5bb8123fb524e0fd4",
+    "v8_execution_tree_sha256": "e7843803e930a9af491fe7e6ee7f9fe0a16fe7eb3b32faecd0eacf74b677ddb7",
+    "v8_static_recipe_and_runner_conventions_used_as_design_input_only": true
+  },
+  "resource_assumptions": {
+    "claim_boundary": "Conservative prerequisites, not measured S6 usage or latency.",
+    "minimum_compute_capability": [
+      8,
+      0
+    ],
+    "minimum_free_disk_bytes": 34359738368,
+    "minimum_free_vram_bytes_at_launch": 21474836480,
+    "minimum_host_ram_bytes": 34359738368,
+    "minimum_total_vram_bytes": 25769803776,
+    "required_visible_cuda_devices": 1
+  },
+  "retention_evaluator_inputs": {
+    "prompt_manifest": {
+      "bytes": 3028,
+      "path": "benchmark/quality/PROMPT_MANIFEST.json",
+      "sha256": "9ee394d7d344d6f14e6829cbf8bea27b5508c7fe5344d941495f5668ca32335c"
+    },
+    "quality_config": {
+      "bytes": 5007,
+      "path": "benchmark/quality/QUALITY_CONFIG.json",
+      "sha256": "50fe8c986c556bd1247e156c9f65de1e1137ed87542aca9112d089b15d226588"
+    },
+    "task_sources": {
+      "benchmark/quality/lm_eval_tasks/arc_challenge.yaml": {
+        "bytes": 71,
+        "path": "benchmark/quality/lm_eval_tasks/arc_challenge.yaml",
+        "sha256": "682621c26ae24b1065a2d732460a55a8ef2b9f2544574431666c9309a9efd7bd"
+      },
+      "benchmark/quality/lm_eval_tasks/arc_easy.yaml": {
+        "bytes": 631,
+        "path": "benchmark/quality/lm_eval_tasks/arc_easy.yaml",
+        "sha256": "beb9faf28a0644506aeb6d6fdc8b8a208bbaa77c73563faad94a07a36c64daed"
+      },
+      "benchmark/quality/lm_eval_tasks/hellaswag.yaml": {
+        "bytes": 520,
+        "path": "benchmark/quality/lm_eval_tasks/hellaswag.yaml",
+        "sha256": "5b485d4f230838cc5a49e75c35443058d5b991b64df379c00174b9a292da2edd"
+      },
+      "benchmark/quality/lm_eval_tasks/hellaswag_utils.py": {
+        "bytes": 612,
+        "path": "benchmark/quality/lm_eval_tasks/hellaswag_utils.py",
+        "sha256": "a8084c5ae9d4f7f7a295d56cf76f58f028bb1c321d606dcf548cfe9ab0c5f79c"
+      },
+      "benchmark/quality/lm_eval_tasks/piqa.yaml": {
+        "bytes": 592,
+        "path": "benchmark/quality/lm_eval_tasks/piqa.yaml",
+        "sha256": "5a4463d2442cec366fd7a68e758c7eab22c455f47d2e16140e2f10a1325a63f5"
+      },
+      "benchmark/quality/lm_eval_tasks/piqa_dataset.py": {
+        "bytes": 4687,
+        "path": "benchmark/quality/lm_eval_tasks/piqa_dataset.py",
+        "sha256": "3de09612f0c1d06efd4b2f584b5b00ec2dd5f725733d858193b1839a8f7ee03a"
+      },
+      "benchmark/quality/lm_eval_tasks/winogrande.yaml": {
+        "bytes": 630,
+        "path": "benchmark/quality/lm_eval_tasks/winogrande.yaml",
+        "sha256": "a9837f4c494ab923d224baa809bf68e21c7b3e820c32a9711c644cb8e5591c7a"
+      },
+      "benchmark/quality/lm_eval_tasks/winogrande_utils.py": {
+        "bytes": 391,
+        "path": "benchmark/quality/lm_eval_tasks/winogrande_utils.py",
+        "sha256": "97b03c65f0323319e7d62c21470dc0655098d2ab48617cce7e884efafd67be4e"
+      }
+    }
+  },
+  "schema_version": 2,
+  "score_policy_file": {
+    "bytes": 1707,
+    "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/score_policy.json",
+    "sha256": "8950d7a51338e3d7f36391b59d4c9998e14f6e85e2b92a7f885715fb66f09151"
+  },
+  "source_and_evaluator": {
+    "frozen_scorer": {
+      "bytes": 28409,
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "bytes": 3450,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "bytes": 7673,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    },
+    "source_dataset_manifest": {
+      "bytes": 3563,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dataset_manifest.json",
+      "sha256": "2fb9b806f962117e566158f61d394d198f60c2b9d45478ec932cedfb857e4225"
+    }
+  },
+  "source_teacher_data_evaluator": {
+    "dataset_manifest": {
+      "bytes": 5047,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s6/dataset_manifest.json",
+      "sha256": "43c1735ee55f382c2dd55945eb9e76e37052ea07dce0480fa06c554906a23be0"
+    },
+    "frozen_scorer": {
+      "bytes": 28409,
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "bytes": 3450,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "bytes": 7673,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    },
+    "source_dataset_manifest": {
+      "bytes": 3563,
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-full-finetune-successor-s5/dataset_manifest.json",
+      "sha256": "2fb9b806f962117e566158f61d394d198f60c2b9d45478ec932cedfb857e4225"
+    },
+    "teacher": {
+      "mode": "none",
+      "outputs_used": false,
+      "repository": null,
+      "revision": null
+    }
+  },
+  "stage": "successor_s6_full_training_execution_package",
+  "status": "FROZEN_MARKER_FREE_PENDING_FRESH_INDEPENDENT_REVIEW",
+  "submission": {
+    "amlt_version": "11.17.0",
+    "client_timeout_seconds": 180,
+    "dry_run_suffix": [
+      "--dump"
+    ],
+    "exact_logical_argv": [
+      "amlt",
+      "run",
+      "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/amlt.yaml",
+      ":ace2-bf16-full-finetune-successor-s6-attempt-0001",
+      "ace2-bf16-full-finetune-successor-s6-20260808-attempt-0001",
+      "--yes",
+      "--description",
+      "ACE-2 authority-gated BF16 successor S6 full training, checkpoint selection, dev, retention, and exactly-once holdout lifecycle"
+    ],
+    "explicit_project_required": true,
+    "fail_closed_on_timeout": true,
+    "maximum_backend_jobs_if_later_authorized": 1,
+    "nonempty_description_required": true,
+    "stdin_policy": "DEVNULL"
+  },
+  "supersession": {
+    "dora_or_other_peft_continuation_permitted": false,
+    "preserved_superseded_v6_contract": {
+      "bytes": 7390,
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_DORA_PRODUCT_V6_EXECUTION_PACKAGE_CONTRACT.json",
+      "sha256": "99aadaffa13cfba155f2b47b6679ca54feb439235689613b54fa31fbe7a8577b"
+    },
+    "v7_eval_recovery_permitted": false,
+    "v7_replay_resume_rescore_or_checkpoint_reuse_permitted": false
+  },
+  "transport_stage": {
+    "decisive_verifier": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/audit_stage.py",
+    "isolated_launch_readiness_command": [
+      "python",
+      "-I",
+      "-B",
+      "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/preflight.py"
+    ],
+    "materialization_is_non_consuming": true,
+    "negative_regression": "The decisive verifier starts from the actual assembled stage, removes each transitive closure member one at a time in an isolated copy, and requires fail-closed rejection naming that exact path.",
+    "postreview_authority_readiness_command": [
+      "python",
+      "-I",
+      "-B",
+      "pilot/qwen25_05b_bf16_full_finetune_successor_s6_runner/launch_detached.py",
+      "--check-only"
+    ],
+    "preparation_entrypoint": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/prepare_stage.py",
+    "prepared_now": false,
+    "required_source_audit": {
+      "bytes": 1507,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/source-model-runtime-audit.json",
+      "sha256": "f2c9314ae43b64184504befd464befc939851794e01c9cbaeef0968fcb739a5e"
+    },
+    "required_staged_file_policy": "Compute a transitive closure from the execution contract, freeze manifest, execution manifest, self-test result, every runtime primary binding, every recursively referenced path/SHA-256 binding, every packaged runner file, and every available checksum companion. The contract, manifest, self-test, and, once present, Fresh L2 acceptance companions are mandatory.",
+    "requires_clean_relocated_launch_readiness_pass_before_fresh_review_or_authority": true,
+    "requires_fresh_review_before_materialization": false,
+    "requires_postreview_relocated_authority_readiness_before_package_acceptance": true,
+    "runtime_pipeline_state": {
+      "bytes": 699,
+      "path": "research/execution/qwen25_bf16_full_finetune_successor_s6_20260808/runtime-pipeline-state.json",
+      "sha256": "69498878e3aa6bb4f24318cc7a686fe5800346a90838966d6e5e9e34eb56f24b"
+    },
+    "source_model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+  }
+}

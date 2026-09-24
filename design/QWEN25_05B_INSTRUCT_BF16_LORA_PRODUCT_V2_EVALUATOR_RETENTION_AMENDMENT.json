@@ -1,0 +1,61 @@
+{
+  "amendment_id": "qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v2-evaluator-retention-amendment-v1",
+  "base_contract": {
+    "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+    "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+  },
+  "claim_boundary": "Prospective evaluator classification and retention gates only. No training, dev score, retention result, holdout access, model output, adapter, merged checkpoint, quantization, RTL, U280, or product-quality result is claimed.",
+  "effective_at_utc": "2026-08-07T21:02:00Z",
+  "evaluator_classification": {
+    "benchmark_interface_class": "internal_hash_bound_fixed_evaluation_contract_not_external_accelerator_benchmark",
+    "dev": "fixed_56_case_internal_evaluator_used_only_for_checkpoint_qualification",
+    "external_hidden_harness_or_golden_output": false,
+    "holdout": "fixed_56_case_internal_exactly_once_final_evaluator_not_used_for_selection",
+    "official_v2_input_sets_and_score_policy_apply": true,
+    "retention": "public_source_relative_language_model_and_five_task_gate_not_used_for_checkpoint_selection"
+  },
+  "ordering": {
+    "dev_before_retention": true,
+    "holdout_after_dev_and_retention_pass_only": true,
+    "holdout_exactly_once": true,
+    "stop_at_first_failed_gate": true
+  },
+  "protected_byte_identities": {
+    "blinded_attestation_sha256": "2f6314d76c989b7beb1ddfae03c47f584ba1a77b2041a2d5b95c9f500377c6b3",
+    "blinded_sidecar_sha256": "6920a13a0c64bbe1babd8863a239cc64a5041e60172a4a38539efdaced0b34ba",
+    "dev_sha256": "bcc21548de475db4c5a11b1c2aed89523136ec7581180e35e7b0005ad5b288a3",
+    "environment_lock_sha256": "4cff49c07e30fa193898e1be4a07cdbb8acfa8bccc1d6d26b7fd4246927cfdd6",
+    "generator_sha256": "327929f086fbfa7c0f10a040e0e973f14d6dea342e3023020c5bc78ccf163198",
+    "holdout_sha256": "a24cbc11ae8bf0fb49b6f22dbe48f13e724fab1d6c46324f93b41d850234d1f6",
+    "manifest_sha256": "78625804fb825d6ddb5d6b8919b0f211f213244df172684692f612910e1713fc",
+    "recipe_sha256": "c547f30f78fd85bb6e55321a9db79c6f46360f01692170df9177b0e8002a05a9",
+    "reviewer_113_check_audit_sha256": "c87f646f94d6bbd768e924b84b191935e6d1059521f62c8200ded85427273359",
+    "train_sha256": "a9c6d35c6a733424f8e1900bad87f534240fc9ef6800ed0f9df8eeab293c63d0"
+  },
+  "retention": {
+    "access_before_dev_qualification": false,
+    "c4_en_frozen_512_perplexity_ratio_max_vs_source": 1.02,
+    "five_task_average_normalized_accuracy_drop_percentage_points_max_vs_source": 1.0,
+    "policy_inherited_from_v1_without_outcome_inspection": true,
+    "policy_source_path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V1_CONTRACT.json#acceptance.bf16_retention",
+    "policy_source_sha256": "31298b475f2b43d1ba0f5250f0c59e709f6dfb6ac89768feca7d7cd14615c4be",
+    "tasks": [
+      "PIQA",
+      "HellaSwag",
+      "Winogrande",
+      "ARC-Easy",
+      "ARC-Challenge"
+    ],
+    "threshold_change_after_results_allowed": false,
+    "wikitext2_raw_validation_perplexity_ratio_max_vs_source": 1.02
+  },
+  "review": {
+    "author_self_approval_allowed": false,
+    "minimum_level": "L2",
+    "required_before_preflight_or_attempt_marker": true,
+    "verdict_path": "research/raw/specification/qwen25-05b-instruct-bf16-lora-product-v2-evaluator-retention-amendment-l2-review.json",
+    "verdict_status_required": "ACCEPT"
+  },
+  "schema_version": 1,
+  "status": "FROZEN_REQUIRES_NARROW_L2_ACCEPTANCE_BEFORE_ANY_V2_MARKER"
+}

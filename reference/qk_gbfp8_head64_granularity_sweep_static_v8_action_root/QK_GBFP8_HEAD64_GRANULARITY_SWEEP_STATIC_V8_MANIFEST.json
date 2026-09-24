@@ -1,0 +1,84 @@
+{
+  "artifact_bindings": [
+    {
+      "path": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_INCREMENT.json",
+      "sha256": "3f2fb3eaa26a5ab08016cb5a9309a9c4eaa01fcc268e37a11469b9db097c6379"
+    },
+    {
+      "path": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_RUNTIME_PACKAGE.json",
+      "sha256": "ef2ba57e278be4fb24f6fa56faadfe84a91123781fadab5b6110163b3b5518be"
+    },
+    {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_c02_static_v8.py",
+      "sha256": "ff9216d58bcd1584361e17d8d1854f3bcb96923c17927b1f309861546807bdb1"
+    },
+    {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v8.py",
+      "sha256": "faab3064733be0d0fc68c565f00dd2c77022b7f4974d39b798eda1f150d55aa4"
+    },
+    {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v8.py",
+      "sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63"
+    },
+    {
+      "path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.json",
+      "sha256": "b7c758c7141d7ac8037502da4a00fe9e0780d30501e2af483e9b8c571451493a"
+    },
+    {
+      "path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_RESULT_SCHEMA.json",
+      "sha256": "fc5cf29d7ec7486b106edac592787b5888557c4b1b7453cb0a668b02fca113ec"
+    },
+    {
+      "path": "tools/verify_qk_gbfp8_head64_granularity_sweep_c02_static_v8.py",
+      "sha256": "2adaf2b2a262b636c85cfe0cc379ce069ffbacc1fd4d2b53cc9374589462fd15"
+    },
+    {
+      "path": "tools/verify_qk_gbfp8_head64_granularity_sweep_static_v8.py",
+      "sha256": "67da980b637b93af6784dd8ab11ceb727b37ba4f5357e41c758c53015d0ff6eb"
+    }
+  ],
+  "artifact_kind": "qk_gbfp8_head64_granularity_sweep_static_v8_manifest",
+  "claim_boundary": {
+    "authority_materialized": false,
+    "checkpoint_176_activity": false,
+    "controller_or_evaluator_invoked": false,
+    "credential_materialized": false,
+    "fresh_l2_accepted": false,
+    "hardware_or_rtl_activity": false,
+    "ledger_result_or_terminal_materialized": false,
+    "sealed_tensor_accessed_or_projected": false,
+    "status": "STATIC_ONLY_NOT_AUTHORIZED_FOR_EXECUTION"
+  },
+  "frozen_inputs": {
+    "sealed_tensor_lstat": {
+      "byte_count": 1305797,
+      "file_type": "regular",
+      "mode_octal": "0400"
+    },
+    "v6_files": {
+      "first-terminal.json": "83a875fab228f552e6b26cfeacf021296ad65b122981873570d65ea9c4f367e6",
+      "result.json": "74b5d8fded1e344848023144336d0f8de8e0409c6f589fb8c9a7b642fade695c",
+      "round-0001.json": "0d20e696e77e47e425a761d726fa10ab57c09733d7d3af066ea6f874b7debd49",
+      "v6ns-r2-aftermath-recompute.json": "7f17929b5b087764e3d321b8354e750ac42542aad772fe18cb4f4942e01b53fb"
+    },
+    "v7_files": {
+      "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_MANIFEST.json": "e06e83f9a939d005d86bd1d428fa1ccfa3c41624e561a622e0a788d8aa682a7a",
+      "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RUNTIME_PACKAGE.json": "9b908efdcd78d646c7c69dbf364f02f050cc507492666cfe38892ccd4380498d",
+      "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE.json": "424c16dd9a352158c13518b077224eca7b05ec87509e0e1c7afe6e8088cdd102",
+      "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RESULT_SCHEMA.json": "6be8515a19952f85776af525b234dd5db8bb77df86cd205becc101888670f3d7",
+      "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v7.py": "565dd9727458199157f8eba0edb3aa39a13d78bfc076f259433022efc49d9474",
+      "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v7.py": "13eb6348aeb180722c1addee3220454119fbb4a428c36a63d5f8416759feac1e",
+      "tools/verify_qk_gbfp8_head64_granularity_sweep_static_v7_schema_compatibility.py": "a8c45cce3cdf740ee1e3a12ef226a4bacda394835107b45160552ff5a37b2237"
+    }
+  },
+  "manifest_self_hash_policy": "EXTERNAL_SHA256_IDENTITY",
+  "mission_id": "f0fa5c269681",
+  "pending_fresh_l2_review": {
+    "artifact_path": "review/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_REVIEW.json",
+    "required": true,
+    "role": "Fresh-L2",
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "root_id": "qk_gbfp8_head64_granularity_sweep_static_v8_action_root",
+  "schema_version": 1
+}

@@ -1,0 +1,113 @@
+{
+  "datasets": {
+    "c4_calibration": {
+      "config": "en",
+      "field": "text",
+      "indices": {
+        "start": 0,
+        "stop": 64
+      },
+      "repository": "allenai/c4",
+      "revision": "1588ec454efa1a09f29cd18ddd04fe05fc8653a2",
+      "split": "validation",
+      "token_limit": 512
+    },
+    "c4_en_512": {
+      "config": "en",
+      "field": "text",
+      "indices": {
+        "start": 64,
+        "stop": 128
+      },
+      "repository": "allenai/c4",
+      "revision": "1588ec454efa1a09f29cd18ddd04fe05fc8653a2",
+      "split": "validation",
+      "token_limit": 512
+    },
+    "wikitext2": {
+      "config": "wikitext-2-raw-v1",
+      "field": "text",
+      "first_complete_windows": 64,
+      "indices": {
+        "start": 0,
+        "stop": 3760
+      },
+      "join": "\n\n",
+      "repository": "Salesforce/wikitext",
+      "revision": "b08601e04326c79dfdd32d625aee71d232d685c3",
+      "split": "validation",
+      "token_limit": 512
+    }
+  },
+  "lm_eval": {
+    "fewshot": 0,
+    "limit": 64,
+    "tasks": {
+      "arc_challenge": {
+        "config": "ARC-Challenge",
+        "repository": "allenai/ai2_arc",
+        "revision": "210d026faf9955653af8916fad021475a3f00453",
+        "split": "validation"
+      },
+      "arc_easy": {
+        "config": "ARC-Easy",
+        "repository": "allenai/ai2_arc",
+        "revision": "210d026faf9955653af8916fad021475a3f00453",
+        "split": "validation"
+      },
+      "hellaswag": {
+        "config": "default",
+        "repository": "Rowan/hellaswag",
+        "revision": "218ec52e09a7e7462a5400043bb9a69a41d06b76",
+        "split": "validation"
+      },
+      "piqa": {
+        "config": "plain_text",
+        "loader_source_sha256": "99107ad59e6f5ffc26923f98bb4cb6e2029b0e368005e9639ea7eadc86d2d46b",
+        "raw_sources": {
+          "train_dev": {
+            "sha256": "54d32a04f59a7e354396f321723c8d7ec35cc6b08506563d8d1ffcc15ce98ddd",
+            "url": "https://storage.googleapis.com/ai2-mosaic/public/physicaliqa/physicaliqa-train-dev.zip"
+          }
+        },
+        "records": {
+          "train": {
+            "count": 16113,
+            "sha256": "e0289bb0bed5837073e88e49142d84127e10c2972b4136dd6e670683fd9f48ea"
+          },
+          "validation": {
+            "count": 1838,
+            "sha256": "1affb5ed2a2aeb83f63f64f83effc9b21a653c9354f0c85b449fe81898a7816b"
+          }
+        },
+        "repository": "ybisk/piqa",
+        "revision": "2e8ac2dffd59bac8c3c6714948f4c551a0848bb0",
+        "split": "validation"
+      },
+      "winogrande": {
+        "config": "winogrande_xl",
+        "repository": "allenai/winogrande",
+        "revision": "01e74176c63542e6b0bcb004dcdea22d94fb67b5",
+        "split": "validation"
+      }
+    }
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+  },
+  "model_scope": {
+    "comparison": "each_contract_model_compared_only_to_its_own_bf16_control",
+    "model_ids": [
+      "qwen2.5-0.5b-instruct",
+      "ace2-lora-v4-checkpoint-176"
+    ]
+  },
+  "record_hash": {
+    "algorithm": "sha256",
+    "encoding": "utf-8",
+    "framing": "unsigned_64_bit_big_endian_byte_length_then_record_bytes",
+    "normalization": "none"
+  },
+  "schema_version": 1
+}

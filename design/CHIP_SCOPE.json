@@ -1,0 +1,1439 @@
+{
+  "acceptance_metrics": {
+    "area_resource": [
+      "SKY130 non-SRAM standard-cell area must be at most 2.0 mm^2 after the canonical OpenROAD-flow stage used for signoff reporting.",
+      "SRAM macros/blackboxes must be enumerated separately by bank, width, depth, port model, and estimated macro area source.",
+      "The append-only area frontier ledger must bind each architecture/RTL delta to source hashes, constraint hashes, non-SRAM area, Fmax, cycle impact, and remaining reserve."
+    ],
+    "correctness": [
+      "Every supported operation and full-workload trace must be bit-exact against the independent fixed-point reference for the frozen numerical behavior.",
+      "Reset, error, interrupt, backpressure, and descriptor-corner tests must pass with no known mismatches.",
+      "RTL must have no unresolved X-propagation in architecturally visible outputs after reset release."
+    ],
+    "performance": [
+      "Report sustained end-to-end prefill and decode tokens/s at 100 MHz using cycle-accurate traces for every required memory-bandwidth point.",
+      "Report cycles/token, external bytes/token, on-chip SRAM accesses/token, and stall breakdown for every benchmark trace.",
+      "Do not claim a tokens/s target beyond measured evidence; optimize for the maximum sustained value subject to correctness, quality, frequency, and area constraints."
+    ],
+    "power": [
+      "Report leakage, internal, switching, and total power for the canonical benchmark VCD/SAIF at the primary 100 MHz SKY130 corner.",
+      "No pass/fail power cap is operator-approved at definition time; power evidence is still required before PPA, prototype, benchmark, or signoff claims."
+    ],
+    "provenance": [
+      "Every verification, PPA, power, DRC/LVS/antenna, FPGA, and benchmark claim must link to immutable raw output and source/configuration hashes.",
+      "Missing public tool support is recorded as a blocker or limitation, never as a passed check."
+    ],
+    "quality": [
+      "The W4A8 reference must be compared with the public BF16 Qwen2.5-0.5B reference using the same tokenizer and prompts.",
+      "Acceptance target: perplexity must be no more than 1.05x BF16 on WikiText-2 raw validation and the frozen C4-en 512-prompt slice.",
+      "Acceptance target: normalized accuracy drop must be no more than 2.0 percentage points averaged over the frozen open lm-eval task set selected in WORKLOAD.md.",
+      "If these targets are not met, quality remains unmet until the operator explicitly approves a replacement target."
+    ],
+    "timing": [
+      "Primary SKY130 timing floor is at least 100 MHz.",
+      "Nangate45 and ASAP7 timing reports are comparative only and must carry academic/predictive labels."
+    ]
+  },
+  "authority_override": {
+    "active_replacement_contract": "cross_layer_quantization_error_carry_final_output_v1",
+    "implementation_authority_consumed": true,
+    "implementation_authorized": false,
+    "implementation_completed": true,
+    "operator_approval_consumed": true,
+    "operator_implementation_approval": {
+      "area_cap_non_sram_mm2": 2.0,
+      "authority": "operator_fast_loop_policy_plus_manager_environment_to_rtl_transition",
+      "baseline_harness_certification": {
+        "binder": {
+          "bytes": 29673,
+          "path": "tools/bind_synthetic_baseline_harness_certification.py",
+          "sha256": "2d9f3e379d82a25bb813ec0323ef5c4efa0dcd9f6efdcdf7bfd339972886d170"
+        },
+        "candidate_or_model_execution_count": 0,
+        "certified_at_utc": "2026-08-02T05:48:21Z",
+        "decision": "PASS",
+        "evidence_id": "candidate_independent_synthetic_baseline_harness_v1",
+        "failed_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+        "failed_contract_status": "sealed_terminal_baseline_protocol_no_go",
+        "implementation_authorized": false,
+        "independent_acceptance_check_count": 12,
+        "independent_l2_review": {
+          "bytes": 2032,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+          "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+        },
+        "manager_recovery_seal": {
+          "bytes": 8842,
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "manifest": {
+          "bytes": 2034,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+          "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+        },
+        "protected_artifact_count": 264,
+        "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+        "report": {
+          "bytes": 4216,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+          "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+        },
+        "required_manager_action": "freeze_structurally_distinct_successor_or_record_architecture_no_go",
+        "required_properties": [
+          "atomic_artifact_and_companion_hash_commit",
+          "exact_provenance_binding",
+          "durable_exactly_one_reservation_and_run_ledger",
+          "stage_authorization_before_execution",
+          "candidate_entrypoint_interlock",
+          "crash_recovery",
+          "missing_or_mismatched_artifact_fail_closed"
+        ],
+        "same_contract_repair_or_execution_permitted": false,
+        "schema_version": 1,
+        "scope": "candidate-independent synthetic/dry-fixture harness only",
+        "status": "independently_certified_pass",
+        "successor_freeze_authority": "Manager",
+        "successor_freeze_precondition_satisfied": true,
+        "successor_frozen": false
+      },
+      "candidate_capability_accepted": false,
+      "candidate_id": "cross_layer_error_carry_77453c1b5b3a781e",
+      "candidate_rtl_hash": "77453c1b5b3a781ecdbf469cd4505a038afa258bb146e662233788d937724e34",
+      "contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "forbidden": [
+        "double_carry_consumption",
+        "carry_added_to_residual_bypass",
+        "silent_carry_saturation",
+        "prompt_or_dataset_control",
+        "quality_or_shell_or_ppa_before_stage_authority",
+        "operator_target_relaxation"
+      ],
+      "frequency_floor_mhz": 100.0,
+      "frozen_at_utc": "2026-08-02T02:10:24Z",
+      "implementation_authority_consumed": true,
+      "implementation_authorized": false,
+      "implementation_completed": true,
+      "manager_transition": {
+        "at": "2026-08-02T05:14:23.854128Z",
+        "by": "manager",
+        "direction": "rollback",
+        "from_stage": "verification",
+        "reason": "Verification cannot advance: the candidate independent-oracle gate is unmet, the required baseline companion hash is missing, and a prohibited candidate entrypoint was already invoked. The exact-once verification path is therefore terminally unusable. Roll back to RTL for the identified RMSNorm reference/RTL numerical-contract repair; architecture, interfaces, targets, and downstream locks remain unchanged.",
+        "to_stage": "rtl"
+      },
+      "mechanism": "signed_q0_15_post_mlp_error_carry_consumed_once_by_next_or_final_rmsnorm",
+      "memory_boundary_bits": 128,
+      "mode": "ADVANCE",
+      "operator_approval_consumed": true,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ],
+      "predecessor_contract_id": "shared_down_projection_residual_fusion_v1",
+      "predecessor_status": "sealed_integrity_no_go",
+      "required_manager_action": "freeze_structurally_distinct_successor_or_record_architecture_no_go",
+      "rtl_checklist_review": {
+        "bytes": 14650,
+        "path": "evidence/review/rtl_checklist_cross_layer_quantization_error_carry_final_output_v1/decision.json",
+        "sha256": "00edd54c1c57b020488230627284ea31ea7cc6e06b362c6cd0423ba817c4d0bb"
+      },
+      "rtl_review": {
+        "bytes": 14650,
+        "path": "evidence/review/rtl_checklist_cross_layer_quantization_error_carry_final_output_v1/decision.json",
+        "sha256": "00edd54c1c57b020488230627284ea31ea7cc6e06b362c6cd0423ba817c4d0bb"
+      },
+      "rtl_started": true,
+      "stage_closing": false,
+      "status": "sealed_terminal_baseline_protocol_no_go",
+      "successor_selection_authorized": false,
+      "updated_at_utc": "2026-08-02T05:58:17Z"
+    },
+    "predecessor_no_go": {
+      "bytes": 133440,
+      "path": "evidence/shared_down_projection_residual_fusion_v1/latest/VERIFICATION_DECISION.json",
+      "sha256": "9655ca8a724fc04c6e32c26f7883f07d3ff117b82d2aa04ebbc68b15de26d8c9"
+    },
+    "required_next_action": "fresh_independent_rtl_checklist_review",
+    "stage_closing": false,
+    "status": "bounded_rtl_preflight_pass_independent_review_pending"
+  },
+  "baseline_fairness_policy": {
+    "comparison_rule": "Only same-workload, same-quantization, same-memory-boundary executable measurements count as fair open-baseline comparisons. Commercial and market references are context only.",
+    "definition_file": "design/BASELINE_PLAN.md",
+    "open_baselines": [
+      "Gemmini",
+      "NVDLA-small where the workload adaptation is executable and documented",
+      "VTA or other open accelerator only if it can execute a documented subset without unsupported extrapolation"
+    ]
+  },
+  "baseline_harness_certification": {
+    "binder": {
+      "bytes": 29673,
+      "path": "tools/bind_synthetic_baseline_harness_certification.py",
+      "sha256": "2d9f3e379d82a25bb813ec0323ef5c4efa0dcd9f6efdcdf7bfd339972886d170"
+    },
+    "candidate_or_model_execution_count": 0,
+    "certified_at_utc": "2026-08-02T05:48:21Z",
+    "decision": "PASS",
+    "evidence_id": "candidate_independent_synthetic_baseline_harness_v1",
+    "failed_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+    "failed_contract_status": "sealed_terminal_baseline_protocol_no_go",
+    "implementation_authorized": false,
+    "independent_acceptance_check_count": 12,
+    "independent_l2_review": {
+      "bytes": 2032,
+      "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+      "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+    },
+    "manager_recovery_seal": {
+      "bytes": 8842,
+      "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+      "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+    },
+    "manifest": {
+      "bytes": 2034,
+      "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+      "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+    },
+    "protected_artifact_count": 264,
+    "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+    "report": {
+      "bytes": 4216,
+      "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+      "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+    },
+    "required_manager_action": "freeze_structurally_distinct_successor_or_record_architecture_no_go",
+    "required_properties": [
+      "atomic_artifact_and_companion_hash_commit",
+      "exact_provenance_binding",
+      "durable_exactly_one_reservation_and_run_ledger",
+      "stage_authorization_before_execution",
+      "candidate_entrypoint_interlock",
+      "crash_recovery",
+      "missing_or_mismatched_artifact_fail_closed"
+    ],
+    "same_contract_repair_or_execution_permitted": false,
+    "schema_version": 1,
+    "scope": "candidate-independent synthetic/dry-fixture harness only",
+    "status": "independently_certified_pass",
+    "successor_freeze_authority": "Manager",
+    "successor_freeze_precondition_satisfied": true,
+    "successor_frozen": false
+  },
+  "current_stage": "architecture",
+  "definition_checklist": {
+    "definition.acceptance-metrics": true,
+    "definition.baseline-fairness": true,
+    "definition.delivery-scope": true
+  },
+  "delivery_scope": {
+    "delivery_level": "pre_tapeout",
+    "excluded_claims": [
+      "foundry submission",
+      "fabricated silicon",
+      "measured silicon frequency, power, yield, or reliability",
+      "commercial-process equivalence for Nangate45 or ASAP7",
+      "private PDK, licensed IP, or proprietary memory compiler dependence",
+      "external DRAM, LPDDR, PCIe, AXI, or other physical-interface PHY implementation in the first delivery",
+      "training, fine-tuning, multi-batch serving, speculative decoding, beam search, tokenizer implementation, or application sampling policy"
+    ],
+    "included_claims": [
+      "synthesizable digital RTL IP for the defined accelerator subsystem",
+      "independent executable fixed-point reference model",
+      "deterministic command stream generation for the frozen workload",
+      "cycle-accurate RTL verification against the independent reference",
+      "lint, assertions/formal where tractable, reset checks, and coverage evidence",
+      "DFT/scan intent and public-tool scan checks where supported",
+      "public-tool synthesis, floorplan, PDN, placement, CTS, routing, extraction, STA, power, DRC, LVS, and antenna evidence where supported",
+      "SKY130 primary PPA plus comparative Nangate45 and ASAP7 OpenROAD-flow PPA with platform labels",
+      "fair open-baseline comparison protocol when executable evidence is available"
+    ]
+  },
+  "implementation_frontier": {
+    "architecture_accepted": true,
+    "architecture_checklist": {
+      "architecture.area-reuse-plan": true,
+      "architecture.compute-memory-model": true,
+      "architecture.interface-control": true,
+      "architecture.leverage-risk": true
+    },
+    "authority": "manager_exercising_live_operator_guidance",
+    "baseline_or_candidate_execution_authorized": false,
+    "candidate_capability_accepted": false,
+    "candidate_or_model_execution_count": 0,
+    "certified_harness_chain": {
+      "candidate_or_model_execution_count": 0,
+      "decision": "PASS",
+      "independent_l2_review": {
+        "bytes": 2032,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+        "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+      },
+      "manager_recovery_seal": {
+        "bytes": 8842,
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "manifest": {
+        "bytes": 2034,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+        "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+      },
+      "protected_artifact_count": 264,
+      "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+      "public_certification": {
+        "bytes": 1855,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+        "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+      },
+      "report": {
+        "bytes": 4216,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+        "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+      },
+      "status": "independently_certified_pass"
+    },
+    "contract_id": "shared_token_group_dynamic_scale32_v1",
+    "current_stage": "architecture",
+    "downstream_runs": {
+      "benchmark": "unrun",
+      "paired": "unrun",
+      "physical": "unrun",
+      "ppa": "unrun",
+      "prototype": "unrun",
+      "shell": "unrun",
+      "signoff": "unrun"
+    },
+    "first_unsupported_layer_operator": "layer_0.rope_q",
+    "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+    "historical_ppa_frontier": {
+      "candidate_ppa_run": false,
+      "cells": 62199,
+      "non_sram_area_mm2": 0.6108746272,
+      "remaining_area_reserve_mm2": 1.3891253728,
+      "setup_slack_ns_at_100mhz": 0.1502,
+      "status": "accepted_historical_frontier_not_successor_ppa"
+    },
+    "id": "shared_token_group_dynamic_scale32_v1",
+    "implementation_authorized": false,
+    "independent_architecture_review": {
+      "bytes": 7462,
+      "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+      "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+    },
+    "manager_freeze": {
+      "bytes": 8318,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+      "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+    },
+    "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+    "mode": "ADVANCE",
+    "next_action_queue": [
+      {
+        "allowed_work": [
+          "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+          "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+          "independent_environment_review"
+        ],
+        "candidate_or_model_execution_authorized": false,
+        "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+        "implementation_authorized": false,
+        "prohibited_work": [
+          "rtl_implementation",
+          "rtl_simulation_or_formal_for_successor",
+          "baseline_or_candidate_quality_execution",
+          "shell_regression",
+          "canonical_ppa",
+          "prototype_benchmark_or_signoff"
+        ],
+        "scope": "environment_compatibility_rebind_and_independent_review_only",
+        "stage": "environment",
+        "stage_closing": true,
+        "status": "queued_pending_manager_stage_advance"
+      }
+    ],
+    "no_execution_claim": true,
+    "ordered_supported_layer_operator_prefix": [
+      "layer_0.input_rmsnorm",
+      "layer_0.q_proj",
+      "layer_0.k_proj",
+      "layer_0.v_proj"
+    ],
+    "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+    "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+    "proposal": {
+      "bytes": 17146,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+      "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+    },
+    "proposal_companion": {
+      "bytes": 80,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+      "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+    },
+    "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+    "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+    "same_contract_rtl_authorized": false,
+    "sealed_predecessor": {
+      "baseline_or_candidate_execution_authorized": false,
+      "baseline_reproducibility": {
+        "gate": "before_any_candidate_execution",
+        "required": true,
+        "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+      },
+      "candidate_capability_accepted": false,
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "excluded_residual_families": [
+        "q_k_residual",
+        "v_residual",
+        "down_projection_residual_fusion_parameter_variant"
+      ],
+      "id": "cross_layer_quantization_error_carry_final_output_v1",
+      "mechanism": {
+        "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+        "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+        "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+      },
+      "predecessor": "shared_down_projection_residual_fusion_v1",
+      "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+      "same_contract_rtl_authorized": false,
+      "seal_evidence": {
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "sealed": true,
+      "state": "sealed_terminal_baseline_protocol_no_go",
+      "successor_freeze_authorized": false
+    },
+    "stage_closing": false,
+    "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "successor_freeze_authorized": false,
+    "successor_frozen": true,
+    "targets": {
+      "abstract_streaming_memory_boundary_bits": 128,
+      "frequency_floor_mhz": 100.0,
+      "non_sram_area_cap_mm2": 2.0
+    }
+  },
+  "interfaces": {
+    "banked_sram": {
+      "addressing": "bank-local word addresses",
+      "byte_strobes_per_bank": 16,
+      "data_width_bits_per_bank": 128,
+      "logical_bank_count": 8,
+      "macro_policy": "SRAM macros are blackboxes and excluded from the 2.0 mm^2 non-SRAM standard-cell cap; wrappers, muxes, controllers, and scan logic are counted"
+    },
+    "clock_reset": {
+      "cdc_policy": "no internal CDC in the first IP; any future asynchronous host or memory bridge is an explicit wrapper outside the core scope",
+      "clocking": "single synchronous accelerator clock domain for core, CSR, DMA boundary, SRAM ports, and command engine",
+      "reset": "active-low reset input with asynchronous assertion and synchronous deassertion at the accelerator boundary"
+    },
+    "command_descriptor": {
+      "address_width_bits": 64,
+      "completion": "in-order completion per submitted chain with explicit error code and interrupt policy",
+      "descriptor_size_bytes": 64,
+      "fields": [
+        "opcode",
+        "flags",
+        "layer_id",
+        "sequence_position",
+        "m",
+        "n",
+        "k",
+        "src0_addr",
+        "src1_addr",
+        "dst_addr",
+        "scale_addr",
+        "scratch_addr",
+        "dependency_tag",
+        "completion_tag"
+      ]
+    },
+    "csr": {
+      "address_width_bits": 32,
+      "byte_enable_width_bits": 8,
+      "data_width_bits": 64,
+      "handshake": "valid/ready request with valid response",
+      "interrupts": [
+        "job_complete",
+        "descriptor_error",
+        "memory_error",
+        "numeric_overflow",
+        "watchdog_timeout"
+      ],
+      "required_registers": [
+        "ID",
+        "VERSION",
+        "CAPABILITIES",
+        "CONTROL",
+        "STATUS",
+        "ERROR_STATUS",
+        "INTERRUPT_ENABLE",
+        "INTERRUPT_STATUS",
+        "DESC_BASE",
+        "DESC_HEAD",
+        "DESC_TAIL",
+        "DOORBELL",
+        "PERF_CYCLE_COUNT",
+        "PERF_BYTE_COUNT",
+        "PERF_TOKEN_COUNT"
+      ]
+    },
+    "external_memory_stream": {
+      "address_width_bits": 64,
+      "backpressure": "any channel may deassert ready without data loss; benchmark sweeps effective bytes/cycle by injecting ready stalls",
+      "burst_length_width_bits": 16,
+      "byte_strobes": 16,
+      "data_width_bits": 128,
+      "handshake": "independent ready/valid request, write-data, read-data, and response channels",
+      "tag_width_bits": 8
+    }
+  },
+  "last_updated_utc": "2026-08-02T06:41:45.391072Z",
+  "latest_decision": "shared_token_group_dynamic_scale32_v1_frozen_environment_rebind_review_queued",
+  "manager_recovery_seal": {
+    "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+    "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+  },
+  "numerical_behavior": {
+    "active_native_accumulator_tagged_attention_contract": {
+      "contract_id": "shared_native_accumulator_tagged_attention_v1",
+      "floating_point_rtl": false,
+      "layer_scope": "all_24_layers_one_shared_engine",
+      "native_projection_record": "signed32_accumulator_plus_scale32",
+      "probability": "unsigned_q0_15",
+      "score": "signed_q20_44",
+      "tagged_rope_record": "signed32_mantissa_plus_signed8_exponent"
+    },
+    "active_tile_bfp_score_attention_contract": {
+      "contract_id": "layer0_tile_bfp_score_attention_v1",
+      "local_delta": "signed24_block_floating_mantissa_fraction_bits_0_through_17",
+      "probability": "unsigned_q0_15",
+      "score_numerator": "signed106_sign_extended_signed128",
+      "score_q6_9_materialized": false,
+      "source": "design/NUMERICAL_REPLACEMENT_PROPOSAL.md",
+      "tile_extrema": "exact_signed128_max_min_per_head_per_64_keys",
+      "underflow": "exp_generation_only_score_boundary_full_range"
+    },
+    "active_tile_max_delta_attention_contract": {
+      "contract_id": "layer0_tile_max_delta_attention_v1",
+      "local_delta": "signed24_q6_17_after_tile_max",
+      "probability": "unsigned_q0_15",
+      "score_numerator": "signed106_sign_extended_signed128",
+      "score_q6_9_materialized": false,
+      "source": "design/NUMERICAL_REPLACEMENT_PROPOSAL.md",
+      "tile_max": "exact_signed128_per_head_per_64_keys",
+      "underflow_sentinel": -2097152
+    },
+    "attention_projection_scales": {
+      "channels_per_head": 64,
+      "key": "static_layer0_producer_scale32_0x00008307_preserved_on_raw_projection_payload",
+      "kv_heads": 2,
+      "metadata_validation": "every_layer0_kv_record_must_match_static_k_k_v_v_scale32_template_and_all_scale32_fields_must_be_well_formed_before_payload",
+      "quality_status": "focused_discriminator_failed_score_non_improvements_and_c4_lm_head_regression",
+      "query": "static_layer0_producer_scale32_0x00ffa245_preserved_on_raw_projection_payload",
+      "query_heads": 14,
+      "query_to_kv_mapping": "query_heads_0_through_6_to_kv_head_0_and_7_through_13_to_kv_head_1",
+      "scale32_format": "little_endian_u16_q1_15_normalized_significand_plus_s8_base2_exponent_minus24_to_plus4_plus_u8_reserved_zero",
+      "score_requantization": "signed54_absolute_rope_score_times_q_sig_times_k_sig_round_to_nearest_even_shift_43_minus_exponent_sum_to_signed_q12_20",
+      "value": "static_layer0_producer_scale32_0x00f78c19_preserved_on_raw_projection_payload"
+    },
+    "attention_softmax": {
+      "attention_head_metadata_table": "resident_16_byte_static_Q_K_V0_V1_template_plus_14_private_online_states",
+      "exponential_table": "257_little_endian_u32_Q1_31_entries_generated_by_exact_binary64_exp_to_integer_ratio_RNE",
+      "logit_format_after_scale": "signed_int64_container_for_Q12_20",
+      "mask_value": "invalid_or_future_keys_do_not_enter_the_recurrence",
+      "online_state": "per_head_M_s64_D_u48_and_64_N_s56_lanes_in_one_544_byte_slot",
+      "probability_format": "not_materialized_unsigned_Q1_31_weights_are_consumed_online",
+      "score_accumulator_format": "checked_signed54_absolute_rope_score",
+      "score_requantization_metadata": "static_Q_and_K_Scale32_significands_and_exponents_composed_into_one_signed_Q12_20_logit"
+    },
+    "baseline": "W4A8",
+    "historical_down_projection_residual_fusion_contract": {
+      "candidate_id": "down_projection_residual_fusion_76ef0dda2e646558",
+      "candidate_rtl_hash": "76ef0dda2e646558ecb3e2047d3ec00d69f416cbe0a880b3402876614a4a7a28",
+      "contract_id": "shared_down_projection_residual_fusion_v1",
+      "derived_latency_cycles_per_lane": 10,
+      "equation": "single_exact_scale32_alignment_add_divide_round_saturate",
+      "implementation_authorized": false,
+      "layer_scope": "all_24_transformer_layers_one_shared_engine",
+      "metadata_bytes": 86720,
+      "operator_approval_consumed": true,
+      "planned_sram_peak_bytes": 464320,
+      "projection_scope": "sealed_predecessor_historical_context",
+      "required_manager_action": "none_sealed_predecessor_no_go",
+      "rtl_review": {
+        "binding_scope": "sealed_whole_file",
+        "bytes": 12379,
+        "content_validation": "whole_file_only",
+        "path": "evidence/review/rtl_checklist_shared_down_projection_residual_fusion_v1/decision.json",
+        "sha256": "6c3366eb1ca60742637609db4eefd9b9dee36a516502a260a4f9d42a77259f06"
+      },
+      "rtl_review_stage_closing": true,
+      "stage_closing": false,
+      "status": "sealed_integrity_no_go"
+    },
+    "integer_dot_products": {
+      "accumulator_format": {
+        "minimum_exact_dot_length_elements": 4864,
+        "partial_sum_equivalence": "tiled partial sums must be exactly equivalent to a single signed_int32 accumulation before requantization",
+        "storage": "signed_int32"
+      },
+      "activation_format": {
+        "range": [
+          -128,
+          127
+        ],
+        "storage": "signed_int8_twos_complement",
+        "zero_point": 0
+      },
+      "weight_format": {
+        "packing_and_mac_block_size_elements": 128,
+        "packing": "two weights per byte, low nibble first",
+        "range": [
+          -8,
+          7
+        ],
+        "scale_derivation": "maximum absolute BF16 weight across the complete output-channel reduction divided by 7",
+        "scale_granularity": "one symmetric scale per output channel across the complete projection reduction; 128-element blocks do not introduce additional scales",
+        "storage": "signed_int4_twos_complement",
+        "zero_point": 0
+      }
+    },
+    "kv_cache": {
+      "key_format": "signed_int8 with two copies of the static layer0 K Scale32 record in the candidate metadata beat",
+      "maximum_cached_tokens": 32768,
+      "position_index_width_bits": 16,
+      "storage_location": "external memory with optional on-chip SRAM tiling",
+      "value_format": "signed_int8 with two copies of the static layer0 V Scale32 record in the candidate metadata beat"
+    },
+    "requantization": {
+      "formula": "y = saturate_int8(round_to_nearest_even((acc * multiplier_s32) / 2^right_shift_u6) + output_zero_point)",
+      "multiplier_format": "signed_int32",
+      "output_zero_point_default": 0,
+      "right_shift_range": [
+        0,
+        63
+      ],
+      "saturation": "clip to destination integer range after rounding"
+    },
+    "rmsnorm": {
+      "downstream_scale_propagation": "producer_output_scale_is_the_input_scale_for_q_k_v_gate_up_and_lm_head_projection_metadata",
+      "epsilon": 1e-06,
+      "gain_metadata": "signed_int16_Q7.8_round_weight_divided_by_output_scale_times_2^8",
+      "output_format": "signed_int8",
+      "output_rounding": "round_to_nearest_ties_to_even_after_q30_reciprocal_and_scaled_gain_product",
+      "output_saturation": "clip_to_signed_int8",
+      "output_scale": "static_per_rmsnorm_tensor_maximum_of_calibrated_bf16_output_absmax_divided_by_127_and_maximum_absolute_gain_times_2^8_divided_by_32767",
+      "reciprocal_sqrt_format": "Q2.30",
+      "square_sum_format": "unsigned_int48"
+    },
+    "rope": {
+      "absolute_rope_online_attention_contract": {
+        "architecture_review_status": "independently_accepted_environment_complete",
+        "coefficient_pairing": "split_half_j_and_j_plus_32",
+        "contract_id": "layer0_absolute_rope_online_attention_v1",
+        "implementation_authorized": false,
+        "operator_implementation_approval": {
+          "approved_at_utc": "2026-08-01T05:43:00.142529Z",
+          "authority": "operator",
+          "contract_id": "layer0_absolute_rope_online_attention_v1",
+          "forbidden": [
+            "wholesale_quarantine_restore",
+            "architecture_contract_change",
+            "historical_frontier_replacement",
+            "full_shell_before_paired_smoke_pass",
+            "canonical_or_noncanonical_ppa_before_paired_smoke_pass",
+            "official_14_item_evaluation",
+            "continuation_after_paired_smoke_failure"
+          ],
+          "manager_inbox": {
+            "entry_sha256": "647b677166eb72dd945a99d3ffcdbfabd70ee6d821531790d6b79deada7bba0a",
+            "entry_timestamp": 1785562980.1425285,
+            "session_id": "s-c8ae985b",
+            "source": "active_manager_inbox"
+          },
+          "manager_inbox_path_privacy": "resolved_from_ARGUS_SKILL_SESSION_ROOT_not_published",
+          "manager_inbox_sha256_at_binding": "fd247a3dd9b3a17e3c6ad4c9187d18a8d6fc1866334cc6503ad47b36376408d8",
+          "proposal_sha256": "b14489f8c882ff53f27db87612238efa06ef8d102930da15b2916ef314b683de",
+          "scope": "one_bounded_non_stage_closing_rtl_implementation_attempt_then_focused_software_rtl_tests_and_unique_paired_smoke",
+          "stage_closing": false,
+          "stop_rule": "both_wikitext2_and_c4_must_strictly_improve_or_seal_bounded_no_go",
+          "transaction_id": "absolute-rope-approval-36ea4e5cced74f0892b788a1de451ad7"
+        },
+        "selection": "layer_id_0_attn_score_flags_bit4",
+        "status": "bounded_no_go_both_smokes_regressed"
+      },
+      "input_format": "signed_int8 projection output with one static producer scale per Q tensor and one per K tensor",
+      "multiply_accumulate_format": "signed25_rotated_q_and_k_then_checked_signed54_score",
+      "output_format": "no_rotated_q_or_k_output_in_pending_layer0_candidate",
+      "output_scale": "static_q_and_k_producer_scale32_factors_are_composed_once_into_q12_20_logit",
+      "pre_rotation_internal_format": "signed_int8 payload with scalar producer scale",
+      "projection_shadow_staged_attention_contract": {
+        "architecture_review_status": "independently_accepted_environment_complete",
+        "contract_id": "layer0_projection_shadow_staged_attention_v1",
+        "implementation_authorized": false,
+        "operator_approval_consumed": true,
+        "operator_implementation_approval": {
+          "approved_at_utc": "2026-08-01T10:01:44.695971Z",
+          "authority": "operator",
+          "contract_id": "layer0_projection_shadow_staged_attention_v1",
+          "forbidden": [
+            "architecture_contract_change",
+            "historical_frontier_replacement",
+            "pipeline_stage_edit_by_planner",
+            "full_shell_before_paired_smoke_pass",
+            "canonical_or_noncanonical_ppa_before_paired_smoke_pass",
+            "official_14_item_evaluation",
+            "prototype_full_benchmark_or_signoff",
+            "continuation_after_paired_smoke_failure"
+          ],
+          "manager_inbox": {
+            "entry_sha256": "aeccc3b92e6e8e8597f4abc97fd0e6002447e0bf71c5efea7e0e06516ca063fb",
+            "entry_timestamp": 1785578504.695971,
+            "session_id": "s-c8ae985b",
+            "source": "active_manager_inbox"
+          },
+          "manager_inbox_path_privacy": "resolved_from_ARGUS_SKILL_SESSION_ROOT_not_published",
+          "manager_inbox_sha256_at_binding": "1884f690f3e3c2289701f9019b45a2267b567edbc74ccf19a547107bd31fbbaa",
+          "proposal_sha256": "bb686fdb1a8e886ba80e8578db25a5db39eb58a757fc053986fc4538d6c36d92",
+          "scope": "one_bounded_non_stage_closing_projection_shadow_rtl_implementation_then_focused_checks_and_unique_wikitext2_c4_paired_smoke",
+          "stage_closing": false,
+          "stop_rule": "both_wikitext2_and_c4_ratios_must_strictly_improve_or_seal_bounded_no_go",
+          "thresholds": {
+            "c4_en_512_ratio_strictly_below": 4477.990517308544,
+            "wikitext2_ratio_strictly_below": 13549.939049967887
+          },
+          "transaction_id": "projection-shadow-approval-79dd6bdbd13243d8a8a025db3d833123"
+        },
+        "projection_shadow_format": "signed_q15_16_in_s32",
+        "result_binding": "evidence/layer0_projection_shadow_staged_attention_v1/latest/BOUNDED_NO_GO.json",
+        "score_format": "materialized_signed_q6_9_in_s16",
+        "status": "rejected_focused_discriminator_and_paired_smoke_failed"
+      },
+      "requantization_metadata": "none_in_pending_layer0_candidate_rotated_q_and_k_are_never_architectural_payloads",
+      "sin_cos_table_format": "signed_int16_coefficients_generated_from_exact_binary32_bf16_cast_points_times_32767_with_integer_ratio_rne"
+    },
+    "rounding": {
+      "applies_to": [
+        "requantization",
+        "fixed-point RoPE",
+        "softmax normalization",
+        "activation-function table outputs"
+      ],
+      "mode": "round_to_nearest_even",
+      "tie_policy": "ties to even least-significant retained bit"
+    },
+    "sealed_qk_residual_cross_term_predecessor": {
+      "base_path": "ordinary_int8_qk_rope_and_signed_q20_44_base_score_preserved_and_carried_directly",
+      "contract_id": "shared_qk_residual_cross_term_attention_v1",
+      "floating_point_rtl": false,
+      "layer_scope": "all_24_layers_one_shared_engine",
+      "residual_projection": "integer_error_from_ordinary_requant_record_and_baseline_over_residual_scale32_one_rne_then_signed4_clamp",
+      "residual_rope": "signed8_output",
+      "score": "authoritative_base_score_q20_44_s64_plus_three_cross_terms_q20_44",
+      "score_correction_interface": {
+        "accumulator_initialization": "sign_extend_base_score_s64_to_checked_s67",
+        "computed_terms": [
+          "base_times_residual",
+          "residual_times_base",
+          "residual_times_residual"
+        ],
+        "descriptor_fields_added": false,
+        "external_memory_traffic_added": false,
+        "final_fit": "checked_signed67_then_signed64_q20_44",
+        "forbidden_input": "base_dot_s32_i",
+        "forbidden_operation": "reconstruct_term_zero_from_base_dot_and_query_key_scale32",
+        "handshake": "producer_holds_start_payload_stable_until_start_valid_and_start_ready",
+        "identity_validation": {
+          "compared_fields": [
+            "layer_id",
+            "query_position",
+            "query_head",
+            "kv_head",
+            "key_index"
+          ],
+          "correction_core_identity_ports": [],
+          "expected_source": "validated_descriptor_row_state_and_14_to_2_head_mapping",
+          "mismatch_behavior": "suppress_start_valid_terminate_descriptor_error_and_issue_no_correction_transaction",
+          "observed_source": "authoritative_baseline_score_producer_scoreboard",
+          "owner": "attention_score_scheduler_before_start_valid"
+        },
+        "start_payload": {
+          "base_score_q20_44_s64_i": "bit_identical_authoritative_baseline_score",
+          "lane_count_u7_i": 64
+        }
+      },
+      "status": "sealed_verification_no_go_historical_only"
+    },
+    "silu": {
+      "gated_product_format_before_requant": "signed_int32",
+      "input_format": "signed_int16 Q6.9",
+      "lookup_output_format": "signed_int16 Q3.12"
+    }
+  },
+  "operations": {
+    "not_supported": [
+      "training or gradient computation",
+      "batch sizes greater than 1",
+      "multi-user scheduling or preemption",
+      "speculative decoding",
+      "beam search",
+      "multimodal Qwen variants",
+      "sliding-window attention mode because the frozen config disables it",
+      "dynamic model shape changes after synthesis",
+      "hard DRAM PHY, cache-coherent host fabric, or proprietary NoC attachment",
+      "floating-point RTL datapaths for the primary W4A8 workload"
+    ],
+    "supported": [
+      "control/status register access",
+      "command descriptor fetch, decode, dependency tracking, and completion",
+      "external-memory read/write streaming DMA with backpressure",
+      "banked on-chip SRAM load/store through abstract macro/blackbox ports",
+      "int4-weight by int8-activation tiled matrix-vector and matrix-matrix projections",
+      "Q, K, V, output, gate, up, down, and lm-head projections",
+      "RMSNorm",
+      "RoPE for head_dim=64 with rope_theta=1000000.0",
+      "grouped-query attention with 14 query heads and 2 KV heads",
+      "causal masking",
+      "KV-cache read, append, and external spill/fill",
+      "softmax for attention probabilities",
+      "SiLU and gated MLP multiply",
+      "residual add",
+      "requantization, rounding, and saturation",
+      "interrupt-on-complete and interrupt-on-error"
+    ]
+  },
+  "operator_owned_execution_policy": {
+    "active_successor_contract": {
+      "architecture_accepted": true,
+      "architecture_checklist": {
+        "architecture.area-reuse-plan": true,
+        "architecture.compute-memory-model": true,
+        "architecture.interface-control": true,
+        "architecture.leverage-risk": true
+      },
+      "authority": "manager_exercising_live_operator_guidance",
+      "baseline_or_candidate_execution_authorized": false,
+      "candidate_capability_accepted": false,
+      "candidate_or_model_execution_count": 0,
+      "certified_harness_chain": {
+        "candidate_or_model_execution_count": 0,
+        "decision": "PASS",
+        "independent_l2_review": {
+          "bytes": 2032,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+          "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+        },
+        "manager_recovery_seal": {
+          "bytes": 8842,
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "manifest": {
+          "bytes": 2034,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+          "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+        },
+        "protected_artifact_count": 264,
+        "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+        "public_certification": {
+          "bytes": 1855,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+          "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+        },
+        "report": {
+          "bytes": 4216,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+          "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+        },
+        "status": "independently_certified_pass"
+      },
+      "contract_id": "shared_token_group_dynamic_scale32_v1",
+      "current_stage": "architecture",
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+      "historical_ppa_frontier": {
+        "candidate_ppa_run": false,
+        "cells": 62199,
+        "non_sram_area_mm2": 0.6108746272,
+        "remaining_area_reserve_mm2": 1.3891253728,
+        "setup_slack_ns_at_100mhz": 0.1502,
+        "status": "accepted_historical_frontier_not_successor_ppa"
+      },
+      "id": "shared_token_group_dynamic_scale32_v1",
+      "implementation_authorized": false,
+      "independent_architecture_review": {
+        "bytes": 7462,
+        "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+        "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+      },
+      "manager_freeze": {
+        "bytes": 8318,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+        "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+      },
+      "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+      "mode": "ADVANCE",
+      "next_action_queue": [
+        {
+          "allowed_work": [
+            "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+            "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+            "independent_environment_review"
+          ],
+          "candidate_or_model_execution_authorized": false,
+          "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+          "implementation_authorized": false,
+          "prohibited_work": [
+            "rtl_implementation",
+            "rtl_simulation_or_formal_for_successor",
+            "baseline_or_candidate_quality_execution",
+            "shell_regression",
+            "canonical_ppa",
+            "prototype_benchmark_or_signoff"
+          ],
+          "scope": "environment_compatibility_rebind_and_independent_review_only",
+          "stage": "environment",
+          "stage_closing": true,
+          "status": "queued_pending_manager_stage_advance"
+        }
+      ],
+      "no_execution_claim": true,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ],
+      "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+      "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+      "proposal": {
+        "bytes": 17146,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+        "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+      },
+      "proposal_companion": {
+        "bytes": 80,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+        "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+      },
+      "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+      "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+      "same_contract_rtl_authorized": false,
+      "sealed_predecessor": {
+        "baseline_or_candidate_execution_authorized": false,
+        "baseline_reproducibility": {
+          "gate": "before_any_candidate_execution",
+          "required": true,
+          "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+        },
+        "candidate_capability_accepted": false,
+        "downstream_runs": {
+          "benchmark": "unrun",
+          "paired": "unrun",
+          "physical": "unrun",
+          "ppa": "unrun",
+          "prototype": "unrun",
+          "shell": "unrun",
+          "signoff": "unrun"
+        },
+        "excluded_residual_families": [
+          "q_k_residual",
+          "v_residual",
+          "down_projection_residual_fusion_parameter_variant"
+        ],
+        "id": "cross_layer_quantization_error_carry_final_output_v1",
+        "mechanism": {
+          "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+          "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+          "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+        },
+        "predecessor": "shared_down_projection_residual_fusion_v1",
+        "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+        "same_contract_rtl_authorized": false,
+        "seal_evidence": {
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "sealed": true,
+        "state": "sealed_terminal_baseline_protocol_no_go",
+        "successor_freeze_authorized": false
+      },
+      "stage_closing": false,
+      "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "successor_freeze_authorized": false,
+      "successor_frozen": true,
+      "targets": {
+        "abstract_streaming_memory_boundary_bits": 128,
+        "frequency_floor_mhz": 100.0,
+        "non_sram_area_cap_mm2": 2.0
+      }
+    },
+    "decision_rules_after_fresh_ppa": [
+      {
+        "condition": "total_non_sram_area_mm2 > 2.0",
+        "decision": "enter_GLOBAL_COMPRESSION",
+        "scope": "global lifetime-based sharing/folding across MACs, accumulators, requantization, vector/SFU, divider, round/saturate, DMA, buffers, state, and control"
+      },
+      {
+        "condition": "mode == GLOBAL_COMPRESSION and area_improvement_percent >= 3.0 and correctness_preserved and fmax_mhz >= 100.0",
+        "decision": "continue_same_global_compression_direction"
+      },
+      {
+        "condition": "mode == GLOBAL_COMPRESSION and (area_improvement_percent < 3.0 or !correctness_preserved or fmax_mhz < 100.0)",
+        "decision": "stop_that_compression_direction_and_resume_advancement_or_choose_structurally_different_global_mechanism"
+      },
+      {
+        "condition": "mode == ADVANCE and area_increment_percent < 3.0",
+        "decision": "continue_advancing_to_next_layer_operator"
+      },
+      {
+        "condition": "mode == ADVANCE and area_increment_percent >= 3.0",
+        "decision": "pause_advancement_for_global_reuse_folding_review_and_compression"
+      }
+    ],
+    "fast_loop_after_definition_architecture_environment_bootstrap": [
+      "rtl_implementation",
+      "full_regression",
+      "fresh_canonical_sky130_ppa",
+      "evidence_binding"
+    ],
+    "non_milestone_operator_uplift": {
+      "forbidden_closeouts": [
+        "separate_verification_stage_closeout",
+        "separate_ppa_stage_closeout",
+        "prototype",
+        "full_benchmark",
+        "signoff"
+      ],
+      "milestone_exception": "prototype, full benchmark, and signoff are reserved for complete-workload or model/system release milestones",
+      "stage_closing": false
+    },
+    "selected_replacement_contract": {
+      "architecture_accepted": true,
+      "architecture_checklist": {
+        "architecture.area-reuse-plan": true,
+        "architecture.compute-memory-model": true,
+        "architecture.interface-control": true,
+        "architecture.leverage-risk": true
+      },
+      "authority": "manager_exercising_live_operator_guidance",
+      "baseline_or_candidate_execution_authorized": false,
+      "candidate_capability_accepted": false,
+      "candidate_or_model_execution_count": 0,
+      "certified_harness_chain": {
+        "candidate_or_model_execution_count": 0,
+        "decision": "PASS",
+        "independent_l2_review": {
+          "bytes": 2032,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+          "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+        },
+        "manager_recovery_seal": {
+          "bytes": 8842,
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "manifest": {
+          "bytes": 2034,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+          "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+        },
+        "protected_artifact_count": 264,
+        "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+        "public_certification": {
+          "bytes": 1855,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+          "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+        },
+        "report": {
+          "bytes": 4216,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+          "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+        },
+        "status": "independently_certified_pass"
+      },
+      "contract_id": "shared_token_group_dynamic_scale32_v1",
+      "current_stage": "architecture",
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+      "historical_ppa_frontier": {
+        "candidate_ppa_run": false,
+        "cells": 62199,
+        "non_sram_area_mm2": 0.6108746272,
+        "remaining_area_reserve_mm2": 1.3891253728,
+        "setup_slack_ns_at_100mhz": 0.1502,
+        "status": "accepted_historical_frontier_not_successor_ppa"
+      },
+      "id": "shared_token_group_dynamic_scale32_v1",
+      "implementation_authorized": false,
+      "independent_architecture_review": {
+        "bytes": 7462,
+        "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+        "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+      },
+      "manager_freeze": {
+        "bytes": 8318,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+        "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+      },
+      "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+      "mode": "ADVANCE",
+      "next_action_queue": [
+        {
+          "allowed_work": [
+            "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+            "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+            "independent_environment_review"
+          ],
+          "candidate_or_model_execution_authorized": false,
+          "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+          "implementation_authorized": false,
+          "prohibited_work": [
+            "rtl_implementation",
+            "rtl_simulation_or_formal_for_successor",
+            "baseline_or_candidate_quality_execution",
+            "shell_regression",
+            "canonical_ppa",
+            "prototype_benchmark_or_signoff"
+          ],
+          "scope": "environment_compatibility_rebind_and_independent_review_only",
+          "stage": "environment",
+          "stage_closing": true,
+          "status": "queued_pending_manager_stage_advance"
+        }
+      ],
+      "no_execution_claim": true,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ],
+      "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+      "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+      "proposal": {
+        "bytes": 17146,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+        "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+      },
+      "proposal_companion": {
+        "bytes": 80,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+        "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+      },
+      "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+      "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+      "same_contract_rtl_authorized": false,
+      "sealed_predecessor": {
+        "baseline_or_candidate_execution_authorized": false,
+        "baseline_reproducibility": {
+          "gate": "before_any_candidate_execution",
+          "required": true,
+          "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+        },
+        "candidate_capability_accepted": false,
+        "downstream_runs": {
+          "benchmark": "unrun",
+          "paired": "unrun",
+          "physical": "unrun",
+          "ppa": "unrun",
+          "prototype": "unrun",
+          "shell": "unrun",
+          "signoff": "unrun"
+        },
+        "excluded_residual_families": [
+          "q_k_residual",
+          "v_residual",
+          "down_projection_residual_fusion_parameter_variant"
+        ],
+        "id": "cross_layer_quantization_error_carry_final_output_v1",
+        "mechanism": {
+          "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+          "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+          "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+        },
+        "predecessor": "shared_down_projection_residual_fusion_v1",
+        "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+        "same_contract_rtl_authorized": false,
+        "seal_evidence": {
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "sealed": true,
+        "state": "sealed_terminal_baseline_protocol_no_go",
+        "successor_freeze_authorized": false
+      },
+      "stage_closing": false,
+      "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "successor_freeze_authorized": false,
+      "successor_frozen": true,
+      "targets": {
+        "abstract_streaming_memory_boundary_bits": 128,
+        "frequency_floor_mhz": 100.0,
+        "non_sram_area_cap_mm2": 2.0
+      }
+    },
+    "sixth_mechanism_architecture_proposal": {
+      "approval_scope": "one_bounded_non_stage_closing_rtl_implementation_attempt_then_focused_software_rtl_tests_and_unique_paired_smoke",
+      "authority": "operator",
+      "contract_id": "layer0_absolute_rope_online_attention_v1",
+      "failure_semantics": "failed_or_equal_focused_metric_or_missing_equal_or_worse_result_on_either_short_dataset_stops_the_direction_as_a_bounded_no_go",
+      "forbidden": [
+        "rtl_modification_before_fresh_operator_approval",
+        "focused_or_paired_smoke_in_current_mission",
+        "unchanged_rtl_hash_full_shell_rerun",
+        "unchanged_rtl_hash_ppa_rerun",
+        "official_14_item_evaluation",
+        "prototype",
+        "full_benchmark",
+        "signoff"
+      ],
+      "implementation_authorized": false,
+      "observed_result": "both_mandatory_paired_smokes_regressed",
+      "operator_implementation_approval": {
+        "approved_at_utc": "2026-08-01T05:43:00.142529Z",
+        "authority": "operator",
+        "contract_id": "layer0_absolute_rope_online_attention_v1",
+        "forbidden": [
+          "wholesale_quarantine_restore",
+          "architecture_contract_change",
+          "historical_frontier_replacement",
+          "full_shell_before_paired_smoke_pass",
+          "canonical_or_noncanonical_ppa_before_paired_smoke_pass",
+          "official_14_item_evaluation",
+          "continuation_after_paired_smoke_failure"
+        ],
+        "manager_inbox": {
+          "entry_sha256": "647b677166eb72dd945a99d3ffcdbfabd70ee6d821531790d6b79deada7bba0a",
+          "entry_timestamp": 1785562980.1425285,
+          "session_id": "s-c8ae985b",
+          "source": "active_manager_inbox"
+        },
+        "manager_inbox_path_privacy": "resolved_from_ARGUS_SKILL_SESSION_ROOT_not_published",
+        "manager_inbox_sha256_at_binding": "fd247a3dd9b3a17e3c6ad4c9187d18a8d6fc1866334cc6503ad47b36376408d8",
+        "proposal_sha256": "b14489f8c882ff53f27db87612238efa06ef8d102930da15b2916ef314b683de",
+        "scope": "one_bounded_non_stage_closing_rtl_implementation_attempt_then_focused_software_rtl_tests_and_unique_paired_smoke",
+        "stage_closing": false,
+        "stop_rule": "both_wikitext2_and_c4_must_strictly_improve_or_seal_bounded_no_go",
+        "transaction_id": "absolute-rope-approval-36ea4e5cced74f0892b788a1de451ad7"
+      },
+      "proposed_after_gate": "seal_no_go_on_failure_otherwise_stop_for_new_authority_before_full_shell_or_ppa",
+      "proposed_first_gate": "focused_software_and_rtl_tests_then_unique_paired_smoke",
+      "proposed_short_smoke_pass_condition": "candidate_ratio_strictly_below_13549_939049967887_on_wikitext2_and_4477_990517308544_on_c4_en_under_identical_contract",
+      "required_manager_action": "reroute_to_architecture",
+      "required_operator_action": "satisfied_by_manager_inbox_entry_43",
+      "scope": [
+        "canonical_absolute_position_split_half_rope_in_signed25_internal_form",
+        "checked_signed54_score_and_q12_20_logit",
+        "q1_31_online_softmax_value_recurrence_without_score_or_probability_materialization",
+        "tile_major_256_key_schedule_with_14_persistent_states_and_14_wide_queries",
+        "one_shared_signed_unsigned_32x32_multiplier_and_existing_round_table_divide_control"
+      ],
+      "stage_closing": false,
+      "status": "implementation_exhausted_bounded_no_go",
+      "targets_relaxed": false,
+      "task_count": 1
+    },
+    "target_authority": "Only the operator may approve replacement targets for the 2.0 mm2 non-SRAM area cap or 100 MHz floor."
+  },
+  "project": {
+    "expanded_name": "ARGUS Compute Engine",
+    "name": "ACE-2",
+    "vertical": "chip_design"
+  },
+  "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+  "routing_status": "architecture_successor_frozen_environment_rebind_review_queued",
+  "schema_version": 1,
+  "source_evidence": [
+    {
+      "kind": "operator_contract",
+      "path": "MISSION.md",
+      "role": "authoritative frozen product contract"
+    },
+    {
+      "kind": "recovery_boundary",
+      "path": "RECOVERY_BASELINE.md",
+      "role": "historical evidence only; no recovered ACE-1 RTL or PPA claim is accepted for ACE-2"
+    },
+    {
+      "kind": "public_model_config",
+      "license": "apache-2.0",
+      "model_metadata_url": "https://huggingface.co/api/models/Qwen/Qwen2.5-0.5B",
+      "retrieved_at_utc": "2026-07-25T13:57:38Z",
+      "role": "public model dimensions, tokenizer IDs, and license evidence used for workload definition",
+      "sha256": "479dcf0c5286339e41ad3992cd08ae88a467c4187587936248e2b7c96283484b",
+      "url": "https://huggingface.co/Qwen/Qwen2.5-0.5B/raw/main/config.json"
+    }
+  ],
+  "stage": {
+    "checklist_scope": "next_structurally_distinct_successor_not_yet_frozen",
+    "current_stage": "architecture",
+    "current_stage_checklist": {
+      "architecture.area-reuse-plan": true,
+      "architecture.compute-memory-model": true,
+      "architecture.interface-control": true,
+      "architecture.leverage-risk": true
+    },
+    "current_stage_evidence": [
+      "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+      "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+      "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json"
+    ],
+    "current_stage_status": "successor_frozen_pending_manager_advance_to_environment",
+    "downstream_stages_locked_until_manager_advance": [
+      "verification",
+      "ppa",
+      "prototype",
+      "benchmark",
+      "signoff"
+    ],
+    "planner_may_advance_stage": false,
+    "stage_closing": false,
+    "stage_transition_owner": "Manager"
+  },
+  "stage_closing": false,
+  "target_workload": {
+    "memory_bandwidth_sweep": {
+      "effective_bandwidth_bytes_per_cycle": [
+        1,
+        2,
+        4,
+        8,
+        16
+      ],
+      "interface": "abstract backpressured external-memory stream",
+      "primary_data_width_bits": 128,
+      "primary_frequency_for_tokens_per_second_hz": 100000000
+    },
+    "model": {
+      "architecture": "Qwen2ForCausalLM",
+      "batch_size": 1,
+      "mode": "causal decoder inference",
+      "model_type": "qwen2",
+      "name": "Qwen2.5-0.5B",
+      "parameters": {
+        "attention_dropout": 0.0,
+        "bos_token_id": 151643,
+        "eos_token_id": 151643,
+        "head_dim": 64,
+        "hidden_act": "silu",
+        "hidden_size": 896,
+        "intermediate_size": 4864,
+        "max_position_embeddings": 32768,
+        "num_attention_heads": 14,
+        "num_hidden_layers": 24,
+        "num_key_value_heads": 2,
+        "rms_norm_eps": 1e-06,
+        "rope_theta": 1000000.0,
+        "sliding_window": 32768,
+        "tie_word_embeddings": true,
+        "use_cache": true,
+        "use_sliding_window": false,
+        "vocab_size": 151936
+      }
+    },
+    "required_trace_classes": [
+      {
+        "name": "prefill",
+        "prompt_lengths_tokens": [
+          16,
+          128,
+          512,
+          2048,
+          8192,
+          32768
+        ],
+        "required_for_benchmark": true,
+        "required_for_correctness": true
+      },
+      {
+        "context_lengths_tokens": [
+          1,
+          128,
+          1024,
+          4096,
+          8192,
+          32768
+        ],
+        "generated_tokens_per_run": [
+          1,
+          16,
+          128
+        ],
+        "name": "decode",
+        "required_for_benchmark": true,
+        "required_for_correctness": true
+      }
+    ],
+    "workload_boundary": {
+      "host_runtime_responsibilities": [
+        "tokenization and chat-template application",
+        "prompt storage and descriptor submission",
+        "sampling policy, detokenization, and user I/O",
+        "external-memory allocation and address translation outside the abstract accelerator address space"
+      ],
+      "included": [
+        "single-sequence prefill for supported prompt lengths",
+        "single-token decode with KV-cache read/update",
+        "all 24 transformer blocks",
+        "final RMSNorm",
+        "tied embedding/lm-head projection as a tiled streaming projection",
+        "host-visible completion, error, and interrupt signaling"
+      ]
+    }
+  },
+  "technology_targets": {
+    "comparative": [
+      {
+        "label": "academic open 45 nm platform, not measured silicon",
+        "platform": "Nangate45"
+      },
+      {
+        "label": "predictive 7 nm platform, not measured silicon",
+        "platform": "ASAP7"
+      }
+    ],
+    "primary": {
+      "library_policy": "public reproducible SkyWater/OpenROAD-compatible standard-cell libraries only",
+      "maximum_non_sram_standard_cell_area_mm2": 2.0,
+      "minimum_frequency_hz": 100000000,
+      "platform": "SKY130",
+      "sram_accounting": "logical SRAM macro/blackbox area reported separately from non-SRAM standard-cell area"
+    }
+  }
+}

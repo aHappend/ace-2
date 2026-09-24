@@ -1,0 +1,201 @@
+{
+  "schema_version": 1,
+  "contract_id": "option_b_alias_safe_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v3",
+  "candidate_id": "option_b_alias_safe_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v3",
+  "status": "planner_frozen_preexecution_requirements_no_attempt_authority",
+  "stage": "specification",
+  "selected_policy_id": null,
+  "predecessors": [
+    {
+      "candidate_id": "option_b_alias_safe_post_w4_static_position_class_group_scale_w4a8_v2",
+      "disposition": "immutable_consumed_evaluator_no_execution",
+      "review_record": "research/raw/specification/alias-safe-static-v2-review-replan-20260806T130920Z.json",
+      "replay_or_repair_permitted": false
+    },
+    {
+      "candidate_id": "option_b_alias_safe_post_w4_grouped_dynamic_scale32_w4a8_v2",
+      "disposition": "immutable_consumed_numerical_failure",
+      "review_record": "research/raw/specification/alias-safe-dynamic-v2-review-replan-20260806T140045Z.json",
+      "review_record_sha256": "465c78df3bbdfa28e92046c43ccac8bceea09308f7562dc85d113e234c4eb7b1",
+      "exact_bf16_sequence_match_count": 1,
+      "response_gate_outcome_match_count": 6,
+      "replay_or_repair_permitted": false
+    }
+  ],
+  "evidence_backed_direction": {
+    "retained_construct": "Fresh Review verified the alias-safe source-tied then runtime-split lm_head construction, complete BF16 embedding preservation, independent candidate-state equality, and legal grouped Dynamic Scale32 execution at all 312 activation boundaries.",
+    "measured_failure": "The consumed dynamic V2 attempt completed all nine prompts with legal activation metadata but achieved only 1/9 exact BF16 token sequences and 6/9 matching response-gate outcomes.",
+    "negative_weight_evidence": [
+      {
+        "artifact": "build/stage1-layer2-dyns32-layer23-down-per32-v1/attempt-0001/results.json",
+        "sha256": "9dabbe62adaa945fe7ef3b34ed649223e9810d9e96e9011e2ca3c090efcf325f",
+        "observation": "A prior layer-23 down-projection per-32 scale candidate achieved 0/9 exact sequences and is terminal negative provenance."
+      },
+      {
+        "artifact": "build/stage1-global-w4-per32-repair-v1/attempt-0001/results.json",
+        "sha256": "18132112efdd71e08ac7cca08e2ee713d68473d527f9a27bcbf36fea530395e1",
+        "observation": "A prior all-transformer per-32 scale candidate achieved 0/9 exact sequences and is terminal negative provenance."
+      },
+      {
+        "artifact": "build/option-b-layer2-down-row-lane-causality-20260806/attempt-0001/results.json",
+        "sha256": "e55bcb2076f7b725892620e2308a2ea7e855de9d9749eff2393cf349d2f2f26f",
+        "observation": "The preserved causality diagnostic reports low top-row and top-lane error-mass concentration, so it does not support a small sparse correction table."
+      }
+    ],
+    "replacement_hypothesis": "Keep one 4-bit index per weight and the authenticated per-output-row Scale32 record, but replace the uniform signed-int4 reconstruction grid with one deterministic 16-entry signed-Q4.4 codebook per Linear tensor. This changes reconstruction levels across the full tensor without per-group or per-scalar metadata and remains an unproven hypothesis until the bounded task executes.",
+    "distinctness": "The candidate changes the stored nibble semantics from two's-complement signed-int4 values to unsigned 4-bit codebook indices, adds exactly one 16-byte codebook record per Linear tensor, and uses a pinned model-only Lloyd-Max construction. It is not a replay, scale-table repair, per-32 scale variant, or prompt-specific correction of any consumed candidate."
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_config_tie_word_embeddings": true,
+    "source_embedding_tensor": "model.embed_tokens.weight",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f",
+    "source_weight_scales": {
+      "rule": "the authenticated per-output-row Scale32 record derived from pinned BF16 absmax divided by 7",
+      "mutation_permitted": false
+    }
+  },
+  "candidate_state_construction": {
+    "initial_invariant": "lm_head.weight and model.embed_tokens.weight are the same Parameter object and storage immediately after pinned-model load",
+    "separation_rule": "Before any codebook construction, replace only lm_head.weight with a detached byte-identical non-trainable clone and set only the in-memory candidate configuration tie_word_embeddings field to false.",
+    "retie_forbidden": true,
+    "quantization_scope": "exactly 168 transformer Linear weights plus the separated lm_head weight",
+    "post_quantization_embedding_invariant": "The original embedding Parameter object, storage pointer, shape, dtype, and complete BF16 byte stream remain unchanged with SHA-256 4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f.",
+    "independent_reconstruction_required": true,
+    "candidate_a_and_b_manifest_hashes_must_match": true,
+    "module_counts": {
+      "transformer_linears": 168,
+      "lm_head": 1,
+      "total_codebook_w4_linears": 169
+    }
+  },
+  "weight_policy": {
+    "payload_bits_per_weight": 4,
+    "payload_semantics": "unsigned codebook index 0 through 15",
+    "packing": "row-major output row then input lane; even flat index in low nibble and odd flat index in high nibble",
+    "row_scale": "preserve the authenticated normalized 32-bit Scale32 record for every output row",
+    "codebook_scope": "one codebook per Linear tensor",
+    "codebook_record": {
+      "bytes": 16,
+      "alignment_bytes": 16,
+      "memory_beats_at_128_bits": 1,
+      "entry_count": 16,
+      "entry_format": "signed Q4.4 two's-complement int8; -128 is legal in this weight-codebook domain",
+      "entry_order": "strictly increasing; byte offset equals payload index"
+    },
+    "construction_algorithm": {
+      "data_source": "pinned BF16 weights and authenticated row Scale32 records only",
+      "official_prompt_output_or_gate_access_permitted": false,
+      "normalization": "For each scalar weight, decode its row Scale32 record exactly and form weight divided by row_scale, then round normalization times 16 to signed Q4.4 with round-to-nearest ties-to-even; any value outside [-128,+127] fails closed.",
+      "histogram": "Build an exact integer histogram over all normalized Q4.4 values in the Linear tensor.",
+      "initial_codepoints_q4_4": [-128, -112, -96, -80, -64, -48, -32, -16, 0, 16, 32, 48, 64, 80, 96, 112],
+      "iterations": 32,
+      "assignment": "Assign every occupied histogram bin to the nearest codepoint; exact distance ties select the lower codebook index.",
+      "update": "Replace each non-empty codepoint by the histogram-weighted mean rounded to nearest ties-to-even; an empty cluster retains its prior codepoint.",
+      "post_iteration_rule": "Sort ascending after every update; duplicate or out-of-range codepoints fail closed rather than being repaired.",
+      "final_payload_assignment": "Assign each normalized weight to the nearest final codepoint with the same lower-index tie rule.",
+      "reconstruction": "decoded_weight = decoded_row_scale * signed_codebook_q4_4 / 16",
+      "stochastic_rounding_or_prompt_tuning_permitted": false
+    },
+    "pre_attempt_model_only_gate": {
+      "uniform_baseline": "the consumed dynamic V2 authenticated signed-int4 per-output-row Scale32 weight construction",
+      "per_tensor_error_rule": "sum-squared BF16 reconstruction error may not increase for any of the 169 Linear tensors",
+      "aggregate_error_rule": "aggregate sum-squared BF16 reconstruction error across all 169 Linear tensors must decrease strictly",
+      "codebook_identity_rule": "two independent constructions must produce byte-identical payload, row-scale, codebook, and state manifests"
+    }
+  },
+  "activation_policy": {
+    "payload": "signed A8 symmetric range -127 through +127 with -128 reserved",
+    "rounding": "round_to_nearest_ties_to_even",
+    "event_family_count_per_layer": 13,
+    "event_count_all_24_layers": 312,
+    "group_lanes": [64, 128],
+    "base_record_source": "the same frozen authenticated Scale32 significands used by consumed dynamic V2",
+    "selection_rule": "For each live finite group, preserve the base Scale32 significand and choose the minimum integer exponent delta in [-24,+24] whose effective exponent remains in [-24,+4] and covers every lane without saturation.",
+    "all_zero_group_rule": "use exponent delta zero",
+    "failure_rule": "If no legal delta covers a finite group, fail closed; never clip, saturate, or mutate the base record.",
+    "static_prompt_range_table_used": false,
+    "dataset_prompt_token_or_gate_control_permitted": false
+  },
+  "accelerator_facing_format": {
+    "public_ace2_shell_contract_changed": false,
+    "weight_payload_transport": "existing 128-bit external-memory read channel; packed 4-bit indices retain the existing byte count",
+    "codebook_transport": "one aligned 128-bit read beat per Linear tensor before its weight stream is consumed",
+    "codebook_cache_budget_bytes": 32,
+    "cache_policy": "two 16-byte banks permit current and next Linear codebooks; no per-token codebook traffic is permitted",
+    "row_scale_transport": "existing 32-bit Scale32 row records remain unchanged",
+    "compute_primitive": "signed A8 activation multiplied by signed Q4.4 int8 codepoint, accumulated as an integer product, then combined with the authenticated row Scale32 and the fixed codebook fractional shift of four",
+    "floating_point_rtl_permitted": false,
+    "cycle_accurate_rtl_or_ppa_claimed_by_this_plan": false
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "standard_decoder_layer_weight_count": 14909440,
+    "standard_decoder_layer_existing_total_weight_bytes": 7505408,
+    "standard_decoder_layer_codebook_bytes": 112,
+    "standard_decoder_layer_exact_bits_per_weight": 4.027257898351649,
+    "lm_head_shape": [151936, 896],
+    "lm_head_codebook_bytes": 16,
+    "lm_head_exact_bits_per_weight": 4.035715225959803,
+    "whole_model_codebook_bytes": 2704,
+    "per_scalar_weight_metadata_forbidden": true,
+    "maximum_scale_metadata_bits_per_activation": 0.5,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_tensor_sidecars_per_decoder_layer_token": 13,
+    "per_scalar_activation_metadata_forbidden": true,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "maximum_incremental_sram_bytes": 2368,
+    "new_public_ace2_shell_ports_permitted": false,
+    "saturation_or_silent_exponent_clipping_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0,
+    "rtl_ppa_or_latency_measurement_claimed_by_this_plan": false
+  },
+  "pre_attempt_closure": {
+    "official_execution_marker_permitted": false,
+    "official_nine_prompt_inputs_permitted_for_preflight": false,
+    "network_access_permitted": false,
+    "non_evaluator_quality_gate": "On the frozen eight non-evaluator inputs, deterministic greedy generation must achieve 8/8 exact BF16 token arrays and 8/8 matching BF16 response-gate outcomes before an official marker may be created.",
+    "required_artifacts": [
+      "hash-bound candidate-specific runner and self-test",
+      "candidate A and B state, payload, row-scale, and codebook manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "codebook constructor self-tests covering histogram determinism, 32 iterations, ties-to-even, lower-index assignment ties, empty clusters, duplicate rejection, range rejection, nibble packing, and bound-hash rejection",
+      "model-only error report proving no per-tensor reconstruction-error regression and strict aggregate improvement",
+      "non-evaluator 8/8 exact-sequence and response-gate quality report",
+      "fresh-candidate dynamic preflight proving all 312 layer/event names, legal exponent deltas, zero saturation, zero clipping, and no reserved -128 activation payload",
+      "predeclared contract binding every source, model, matrix, runner, tool-version, codebook format, and policy hash",
+      "PREATTEMPT_READY.json that verifies all artifacts without creating execution_started.json"
+    ]
+  },
+  "official_attempt": {
+    "attempts_authorized_by_this_file": 0,
+    "required_fresh_attempt_directory": "build/stage1-option-b-alias-safe-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v3/attempt-0001",
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false,
+    "fresh_reviewer_required": true
+  },
+  "risk_register": [
+    "The codebook is an unmeasured weight-format hypothesis; model-only error reduction and non-evaluator exactness do not establish official numerical eligibility.",
+    "The lm_head storage ratio is close to the 4.036-bit cap, so any additional lm_head metadata beyond one 16-byte codebook is forbidden.",
+    "A Q4.4 codepoint multiply changes the eventual projection datapath and will require focused RTL regression plus one fresh tree-specific PPA only after numerical policy acceptance and Manager stage advance.",
+    "No prompt-dependent codebook selection, sparse exception table, wider per-weight payload, or hidden official-output tuning is permitted."
+  ],
+  "claim_boundary": {
+    "planning_requirements_frozen": true,
+    "attempt_authority_created": false,
+    "official_attempt_started": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

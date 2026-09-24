@@ -1,0 +1,24 @@
+{
+  "mission_id": "stage1samepromptcausal01",
+  "requested_checks": [
+    "Recompute frozen prompt, tokenizer, model, adapter, and checkpoint bindings.",
+    "Confirm the W4A8 baseline final RMSNorm and LM-head output byte-match sealed attempt-0002.",
+    "Recompute token rank, top-8 overlap, and Jensen-Shannon divergence from every persisted logits file.",
+    "Confirm the coarse-before-refinement order and earliest recovering layer cut.",
+    "Confirm the operator injection semantics and narrowest supported recovering boundary.",
+    "Confirm sealed attempt-0002 and official namespaces were not modified."
+  ],
+  "result": {
+    "bytes": 55006,
+    "path": "diagnosis/stage1samepromptcausal01/result.json",
+    "sha256": "0e35e7ccafa5dc90324af4dee91e4a9c7d91075055965b6894c0adb750c1bff4"
+  },
+  "review_type": "Fresh-L2",
+  "schema_version": 1,
+  "source": {
+    "bytes": 45588,
+    "path": "tools/diagnose_stage1_same_prompt_causal.py",
+    "sha256": "2b1a145083d4510676f348d68bd890b0ef55a7aac52148d07da2500bff0be7b5"
+  },
+  "status": "PENDING_INDEPENDENT_REVIEW"
+}

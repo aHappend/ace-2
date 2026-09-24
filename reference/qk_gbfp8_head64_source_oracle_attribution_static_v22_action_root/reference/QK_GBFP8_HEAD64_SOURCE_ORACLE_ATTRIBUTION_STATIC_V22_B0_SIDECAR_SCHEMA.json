@@ -1,0 +1,107 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_SOURCE_ORACLE_ATTRIBUTION_STATIC_V22_B0_SIDECAR_SCHEMA",
+  "title": "Future separately authorized nonselecting B0 source-Q/K identity-control sidecar",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "schema_version",
+    "artifact_kind",
+    "v22_action_id",
+    "claim_boundary",
+    "authority_provenance",
+    "control",
+    "frozen_contract",
+    "row_class_aggregates",
+    "diagnostic_residuals",
+    "sidecar_sha256"
+  ],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_kind": {"const": "qk_gbfp8_head64_source_oracle_attribution_v22_b0_nonselecting_sidecar"},
+    "v22_action_id": {"const": "ace2:qk-gbfp8-base-v22:source-oracle-attribution:4901c835:additive-0001"},
+    "claim_boundary": {"const": "SEPARATELY_AUTHORIZED_DIAGNOSTIC_ONLY_NONSELECTING"},
+    "authority_provenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["separate_mission_id", "manager_admission_id", "operator_authority_event_sha256", "official_payload_open_count", "official_evaluator_invocation_count"],
+      "properties": {
+        "separate_mission_id": {"type": "string", "minLength": 1},
+        "manager_admission_id": {"type": "string", "minLength": 1},
+        "operator_authority_event_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "official_payload_open_count": {"const": 1},
+        "official_evaluator_invocation_count": {"const": 1}
+      }
+    },
+    "control": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["control_id", "software_identity_path", "nonselecting", "quantization_completion", "base_selection_permitted", "official_result_schema_influence_permitted", "tensor_values_exposed"],
+      "properties": {
+        "control_id": {"const": "B0_SOURCE_QK_IDENTITY"},
+        "software_identity_path": {"const": true},
+        "nonselecting": {"const": true},
+        "quantization_completion": {"const": false},
+        "base_selection_permitted": {"const": false},
+        "official_result_schema_influence_permitted": {"const": false},
+        "tensor_values_exposed": {"const": false}
+      }
+    },
+    "frozen_contract": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["benchmark_package_sha256", "official_evaluator_sha256", "official_result_schema_sha256", "tensor_bundle_sha256", "binding_table_sha256", "quantized_candidate_order", "diagnostic_control_order"],
+      "properties": {
+        "benchmark_package_sha256": {"const": "3d36df763e775bc8f3fb5d106eaf842f7b74482c236b9697906bb93647c44832"},
+        "official_evaluator_sha256": {"const": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63"},
+        "official_result_schema_sha256": {"const": "07f818190e7f97032a6bc3724914f00f36070f429f1cd549c67e4e7b026ae720"},
+        "tensor_bundle_sha256": {"const": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"},
+        "binding_table_sha256": {"const": "87ab3deb25f77d89b0797d72004b4436f9541987da13a42f44a2bff7f9fa9655"},
+        "quantized_candidate_order": {"const": ["G8", "G4", "G2", "G1"]},
+        "diagnostic_control_order": {"const": ["B0", "G1", "G2", "G4", "G8"]}
+      }
+    },
+    "row_class_aggregates": {
+      "type": "array",
+      "minItems": 4,
+      "maxItems": 4,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["row_class", "row_count", "top_match_count", "top_mismatch_count", "positive_margin_preserved_count", "rank_margin_violation_count", "sum_signed_error_q12_20_lsb", "sum_absolute_error_q12_20_lsb", "sum_squared_error_q40_40_lsb2", "maximum_absolute_error_q12_20_lsb", "row_membership_sha256", "top_mismatch_membership_sha256", "rank_violation_membership_sha256"],
+        "properties": {
+          "row_class": {"enum": ["ALL_CAUSAL_ROWS", "SINGLETON_ROWS", "ORACLE_TIED_TOP_ROWS", "ORACLE_UNIQUE_POSITIVE_MARGIN_ROWS"]},
+          "row_count": {"type": "integer", "minimum": 0},
+          "top_match_count": {"type": "integer", "minimum": 0},
+          "top_mismatch_count": {"type": "integer", "minimum": 0},
+          "positive_margin_preserved_count": {"type": "integer", "minimum": 0},
+          "rank_margin_violation_count": {"type": "integer", "minimum": 0},
+          "sum_signed_error_q12_20_lsb": {"type": "integer"},
+          "sum_absolute_error_q12_20_lsb": {"type": "integer", "minimum": 0},
+          "sum_squared_error_q40_40_lsb2": {"type": "integer", "minimum": 0},
+          "maximum_absolute_error_q12_20_lsb": {"type": "integer", "minimum": 0},
+          "row_membership_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "top_mismatch_membership_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+          "rank_violation_membership_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "diagnostic_residuals": {
+      "type": "array",
+      "minItems": 5,
+      "maxItems": 5,
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": ["label", "comparison_only", "may_satisfy_quantization_acceptance", "aggregate_digest_sha256"],
+        "properties": {
+          "label": {"enum": ["B0", "G1", "G2", "G4", "G8"]},
+          "comparison_only": {"const": true},
+          "may_satisfy_quantization_acceptance": {"const": false},
+          "aggregate_digest_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+        }
+      }
+    },
+    "sidecar_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

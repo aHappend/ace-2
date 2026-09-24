@@ -1,0 +1,99 @@
+{
+  "bound_at_utc": "2026-08-02T00:33:27Z",
+  "candidate_id": "down_projection_residual_fusion_76ef0dda2e646558",
+  "candidate_rtl_hash": "76ef0dda2e646558ecb3e2047d3ec00d69f416cbe0a880b3402876614a4a7a28",
+  "claim_boundary": "First retained technical execution only; duplicate-execution integrity NO_GO remains binding.",
+  "contract_id": "shared_down_projection_residual_fusion_v1",
+  "exact_hook": {
+    "bytes": 12340,
+    "path": "tools/ace2_down_projection_residual_fusion_hook.py",
+    "sha256": "b4e222db99a5457a84183b8069654a3881fe5afc1e1caf9c23f49d6aa1463e18"
+  },
+  "execution_integrity": {
+    "failure": "duplicate_successful_execution",
+    "first_successful_execution": {
+      "baseline_replay": {
+        "bytes": 636748,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_baseline_replay/results.json",
+        "sha256": "899925521c6734dafab1cc4c0fa175523e33c1fb84f95d2d020e565f3fc045b8"
+      },
+      "candidate_replay": {
+        "bytes": 637196,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_candidate_replay/results.json",
+        "sha256": "ecc6e52bab249d744c0afccdef0facd2485ff3ba7e19bfb2ec3ee41fe8f554be"
+      },
+      "generated_at_utc": "2026-08-02T00:14:50Z",
+      "raw_root": "verification/raw/archive/pre-dprf-42fa63d925d813c8"
+    },
+    "later_duplicate_execution": {
+      "baseline_replay": {
+        "bytes": 636748,
+        "path": "verification/raw/latest/dprf_focused_baseline_replay/results.json",
+        "sha256": "33d45fc719b8067f0dd176a0fe4a3998c777085a5165332891038db4d4026a8c"
+      },
+      "candidate_replay": {
+        "bytes": 637196,
+        "path": "verification/raw/latest/dprf_focused_candidate_replay/results.json",
+        "sha256": "c3942c6d51aa6c1382293fdb2f84f65bfa7a16962e3030fbe33b2ffa48789fcd"
+      },
+      "generated_at_utc": "2026-08-02T00:17:24Z",
+      "payload_equivalent_except_generated_at_utc": true,
+      "raw_root": "verification/raw/latest"
+    },
+    "observed_successful_execution_count": 2,
+    "required_successful_execution_count": 1,
+    "rerun_permitted": false,
+    "satisfied": false
+  },
+  "focused_replays": {
+    "all_lane_independent_oracle_match": true,
+    "baseline": {
+      "bytes": 636748,
+      "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_baseline_replay/results.json",
+      "sha256": "899925521c6734dafab1cc4c0fa175523e33c1fb84f95d2d020e565f3fc045b8"
+    },
+    "candidate": {
+      "bytes": 637196,
+      "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_candidate_replay/results.json",
+      "sha256": "ecc6e52bab249d744c0afccdef0facd2485ff3ba7e19bfb2ec3ee41fe8f554be"
+    },
+    "capture_token_limit": 128,
+    "datasets": [
+      "wikitext2",
+      "c4_en_512"
+    ],
+    "layers": 24
+  },
+  "independent_reference": {
+    "bytes": 5490,
+    "path": "tools/ace2_down_projection_residual_fusion_reference.py",
+    "sha256": "87c97f2559141cede03efd93d4d250115e7adbaf07804ac0e4bf2b385acdd24d"
+  },
+  "model_image_metadata": {
+    "binary": {
+      "bytes": 86592,
+      "path": "reference/generated/down_projection_residual_fusion_metadata.bin",
+      "sha256": "0c7e0e98131fbe03cb00abca41f6172ec52458a23761a51f402f9ac0c26e17f1"
+    },
+    "manifest": {
+      "bytes": 400667,
+      "path": "reference/generated/down_projection_residual_fusion_metadata.json",
+      "sha256": "e083f94cef62b15313d6035bd31855c27961246232197858f5e42ec3737a0eca"
+    },
+    "quality_metrics_executed": true,
+    "record_count": 21504
+  },
+  "schema_version": 4,
+  "standalone_vectors": {
+    "json": {
+      "bytes": 8768,
+      "path": "verification/generated/down_projection_residual_fusion_vectors.json",
+      "sha256": "16961d280bc546ccff05eeb7da9c61b9cd2d7cbc1de7a7551c9a1ec8f8ff05ff"
+    },
+    "svh": {
+      "bytes": 3071,
+      "path": "verification/generated/down_projection_residual_fusion_vectors.svh",
+      "sha256": "62932d0ff8407c4c0a9ea4fb9114a7f18ebc716ca524e4247fe86a9ba493543c"
+    }
+  }
+}

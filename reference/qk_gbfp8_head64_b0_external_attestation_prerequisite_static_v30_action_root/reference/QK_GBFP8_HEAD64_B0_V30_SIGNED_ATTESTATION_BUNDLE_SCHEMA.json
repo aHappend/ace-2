@@ -1,0 +1,343 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_B0_V30_SIGNED_ATTESTATION_BUNDLE_SCHEMA",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "nonempty": {
+      "type": "string",
+      "minLength": 1
+    },
+    "environment": {
+      "type": "object",
+      "propertyNames": {
+        "pattern": "^[A-Z_][A-Z0-9_]*$"
+      },
+      "additionalProperties": {
+        "type": "string"
+      }
+    },
+    "payload": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "action": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "action_id": { "$ref": "#/$defs/nonempty" },
+            "decision": { "$ref": "#/$defs/nonempty" },
+            "effect_class": { "$ref": "#/$defs/nonempty" }
+          },
+          "required": ["action_id", "decision", "effect_class"]
+        },
+        "package": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "package_file_sha256": { "$ref": "#/$defs/sha256" },
+            "package_tree_sha256": { "$ref": "#/$defs/sha256" }
+          },
+          "required": ["package_file_sha256", "package_tree_sha256"]
+        },
+        "candidate_tree": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "root_id": { "$ref": "#/$defs/nonempty" },
+            "tree_sha256": { "$ref": "#/$defs/sha256" }
+          },
+          "required": ["root_id", "tree_sha256"]
+        },
+        "interpreter": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "path": { "type": "string", "pattern": "^/" },
+            "sha256": { "$ref": "#/$defs/sha256" },
+            "version": { "$ref": "#/$defs/nonempty" }
+          },
+          "required": ["path", "sha256", "version"]
+        },
+        "invocation": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "argv": {
+              "type": "array",
+              "minItems": 1,
+              "items": { "type": "string" }
+            },
+            "argv_sha256": { "$ref": "#/$defs/sha256" },
+            "cwd": { "type": "string", "pattern": "^/" },
+            "cwd_sha256": { "$ref": "#/$defs/sha256" },
+            "replacement_environment": { "$ref": "#/$defs/environment" },
+            "replacement_environment_sha256": { "$ref": "#/$defs/sha256" }
+          },
+          "required": [
+            "argv",
+            "argv_sha256",
+            "cwd",
+            "cwd_sha256",
+            "replacement_environment",
+            "replacement_environment_sha256"
+          ]
+        },
+        "runtime": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "namespace_id": { "$ref": "#/$defs/nonempty" },
+            "namespace_sha256": { "$ref": "#/$defs/sha256" }
+          },
+          "required": ["namespace_id", "namespace_sha256"]
+        },
+        "event_frontier": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "source_kind": {
+              "enum": [
+                "FRAMEWORK_SIGNED_IMMUTABLE_EVENT_RECEIPTS",
+                "FRAMEWORK_OWNED_SIGNED_ATTESTATION_ENDPOINT"
+              ]
+            },
+            "frontier_sequence": { "type": "integer", "minimum": 0 },
+            "frontier_sha256": { "$ref": "#/$defs/sha256" },
+            "first_terminal_sequence": { "type": ["integer", "null"], "minimum": 0 },
+            "first_terminal_sha256": {
+              "oneOf": [
+                { "$ref": "#/$defs/sha256" },
+                { "type": "null" }
+              ]
+            }
+          },
+          "required": [
+            "source_kind",
+            "frontier_sequence",
+            "frontier_sha256",
+            "first_terminal_sequence",
+            "first_terminal_sha256"
+          ]
+        },
+        "call": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "call_id": { "$ref": "#/$defs/nonempty" }
+          },
+          "required": ["call_id"]
+        },
+        "mission": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "mission_id": { "$ref": "#/$defs/nonempty" }
+          },
+          "required": ["mission_id"]
+        },
+        "identity": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "actor": {
+              "enum": ["MANAGER", "HUMAN_OPERATOR", "FRESH_L2_REVIEWER"]
+            },
+            "layer": {
+              "enum": ["manager", "operator", "reviewer"]
+            },
+            "run_label": { "$ref": "#/$defs/nonempty" }
+          },
+          "required": ["actor", "layer", "run_label"]
+        },
+        "freshness": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "issued_at_unix_ns": { "type": "integer", "minimum": 0 },
+            "not_before_unix_ns": { "type": "integer", "minimum": 0 },
+            "expires_at_unix_ns": { "type": "integer", "minimum": 1 }
+          },
+          "required": ["issued_at_unix_ns", "not_before_unix_ns", "expires_at_unix_ns"]
+        },
+        "nonce": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "nonce": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+            "replay_scope": { "$ref": "#/$defs/nonempty" }
+          },
+          "required": ["nonce", "replay_scope"]
+        }
+      },
+      "required": [
+        "action",
+        "package",
+        "candidate_tree",
+        "interpreter",
+        "invocation",
+        "runtime",
+        "event_frontier",
+        "call",
+        "mission",
+        "identity",
+        "freshness",
+        "nonce"
+      ]
+    },
+    "receipt": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "schema_version": { "const": 1 },
+        "artifact_kind": {
+          "const": "qk_gbfp8_head64_b0_v30_framework_signed_attestation_receipt"
+        },
+        "trust_domain": { "const": "PRODUCTION_EXTERNAL_FRAMEWORK" },
+        "issuer": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "service_ownership": { "const": "FRAMEWORK_OWNED" },
+            "private_key_access": {
+              "const": "INACCESSIBLE_TO_ENGINEER_REVIEWER_AND_PROJECT_CODE"
+            },
+            "signing_endpoint_access": {
+              "const": "INACCESSIBLE_TO_ENGINEER_REVIEWER_AND_PROJECT_CODE"
+            },
+            "algorithm": { "$ref": "#/$defs/nonempty" },
+            "key_id": { "$ref": "#/$defs/nonempty" },
+            "public_key_sha256": { "$ref": "#/$defs/sha256" },
+            "rotation_epoch": { "type": "integer", "minimum": 0 }
+          },
+          "required": [
+            "service_ownership",
+            "private_key_access",
+            "signing_endpoint_access",
+            "algorithm",
+            "key_id",
+            "public_key_sha256",
+            "rotation_epoch"
+          ]
+        },
+        "canonicalization": {
+          "type": "object",
+          "additionalProperties": false,
+          "properties": {
+            "identifier": { "$ref": "#/$defs/nonempty" },
+            "version": { "$ref": "#/$defs/nonempty" },
+            "signed_payload_sha256": { "$ref": "#/$defs/sha256" }
+          },
+          "required": ["identifier", "version", "signed_payload_sha256"]
+        },
+        "payload": { "$ref": "#/$defs/payload" },
+        "signature": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9+/]+={0,2}$",
+          "minLength": 8
+        }
+      },
+      "required": [
+        "schema_version",
+        "artifact_kind",
+        "trust_domain",
+        "issuer",
+        "canonicalization",
+        "payload",
+        "signature"
+      ]
+    },
+    "manager_receipt": {
+      "allOf": [
+        { "$ref": "#/$defs/receipt" },
+        {
+          "properties": {
+            "payload": {
+              "properties": {
+                "action": {
+                  "properties": {
+                    "decision": { "const": "ADMIT_EXACT_ACTION_ONCE" }
+                  }
+                },
+                "identity": {
+                  "properties": {
+                    "actor": { "const": "MANAGER" },
+                    "layer": { "const": "manager" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "operator_receipt": {
+      "allOf": [
+        { "$ref": "#/$defs/receipt" },
+        {
+          "properties": {
+            "payload": {
+              "properties": {
+                "action": {
+                  "properties": {
+                    "decision": { "const": "AUTHORIZE_EXACT_ACTION_ONCE" }
+                  }
+                },
+                "identity": {
+                  "properties": {
+                    "actor": { "const": "HUMAN_OPERATOR" },
+                    "layer": { "const": "operator" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    },
+    "reviewer_receipt": {
+      "allOf": [
+        { "$ref": "#/$defs/receipt" },
+        {
+          "properties": {
+            "payload": {
+              "properties": {
+                "action": {
+                  "properties": {
+                    "decision": { "const": "REVIEW_EXACT_CANDIDATE_ONCE" }
+                  }
+                },
+                "identity": {
+                  "properties": {
+                    "actor": { "const": "FRESH_L2_REVIEWER" },
+                    "layer": { "const": "reviewer" }
+                  }
+                }
+              }
+            }
+          }
+        }
+      ]
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_kind": {
+      "const": "qk_gbfp8_head64_b0_v30_framework_signed_attestation_bundle"
+    },
+    "manager_receipt": { "$ref": "#/$defs/manager_receipt" },
+    "operator_receipt": { "$ref": "#/$defs/operator_receipt" },
+    "reviewer_receipt": { "$ref": "#/$defs/reviewer_receipt" }
+  },
+  "required": [
+    "schema_version",
+    "artifact_kind",
+    "manager_receipt",
+    "operator_receipt",
+    "reviewer_receipt"
+  ]
+}

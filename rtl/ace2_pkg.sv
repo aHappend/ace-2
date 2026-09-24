@@ -1,6 +1,8 @@
 `default_nettype none
 
 package ace2_pkg;
+    `include "generated/ace2_model_parameters.svh"
+
     localparam integer ACE2_ADDR_WIDTH = 64;
     localparam integer ACE2_CSR_ADDR_WIDTH = 32;
     localparam integer ACE2_CSR_DATA_WIDTH = 64;
@@ -10,11 +12,7 @@ package ace2_pkg;
     localparam integer ACE2_MEM_TAG_WIDTH = 8;
     localparam integer ACE2_SRAM_BANKS = 8;
     localparam integer ACE2_SRAM_ADDR_WIDTH = 12;
-    localparam integer ACE2_HIDDEN_SIZE = 896;
-    localparam integer ACE2_VOCAB_SIZE = 151936;
-    localparam integer ACE2_LM_HEAD_TILE_SIZE = 32;
     localparam integer ACE2_LM_HEAD_TILE_COUNT = ACE2_VOCAB_SIZE / ACE2_LM_HEAD_TILE_SIZE;
-    localparam integer ACE2_VECTOR_LANES = 16;
 
     localparam [7:0] ACE2_OPCODE_W4A8_PROJ = 8'h01;
     localparam [7:0] ACE2_OPCODE_RMSNORM   = 8'h02;

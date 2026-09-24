@@ -1,0 +1,35 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_B0_V28_FIRST_TERMINAL_SCHEMA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_kind", "future_execution_action_id", "status", "stage", "failure_class", "detail", "evaluator_diagnostic", "authority_envelope_sha256", "sidecar_sha256", "counts", "first_record_immutable", "action_retired", "retry_replay_resume_repair_permitted", "terminal_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_kind": {"const": "qk_gbfp8_head64_b0_source_oracle_identity_control_v28_first_terminal"},
+    "future_execution_action_id": {"const": "ace2:qk-gbfp8-base-v28:b0-source-oracle-identity-control-execute-once:38571d38:additive-0008"},
+    "status": {"enum": ["SOURCE_ORACLE_MATCH", "SOURCE_ORACLE_MISMATCH", "FAILED_TERMINAL"]},
+    "stage": {"type": "string", "minLength": 1, "maxLength": 64},
+    "failure_class": {"type": ["string", "null"], "maxLength": 64},
+    "detail": {"type": ["object", "null"]},
+    "evaluator_diagnostic": {"type": ["object", "null"]},
+    "authority_envelope_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "sidecar_sha256": {"type": ["string", "null"], "pattern": "^[0-9a-f]{64}$"},
+    "counts": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authority_consumption", "credential_consumption", "official_evaluator_invocations", "official_payload_opens", "official_target_process_starts"],
+      "properties": {
+        "authority_consumption": {"type": "integer", "minimum": 0, "maximum": 1},
+        "credential_consumption": {"type": "integer", "minimum": 0, "maximum": 1},
+        "official_evaluator_invocations": {"type": "integer", "minimum": 0, "maximum": 1},
+        "official_payload_opens": {"type": "integer", "minimum": 0, "maximum": 1},
+        "official_target_process_starts": {"type": "integer", "minimum": 0, "maximum": 1}
+      }
+    },
+    "first_record_immutable": {"const": true},
+    "action_retired": {"const": true},
+    "retry_replay_resume_repair_permitted": {"const": false},
+    "terminal_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  }
+}

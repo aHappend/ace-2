@@ -1,0 +1,235 @@
+{
+  "accepted_evaluation": {
+    "evaluation_package": {
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATION_PACKAGE.json",
+      "sha256": "0bd51407f20950a93f47a520718a3bb4d5a5006d990d60aef626d16a5f9d976d"
+    },
+    "proof": {
+      "path": "evidence/verification/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-package-v1/proof.json",
+      "sha256": "e4105ae4824cfd544470fd51e8fcc099813de6e9b303bb9d31633070a2a43543"
+    },
+    "qualifying_fresh_l2_review": {
+      "evidence_path": "evidence/verification/qk-bfp8-e16-head64-v1-c02-score-path-external-exactly-once-authority-v1/fresh_l2_review_evidence.json",
+      "evidence_sha256": "ffc2307436f52e884b899804b2390cf1d14ea574e4c5d8f1536b930af9f2994f",
+      "source_review_sha256": "873441813217c70b41a9ba6554b3f7c862d12c6b81571f4bfee38df302943c70"
+    },
+    "static_verifier": {
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_c02_score_path_evaluation_package.py",
+      "sha256": "701bdf27b8a412956ed8b1fb2a34edde8a6a5dff1aedc68010f0dd69ba0beb49"
+    }
+  },
+  "artifact_kind": "qk_bfp8_e16_head64_v1_c02_score_path_external_exactly_once_execution_authority_package",
+  "authority_package_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EXTERNAL_EXACTLY_ONCE_AUTHORITY_V1",
+  "authority_state": "STATIC_FROZEN_EXTERNAL_AUTHORITY_NO_LIVE_CREDENTIAL",
+  "claim_boundary": {
+    "authority_consumed": false,
+    "authority_materialized": false,
+    "calibration_or_generation_performed": false,
+    "execution_namespace_created": false,
+    "fixed_input_payload_deserialized": false,
+    "invocation_count_performed": 0,
+    "model_loaded_or_executed": false,
+    "repair_replay_resume_or_retry_performed": false,
+    "rtl_spec_manifest_u280_or_stage_state_modified": false,
+    "score_computation_performed": false,
+    "status": "NO_EXECUTION_PERFORMED"
+  },
+  "exactly_once_semantics": {
+    "atomic_consume_before_execute": "after all static preflight checks pass, the external authority ledger must atomically transition the selected lane from READY_UNCONSUMED to CONSUMED and durably commit that transition before namespace creation, implementation or model loading, tensor deserialization, or score computation",
+    "authority_cardinality": "exactly one independently isolated single-use record per lane; records and outcomes are not substitutable across lanes",
+    "consume_failure": "if the atomic transition does not durably commit, execute nothing and atomically seal FAILED_TERMINAL for that lane",
+    "first_terminal_record_immutability": "the first successfully inserted terminal record is final, create-only, and may never be amended, replaced, deleted, or superseded",
+    "post_consume_failure": "any failure after durable consumption seals FAILED_TERMINAL; consumed authority is never restored",
+    "preflight_failure": "any mismatch atomically invalidates the lane record and seals FAILED_TERMINAL without creating an execution namespace or performing execution",
+    "prohibited_under_every_terminal_outcome": [
+      "retry",
+      "replay",
+      "resume",
+      "repair",
+      "recalibration",
+      "regeneration",
+      "authority reuse",
+      "partial-result substitution"
+    ],
+    "terminal_states": [
+      "SUCCEEDED_TERMINAL",
+      "FAILED_TERMINAL"
+    ]
+  },
+  "fail_closed_preflight": {
+    "checks_in_order": [
+      "authority package and checksum manifest are canonical and checksum-valid",
+      "accepted package, accepted verifier, accepted proof, and qualifying Fresh-L2 review hashes match",
+      "lane order, lane identity, accepted invocation descriptor hash, sealed inputs, model identity, command, environment, and output identity match",
+      "the lane has exactly one matching READY_UNCONSUMED external record and no terminal record",
+      "the prior lane ordering prerequisite is satisfied",
+      "the declared output root and both lane output paths are absent",
+      "the external implementation attests the exact evaluator id and evaluator spec SHA-256"
+    ],
+    "mismatch_result": "seal FAILED_TERMINAL and perform zero execution",
+    "no_side_effects_before_consume": [
+      "no execution namespace creation",
+      "no model or implementation loading",
+      "no tensor deserialization",
+      "no score computation"
+    ]
+  },
+  "implementation_identity": {
+    "evaluator_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATOR_SPEC_V1",
+    "evaluator_spec_sha256": "b719d18f571e664b25c926ecb972f9972f2a13c4b8013d89f8bf970cf8a99756",
+    "executable_implementation_included": false,
+    "identity_kind": "CHECKSUM_BOUND_EVALUATION_CONTRACT",
+    "preflight_requirement": "external implementation must attest this exact evaluator id and spec SHA-256 before authority consumption"
+  },
+  "lanes": [
+    {
+      "accepted_invocation": {
+        "descriptor_sha256": "58b90f06f10d179cb12820ee5a376cf3807eb9f2af929990dacac138a8fa6731",
+        "invocation_sha256": "58b90f06f10d179cb12820ee5a376cf3807eb9f2af929990dacac138a8fa6731"
+      },
+      "authority_record": {
+        "authority_cardinality": 1,
+        "live_credential": null,
+        "materialization_state": "NOT_MATERIALIZED",
+        "record_id": "c02-score-path-base-exactly-once-v1",
+        "single_use": true
+      },
+      "command": {
+        "command_sha256": "a89602cbcf8d4b5a3d7fd11737615e399ce2d91d869ea1ea46b7a0f1f1b6cb4f",
+        "descriptor": {
+          "arguments": {
+            "accepted_evaluation_package_sha256": "0bd51407f20950a93f47a520718a3bb4d5a5006d990d60aef626d16a5f9d976d",
+            "invocation_sha256": "58b90f06f10d179cb12820ee5a376cf3807eb9f2af929990dacac138a8fa6731",
+            "lane_label": "Base",
+            "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/base/result.json"
+          },
+          "command_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATE_ONCE_V1",
+          "encoding": "canonical-json-external-command-descriptor-v1",
+          "executor_operation": "evaluate_score_path_once",
+          "shell_argv_materialized": false
+        }
+      },
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PYTHONHASHSEED": "0",
+        "TZ": "UTC"
+      },
+      "generation_id": "c02-score-path-eval-base-v1",
+      "lane_label": "Base",
+      "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+      "namespace_label": "base",
+      "output_identity": {
+        "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/base/result.json",
+        "result_schema_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_RESULT_V1",
+        "separate_from_other_lane": true
+      },
+      "sealed_inputs": {
+        "authoritative_tensor_records_sha256": {
+          "bf16_oracle_scores": "49627e8364e534c61f4db8208d82798e53409c3c10d5d5e28c3c1462ef617765",
+          "realized_key_source": "401cdb0dc4a8def3190ac424f96df272c2bcf11241874759977d692845a19c0a",
+          "realized_query_source": "285e064ffea9571b7e3ed192a7083bf831dc5d444e0139558d3d51f084995429"
+        },
+        "authoritative_tensors_sha256": "aa0d327f251e86cdbb5c00b4a2498bdfa4bbb5b167d55e2f370c1dd83a2285bd",
+        "input_metadata_sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a",
+        "input_tensor_bundle_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"
+      }
+    },
+    {
+      "accepted_invocation": {
+        "descriptor_sha256": "78e83c2f2ad2a5ec15a96dc320bd3e86f5ed3fbedbf3de9871a03b40225c829b",
+        "invocation_sha256": "78e83c2f2ad2a5ec15a96dc320bd3e86f5ed3fbedbf3de9871a03b40225c829b"
+      },
+      "authority_record": {
+        "authority_cardinality": 1,
+        "live_credential": null,
+        "materialization_state": "NOT_MATERIALIZED",
+        "record_id": "c02-score-path-checkpoint-176-exactly-once-v1",
+        "single_use": true
+      },
+      "command": {
+        "command_sha256": "b9bb0df45304965056f5df21a44f194a22341995923eff0ce20ccd89022523ec",
+        "descriptor": {
+          "arguments": {
+            "accepted_evaluation_package_sha256": "0bd51407f20950a93f47a520718a3bb4d5a5006d990d60aef626d16a5f9d976d",
+            "invocation_sha256": "78e83c2f2ad2a5ec15a96dc320bd3e86f5ed3fbedbf3de9871a03b40225c829b",
+            "lane_label": "checkpoint-176",
+            "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/checkpoint-176/result.json"
+          },
+          "command_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_EVALUATE_ONCE_V1",
+          "encoding": "canonical-json-external-command-descriptor-v1",
+          "executor_operation": "evaluate_score_path_once",
+          "shell_argv_materialized": false
+        }
+      },
+      "environment": {
+        "LANG": "C",
+        "LC_ALL": "C",
+        "PYTHONHASHSEED": "0",
+        "TZ": "UTC"
+      },
+      "generation_id": "c02-score-path-eval-checkpoint-176-v1",
+      "lane_label": "checkpoint-176",
+      "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98",
+      "namespace_label": "checkpoint-176",
+      "output_identity": {
+        "output_path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/checkpoint-176/result.json",
+        "result_schema_id": "QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_RESULT_V1",
+        "separate_from_other_lane": true
+      },
+      "sealed_inputs": {
+        "authoritative_tensor_records_sha256": {
+          "bf16_oracle_scores": "776be2e58246c8641fa483e331e0d63896f96f14b3756548e15af3870d89c456",
+          "realized_key_source": "2c4b99f5bc97d0f95b886dfebf62242148940d7cc9021e197dfdee0aed9e9902",
+          "realized_query_source": "18671805abe3835d8f2e23bffb041ced6a05f41b8eac4f698f41d302def73b18"
+        },
+        "authoritative_tensors_sha256": "5af500371148338636f078e0ec69973666f54f70d3c0f19d350456cf74c5bdb2",
+        "input_metadata_sha256": "3f73b5359e021ddb6183ec468ae154b3cda0807365b248773d80466e477b4e86",
+        "input_tensor_bundle_sha256": "07743a5df6bfa00d5e977dc622b70e90af9b6789feaeb5ae689448ac803ceb59"
+      }
+    }
+  ],
+  "ordering": {
+    "lane_order": [
+      "Base",
+      "checkpoint-176"
+    ],
+    "policy": "Base first terminal record must be durably sealed before checkpoint-176 may consume authority",
+    "publication_order_must_match_lane_order": true
+  },
+  "prohibited_actions": [
+    "materialize or consume live execution authority during package production or static verification",
+    "create the declared execution namespace or either lane output path",
+    "deserialize sealed tensor payloads",
+    "load or execute a model or evaluator implementation",
+    "compute scores, calibrate, or generate",
+    "retry, replay, resume, repair, recalibrate, regenerate, or reuse authority",
+    "modify RTL, specifications, manifests, constraints, U280 configuration, or stage state"
+  ],
+  "schema_version": 1,
+  "static_verifier": {
+    "implementation": "CPython",
+    "path": "tools/verify_qk_bfp8_e16_head64_v1_c02_score_path_external_exactly_once_authority.py",
+    "python_version": "3.13.5",
+    "sha256": "401852322e5b4d421c97e4579bb29a069c49995659eba78c9317df37a373f4aa"
+  },
+  "terminal_record_contract": {
+    "failure_record_required": true,
+    "fields": [
+      "authority_package_sha256",
+      "record_id",
+      "lane_label",
+      "invocation_sha256",
+      "command_sha256",
+      "consumption_committed",
+      "execution_started",
+      "status",
+      "reason_code",
+      "first_record_immutable",
+      "retry_replay_resume_repair_permitted"
+    ],
+    "first_record_immutable": true,
+    "retry_replay_resume_repair_permitted": false,
+    "write_mode": "atomic create-if-absent"
+  }
+}

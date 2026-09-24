@@ -1,0 +1,48 @@
+{
+  "accepted_g16_package_sha256": "d6e4969660de746f7123b29e80f49febcf18fdeca8ffab234f4849a8dd8feea8",
+  "accepted_g16_review_mission_id": "46d03751e890",
+  "artifact_kind": "qk_gbfp8_g16_head64_successor_diagnostic_static_v4_big_endian_compatibility_package",
+  "artifacts": {
+    "contract": {
+      "byte_count": 19997,
+      "path": "design/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_CONTRACT.json",
+      "sha256": "2c4ec09a3fc460e310c5c812c1069f3a3019e951234ac53e1ce3f77d5cb664fa"
+    },
+    "no_execution_proof": {
+      "byte_count": 1585,
+      "path": "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_NO_EXECUTION_PROOF.json",
+      "sha256": "4544873432051ae92e69d468ec63b1e54acd881ca40574f777cef1a719dd7356"
+    },
+    "reference_evaluator": {
+      "byte_count": 43071,
+      "path": "reference/qk_gbfp8_g16_head64_successor_diagnostic_static_v4.py",
+      "sha256": "2c51e985f3aabbfea85767fa2e26c91fb9670e25e77cbf0169185cf2bef48682"
+    },
+    "result_schema": {
+      "byte_count": 19082,
+      "path": "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_SCHEMA.json",
+      "sha256": "8d512af26bf39593236098f850ae5477ae13343ffbdeac4fbb207b1b8fd71840"
+    },
+    "static_verifier": {
+      "byte_count": 68930,
+      "path": "tools/verify_qk_gbfp8_g16_head64_successor_diagnostic_static_v1.py",
+      "sha256": "bf2bb603a8919b0abb4f0bcdbfc34c278d451945f3bfb34cbc0807b478795f0c"
+    }
+  },
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "claim_boundary": {
+    "base_or_checkpoint_176_evaluated": false,
+    "c02_invoked": false,
+    "execution_authority_created": false,
+    "model_or_sealed_tensor_accessed": false,
+    "new_model_scores_computed": false,
+    "numerical_improvement_claimed": false,
+    "result_namespace_created": false,
+    "rtl_or_stage_modified": false
+  },
+  "contract_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1",
+  "evaluator_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_EVALUATOR_V4",
+  "package_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_PACKAGE",
+  "result_schema_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_RESULT_V1",
+  "schema_version": 4
+}

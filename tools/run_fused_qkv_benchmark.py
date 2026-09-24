@@ -41,7 +41,7 @@ RTL_SOURCES = [
     "rtl/ace2_silu_gate_core.sv",
 ]
 PASS_RE = re.compile(
-    r"ACE2_FUSED_QKV_PASS mode=\s*(?P<mode>\w+)"
+    r"ACE2_FUSED_QKV_PASS mode=(?P<mode>\w+)"
     r"\s+commands=(?P<commands>\d+)"
     r"\s+outputs_checked=(?P<outputs_checked>\d+)"
     r"\s+simulator_cycles=(?P<simulator_cycles>\d+)"
@@ -202,7 +202,9 @@ def freeze() -> None:
         "public_rtl_contract": {
             "top_module": "ace2_shell",
             "parameters": "unchanged defaults",
-            "ports_frozen_by": file_record(LIVE_SHELL),
+            "ports_frozen_by": file_record(
+                ROOT / "design/BENCHMARK_INTERFACE.json"
+            ),
             "clock": "clk_i, 10 ns period",
             "reset": "rst_ni active-low asynchronous; five initial rising edges",
             "command_protocol": (
@@ -322,12 +324,7 @@ def execute_case(
 ) -> tuple[subprocess.CompletedProcess[str], float]:
     start = time.perf_counter()
     completed = subprocess.run(
-        [
-            "vvp",
-            str(binary),
-            f"+EXPECTED={expected_path.relative_to(ROOT)}",
-            *plusargs,
-        ],
+        ["vvp", str(binary), f"+EXPECTED={expected_path}", *plusargs],
         cwd=ROOT,
         check=False,
         text=True,

@@ -56,6 +56,22 @@ def round_shift_even(value: int, shift: int) -> int:
     return sign * base
 
 
+def scale_int8_to_q6_9(value: int, scale_numerator: int) -> int:
+    """Convert one packed signed-int8 projection result to signed-int16 Q6.9."""
+    if not -128 <= value <= 127:
+        raise ValueError(f"SiLU source value {value} is not signed int8")
+    if not 0 < scale_numerator < (1 << 16):
+        raise ValueError("SiLU Q6.9 scale numerator is not positive unsigned int16")
+    product = value * scale_numerator
+    sign = -1 if product < 0 else 1
+    magnitude = abs(product)
+    base, remainder = divmod(magnitude, 127)
+    if remainder * 2 > 127 or (remainder * 2 == 127 and (base & 1)):
+        base += 1
+    converted = sign * base
+    return max(-32768, min(32767, converted))
+
+
 def saturate_int8(value: int) -> tuple[int, bool]:
     if value > 127:
         return 127, True
@@ -136,8 +152,13 @@ def reference_silu_gate(case: SiluGateCase) -> SiluGateResult:
     )
 
 
-def reference_silu_gate_packed_int8(case: SiluGateCase) -> SiluGateResult:
-    """Model the shell adapter before applying the unchanged int16 core math."""
+def reference_silu_gate_scaled_int8(
+    case: SiluGateCase,
+    *,
+    gate_scale_numerator: int,
+    up_scale_numerator: int,
+) -> SiluGateResult:
+    """Scale packed int8 gate/up buffers into Q6.9 before the core calculation."""
     for field_name, values in (
         ("gate", case.gate_q6_9),
         ("up", case.up_q6_9),
@@ -149,8 +170,14 @@ def reference_silu_gate_packed_int8(case: SiluGateCase) -> SiluGateResult:
                 )
     widened = SiluGateCase(
         name=case.name,
-        gate_q6_9=[to_sint(value, 8) for value in case.gate_q6_9],
-        up_q6_9=[to_sint(value, 8) for value in case.up_q6_9],
+        gate_q6_9=[
+            scale_int8_to_q6_9(value, gate_scale_numerator)
+            for value in case.gate_q6_9
+        ],
+        up_q6_9=[
+            scale_int8_to_q6_9(value, up_scale_numerator)
+            for value in case.up_q6_9
+        ],
         multiplier=case.multiplier,
         right_shift=case.right_shift,
         output_zero_point=case.output_zero_point,

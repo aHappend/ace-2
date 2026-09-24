@@ -1,0 +1,180 @@
+{
+  "schema_version": 1,
+  "version": "1.0",
+  "effective_contract_revision": "2.1",
+  "kind": "additive_normative_contract_erratum_v1",
+  "mission_id": "extend-two-token-24layer-rtl-stack",
+  "published_at_utc": "2026-08-11T21:00:34Z",
+  "status": "NORMATIVE_ERRATUM_ACTIVE",
+  "scope": "simulator_cycle_oracle_only",
+  "normative_precedence": {
+    "base_artifacts_remain_immutable": true,
+    "conflict_rule": "ERRATUM_WINS_FOR_CYCLE_FIELDS_ONLY",
+    "explicitly_supersedes_stale_cycle_table": true,
+    "superseded_cycle_locations": [
+      "design/SPEC.md#Frozen workload and simulator-cycle expectations",
+      "design/BENCHMARK_INTERFACE.json#/latency_throughput_expectations/derivation",
+      "design/BENCHMARK_INTERFACE.json#/latency_throughput_expectations/per_layer_expected_simulator_cycles_exact",
+      "design/BENCHMARK_INTERFACE.json#/latency_throughput_expectations/all_layers_expected_simulator_cycles_exact",
+      "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_CONTRACT.json#/protocol_and_scenario_contract/exact_aggregate_simulator_cycles"
+    ],
+    "superseded_assumption": "accepted_layer0_v2_exact_cycle_schedule_repeated_for_24_serialized_layers",
+    "replacement_assumption": "source_derived_exact_per_layer_workload_oracle_bound_before_attempt_0003_run",
+    "unchanged_normative_scope": "all_non_cycle_behavior_interface_transaction_clock_reset_handshake_scenario_claim_boundary_and_acceptance_fields"
+  },
+  "base_contracts": {
+    "specification": {
+      "path": "design/SPEC.md",
+      "bytes": 15063,
+      "sha256": "eee44dd1f777b608c2a36662c36937c7a46aa6b29d8ae30eab69f3663ad0abc0",
+      "version": "2.0"
+    },
+    "benchmark_interface": {
+      "path": "design/BENCHMARK_INTERFACE.json",
+      "bytes": 29042,
+      "sha256": "a7cf9c7b7b8d68d1b24501026c90919abe2583efd17787e465f93f2542579fe9",
+      "version": "2.0"
+    },
+    "mission_contract": {
+      "path": "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_CONTRACT.json",
+      "bytes": 11154,
+      "sha256": "4b144fb7f7a41d44cd3232a90dd370c9a93d04f30aee93b6e27e0b8f01f21529",
+      "version": "2.0"
+    }
+  },
+  "errata": {
+    "specification": {
+      "path": "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_SPEC_ERRATUM_V1.md",
+      "bytes": 6354,
+      "sha256": "80fd1e7be28d0328008b01994563f39fa3c0a314bd2a690144a022892d452e09",
+      "version": "1.0"
+    },
+    "interface": {
+      "path": "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_INTERFACE_ERRATUM_V1.json",
+      "bytes": 9018,
+      "sha256": "8ca2191f40394e72b2be0ea79ce6b52c55958f2ef7b3c5c7cdc96b299bfdd464",
+      "version": "1.0"
+    }
+  },
+  "composition_rule": "For simulator-cycle derivation and exact values, compose the immutable version-2.0 base artifacts with the version-1.0 specification, interface, and contract errata and apply ERRATUM_WINS_FOR_CYCLE_FIELDS_ONLY. No other base field is replaced.",
+  "pre_attempt_oracle": {
+    "classification": "source_derived_exact_per_layer_family_cycles_bound_before_attempt_0003_run",
+    "preflight_root": "build/lora-v4-two-token-24layer-rtl-cycle-repair-preview/preflight-0001",
+    "preflight_sha256s_sha256": "452f6c48d939d825984c24db872dc497ca60a44f0be8a364fd301bb4bac65823",
+    "bound_before_run": true,
+    "source_hashes_required": true,
+    "frozen_vector_hashes_required": true,
+    "formula_source": "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_INTERFACE_ERRATUM_V1.json#/cycle_oracle/exact_formulas",
+    "exact_schedule_source": "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_INTERFACE_ERRATUM_V1.json#/cycle_oracle/per_layer_expected_simulator_cycles_exact"
+  },
+  "pre_attempt_oracle_bindings": {
+    "preflight_sha256s": {
+      "path": "build/lora-v4-two-token-24layer-rtl-cycle-repair-preview/preflight-0001/SHA256SUMS",
+      "bytes": 272,
+      "sha256": "452f6c48d939d825984c24db872dc497ca60a44f0be8a364fd301bb4bac65823"
+    },
+    "preflight_summary": {
+      "path": "build/lora-v4-two-token-24layer-rtl-cycle-repair-preview/preflight-0001/summary.json",
+      "bytes": 3332,
+      "sha256": "3fb1978a8e38097112fe363b0af59fbacb9c41c9b6d0e43534b29fceb1c75fef"
+    },
+    "focused_layer01": {
+      "path": "build/lora-v4-two-token-24layer-rtl-cycle-repair-preview/preflight-0001/layer01_cycle_discrimination.json",
+      "bytes": 20688,
+      "sha256": "bca8d44ac48eaeadbf3e7ea69ead7f1e97664ffb62a011ca9a23a3c54625800a"
+    },
+    "cycle_source_bindings": {
+      "path": "build/lora-v4-two-token-24layer-rtl-cycle-repair-preview/preflight-0001/cycle_source_bindings.json",
+      "bytes": 3569,
+      "sha256": "be7291cd753c85b6e592336505a60972a89518fd4d426b86405d3e5646fdc0a4"
+    },
+    "oracle_wrapper": {
+      "path": "tools/run_lora_v4_two_token_24layer_rtl_cycle_repair.py",
+      "bytes": 46963,
+      "sha256": "f8bf671c6c980cff7a121d215b66a05078cd2552c45cb6c45386bc2aa35fef26"
+    },
+    "authorization": {
+      "path": "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0003/authorization.json",
+      "bytes": 9975,
+      "sha256": "d32d36227efb6e6ab9e63d22727d14ce9f397f9432f078efc3f7f892671f17d0"
+    },
+    "freeze": {
+      "path": "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0003/freeze.json",
+      "bytes": 19097,
+      "sha256": "baf91bb8b3290e553a17fa38267cfb268aca4630ff2f79578b1ac4059c2be488"
+    }
+  },
+  "normative_cycle_acceptance": {
+    "classification": "family_local_simulator_cycles_not_accelerator_latency",
+    "layers_exact": 24,
+    "families_exact": [
+      "projection",
+      "rmsnorm",
+      "rope",
+      "score",
+      "softmax",
+      "compose",
+      "silu",
+      "residual"
+    ],
+    "exact_family_simulator_cycles": {
+      "projection": 641319377,
+      "rmsnorm": 5972748,
+      "rope": 18194166,
+      "score": 135192,
+      "softmax": 73704,
+      "compose": 816552,
+      "silu": 42506664,
+      "residual": 86808
+    },
+    "exact_aggregate_simulator_cycles": 709105211,
+    "superseded_exact_aggregate_simulator_cycles": 709971648,
+    "aggregate_delta": -866437,
+    "per_layer_exact_values_required": true,
+    "family_aggregate_exact_values_required": true,
+    "obsolete_repeated_layer0_table_is_acceptance_failure": true
+  },
+  "accepted_reconciliation_bindings": {
+    "run_summary": {
+      "path": "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0003/run_summary.json",
+      "bytes": 39963,
+      "sha256": "7fdb3b869af4a261ffce1cf36280a2f9995e5d21a3c857a10dcdc0d3abefbb91"
+    },
+    "check": {
+      "path": "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0003/check.json",
+      "bytes": 17686,
+      "sha256": "1a38a4e307623396ad2ab422a80a04b395bc6d47b3e18d8c23c8df19bb3b0f79"
+    }
+  },
+  "consumed_attempt_integrity": {
+    "mutation_allowed": false,
+    "attempt_relabel_replay_or_overwrite_allowed": false,
+    "attempt_0001": {
+      "path": "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0001",
+      "sha256s_sha256": "c8cb48e820cd6547c7ce3260d7db27b880f0526b5abbeee1601fd8cbf8a955e9",
+      "preserved_unchanged": true
+    },
+    "attempt_0002": {
+      "path": "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0002",
+      "sha256s_sha256": "3d9c028b23c18e35935cd659f9eab5bac39c85512609f412ae82f2e220792b5e",
+      "preserved_unchanged": true
+    },
+    "attempt_0003": {
+      "path": "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0003",
+      "sha256s_sha256": "0d3cc8064f947183c83ae24add4631cade31b164a7331a1507b86d27d5a29c85",
+      "preserved_unchanged": true
+    }
+  },
+  "fail_closed_consistency_check": {
+    "checker": {
+      "path": "tools/check_lora_v4_two_token_24layer_rtl_erratum_v1.py",
+      "bytes": 20285,
+      "sha256": "ab555a3f92f40f2bb8395ec17ddaa2bed089689278945b522863e1b22129e1fd"
+    },
+    "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/check_lora_v4_two_token_24layer_rtl_erratum_v1.py",
+    "required_status": "PASS_ERRATUM_V1_FAIL_CLOSED_CONSISTENCY",
+    "failure_semantics": "any_missing_changed_malformed_reordered_extra_or_inconsistent_bound_artifact_layer_family_formula_or_cycle_value_exits_nonzero",
+    "write_set": [],
+    "consumed_attempt_access": "read_only"
+  }
+}

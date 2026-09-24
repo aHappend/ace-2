@@ -1,0 +1,40 @@
+{
+  "bindings": {
+    "candidate_result": {
+      "bytes": 36917,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/result.json",
+      "sha256": "f734ae5e80bafed36fd434d65d1caec1794d6fa28ec6756c88092227726e6a18"
+    },
+    "candidate_sha256s": {
+      "bytes": 25541,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/SHA256SUMS",
+      "sha256": "5ce1654ce0ea9d2164eadfee04c2dded00a0ba4bd18d9246a14e0e96016a1b44"
+    },
+    "selected_result": {
+      "bytes": 23575,
+      "path": "evidence/candidates/w4a8-layer16-gate-up-output-grouped-a8-repair-v1/candidate-0004/contracts/00-control/result.json",
+      "sha256": "a5670de7dc5d922e78f09e917247f79808eb9f5792573bfbcf9fd9a4d7dae6b3"
+    }
+  },
+  "boundary": "model.layers.16.mlp.gate_up_proj.output_to_signed_a8",
+  "classification": "candidate_only_focused_rtl_vectors_no_official_attempt",
+  "expected": {
+    "saturation_count": 0
+  },
+  "schema_version": 1,
+  "selected_candidate": {
+    "contract_id": "control",
+    "exact_repeat_passed": true,
+    "output_group_size": 4864,
+    "reference_rank": 3252,
+    "selection_reason": "best_null_exact_control_retained",
+    "top_token_id": 12
+  },
+  "shape": {
+    "channels_per_stream": 4864,
+    "groups_per_stream": 1,
+    "outputs": 9728,
+    "scale_records": 2,
+    "streams": 2
+  }
+}

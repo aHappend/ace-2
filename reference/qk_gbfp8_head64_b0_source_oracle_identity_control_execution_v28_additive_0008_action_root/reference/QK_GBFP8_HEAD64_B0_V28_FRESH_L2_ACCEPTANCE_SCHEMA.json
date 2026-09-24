@@ -1,0 +1,48 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_B0_V28_FRESH_L2_ACCEPTANCE_SCHEMA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["schema_version", "artifact_kind", "accepted", "decision", "reviewer_role", "action_id", "execution_package_file_sha256", "execution_package_content_sha256", "candidate_tree_sha256", "claim_boundary", "static_acceptance_grants_execution_authority", "official_payload_open_count", "official_evaluator_invocation_count", "official_target_process_starts", "creator_provenance", "provenance_identity_sha256", "acceptance_sha256"],
+  "properties": {
+    "schema_version": {"const": 1},
+    "artifact_kind": {"const": "qk_gbfp8_head64_b0_source_oracle_identity_control_execution_v28_fresh_l2_acceptance"},
+    "accepted": {"const": true},
+    "decision": {"const": "ACCEPT_STATIC_PACKAGE"},
+    "reviewer_role": {"const": "Fresh-L2"},
+    "action_id": {"const": "ace2:qk-gbfp8-base-v28:b0-source-oracle-identity-control-execute-once:38571d38:additive-0008"},
+    "execution_package_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "execution_package_content_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "candidate_tree_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "claim_boundary": {"const": "STATIC_ONLY_NO_EXECUTION_AUTHORITY"},
+    "static_acceptance_grants_execution_authority": {"const": false},
+    "official_payload_open_count": {"const": 0},
+    "official_evaluator_invocation_count": {"const": 0},
+    "official_target_process_starts": {"const": 0},
+    "creator_provenance": {"$ref": "#/$defs/reviewerProvenance"},
+    "provenance_identity_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "acceptance_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+  },
+  "$defs": {
+    "reviewerProvenance": {
+      "type": "object",
+      "additionalProperties": false,
+      "required": ["authoritative_event_source", "event_log_device", "event_log_inode", "event_log_snapshot_byte_count", "event_log_snapshot_sha256", "active_call_id", "provider_start_event_line_number", "provider_start_event_sha256", "agent_start_event_line_number", "agent_start_event_sha256", "reviewer_command_event_line_number", "reviewer_command_event_sha256", "provenance_identity_sha256"],
+      "properties": {
+        "authoritative_event_source": {"const": "ARGUS_PROJECT_EVENTS_JSONL"},
+        "event_log_device": {"type": "integer", "minimum": 0},
+        "event_log_inode": {"type": "integer", "minimum": 1},
+        "event_log_snapshot_byte_count": {"type": "integer", "minimum": 1},
+        "event_log_snapshot_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "active_call_id": {"type": "string", "pattern": "^[0-9a-f]{32}$"},
+        "provider_start_event_line_number": {"type": "integer", "minimum": 1},
+        "provider_start_event_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "agent_start_event_line_number": {"type": "integer", "minimum": 1},
+        "agent_start_event_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "reviewer_command_event_line_number": {"type": "integer", "minimum": 1},
+        "reviewer_command_event_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+        "provenance_identity_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"}
+      }
+    }
+  }
+}

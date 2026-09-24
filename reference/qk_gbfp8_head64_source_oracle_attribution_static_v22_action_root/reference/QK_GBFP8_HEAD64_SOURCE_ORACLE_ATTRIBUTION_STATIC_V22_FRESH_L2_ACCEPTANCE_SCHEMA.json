@@ -1,0 +1,26 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_SOURCE_ORACLE_ATTRIBUTION_STATIC_V22_FRESH_L2_ACCEPTANCE_SCHEMA",
+  "type": "object",
+  "additionalProperties": false,
+  "required": ["acceptance_sha256", "accepted", "action_id", "artifact_kind", "claim_boundary", "decision", "candidate_report_sha256", "package_file_sha256", "regression_report_file_sha256", "b0_sidecar_schema_file_sha256", "official_payload_open_count", "official_target_process_starts", "reviewer_role", "static_acceptance_grants_execution_authority", "v21_retried_or_mutated", "v22_executed", "runtime_namespace_file_count"],
+  "properties": {
+    "acceptance_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "accepted": {"const": true},
+    "action_id": {"const": "ace2:qk-gbfp8-base-v22:source-oracle-attribution:4901c835:additive-0001"},
+    "artifact_kind": {"const": "qk_gbfp8_head64_source_oracle_attribution_static_v22_fresh_l2_acceptance"},
+    "claim_boundary": {"const": "STATIC_ONLY_NO_EXECUTION_AUTHORITY"},
+    "decision": {"const": "ACCEPT_STATIC_PACKAGE"},
+    "candidate_report_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "package_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "regression_report_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "b0_sidecar_schema_file_sha256": {"type": "string", "pattern": "^[0-9a-f]{64}$"},
+    "official_payload_open_count": {"const": 0},
+    "official_target_process_starts": {"const": 0},
+    "reviewer_role": {"const": "Fresh-L2"},
+    "static_acceptance_grants_execution_authority": {"const": false},
+    "v21_retried_or_mutated": {"const": false},
+    "v22_executed": {"const": false},
+    "runtime_namespace_file_count": {"const": 0}
+  }
+}

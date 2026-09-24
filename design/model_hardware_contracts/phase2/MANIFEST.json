@@ -1,0 +1,61 @@
+{
+  "claims": {
+    "canonical_descriptors": true,
+    "descriptor_bound_sv_parameters": true,
+    "fpga_or_u280_deployment": false,
+    "full_model_rtl_execution": false,
+    "hard_coded_0p5b_inventory_bound": true,
+    "larger_model_rtl_execution": false,
+    "product_completion": false,
+    "successor_plan_bounded": true,
+    "synthesis_timing_ppa": false
+  },
+  "descriptor_set_sha256": "7759136755d41f47fcc11e3378f04d862d84bb1d03447415fb0eb389d211a281",
+  "descriptors": [
+    {
+      "artifact": "design/model_hardware_contracts/phase2/qwen2.5-0.5b.json",
+      "model_id": "qwen2.5-0.5b",
+      "primary_tier": "ace2_nano",
+      "sha256": "3c57e17298861fe78b804f97d20de4f9e2293252db8b33d21c54db5fb82a324c"
+    },
+    {
+      "artifact": "design/model_hardware_contracts/phase2/qwen2.5-1.5b.json",
+      "model_id": "qwen2.5-1.5b",
+      "primary_tier": "ace2_nano",
+      "sha256": "96d0b9cc1bb7a012184b3c967abadc1d1260a521c0cdc70b3a72fffc268266a9"
+    },
+    {
+      "artifact": "design/model_hardware_contracts/phase2/qwen2.5-3b.json",
+      "model_id": "qwen2.5-3b",
+      "primary_tier": "ace2_edge",
+      "sha256": "23ca78ebeb3735bfe9b7e212ccdd0a7b9d603e8f911bc1768149b1bac80e718c"
+    },
+    {
+      "artifact": "design/model_hardware_contracts/phase2/qwen2.5-7b.json",
+      "model_id": "qwen2.5-7b",
+      "primary_tier": "ace2_pro",
+      "sha256": "6179929fb337158d7179094bef1976a8c62f1d36cd5928dcb25319b92f410221"
+    }
+  ],
+  "implementation_plan": {
+    "artifact": "design/MODEL_HARDWARE_PARAMETERIZATION_PHASE2.md",
+    "sha256": "e4a397e8010693f85294bec215a1339190188dae74099ae5cf4f64f5928c9885"
+  },
+  "inventory": {
+    "artifact": "design/model_hardware_contracts/phase2/HARD_CODED_0P5B_INVENTORY.json",
+    "sha256": "deb152f4b8981aaa8f79fca872ff68dcd1dc18c4b21387114a3b6656dc899e95"
+  },
+  "manifest_id": "ace2-phase2-unified-model-hardware-contract-v1",
+  "rtl_parameters": {
+    "artifact": "rtl/generated/ace2_model_parameters.svh",
+    "descriptor_sha256": "3c57e17298861fe78b804f97d20de4f9e2293252db8b33d21c54db5fb82a324c",
+    "model_id": "qwen2.5-0.5b",
+    "sha256": "f29f86ea6f951726c010c6690818f4f594fc2a50600402f9c51d06a2c75a5996"
+  },
+  "schema": {
+    "artifact": "design/model_hardware_contract_phase2.schema.json",
+    "sha256": "b1f9a14a868a3ba76a5f30ba7b24561f7ba9c06e1208d38445d0ddf9071855e6"
+  },
+  "schema_version": 1,
+  "status": "PASS_MANIFEST_BOUND"
+}

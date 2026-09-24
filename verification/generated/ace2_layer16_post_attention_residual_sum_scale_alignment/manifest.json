@@ -1,0 +1,48 @@
+{
+  "bindings": {
+    "candidate_result": {
+      "bytes": 21798,
+      "path": "evidence/candidates/w4a8-layer16-post-attention-residual-sum-scale-alignment-repair-v1/candidate-0002/result.json",
+      "sha256": "55e4705908a08a1c13dfd65ea60b94c27895aea19cccd4513ad60b5ba1fe0d31"
+    },
+    "candidate_sha256s": {
+      "bytes": 38529,
+      "path": "evidence/candidates/w4a8-layer16-post-attention-residual-sum-scale-alignment-repair-v1/candidate-0002/SHA256SUMS",
+      "sha256": "3c5f275c1b10ba98fa14014594e446c3d293f27dd848cd3209699c25ed087d8f"
+    },
+    "search_runner": {
+      "bytes": 37937,
+      "path": "tools/ace2_checkpoint176_layer16_post_attention_residual_sum_scale_alignment_search.py",
+      "sha256": "9af05022ae07c5f31039723f8fd9da99aae0f03c4773c76d5e050d471a40cc0e"
+    },
+    "validation_contract_result": {
+      "bytes": 23933,
+      "path": "evidence/candidates/w4a8-layer16-post-attention-residual-sum-scale-alignment-repair-v1/candidate-0002/contracts/group-001/result.json",
+      "sha256": "ce2183e281f5eb39a1d9a495782f38bdf46e6d7af503a8637fe2e9e318da1278"
+    }
+  },
+  "boundary": "model.layers.16.self_attn.output_to_post_attention_residual_sum.scale_alignment",
+  "classification": "candidate_only_selected_or_best_null_focused_rtl_vectors",
+  "expected": {
+    "common_exponent_sha256": "f293309ced1f86a1edd4810227229554c177980e8f856a15671e661da71d979c",
+    "saturation_count": 0,
+    "sum_s8_sha256": "44dc9b7f74a5910b649d991b3f64c521e183d16d958469a7661cc5bf9e5d665a"
+  },
+  "schema_version": 1,
+  "selected_as_repair": true,
+  "shape": {
+    "attention_group_size": 1,
+    "hidden": 896,
+    "output_group_size": 1,
+    "output_groups": 896,
+    "residual_group_size": 1
+  },
+  "validation_candidate": {
+    "baseline_reference_rank": 31879,
+    "first_token_restored": false,
+    "output_group_size": 1,
+    "reference_rank": 3252,
+    "selection_reason": "best_independent_rank_improvement_over_31879",
+    "top_token_id": 12
+  }
+}

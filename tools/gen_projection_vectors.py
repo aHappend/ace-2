@@ -250,6 +250,7 @@ def main() -> None:
         f"localparam integer PROJ_MAX_OUTPUTS = {max_outputs};",
         f"localparam integer PROJ_MAX_OUTPUT_BEATS = {max_output_beats};",
         f"localparam integer PROJ_MAC_LANES = {PROJ_MAC_LANES};",
+        f"localparam integer PROJ_GROUPS_PER_INPUT_BEAT = {16 // PROJ_MAC_LANES};",
         f"localparam integer PROJ_GROUPS_PER_WEIGHT_BEAT = {PROJ_GROUPS_PER_WEIGHT_BEAT};",
         f"localparam integer PROJ_WEIGHT_BEATS_PER_OUTPUT = {projection_weight_beats_per_output(HIDDEN_SIZE)};",
         f"localparam integer PROJ_MAX_WEIGHT_BEATS_PER_OUTPUT = {max(case_weight_beats_per_output)};",

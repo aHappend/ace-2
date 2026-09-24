@@ -1,0 +1,164 @@
+{
+  "action_root": {
+    "absolute_path": "/home/argustest/ace-2/reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root",
+    "file_count": 23,
+    "relative_path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root",
+    "sealed_tensor_slot_materialized": false
+  },
+  "artifact_kind": "qk_gbfp8_g16_base_cardinality_one_authority_static_v5_static_review",
+  "artifacts": {
+    "authority_package": {
+      "byte_count": 29124,
+      "path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root/reference/QK_GBFP8_G16_BASE_CARDINALITY_ONE_AUTHORITY_STATIC_V5_PACKAGE.json",
+      "sha256": "e326d1bf00e476a458fc649ddcf2dcb2b8f10c0f7fd1e4d49ba7bd25a94fc8ff"
+    },
+    "authority_package_schema": {
+      "byte_count": 1686,
+      "path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root/reference/QK_GBFP8_G16_BASE_CARDINALITY_ONE_AUTHORITY_STATIC_V5_PACKAGE_SCHEMA.json",
+      "sha256": "d4cdcc141a140fc5d00f3ec1cd9050bb5d22af47721db7bc9bed83e6d978e41b"
+    },
+    "controller": {
+      "byte_count": 38204,
+      "path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root/reference/qk_gbfp8_g16_base_cardinality_one_authority_controller_static_v5.py",
+      "sha256": "6400ee1991f0c21220a11e8eb3d617abce7905d7462b2ddf5a066c5fb9539eb0"
+    },
+    "credential_schema": {
+      "byte_count": 1086,
+      "path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root/reference/QK_GBFP8_G16_BASE_CARDINALITY_ONE_CREDENTIAL_V2_SCHEMA.json",
+      "sha256": "76c7767aa1eeccfe59f49bd1b9fda3dc35398d3fdc36feb881f41a39966ee417"
+    },
+    "evaluator": {
+      "byte_count": 43004,
+      "path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root/reference/qk_gbfp8_g16_head64_successor_diagnostic_static_v5.py",
+      "sha256": "3fb622acfef9efe389eeed4d4081d8d4ce93fcc7d696dc6c095129ef46f248f5"
+    },
+    "first_terminal_schema": {
+      "byte_count": 1926,
+      "path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root/reference/QK_GBFP8_G16_BASE_FIRST_TERMINAL_V5_SCHEMA.json",
+      "sha256": "97813b7e8aafa9b894095d9802d3a1f0755216c574ce37bc05235d7290fe18a3"
+    },
+    "static_verifier": {
+      "byte_count": 150725,
+      "path": "reference/qk_gbfp8_g16_base_cardinality_one_authority_static_v5_action_root/tools/verify_qk_gbfp8_g16_base_cardinality_one_authority_static_v5.py",
+      "sha256": "cf33f6465fa96b8ff87d9164f141b16aca44fa79de3f0f36201245470825c17d"
+    }
+  },
+  "authority_review_binding": {
+    "mission": {
+      "byte_count": 6210,
+      "mission_id": "e9bba2b3a6c7",
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/e9bba2b3a6c7/mission.json",
+      "sha256": "6e0a8fa01c2c9a52685843d5b6b6422e68456634bf1855798279a012e60a5837"
+    },
+    "required_complete_runtime_package_sha_in_reason": true,
+    "required_producer_role": "reviewer",
+    "required_review_filename": "round-NNNN.json",
+    "required_status": "done"
+  },
+  "claim_boundary": {
+    "authority_or_credential_materialized": false,
+    "controller_or_evaluator_invoked": false,
+    "fresh_l2_accepted": false,
+    "model_or_sealed_tensor_payload_accessed": false,
+    "result_ledger_or_terminal_created": false,
+    "rtl_u280_xrt_hbm2_or_stage_activity": false
+  },
+  "generated_on": "2026-08-13",
+  "mission": {
+    "byte_count": 6210,
+    "mission_id": "e9bba2b3a6c7",
+    "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/e9bba2b3a6c7/mission.json",
+    "sha256": "6e0a8fa01c2c9a52685843d5b6b6422e68456634bf1855798279a012e60a5837"
+  },
+  "record_sha256": "7fd8b98aa24238c94fbbe9c3a0afd7156e2234240efbbab423d01a5843cc083a",
+  "reviewer_acceptance_state": "PENDING_FRESH_L2",
+  "schema_id": "QK_GBFP8_G16_BASE_CARDINALITY_ONE_AUTHORITY_STATIC_V5_STATIC_REVIEW_V1",
+  "status": "PASS",
+  "v3_terminal_immutability": {
+    "action_id": "33383f584a02",
+    "authority_sha256": "12f8d8f94bf7909042803bd35102c1ddd8276abcecca29fa530c2c89e44b04b0",
+    "ledger_sha256": "26989a26d81aa64b3ed9c920ad0bc75ab0c2d6b3e1e8edd890a8d15b5dac1e8d",
+    "no_replay": true,
+    "result_sha256": "2994ae586a47f69ab5fe603c99a2fa2c0151c0d955909b8c97884d1f8438aeb4",
+    "review": {
+      "byte_count": 840,
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/33383f584a02/round-0001.json",
+      "sha256": "c54e5add0dc3aa40b50ce4f0bb6dd479ba9313ab4f4a446cd318a1e06b33ff99",
+      "status": "done"
+    },
+    "terminal_reason_code": "INPUT_SCHEMA_REJECTED",
+    "terminal_sha256": "cb8c4335cb64272662f4baed9cc5e70f92575e0e1451fb2cd739095f8c6ca666",
+    "terminal_status": "FAILED_TERMINAL"
+  },
+  "v5_authoritative_grammar": {
+    "authoritative_sources": {
+      "accepted_c02_reader": {
+        "byte_count": 32001,
+        "path": "tools/qk_bfp8_e16_head64_v1_c02_score_path_evaluator_v2.py",
+        "sha256": "f27b8662d0137b2c9ca9dc8d977c0b6b6d953c62554658f0e0e3f19d9527d521"
+      },
+      "frozen_c02_producer": {
+        "byte_count": 51492,
+        "path": "/home/argustest/ace-2/tools/diagnose_w4a8_c02_numerical_path.py",
+        "sha256": "5f8c113ebe7d4931b86c7391c677e190a9fd4878117198f1682f27d75690a924"
+      },
+      "rejected_v4_review": {
+        "byte_count": 905,
+        "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/4ae7875505a9/round-0001.json",
+        "sha256": "99a1aac69f76fd14942dab920976a5c775c6517836bc6c74651b21271f2b2268"
+      }
+    },
+    "contract": {
+      "byte_count": 19997,
+      "path": "design/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_CONTRACT.json",
+      "sha256": "b2f60e2dc54d95193315678df2092755d2eb58b45b8ee86573f000de242f7ccc"
+    },
+    "evaluator": {
+      "byte_count": 43004,
+      "path": "reference/qk_gbfp8_g16_head64_successor_diagnostic_static_v5.py",
+      "sha256": "3fb622acfef9efe389eeed4d4081d8d4ce93fcc7d696dc6c095129ef46f248f5"
+    },
+    "framing": {
+      "count_field": "big-endian >I",
+      "dimension_fields": "big-endian >Q",
+      "dtype_length_field": "unsigned byte >B",
+      "magic": "ACE2-C02-TENSORS-V1\n",
+      "name_length_field": "big-endian >H",
+      "payload_length_field": "big-endian >Q",
+      "rank_field": "unsigned byte >B",
+      "record_checksum_semantics": "ascii dtype + NUL + >I rank + >Q dimensions + payload",
+      "trailing_bytes": "reject after exact EOF check"
+    },
+    "package": {
+      "byte_count": 2145,
+      "path": "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_PACKAGE.json",
+      "sha256": "42da06a7b28c889f60f6a8484cdf4c48f4ca03fe548061d76a20beae1370d863"
+    },
+    "package_sidecar": {
+      "byte_count": 130,
+      "path": "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_PACKAGE.json.sha256",
+      "sha256": "33061cd3443c5a4076ddd2901715a91a89cc79adadf6ba79fe4613f4e453a0b3"
+    }
+  },
+  "verifier_result": {
+    "authority_controller_surface_checks": 37,
+    "bound_path_symlink_checks": 57,
+    "evaluator_compatibility_surface_checks": 9,
+    "fresh_l2_review_binding_checks": 16,
+    "historical_json_compatibility_checks": 15,
+    "live_namespace_absence_checks": 16,
+    "nested_result_schema_fault_checks": 16,
+    "no_execution_surface_checks": 17,
+    "persistence_fault_checks": 11,
+    "projected_sealed_tensor_slot": "ABSENT",
+    "protocol_ordering_checks": 12,
+    "sealed_payload_guard_mutation_checks": 7,
+    "selected_record_schema_fault_checks": 18,
+    "semantic_mutation_checks": 47,
+    "source_derived_cross_parser_framing_checks": 45,
+    "static_binding_checks": 39,
+    "terminal_classifier_fault_checks": 3,
+    "terminal_result_binding_checks": 20,
+    "v1_v2_consumed_v3_rejected_v4_immutability_checks": 93
+  }
+}

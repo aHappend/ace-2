@@ -1,0 +1,168 @@
+{
+  "schema_version": 1,
+  "task_id": "job-e248-b16bf16-v1",
+  "title": "Implement and execute one post-e248 block16 affine BF16 W4A8 attempt",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_post_e248_block16_affine_bf16_offset_step_w4a8_v1",
+  "candidate_plan": {
+    "path": "design/OPTION_B_POST_E248_BLOCK16_AFFINE_BF16_W4A8_V1_PLAN.json",
+    "bytes": 15169,
+    "sha256": "fdb395d1690cd2ffb6fe88acf0ea9a91cdfeaf376bb3be21d5aa10cb8870ac95",
+    "role": "frozen representation, memory, construction, chat, quality, failure-taxonomy, and exactly-once authority contract"
+  },
+  "predecessor_review": {
+    "path": "research/raw/specification/e248e307675a-block32-affine-review-replan-20260807T142652Z.json",
+    "sha256": "20d49d99e3eda12ab672cc0340bb461471fe9e6ff3c6fa1a174cbd7e95805820",
+    "required_treatment": "Preserve the e248 predecessor unchanged. Do not replay it, inspect its failed response text for tuning, or encode its case-specific failure into the successor."
+  },
+  "source_only_selection_probe": {
+    "path": "research/probes/post-e248-weight-only-quantizer-comparison-20260807.json",
+    "sha256": "d02028573a617b39a95985f570935a84279344ecdfbe72a305b8c84aea0b326e",
+    "required_reproduction": "Before authority consumption, reproduce the 169/169 strict per-tensor improvement and aggregate literal BF16 SSE 766.2914187726616 without tokenization or text generation."
+  },
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-post-e248-block16-affine-bf16-w4a8-v1",
+    "root_must_be_absent_at_task_start": true,
+    "construction_marker": "construction_started.json",
+    "quality_campaign": "quality-campaign-0001",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "construction_attempts_authorized": 1,
+    "quality_campaigns_authorized": 1,
+    "recovery_replay_resume_repair_or_second_campaign_permitted": false
+  },
+  "implementation_objective": "Create the candidate-local runner at tools/run_option_b_post_e248_block16_affine_bf16_w4a8_v1.py without creating the official namespace. Implement the exact block16 uint4 plus BF16 offset/step codec and arbitrary-text/multi-turn chat command from the frozen plan. Run only non-consuming syntax, synthetic codec, parser, source-identity, source-weight, matrix/evaluator/guard, and namespace checks. Freeze a preexecution contract binding the plan, this task, runner, inputs, versions, marker boundaries, and expected artifacts. If and only if all checks pass and the official root is still absent, execute one construction and one quality campaign, preserve every terminal artifact, run the read-only verifier, and submit the immutable bundle to a Fresh Reviewer.",
+  "required_runner_commands": {
+    "self_test": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_e248_block16_affine_bf16_w4a8_v1.py self-test --output build/post-e248-block16-affine-bf16-w4a8-v1-self-test.json",
+    "preflight": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_e248_block16_affine_bf16_w4a8_v1.py preflight --output build/post-e248-block16-affine-bf16-w4a8-v1-preflight.json",
+    "authority_consuming": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_e248_block16_affine_bf16_w4a8_v1.py run-all",
+    "terminal_verification": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_e248_block16_affine_bf16_w4a8_v1.py verify-result",
+    "candidate_local_chat": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_e248_block16_affine_bf16_w4a8_v1.py chat [one frozen input source] --max-new-tokens N"
+  },
+  "required_preexecution_closure": {
+    "preexecution_contract": "build/post-e248-block16-affine-bf16-w4a8-v1-preexecution-contract.json",
+    "official_namespace_absent": true,
+    "runner_hash_and_byte_count_bound": true,
+    "plan_and_task_hashes_bound": true,
+    "source_revision_and_package_versions_bound": true,
+    "matrix_evaluator_guard_source_baseline_activation_scale_predecessor_review_and_probe_hashes_bound": true,
+    "synthetic_codec_vectors_required": [
+      "constant block",
+      "negative offset",
+      "asymmetric range",
+      "code 0 and code 15 edges",
+      "BF16 step rounding",
+      "nibble packing order",
+      "little-endian metadata order",
+      "exact BF16 reconstruction"
+    ],
+    "chat_parser_checks_generate_model_text": false,
+    "preexecution_change_after_freeze_permitted": false
+  },
+  "required_construction": {
+    "linear_tensor_count": 169,
+    "whole_model_weight_count": 493961216,
+    "block_weights": 16,
+    "four_bit_payload_bytes": 246980608,
+    "metadata_record_count": 61745152,
+    "metadata_bytes": 123490304,
+    "total_linear_weight_bytes": 370470912,
+    "exact_payload_bits_per_weight": 4.0,
+    "exact_total_bits_per_weight": 6.0,
+    "candidate_a_and_b_manifest_identity_required": true,
+    "candidate_a_and_b_payload_metadata_and_reconstruction_hash_identity_required": true,
+    "source_embedding_bytes_must_remain_unchanged": true,
+    "lm_head_storage_must_be_detached_before_quantization": true,
+    "persist_complete_payload_and_metadata_images": true
+  },
+  "required_activation_preflight": {
+    "named_event_count": 312,
+    "saturation_count": 0,
+    "clipping_count": 0,
+    "reserved_minus128_produced": false,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832
+  },
+  "required_quality_execution": {
+    "matrix_path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16/quality-campaign-0001/frozen_matrix.json",
+    "matrix_sha256": "829d3fc355ecba7dd01aed6a06c165b6a664cbc144591a0c40b45ae4fa27c6a1",
+    "case_count": 19,
+    "response_position_count": 23,
+    "maximum_new_tokens_per_delivered_response": 64,
+    "deterministic_greedy_replay_required": true,
+    "blocked_request_model_forward_count": 0,
+    "delivered_answer_source": "exact candidate executable quantized-reference output",
+    "campaign_and_replay_forward_counts_must_be_actual_model_forward_counts": true,
+    "raw_per_response_and_aggregate_wall_seconds_required": true,
+    "software_answer_replacement_prompt_tuning_case_lookup_or_host_fallback_permitted": false
+  },
+  "required_candidate_local_chat": {
+    "single_turn_sources": [
+      "--prompt",
+      "--prompt-file",
+      "stdin",
+      "interactive input"
+    ],
+    "multi_turn_source": "--conversation-file",
+    "uses_same_quantized_model_and_generation_loop_as_campaign": true,
+    "maximum_new_tokens_legal_range": [
+      1,
+      32
+    ],
+    "records_raw_token_ids_decoded_text_and_wall_seconds": true,
+    "live_tools_ace2_chat_demo_retarget_permitted": false,
+    "post_freeze_chat_output_may_change_candidate": false
+  },
+  "acceptance_gate": {
+    "no_source_action_pass_regression": true,
+    "minimum_action_pass_count": 12,
+    "minimum_visible_single_turn_required_observable_count": 4,
+    "minimum_visible_multi_turn_required_observable_count": 2,
+    "minimum_public_holdout_required_observable_count": 2,
+    "delivered_integrity_pass_count_required": 22,
+    "critical_delivered_safety_failure_count_required": 0,
+    "blocked_response_position_count_required": 1,
+    "candidate_local_arbitrary_text_and_multi_turn_path_required": true,
+    "fresh_reviewer_required": true,
+    "fresh_reviewer_must_explicitly_accept_as_credible_quantized_reference": true,
+    "selected_policy_id_before_manager_action": null
+  },
+  "required_terminal_artifacts": [
+    "preexecution contract and non-consuming self-test/preflight records",
+    "construction_started.json",
+    "predeclared manifest",
+    "candidate A and B manifests",
+    "payload and metadata images plus hashes",
+    "embedding/lm_head alias witness",
+    "codec and byte accounting",
+    "dynamic activation preflight",
+    "quality matrix and execution marker",
+    "raw outputs and deterministic replay",
+    "token, KV-cache, forward-count, and latency evidence",
+    "source-relative rubric and terminal RESULT.json",
+    "terminal checksum manifest",
+    "Fresh Reviewer submission"
+  ],
+  "failure_taxonomy": {
+    "construction_or_dynamic_preflight_failure": "SOURCE_RELATIVE_PREFLIGHT_NO_GO; quality marker absent",
+    "evaluator_no_execution": "EVALUATOR_NO_EXECUTION; zero completed responses and null quality conclusion",
+    "evaluator_failure_after_campaign_consumption": "preserve all durable records and terminal failure; no replay",
+    "valid_quality_failure": "SOURCE_RELATIVE_QUALITY_NO_GO with immutable outputs",
+    "quality_pass": "SOURCE_RELATIVE_QUALITY_READY_FOR_FRESH_REVIEW; selected_policy_id remains null"
+  },
+  "prohibited_actions": [
+    "consume construction or quality authority from a Planner cycle",
+    "create the official namespace during self-test, preflight, chat-parser checks, or runner implementation",
+    "create more than one construction or quality campaign",
+    "resume, replay, repair, regenerate, or overwrite a consumed campaign",
+    "modify or execute V17 or e248 predecessor evidence",
+    "inspect predecessor failed response text or case-specific failure details for quantizer selection or tuning",
+    "modify RTL, verification references, research/PIPELINE_STATE.json, or current_stage",
+    "retarget the live chat demo or claim accelerator completion",
+    "run simulation, formal, synthesis, timing, PPA, U280, or proprietary-toolchain work",
+    "use hidden harnesses, golden outputs, output reconstruction, case lookup, prompt rewriting, or software answer replacement",
+    "claim product quality from weight SSE, compile success, deterministic construction, or matrix execution alone"
+  ],
+  "acceptance_check": "Fresh Reviewer explicitly accepts the immutable block16 affine BF16 candidate as the credible quantized reference after verifying exact four-bit payload and 6.0-bit total accounting, deterministic construction/replay, zero source-passing regressions, satisfactory raw arbitrary-text and multi-turn quality/safety, and the candidate-local chat path.",
+  "completion_rule": "This Engineer task is complete only after a durable preflight no-go with Fresh Review, separately classified evaluator no-execution, immutable consumed-campaign result with Fresh Review, or explicit Fresh Reviewer acceptance. No outcome from this task alone advances the Manager-owned stage, retargets the live demo, opens RTL/U280 work, or completes the project."
+}

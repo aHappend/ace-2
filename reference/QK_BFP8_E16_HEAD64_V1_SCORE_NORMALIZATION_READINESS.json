@@ -1,0 +1,53 @@
+{
+  "artifact_kind": "qk_bfp8_e16_head64_v1_score_normalization_readiness",
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "claim_boundary": {
+    "calibration_or_scoring_performed": false,
+    "candidate_or_execution_namespace_created": false,
+    "fixed_input_or_model_execution_performed": false,
+    "generation_or_repair_replay_performed": false,
+    "rtl_spec_manifest_or_u280_modified": false,
+    "stage_transition_authorized": false
+  },
+  "contract": {
+    "authority": "NO_EXECUTION_AUTHORITY",
+    "contract_id": "QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_V2",
+    "path": "reference/QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_CONTRACT.json",
+    "sha256": "539ff95d8f1ad253880c9999fa59e6ac41840761908b188cf2c4bce09f3c1b01"
+  },
+  "prerequisite_bindings": {
+    "authoritative_softmax_scope": {
+      "path": "design/CHIP_SCOPE.json",
+      "sha256": "a5d61c40c89988a53fd3d039da48bd3de26d60f5d6d0bf5cce1e60176d4dcb2f"
+    },
+    "pure_reference": {
+      "path": "reference/qk_bfp8_e16_head64_v1.py",
+      "sha256": "bfb8b0d95ef8a8b939694fe8fec710d4acb1abff8b38b4bbbb4a43bdea5bb704"
+    },
+    "qualifying_fresh_l2_review": {
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/c4be36371316/round-0002.json",
+      "sha256": "c76b51059c853d361d00e72ccbc8af9216175bb1be6471811efe5f74ee3ed046"
+    },
+    "readiness_package": {
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_READINESS.json",
+      "sha256": "400d4a4a8b627cd71e930f670852b89e5deead83f14be3f528e752f6d1705fa7"
+    },
+    "static_verifier": {
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_readiness.py",
+      "sha256": "ea40e12f39351fe6240d861a68488a4bc22517dab72434762f05a8bdf88fdd2e"
+    }
+  },
+  "schema_version": 2,
+  "static_artifacts": {
+    "pure_reference": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "path": "reference/qk_bfp8_e16_head64_v1_score_normalization.py",
+      "sha256": "8b1db0b13ee3a4534848814e75d13cea9946e380cd09b8bec0e76a527df098a3"
+    },
+    "static_verifier": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_score_normalization.py",
+      "sha256": "1aaddcaa74045c3de83b833af016a25c492c878b1120ed9cf557ec548a89c5af"
+    }
+  }
+}

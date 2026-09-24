@@ -1,0 +1,133 @@
+{
+  "attempt_authority": {
+    "attempt": 1,
+    "attempt_marker_creation_authorized_required": true,
+    "path": "research/raw/specification/qwen25-05b-instruct-bf16-lora-product-v4-attempt-operator-authority.json",
+    "required_status": "AUTHORIZE_SINGLE_V4_ATTEMPT",
+    "separate_fresh_operator_authority_required": true
+  },
+  "claim_boundary": "Execution-package implementation contract only. It authorizes construction and non-consuming validation of the V4 runner, but grants no V4 attempt marker, training, dev, retention, holdout, merge, quantization, RTL, synthesis/PPA, U280, latency, quality, or product-completion claim.",
+  "contract_id": "qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4-execution-package-v1",
+  "environment_resolution": {
+    "device": "cpu",
+    "package_versions_cuda_runtime_and_non_seed_launch_variables_source": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v2/environment.lock.json",
+      "sha256": "4cff49c07e30fa193898e1be4a07cdbb8acfa8bccc1d6d26b7fd4246927cfdd6"
+    },
+    "pythonhashseed_conflict": {
+      "environment_lock_value": "260817",
+      "resolution": "V4 recipe-specific determinism value takes precedence for V4 execution; the reused V2 environment lock remains authoritative for package versions, CUDA runtime, device, offline flags, CUBLAS_WORKSPACE_CONFIG, and TOKENIZERS_PARALLELISM.",
+      "selected_value": "26080704",
+      "training_recipe_value": "26080704"
+    }
+  },
+  "execution_order": [
+    "non_consuming_package_self_test",
+    "fresh_independent_l2_execution_package_acceptance",
+    "fresh_operator_attempt_authority",
+    "non_consuming_launch_preflight",
+    "create_attempt_marker_then_train_with_epoch_probe_gates",
+    "qualify_probe_locked_checkpoint_on_official_dev_once",
+    "merge_dev_qualified_adapter",
+    "run_public_retention_once",
+    "open_and_score_holdout_exactly_once"
+  ],
+  "failure_policy": {
+    "evaluator_no_execution_classified_separately": true,
+    "first_genuine_failed_gate_stops_later_stages": true,
+    "no_resume": true,
+    "no_success_conclusion_from_incomplete_execution": true,
+    "preserve_partial_evidence": true
+  },
+  "frozen_inputs": {
+    "dataset_manifest": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v4/dataset_manifest.json",
+      "sha256": "6ff7904108c07894900ff8a0f91a806848682099365d034008b0e05f9df5b073"
+    },
+    "freeze_contract": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v4/freeze_contract.json",
+      "sha256": "ff6bbe32dd29e05a68840c64e28f2d2a3986cbeea7efe4cc6c847c5cb3e99ed4"
+    },
+    "freeze_manifest": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v4/freeze_manifest.json",
+      "sha256": "05a308eee431a23bdbc403514da9019bf0fd9a1c73119fce51a1f5bf41a3fe41"
+    },
+    "independent_l2_freeze_acceptance": {
+      "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/reviewer-l2-acceptance-20260808T002404Z.json",
+      "sha256": "4757300e351cf33d4458a21bfbeaa3b14f2eb204bad45aaf507e338ccb2e3a2e"
+    },
+    "synthetic_probes": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v4/synthetic_probes.jsonl",
+      "sha256": "0172cec86bb5ca9ad9002f7d779ff428484faf59f7e1162cd6da892e8921dfeb"
+    },
+    "train": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v4/train.jsonl",
+      "sha256": "86392f5d883270439f70e021ea1a7762f99654e446dcf340f22873c66cc8405f"
+    },
+    "training_recipe": {
+      "path": "research/training/qwen2.5-0.5b-instruct-bf16-lora-product-v4/training_recipe.json",
+      "sha256": "26f3d83623cd6b490ace7472cc1098b9ca0f2918c442cf21702a5e09b9d3297a"
+    }
+  },
+  "independent_execution_package_review": {
+    "author_self_approval_allowed": false,
+    "minimum_level": "L2",
+    "path": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/execution-package-l2-acceptance.json",
+    "required_before_preflight_or_attempt_marker": true,
+    "required_status": "ACCEPTED_V4_EXECUTION_PACKAGE_NO_ATTEMPT"
+  },
+  "namespace": {
+    "attempt": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/attempt-0001",
+    "dev": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/qualification/dev",
+    "holdout": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/qualification/holdout-exactly-once",
+    "merged_model": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/selected/merged-bf16",
+    "model_root": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4",
+    "offline_root": "build/offline-preflight/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4",
+    "retention": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/qualification/retention",
+    "selected_adapter": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/selected/adapter"
+  },
+  "package": {
+    "frozen_non_executing_package_preserved": "pilot/qwen25_05b_bf16_lora_product_v4",
+    "runner": "pilot/qwen25_05b_bf16_lora_product_v4_runner"
+  },
+  "probe_lock": {
+    "candidate_epochs": [
+      1,
+      2,
+      3,
+      4,
+      5,
+      6
+    ],
+    "dev_access_before_lock": false,
+    "fallback_tie_break": [
+      "highest_hard_pass_count",
+      "most_category_minimum_gates_satisfied",
+      "lower_epoch"
+    ],
+    "first_all_probe_gates_pass_early_stops": true,
+    "official_dev_checkpoint_count": 1,
+    "official_dev_reselection_allowed": false,
+    "selection_inputs": [
+      "fresh_disjoint_synthetic_probes"
+    ],
+    "training_loss_selects_checkpoint": false
+  },
+  "schema_version": 1,
+  "source_and_evaluator": {
+    "frozen_scorer": {
+      "path": "pilot/qwen25_05b_bf16_lora_product_v2/runtime.py",
+      "sha256": "8babfc1e6dc9cc1b321de62a2b28c16cab535445f37e380a4b49bb7b05c00297"
+    },
+    "retention_amendment": {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_EVALUATOR_RETENTION_AMENDMENT.json",
+      "sha256": "4a4c2aea690a2fc0f8877a6bcf482692de220cd5001742f0acb7894f9151e2f2"
+    },
+    "source_contract": {
+      "path": "design/QWEN25_05B_INSTRUCT_BF16_LORA_PRODUCT_V2_CONTRACT.json",
+      "sha256": "9c8acd3dcda075d6166558c5b7fe294cc757082676e884d3aaa5dc491b80dfb0"
+    }
+  },
+  "stage": "v4_execution_package",
+  "status": "IMPLEMENTED_SELF_TESTED_PENDING_INDEPENDENT_L2"
+}

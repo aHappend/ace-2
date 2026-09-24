@@ -71,9 +71,13 @@ def pack_uint16(values: Iterable[int]) -> int:
     return packed
 
 
-def reference_softmax(case: SoftmaxCase) -> SoftmaxResult:
-    if not 1 <= len(case.scores_q6_9) <= CONTEXT_MAX:
-        raise ValueError("softmax case context must be 1..CONTEXT_MAX")
+def reference_softmax(
+    case: SoftmaxCase, *, context_max: int = CONTEXT_MAX
+) -> SoftmaxResult:
+    if context_max < 1:
+        raise ValueError("softmax context_max must be positive")
+    if not 1 <= len(case.scores_q6_9) <= context_max:
+        raise ValueError("softmax case context must be 1..context_max")
     scores = [to_sint(value, 16) for value in case.scores_q6_9]
     max_score = max(scores)
     weights = [exp_weight_q15(score - max_score) for score in scores]
@@ -82,8 +86,10 @@ def reference_softmax(case: SoftmaxCase) -> SoftmaxResult:
         round_div_even(weight << PROB_FRAC, exp_sum)
         for weight in weights
     ]
-    padded_weights = weights + [0 for _ in range(CONTEXT_MAX - len(weights))]
-    padded_probabilities = probabilities + [0 for _ in range(CONTEXT_MAX - len(probabilities))]
+    padded_weights = weights + [0 for _ in range(context_max - len(weights))]
+    padded_probabilities = probabilities + [
+        0 for _ in range(context_max - len(probabilities))
+    ]
     return SoftmaxResult(
         max_score_q6_9=max_score,
         exp_weights_q15=padded_weights,

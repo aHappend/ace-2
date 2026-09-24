@@ -1,0 +1,36 @@
+{
+  "artifact_kind": "qk_grouped_bfp8_head64_successor_static_pre_execution_package",
+  "artifacts": {
+    "contract": {
+      "byte_count": 19517,
+      "path": "design/QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_CONTRACT.json",
+      "sha256": "64a7d1efce2336721a81be7e8319b1740cebad2449ac44ea29ca1007d2e5b549"
+    },
+    "pure_reference": {
+      "byte_count": 16821,
+      "path": "reference/qk_grouped_bfp8_head64_successor_static_v1.py",
+      "sha256": "f3a5ebcff18403c048f2b279b5af2e56acaa7f551e68bfb2c475b418ce27140f"
+    },
+    "schema": {
+      "byte_count": 2405,
+      "path": "reference/QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_SCHEMA.json",
+      "sha256": "6dcda9692926962d5888fcb1ff99bf4f695d2cc8740d06a61b4b19c93cde2ef3"
+    },
+    "static_verifier": {
+      "byte_count": 22056,
+      "path": "tools/verify_qk_grouped_bfp8_head64_successor_static_v1.py",
+      "sha256": "18378125fcc96e38c15be30dca75843caaa384f2beb01f917646df9ea89ac4e6"
+    }
+  },
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "claim_boundary": {
+    "execution_performed": false,
+    "model_or_tensor_accessed": false,
+    "numerical_improvement_claimed": false,
+    "rtl_or_stage_modified": false
+  },
+  "contract_id": "QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1",
+  "package_id": "QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_PACKAGE",
+  "schema_id": "QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_PACKAGE_SCHEMA",
+  "schema_version": 1
+}

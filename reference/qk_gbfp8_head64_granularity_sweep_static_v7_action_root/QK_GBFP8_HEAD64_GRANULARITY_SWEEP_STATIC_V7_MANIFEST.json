@@ -1,0 +1,32 @@
+{
+  "artifact_bindings": [
+    {"path": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RUNTIME_PACKAGE.json", "sha256": "9b908efdcd78d646c7c69dbf364f02f050cc507492666cfe38892ccd4380498d"},
+    {"path": "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v7.py", "sha256": "565dd9727458199157f8eba0edb3aa39a13d78bfc076f259433022efc49d9474"},
+    {"path": "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v7.py", "sha256": "13eb6348aeb180722c1addee3220454119fbb4a428c36a63d5f8416759feac1e"},
+    {"path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE.json", "sha256": "424c16dd9a352158c13518b077224eca7b05ec87509e0e1c7afe6e8088cdd102"},
+    {"path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RESULT_SCHEMA.json", "sha256": "6be8515a19952f85776af525b234dd5db8bb77df86cd205becc101888670f3d7"},
+    {"path": "tools/verify_qk_gbfp8_head64_granularity_sweep_static_v7_schema_compatibility.py", "sha256": "a8c45cce3cdf740ee1e3a12ef226a4bacda394835107b45160552ff5a37b2237"}
+  ],
+  "artifact_kind": "qk_gbfp8_head64_granularity_sweep_static_v7_manifest",
+  "claim_boundary": {
+    "authority_materialized": false,
+    "checkpoint_176_activity": false,
+    "controller_or_evaluator_invoked": false,
+    "credential_materialized": false,
+    "fresh_l2_accepted": false,
+    "hardware_or_rtl_activity": false,
+    "ledger_result_or_terminal_materialized": false,
+    "sealed_tensor_accessed_or_projected": false,
+    "status": "STATIC_ONLY_NOT_AUTHORIZED_FOR_EXECUTION"
+  },
+  "manifest_self_hash_policy": "EXTERNAL_SHA256_IDENTITY",
+  "mission_id": "2a5b510c82b4",
+  "pending_fresh_l2_review": {
+    "artifact_path": "review/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_REVIEW.json",
+    "required": true,
+    "role": "Fresh-L2",
+    "status": "PENDING_INDEPENDENT_REVIEW"
+  },
+  "root_id": "qk-gbfp8-head64-granularity-sweep-static-v7-action-root",
+  "schema_version": 1
+}

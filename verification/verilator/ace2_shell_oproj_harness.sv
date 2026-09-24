@@ -23,7 +23,10 @@ module ace2_shell_oproj_harness (
     localparam integer OPROJ_REDUCTION = 896;
     localparam integer OPROJ_OUTPUTS = 896;
     localparam integer OPROJ_BEATS = OPROJ_OUTPUTS / 16;
-    localparam integer OPROJ_WEIGHT_BEATS_PER_OUTPUT = OPROJ_REDUCTION / 16;
+    // A 128-bit W4 storage beat contains 32 packed nibbles.
+    localparam integer OPROJ_WEIGHT_LANES_PER_BEAT = 32;
+    localparam integer OPROJ_WEIGHT_BEATS_PER_OUTPUT =
+        OPROJ_REDUCTION / OPROJ_WEIGHT_LANES_PER_BEAT;
     localparam integer PROJ_SIGNATURE_BEATS = 304;
 
     localparam [2:0] ST_CSR_READ = 3'd0;
@@ -93,6 +96,11 @@ module ace2_shell_oproj_harness (
     reg [7:0] pending_write_tag;
     reg [127:0] observed_output [0:127];
     reg [63:0] vector_signature;
+    reg trace_oproj;
+
+    initial begin
+        trace_oproj = ($test$plusargs("OPROJ_TRACE") != 0);
+    end
 
     function [15:0] oproj_case_rows;
         input integer selected_case;
@@ -162,10 +170,12 @@ module ace2_shell_oproj_harness (
         integer lane;
         begin
             oproj_weight_beat = 128'd0;
-            for (lane = 0; lane < 16; lane = lane + 1) begin
+            for (lane = 0; lane < OPROJ_WEIGHT_LANES_PER_BEAT;
+                 lane = lane + 1) begin
                 oproj_weight_beat[lane*4 +: 4] =
                     oproj_weight(selected_case, selected_output,
-                                 selected_beat * 16 + lane);
+                                 selected_beat * OPROJ_WEIGHT_LANES_PER_BEAT +
+                                 lane);
             end
         end
     endfunction
@@ -349,6 +359,10 @@ module ace2_shell_oproj_harness (
             end else if ((state == ST_WAIT_DONE) && cmd_done_valid &&
                          (current_case != (OPROJ_CASE_COUNT - 1))) begin
                 command_phase_cycle <= 0;
+            end else if ((state == ST_COMMAND) && !cmd_ready) begin
+                // Start the synthetic memory phase at command acceptance.  A
+                // pending CSR response may hold off only the first command.
+                command_phase_cycle <= command_phase_cycle;
             end else begin
                 command_phase_cycle <= command_phase_cycle + 1;
             end
@@ -358,6 +372,14 @@ module ace2_shell_oproj_harness (
             if (state == ST_NEXT_CASE) begin
                 observed_count <= 0;
             end else if (mem_wvalid && mem_wready) begin
+                if (trace_oproj &&
+                    ((observed_count == 0) ||
+                     (observed_count ==
+                      oproj_case_rows(current_case)*OPROJ_BEATS - 1))) begin
+                    $display("OPROJ_TRACE simulator=verilator event=write_accept vector=%0d ordinal=%0d cycle=%0d phase=%0d",
+                             current_case, observed_count, cycle_count,
+                             command_phase_cycle);
+                end
                 if (observed_count < 128) begin
                     observed_output[observed_count] <= mem_wdata;
                 end
@@ -381,6 +403,13 @@ module ace2_shell_oproj_harness (
                 end
             end
             if (mem_req_valid && mem_req_ready && !mem_req_write) begin
+                if (trace_oproj && (current_case == 0) &&
+                    (mem_req_addr == OPROJ_ACT_BASE) &&
+                    ((cycle_count - command_start_cycle) < 20)) begin
+                    $display("OPROJ_TRACE simulator=verilator event=first_read_accept vector=%0d cycle=%0d phase=%0d tag=%02x addr=%016x",
+                             current_case, cycle_count, command_phase_cycle,
+                             mem_req_tag, mem_req_addr);
+                end
                 pending_read <= 1;
                 pending_addr <= mem_req_addr;
                 pending_tag <= mem_req_tag;
@@ -443,12 +472,23 @@ module ace2_shell_oproj_harness (
                 end
                 ST_COMMAND: begin
                     if (cmd_ready) begin
+                        if (trace_oproj) begin
+                            $display("OPROJ_TRACE simulator=verilator event=command_accept vector=%0d cycle=%0d phase=%0d mem_req_ready=%0d mem_wready=%0d",
+                                     current_case, cycle_count,
+                                     command_phase_cycle, mem_req_ready,
+                                     mem_wready);
+                        end
                         command_start_cycle <= cycle_count;
                         state <= ST_WAIT_DONE;
                     end
                 end
                 ST_WAIT_DONE: begin
                     if (cmd_done_valid) begin
+                        if (trace_oproj) begin
+                            $display("OPROJ_TRACE simulator=verilator event=completion_accept vector=%0d cycle=%0d phase=%0d",
+                                     current_case, cycle_count,
+                                     command_phase_cycle);
+                        end
                         expected_count =
                             oproj_case_rows(current_case)*OPROJ_BEATS;
                         expected_saturation =

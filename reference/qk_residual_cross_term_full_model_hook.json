@@ -1,0 +1,45 @@
+{
+  "baseline_equality_boundaries": [
+    "q_projection_int8",
+    "k_projection_int8",
+    "q_absolute_rope_int8",
+    "k_absolute_rope_int8",
+    "base_score_before_residual_correction"
+  ],
+  "candidate_contract": "shared_qk_residual_cross_term_attention_v1",
+  "claim_boundary": "architecture_hook_contract_only_no_quality_result",
+  "failure_policy": "any_metadata_hash_mismatch_or_baseline_tensor_difference_aborts_before_metric_collection",
+  "authoritative_base_score_interface": {
+    "consumer_port": "base_score_q20_44_s64_i",
+    "format": "signed_q20_44_s64",
+    "forbidden_substitute": "base_dot_s32_plus_query_and_key_scale32_reconstruction",
+    "identity_validation": {
+      "correction_core_identity_ports": [],
+      "mismatch_behavior": "suppress_start_valid_and_terminate_descriptor_error",
+      "owner": "attention_score_scheduler_before_start_valid"
+    },
+    "producer": "unchanged_authoritative_baseline_attention_score_path",
+    "transport": "internal_ready_valid_start_payload_base_score_and_lane_count_only"
+  },
+  "head_mapping": "query_head_h_uses_kv_head_floor_h_divided_by_7",
+  "layer_scope": "all_24_layers",
+  "metadata_table": "reference/generated/qk_residual_scale32_metadata.json",
+  "required_runner": "tools/ace2_full_model_fixed_point.py",
+  "scalar_reference": "tools/ace2_qk_residual_cross_term_reference.py",
+  "score_composition": "authoritative_bit_exact_baseline_score_plus_three_residual_cross_terms",
+  "schema_version": 1,
+  "tensor_hook_order": [
+    "run_authoritative_baseline_qk_projection",
+    "assert_candidate_baseline_qk_projection_equal",
+    "derive_signed4_residual_from_accumulator_multiplier_shift_and_scale32",
+    "run_authoritative_baseline_absolute_rope",
+    "assert_candidate_baseline_absolute_rope_equal",
+    "run_residual_absolute_rope",
+    "run_authoritative_base_score",
+    "assert_candidate_base_score_equal",
+    "route_authoritative_base_score_to_correction_input",
+    "assert_correction_base_input_bit_identical",
+    "add_base_times_residual_residual_times_base_and_residual_times_residual_terms",
+    "continue_unchanged_softmax_value_output_projection_and_decoder_path"
+  ]
+}

@@ -1,0 +1,31 @@
+{
+  "artifact_kind": "qk_gbfp8_g16_head64_successor_diagnostic_static_no_execution_proof",
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "checked_absent_paths": [
+    "build/qk-gbfp8-g16-head64-successor-diagnostic-v1",
+    "build/qk-gbfp8-g16-head64-successor-diagnostic-v1-authority"
+  ],
+  "contract_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1",
+  "event_counts": {
+    "base_evaluator_invocations": 0,
+    "candidate_or_attempt_namespaces_created": 0,
+    "checkpoint_176_evaluator_invocations": 0,
+    "c02_invocations": 0,
+    "live_credentials_created": 0,
+    "model_loads": 0,
+    "new_model_scores_computed": 0,
+    "ready_unconsumed_ledgers_created": 0,
+    "result_namespaces_created": 0,
+    "sealed_tensor_deserializations": 0,
+    "sealed_tensor_payload_opens": 0
+  },
+  "immutable_bindings": {
+    "accepted_g16_package_sha256": "d6e4969660de746f7123b29e80f49febcf18fdeca8ffab234f4849a8dd8feea8",
+    "accepted_g16_review_handoff_sha256": "fe36c4c7dee34bfd7a77647e8f2737353ae280d955a93df019baf5312a3e6cc0",
+    "c02_evaluation_package_sha256": "0bd51407f20950a93f47a520718a3bb4d5a5006d990d60aef626d16a5f9d976d",
+    "c02_evaluator_sha256": "f27b8662d0137b2c9ca9dc8d977c0b6b6d953c62554658f0e0e3f19d9527d521",
+    "c02_package_verifier_sha256": "701bdf27b8a412956ed8b1fb2a34edde8a6a5dff1aedc68010f0dd69ba0beb49"
+  },
+  "proof_boundary": "Static verifier recomputes only accepted static JSON/Python/review hashes and checks namespace absence. It does not open, hash, mmap, deserialize, or otherwise inspect either sealed tensor bundle.",
+  "schema_version": 1
+}

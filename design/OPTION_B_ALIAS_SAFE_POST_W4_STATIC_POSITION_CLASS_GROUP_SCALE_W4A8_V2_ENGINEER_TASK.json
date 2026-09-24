@@ -1,0 +1,191 @@
+{
+  "schema_version": 1,
+  "task_id": "task-229cf2f6b564",
+  "created_at_utc": "2026-08-06T12:21:41Z",
+  "title": "Execute alias-safe post-W4 static-position W4A8 candidate",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_post_w4_static_position_class_group_scale_w4a8_v2",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_POST_W4_STATIC_POSITION_CLASS_GROUP_SCALE_W4A8_V2_PLAN.json",
+    "sha256": "88697b4e781927d0eebdcd067c504bbcd739c00e7437318917d7e1c746b23da9",
+    "role": "immutable_planning_requirements_only"
+  },
+  "terminal_predecessor": {
+    "mission_id": "05f90220ffd3",
+    "candidate_id": "option_b_static_position_class_group_scale_w4a8_v1",
+    "review_status": "replan_requested",
+    "failure_taxonomy": "EVALUATOR_NO_EXECUTION_STATIC_SCALE_RANGE_OVERFLOW",
+    "authorization_consumed": true,
+    "reclaim_resume_rename_in_place_or_replay_permitted": false,
+    "review_record": {
+      "path": "research/raw/specification/static-position-class-review-replan-20260806T120912Z.json",
+      "sha256": "e8171a634c84d5239b33764b739c6c0fb7612c9de14eac5b743ba020989e480e"
+    }
+  },
+  "fresh_attempt_namespace": {
+    "root": "build/stage1-option-b-alias-safe-post-w4-static-position-class-group-scale-w4a8-v2",
+    "attempt_id": "attempt-0001",
+    "attempt_directory": "build/stage1-option-b-alias-safe-post-w4-static-position-class-group-scale-w4a8-v2/attempt-0001",
+    "attempt_budget": 1,
+    "attempts_consumed_at_task_freeze": 0,
+    "namespace_must_be_absent_at_task_start": true,
+    "execution_marker": "build/stage1-option-b-alias-safe-post-w4-static-position-class-group-scale-w4a8-v2/attempt-0001/execution_started.json",
+    "execution_marker_permitted_during_runner_build_table_derivation_or_preflight": false,
+    "execution_marker_creation_rule": "Create atomically exactly once only after the complete pre-attempt artifact set and every bound hash pass verification.",
+    "replay_resume_or_replacement_under_candidate_id_permitted": false
+  },
+  "model_identity": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_config_tie_word_embeddings": true,
+    "source_embedding_tensor": "model.embed_tokens.weight",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f",
+    "image_manifest": {
+      "path": "evidence/verification/build-qwen2.5-0.5b-instruct-w4a8-image-v1/manifest.json",
+      "sha256": "b3c57252ca53044ea59e78e0afd739e88645d91db23570bb7de4f5306fdbe158"
+    },
+    "network_access_permitted": false
+  },
+  "tied_lm_head_embed_tokens_policy": {
+    "policy_id": "source_tied_checkpoint_runtime_split_clone_lm_head_v1",
+    "source_assertions": [
+      "After pinned-model load, lm_head.weight and model.embed_tokens.weight are the same Parameter object.",
+      "After pinned-model load, lm_head.weight and model.embed_tokens.weight have the same storage data pointer.",
+      "The complete source embedding BF16 byte stream has SHA-256 4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f."
+    ],
+    "split_operation": [
+      "Before any W4 reconstruction, make one detached byte-identical clone of model.embed_tokens.weight on the same dtype and device.",
+      "Replace only lm_head.weight with a non-trainable Parameter backed by that clone.",
+      "Set the in-memory candidate config tie_word_embeddings field to false and never call tie_weights, reload a state dict, or otherwise retie storage after the split."
+    ],
+    "post_split_assertions": [
+      "lm_head.weight and model.embed_tokens.weight are different Parameter objects with different storage data pointers.",
+      "Before W4 reconstruction, the complete lm_head and embedding BF16 byte streams are byte-identical.",
+      "The model.embed_tokens Parameter object, storage data pointer, shape, dtype, and complete BF16 byte hash are unchanged from source load."
+    ],
+    "w4_application": [
+      "Apply the authenticated signed-W4 per-output-row Scale32 rule to exactly the 168 transformer Linear weights and the separated lm_head weight.",
+      "Never write through model.embed_tokens.weight and never include model.embed_tokens in a generic module rewrite traversal.",
+      "After W4 reconstruction, recheck the complete embedding BF16 byte hash and record the separated lm_head W4 representation hash."
+    ],
+    "failure_rule": "Any failed identity, alias, pointer, shape, dtype, byte-equality, module-count, or embedding-hash assertion fails before table derivation and before any official execution marker exists."
+  },
+  "static_table_derivation_and_preflight": {
+    "position_classes": {
+      "sink": "absolute sequence position zero",
+      "prompt": "positions one through original prompt length minus one",
+      "decode": "positions at or beyond original prompt length"
+    },
+    "event_family_count_per_layer": 13,
+    "event_count_all_24_layers": 312,
+    "group_lanes": [
+      64,
+      128
+    ],
+    "static_scale32_records_per_decoder_layer": 549,
+    "static_table_bytes_per_decoder_layer": 2196,
+    "static_table_bytes_all_24_layers": 52704,
+    "derivation_candidate": "Construct candidate A from the pinned source using the exact tied-weight policy, complete every W4 rewrite, then collect per-layer, per-event, per-position-class, per-group absolute maxima using only the frozen non-evaluator inputs.",
+    "table_encoding": "For each collected maximum divided by 127, choose the smallest normalized Scale32 record whose represented range covers the value. Saturation and silent clipping are forbidden.",
+    "table_freeze": "Serialize the complete table canonically, record its SHA-256 and coverage manifest, and prohibit table mutation after the hash is bound.",
+    "fresh_replay_candidate": "Destroy candidate A; independently reconstruct candidate B from the pinned source with the exact tied-weight policy; require the embedding, separated lm_head W4, 168 transformer W4, and complete candidate-state manifest hashes to match candidate A before replay.",
+    "replay_inputs": {
+      "existing_calibration_contract": {
+        "path": "evidence/verification/qwen2.5-0.5b-instruct-w4a8-calibration-v1/calibration_contract.json",
+        "sha256": "084ab27de7e19b3f66cbcacbd7c219b67e7ef1cbc51c0d92e6da67af7e6df763",
+        "prompt_count": 4
+      },
+      "additional_prompts": [
+        "Name one primary color in one lowercase word.",
+        "Return only the integer result of 9 multiplied by 7.",
+        "In five words, describe gentle rain.",
+        "Answer yes or no: Is water wet?"
+      ],
+      "official_nine_prompt_matrix_inputs_permitted": false
+    },
+    "preflight_acceptance": {
+      "embedding_hash_matches_source": true,
+      "lm_head_storage_is_separate": true,
+      "candidate_a_and_b_state_manifests_match": true,
+      "all_312_layer_event_names_present": true,
+      "all_three_position_classes_present_at_every_event": true,
+      "fixed_table_overflow_count": 0,
+      "runtime_scale_selection_count": 0,
+      "dynamic_calibration_count": 0,
+      "per_token_scale_sidecar_bytes": 0,
+      "official_execution_marker_exists": false
+    }
+  },
+  "pre_attempt_artifact_set": {
+    "required_before_marker": [
+      "hash-bound runner source and self-test result",
+      "candidate-construction manifest for candidates A and B",
+      "embedding-preservation and lm_head-separation witness",
+      "canonical static Scale32 table and coverage manifest",
+      "zero-overflow fresh-candidate preflight result",
+      "predeclared contract binding every source, model, matrix, table, runner, tool-version, and policy hash",
+      "PREATTEMPT_READY.json that verifies all prior artifacts without creating execution_started.json"
+    ],
+    "runner_verify_mode_must_not_create_marker": true,
+    "preflight_mode_must_not_create_marker": true,
+    "official_mode_must_refuse_if_any_bound_hash_changes": true
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "per_scalar_weight_metadata_permitted": false,
+    "maximum_incremental_activation_metadata_bytes_per_decoder_layer_token": 0,
+    "maximum_live_static_table_sram_bytes": 2196,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "static_table_load_cycles_per_layer_without_backpressure": 138,
+    "weight_image_delta_bytes": 0,
+    "accelerator_static_table_delta_bytes": 52704,
+    "new_public_ace2_shell_ports_permitted": false,
+    "runtime_maximum_detector_or_dynamic_exponent_selector_required": false,
+    "floating_point_rtl_permitted": false,
+    "saturation_or_silent_clipping_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0,
+    "rtl_ppa_or_latency_measurement_claimed_by_this_task": false
+  },
+  "official_attempt_contract": {
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "selected_policy_id_before_fresh_reviewer_adjudication": null,
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false,
+    "evaluator_no_execution_rule": "If execution_started.json exists but no candidate prompt completes, preserve the attempt, keep numerical correctness null, and forbid replay.",
+    "numerical_failure_rule": "If any candidate prompt completes but the binary gate is not met, set eligible=false, preserve exact disagreements, keep selected_policy_id null, and forbid replay.",
+    "numerical_success_rule": "If the 9/9 binary gate is met, seal immutable evidence and submit it to a Fresh Reviewer; do not select the policy or authorize downstream work before independent acceptance."
+  },
+  "engineer_objective": "Implement and self-test the V2 runner without modifying V1 artifacts; construct and prove the exact alias-safe post-W4 state; derive, freeze, and fresh-state-preflight the fixed table using only non-evaluator prompts; then consume exactly one attempt-0001 only after pre-attempt closure and submit immutable evidence to a Fresh Reviewer.",
+  "acceptance_check": "A Fresh Reviewer independently verifies the task, pre-attempt chronology, exact tied-weight policy, zero-overflow post-W4 preflight, one consumed attempt, and 9/9 exact BF16 token-sequence plus response-gate agreement; selected_policy_id changes only after that adjudication.",
+  "prohibited_work": [
+    "modify, reclaim, resume, rename, replay, or reinterpret either consumed Option-B attempt",
+    "create the V2 execution marker during planning, runner development, table derivation, or preflight",
+    "use any official nine-prompt input for calibration, table derivation, or preflight",
+    "modify research/PIPELINE_STATE.json",
+    "modify RTL, testbenches, formal properties, synthesis constraints, certified PPA evidence, or the sealed two-token record",
+    "retarget or claim the arbitrary-text demo",
+    "begin U280 integration, emulation, bitstream, or board work",
+    "download a proprietary vendor toolchain"
+  ],
+  "claim_boundary": {
+    "task_authority_created": true,
+    "official_attempt_started": false,
+    "official_attempt_consumed": false,
+    "runner_frozen": false,
+    "static_table_frozen": false,
+    "preflight_complete": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

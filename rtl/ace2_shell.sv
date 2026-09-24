@@ -23,8 +23,13 @@ import ace2_pkg::ACE2_ERR_NUMERIC;
 import ace2_pkg::ACE2_ERR_RESET_BUSY;
 import ace2_pkg::ACE2_ERR_RESERVED;
 import ace2_pkg::ACE2_ERR_WATCHDOG;
+import ace2_pkg::ACE2_HEAD_DIM;
 import ace2_pkg::ACE2_HIDDEN_SIZE;
+import ace2_pkg::ACE2_INTERMEDIATE_SIZE;
+import ace2_pkg::ACE2_KV_WIDTH;
 import ace2_pkg::ACE2_LM_HEAD_TILE_SIZE;
+import ace2_pkg::ACE2_MAX_CONTEXT;
+import ace2_pkg::ACE2_NUM_LAYERS;
 import ace2_pkg::ACE2_OPCODE_ATTN_SCORE;
 import ace2_pkg::ACE2_OPCODE_ATTN_VALUE;
 import ace2_pkg::ACE2_OPCODE_ATTN_COMPOSE;
@@ -52,7 +57,9 @@ module ace2_shell #(
     parameter integer PROJ_ACC_WIDTH = 32,
     parameter integer PROJ_M_MAX = 16,
     parameter integer SRAM_BANKS = ACE2_SRAM_BANKS,
-    parameter integer SRAM_ADDR_WIDTH = ACE2_SRAM_ADDR_WIDTH
+    parameter integer SRAM_ADDR_WIDTH = ACE2_SRAM_ADDR_WIDTH,
+    parameter integer ENABLE_LAYER23_V_RANK1_SIDECAR = 0,
+    parameter integer LAYER23_V_RANK1_CONFIG_VALID = 1
 ) (
     input  wire                              clk_i,
     input  wire                              rst_ni,
@@ -126,7 +133,7 @@ module ace2_shell #(
 );
     localparam integer BEATS = HIDDEN_SIZE / LANES;
     localparam integer BEAT_INDEX_WIDTH = (BEATS <= 1) ? 1 : $clog2(BEATS + 1);
-    localparam integer MLP_INTERMEDIATE_SIZE = 4864;
+    localparam integer MLP_INTERMEDIATE_SIZE = ACE2_INTERMEDIATE_SIZE;
     localparam integer PROJ_HIDDEN_GROUPS = HIDDEN_SIZE / PROJ_MAC_LANES;
     localparam integer PROJ_MLP_GROUPS = MLP_INTERMEDIATE_SIZE / PROJ_MAC_LANES;
     localparam integer PROJ_GROUPS = PROJ_MLP_GROUPS;
@@ -147,7 +154,7 @@ module ace2_shell #(
     localparam integer PROJ_LINEAR_OFFSET_MAX = PROJ_M_MAX * PROJ_OUTPUT_MAX;
     localparam integer PROJ_LINEAR_OFFSET_WIDTH = (PROJ_LINEAR_OFFSET_MAX <= 1) ? 1 : $clog2(PROJ_LINEAR_OFFSET_MAX + 1);
     localparam integer QKV_ACT_CACHE_BEATS = HIDDEN_SIZE / LANES;
-    localparam integer QKV_KV_OUTPUTS = 128;
+    localparam integer QKV_KV_OUTPUTS = ACE2_KV_WIDTH;
     localparam integer QKV_Q_WEIGHT_BYTES = HIDDEN_SIZE * HIDDEN_SIZE / 2;
     localparam integer QKV_KV_WEIGHT_BYTES = QKV_KV_OUTPUTS * HIDDEN_SIZE / 2;
     localparam integer QKV_Q_META_BYTES = HIDDEN_SIZE * 16;
@@ -157,7 +164,7 @@ module ace2_shell #(
     localparam integer ROPE_SEGMENT_INDEX_WIDTH = (ROPE_SEGMENTS <= 1) ? 1 : $clog2(ROPE_SEGMENTS);
     localparam integer ROPE_AUX_GROUPS_PER_MEM_BEAT = LANES / (2 * ROPE_LANES);
     localparam integer ROPE_AUX_SELECT_WIDTH = (ROPE_AUX_GROUPS_PER_MEM_BEAT <= 1) ? 1 : $clog2(ROPE_AUX_GROUPS_PER_MEM_BEAT);
-    localparam integer ATTN_HEAD_DIM = 64;
+    localparam integer ATTN_HEAD_DIM = ACE2_HEAD_DIM;
     localparam integer ATTN_CONTEXT_MAX = 8;
     localparam integer ATTN_MAC_LANES = 1;
     localparam integer SILU_LANES = LANES / 2;
@@ -177,17 +184,20 @@ module ace2_shell #(
     localparam integer ATTN_TOKEN_INDEX_WIDTH = (ATTN_CONTEXT_MAX <= 1) ? 1 : $clog2(ATTN_CONTEXT_MAX);
     localparam integer CONTROL_BITS = 5;
     localparam integer STATUS_BITS = 6;
-    localparam [15:0] ROPE_MAX_SEQUENCE_POSITION = 16'd32767;
-    localparam [15:0] ROPE_K_SIZE_16 = 16'd128;
+    localparam [15:0] ROPE_MAX_SEQUENCE_POSITION = 16'(ACE2_MAX_CONTEXT - 1);
+    localparam [15:0] ROPE_K_SIZE_16 = 16'(QKV_KV_OUTPUTS);
     // Q/K projection weights are fused with a shared +22.5 degree rotation
     // for each RoPE pair. Commands encode the basis in half-degree units.
     localparam [7:0] ROPE_BASIS_ROTATION_HALF_DEGREES = 8'd45;
-    localparam [BEAT_INDEX_WIDTH-1:0] ROPE_K_LAST_BEAT = BEAT_INDEX_WIDTH'(8 - 1);
-    localparam [BEAT_INDEX_WIDTH-1:0] KV_LAST_DATA_BEAT = BEAT_INDEX_WIDTH'(8 - 1);
+    localparam [BEAT_INDEX_WIDTH-1:0] ROPE_K_LAST_BEAT =
+        BEAT_INDEX_WIDTH'((QKV_KV_OUTPUTS / LANES) - 1);
+    localparam [BEAT_INDEX_WIDTH-1:0] KV_LAST_DATA_BEAT =
+        BEAT_INDEX_WIDTH'((QKV_KV_OUTPUTS / LANES) - 1);
     localparam [ROPE_SEGMENT_INDEX_WIDTH-1:0] ROPE_LAST_SEGMENT = ROPE_SEGMENT_INDEX_WIDTH'(ROPE_SEGMENTS - 1);
     localparam [ATTN_GROUP_INDEX_WIDTH-1:0] ATTN_LAST_GROUP = ATTN_GROUP_INDEX_WIDTH'(ATTN_GROUPS - 1);
     localparam [15:0] ATTN_HEAD_DIM_16 = 16'(ATTN_HEAD_DIM);
     localparam [15:0] ATTN_CONTEXT_MAX_16 = 16'(ATTN_CONTEXT_MAX);
+    localparam [15:0] QKV_KV_OUTPUTS_16 = 16'(QKV_KV_OUTPUTS);
     localparam [1:0] KV_PHASE_K = 2'd0;
     localparam [1:0] KV_PHASE_V = 2'd1;
     localparam [1:0] KV_PHASE_META = 2'd2;
@@ -201,9 +211,36 @@ module ace2_shell #(
     localparam [15:0] HIDDEN_SIZE_16 = 16'(HIDDEN_SIZE);
     localparam [15:0] LM_HEAD_TILE_SIZE_16 = 16'(ACE2_LM_HEAD_TILE_SIZE);
     localparam [15:0] MLP_INTERMEDIATE_SIZE_16 = 16'(MLP_INTERMEDIATE_SIZE);
+    localparam [7:0] MODEL_NUM_LAYERS_8 = 8'(ACE2_NUM_LAYERS);
     localparam [63:0] ACE2_ID_VALUE = 64'h4143453200000001;
     localparam [63:0] ACE2_VERSION_VALUE = 64'h0000000000000001;
     localparam [63:0] ACE2_CAP_VALUE = 64'h0000000000081091;
+    localparam [7:0] DYNAMIC_SCALE32_FROZEN_FLAGS = 8'h49;
+    localparam [63:0] DYNAMIC_SCALE32_RMS_SRC0_ADDR = 64'h0000001000000000;
+    localparam [63:0] DYNAMIC_SCALE32_RMS_SRC1_ADDR = 64'h0000000000000000;
+    localparam [63:0] DYNAMIC_SCALE32_RMS_DST_ADDR = 64'h0000001000000700;
+    localparam [63:0] DYNAMIC_SCALE32_RMS_SCALE_ADDR = 64'h0000000300000000;
+    localparam [63:0] DYNAMIC_SCALE32_RMS_SCRATCH_ADDR = 64'h0000000000000000;
+    localparam [63:0] DYNAMIC_SCALE32_Q_SRC0_ADDR = 64'h0000001000000700;
+    localparam [63:0] DYNAMIC_SCALE32_Q_SRC1_ADDR = 64'h0000000100000000;
+    localparam [63:0] DYNAMIC_SCALE32_Q_DST_ADDR = 64'h0000001000000a80;
+    localparam [63:0] DYNAMIC_SCALE32_Q_SCALE_ADDR = 64'h0000000200000000;
+    localparam [63:0] DYNAMIC_SCALE32_Q_SCRATCH_ADDR = 64'h0000000000000000;
+    localparam [63:0] DYNAMIC_SCALE32_K_SRC1_ADDR = 64'h0000000100062000;
+    localparam [63:0] DYNAMIC_SCALE32_K_DST_ADDR = 64'h0000001000000e00;
+    localparam [63:0] DYNAMIC_SCALE32_K_SCALE_ADDR = 64'h0000000200003800;
+    localparam [63:0] DYNAMIC_SCALE32_V_SRC1_ADDR = 64'h0000000100070000;
+    localparam [63:0] DYNAMIC_SCALE32_V_DST_ADDR = 64'h0000001000000e80;
+    localparam [63:0] DYNAMIC_SCALE32_V_SCALE_ADDR = 64'h0000000200004000;
+    localparam [7:0] DYNAMIC_SCALE32_HOST_PLAN_OPCODE = 8'hfe;
+    localparam [63:0] LAYER23_V_RANK1_FUSED_SRC0_ADDR = 64'h0000001000000700;
+    localparam [63:0] LAYER23_V_RANK1_FUSED_SRC1_ADDR = 64'h000000010a384000;
+    localparam [63:0] LAYER23_V_RANK1_FUSED_DST_ADDR = 64'h0000001000000a80;
+    localparam [63:0] LAYER23_V_RANK1_FUSED_SCALE_ADDR = 64'h0000000200472800;
+    localparam [63:0] LAYER23_V_RANK1_FUSED_SCRATCH_ADDR = 64'h0000000000000000;
+    localparam [7:0] LAYER23_V_RANK1_LAYER_ID = 8'd23;
+    localparam LAYER23_V_RANK1_PROFILE_SUPPORTED =
+        (HIDDEN_SIZE == 896) && (QKV_KV_OUTPUTS == 128) && (ACE2_NUM_LAYERS == 24);
 
     localparam [6:0] ST_IDLE       = 7'd0;
     localparam [6:0] ST_START      = 7'd1;
@@ -248,10 +285,15 @@ module ace2_shell #(
     localparam [6:0] ST_ROPE_PAIR_SCALE0_REQ = 7'd40;
     localparam [6:0] ST_ROPE_PAIR_SCALE0_RECV = 7'd41;
     localparam [6:0] ST_ROPE_PAIR_SCALE_ADDR = 7'd42;
+    localparam [6:0] ST_DYN_SIDECAR_REQ = 7'd43;
     localparam [6:0] ST_ROPE_COS0_REQ = 7'd44;
     localparam [6:0] ST_ROPE_COS0_RECV = 7'd45;
+    localparam [6:0] ST_DYN_SIDECAR_RECV = 7'd46;
+    localparam [6:0] ST_DYN_VALIDATE_START = 7'd47;
     localparam [6:0] ST_ROPE_SIN0_REQ = 7'd48;
     localparam [6:0] ST_ROPE_SIN0_RECV = 7'd49;
+    localparam [6:0] ST_DYN_VALIDATE_WAIT = 7'd50;
+    localparam [6:0] ST_DYN_OUTPUT_WRITE_REQ = 7'd51;
     localparam [6:0] ST_ROPE_FEED = 7'd52;
     localparam [6:0] ST_ROPE_WAIT_OUT = 7'd53;
     localparam [6:0] ST_ROPE_WRITE_REQ = 7'd54;
@@ -326,6 +368,8 @@ module ace2_shell #(
     localparam [6:0] ST_ATTN_CENTER_STORE = 7'd123;
     localparam [6:0] ST_ATTN_ROUND = 7'd124;
     localparam [6:0] ST_ATTN_CENTER_QUANT = 7'd125;
+    localparam [6:0] ST_DYN_OUTPUT_WRITE_DATA = 7'd126;
+    localparam [6:0] ST_SILU_SCALE = 7'd127;
     localparam [3:0] OP_KIND_RMSNORM = 4'd0;
     localparam [3:0] OP_KIND_PROJ    = 4'd1;
     localparam [3:0] OP_KIND_ROPE    = 4'd2;
@@ -348,8 +392,8 @@ module ace2_shell #(
     reg [STATUS_BITS-1:0] interrupt_status_q;
     reg [STATUS_BITS-1:0] error_status_q;
     reg [63:0] desc_base_q;
-    reg [63:0] desc_head_q;
-    reg [63:0] desc_tail_q;
+    reg [31:0] desc_head_q;
+    reg [31:0] desc_tail_q;
     reg desc_tail_inc_q;
     reg [63:0] watchdog_limit_q;
     reg [63:0] watchdog_count_q;
@@ -386,6 +430,7 @@ module ace2_shell #(
     reg [15:0] completion_tag_q;
     reg [3:0] op_kind_q;
     reg [7:0] flags_q;
+    reg [7:0] layer_id_q;
     reg [15:0] m_q;
     reg [15:0] n_q;
     reg [15:0] k_q;
@@ -419,6 +464,10 @@ module ace2_shell #(
     reg [7:0] reset_write_tag_q;
     reg [15:0] reset_write_strb_q;
     reg descriptor_valid_q;
+    reg [1:0] dynamic_sidecar_beat_q;
+    reg [511:0] dynamic_sidecar_q;
+    reg dynamic_output_numeric_overflow_q;
+    reg dynamic_proj_apply_overflow_q;
     wire [LANES*ACT_WIDTH-1:0] shared_payload_q;
     reg [LANES*ACT_WIDTH-1:0] gain_low_q;
     reg [LANES*ACT_WIDTH-1:0] gain_high_q;
@@ -429,6 +478,7 @@ module ace2_shell #(
     reg [PROJ_MAC_LANES*ACT_WIDTH-1:0] proj_act_low_q;
     reg [LANES*ACT_WIDTH-1:0] proj_act_beat_q;
     reg [LANES*ACT_WIDTH-1:0] qkv_activation_cache_q [0:QKV_ACT_CACHE_BEATS-1];
+    wire [HIDDEN_SIZE*ACT_WIDTH-1:0] layer23_v_rank1_activation_flat_w;
     reg [PROJ_MAC_LANES*4-1:0] proj_weight_q;
     reg [LANES*ACT_WIDTH-1:0] proj_weight_beat_q;
     reg [PROJ_WEIGHT_OFFSET_WIDTH-1:0] proj_weight_offset_q;
@@ -513,6 +563,9 @@ module ace2_shell #(
     wire [127:0] silu_up_data_q;
     wire [127:0] silu_gate_core_data_w;
     wire [127:0] silu_up_core_data_w;
+    reg [127:0] silu_gate_core_data_q;
+    reg [127:0] silu_up_core_data_q;
+    reg silu_scale_product_valid_q;
     reg signed [31:0] silu_multiplier_q;
     reg [5:0] silu_right_shift_q;
     reg signed [7:0] silu_zero_point_q;
@@ -541,6 +594,8 @@ module ace2_shell #(
     reg done_valid_q;
     reg done_error_q;
     reg done_saturation_q;
+    reg [ACC_WIDTH-1:0] done_sumsq_q;
+    reg [INV_RMS_FRAC+1:0] done_inv_rms_q30_q;
     reg core_clear_q;
     reg core_start_valid_q;
     reg core_in_valid_q;
@@ -552,6 +607,17 @@ module ace2_shell #(
     reg [7:0] write_response_tag_q;
     reg [6:0] write_resume_state_q;
     reg write_completes_descriptor_q;
+
+    genvar layer23_v_rank1_cache_beat;
+    generate
+        for (layer23_v_rank1_cache_beat = 0;
+             layer23_v_rank1_cache_beat < QKV_ACT_CACHE_BEATS;
+             layer23_v_rank1_cache_beat = layer23_v_rank1_cache_beat + 1) begin : gen_layer23_v_rank1_activation_flat
+            assign layer23_v_rank1_activation_flat_w[
+                layer23_v_rank1_cache_beat*LANES*ACT_WIDTH +: LANES*ACT_WIDTH
+            ] = qkv_activation_cache_q[layer23_v_rank1_cache_beat];
+        end
+    endgenerate
 
     wire control_enable_w = control_q[0];
     wire irq_global_enable_w = control_q[2];
@@ -593,6 +659,7 @@ module ace2_shell #(
     wire [7:0] expected_read_tag_w =
         (state_q == ST_ACT_RECV) ? 8'h10 :
         (state_q == ST_SCALE_ACT_RECV) ? 8'h11 :
+        (state_q == ST_DYN_SIDECAR_RECV) ? 8'h12 :
         (state_q == ST_GAIN_RECV0) ? 8'h20 :
         (state_q == ST_GAIN_RECV1) ? 8'h21 :
         (state_q == ST_PROJ_ACT0_RECV) ? 8'h40 :
@@ -707,9 +774,9 @@ module ace2_shell #(
     wire [5:0] proj_next_wgt_group_lane_offset_w =
         6'(proj_next_group_idx_ext_w[PROJ_WGT_GROUP_SELECT_WIDTH-1:0] *
            PROJ_MAC_LANES);
-    wire [63:0] proj_hidden_row_base_w = (proj_row_idx_ext_w << 10) - (proj_row_idx_ext_w << 7);
+    wire [63:0] proj_hidden_row_base_w = proj_row_idx_ext_w * HIDDEN_SIZE;
     wire [63:0] proj_mlp_row_base_w =
-        (proj_row_idx_ext_w << 12) + (proj_row_idx_ext_w << 9) + (proj_row_idx_ext_w << 8);
+        proj_row_idx_ext_w * MLP_INTERMEDIATE_SIZE;
     wire [63:0] proj_row_base_w =
         proj_mlp_shape_q ? proj_mlp_row_base_w : proj_hidden_row_base_w;
     wire [PROJ_GROUP_INDEX_WIDTH-1:0] proj_last_group_w =
@@ -760,18 +827,69 @@ module ace2_shell #(
     wire watchdog_last_tick_w = watchdog_armed_q && (watchdog_count_q[63:1] == 63'd0);
     wire watchdog_fire_w = watchdog_fire_q;
     wire [LANES*GAIN_WIDTH-1:0] gain_beat_w = {gain_high_q, gain_low_q};
+    wire rms_dynamic_initial_buf_w =
+        (cmd_opcode_buf_q == ACE2_OPCODE_RMSNORM) &&
+        (cmd_flags_buf_q == DYNAMIC_SCALE32_FROZEN_FLAGS) &&
+        (cmd_layer_id_buf_q == 8'd0) &&
+        (cmd_m_buf_q == 16'd1) &&
+        (cmd_n_buf_q == HIDDEN_SIZE_16) &&
+        (cmd_k_buf_q == 16'd0) &&
+        (cmd_src0_addr_buf_q == DYNAMIC_SCALE32_RMS_SRC0_ADDR) &&
+        (cmd_src1_addr_buf_q == DYNAMIC_SCALE32_RMS_SRC1_ADDR) &&
+        (cmd_dst_addr_buf_q == DYNAMIC_SCALE32_RMS_DST_ADDR) &&
+        (cmd_scale_addr_buf_q == DYNAMIC_SCALE32_RMS_SCALE_ADDR) &&
+        (cmd_scratch_addr_buf_q == DYNAMIC_SCALE32_RMS_SCRATCH_ADDR);
+    wire proj_dynamic_q_buf_w =
+        (cmd_opcode_buf_q == ACE2_OPCODE_W4A8_PROJ) &&
+        (cmd_flags_buf_q == DYNAMIC_SCALE32_FROZEN_FLAGS) &&
+        (cmd_layer_id_buf_q == 8'd0) &&
+        (cmd_m_buf_q == 16'd1) &&
+        (cmd_n_buf_q == HIDDEN_SIZE_16) &&
+        (cmd_k_buf_q == HIDDEN_SIZE_16) &&
+        (cmd_src0_addr_buf_q == DYNAMIC_SCALE32_Q_SRC0_ADDR) &&
+        (cmd_src1_addr_buf_q == DYNAMIC_SCALE32_Q_SRC1_ADDR) &&
+        (cmd_dst_addr_buf_q == DYNAMIC_SCALE32_Q_DST_ADDR) &&
+        (cmd_scale_addr_buf_q == DYNAMIC_SCALE32_Q_SCALE_ADDR) &&
+        (cmd_scratch_addr_buf_q == DYNAMIC_SCALE32_Q_SCRATCH_ADDR);
+    wire proj_dynamic_k_buf_w =
+        (cmd_opcode_buf_q == ACE2_OPCODE_W4A8_PROJ) &&
+        (cmd_flags_buf_q == DYNAMIC_SCALE32_FROZEN_FLAGS) &&
+        (cmd_layer_id_buf_q == 8'd0) &&
+        (cmd_m_buf_q == 16'd1) &&
+        (cmd_n_buf_q == QKV_KV_OUTPUTS_16) &&
+        (cmd_k_buf_q == HIDDEN_SIZE_16) &&
+        (cmd_src0_addr_buf_q == DYNAMIC_SCALE32_Q_SRC0_ADDR) &&
+        (cmd_src1_addr_buf_q == DYNAMIC_SCALE32_K_SRC1_ADDR) &&
+        (cmd_dst_addr_buf_q == DYNAMIC_SCALE32_K_DST_ADDR) &&
+        (cmd_scale_addr_buf_q == DYNAMIC_SCALE32_K_SCALE_ADDR) &&
+        (cmd_scratch_addr_buf_q == DYNAMIC_SCALE32_Q_SCRATCH_ADDR);
+    wire proj_dynamic_v_buf_w =
+        (cmd_opcode_buf_q == ACE2_OPCODE_W4A8_PROJ) &&
+        (cmd_flags_buf_q == DYNAMIC_SCALE32_FROZEN_FLAGS) &&
+        (cmd_layer_id_buf_q == 8'd0) &&
+        (cmd_m_buf_q == 16'd1) &&
+        (cmd_n_buf_q == QKV_KV_OUTPUTS_16) &&
+        (cmd_k_buf_q == HIDDEN_SIZE_16) &&
+        (cmd_src0_addr_buf_q == DYNAMIC_SCALE32_Q_SRC0_ADDR) &&
+        (cmd_src1_addr_buf_q == DYNAMIC_SCALE32_V_SRC1_ADDR) &&
+        (cmd_dst_addr_buf_q == DYNAMIC_SCALE32_V_DST_ADDR) &&
+        (cmd_scale_addr_buf_q == DYNAMIC_SCALE32_V_SCALE_ADDR) &&
+        (cmd_scratch_addr_buf_q == DYNAMIC_SCALE32_Q_SCRATCH_ADDR);
+    wire proj_dynamic_qkv_buf_w =
+        proj_dynamic_q_buf_w || proj_dynamic_k_buf_w || proj_dynamic_v_buf_w;
     wire rms_descriptor_valid_w = (cmd_opcode_buf_q == ACE2_OPCODE_RMSNORM) &&
                                   (cmd_m_buf_q == 16'd1) &&
                                   (cmd_n_buf_q == HIDDEN_SIZE_16) &&
                                   (cmd_k_buf_q == 16'd0) &&
-                                  (cmd_layer_id_buf_q <= 8'd24) &&
+                                  (cmd_layer_id_buf_q <= MODEL_NUM_LAYERS_8) &&
                                   (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                   (cmd_dst_addr_buf_q[3:0] == 4'd0) &&
-                                  (cmd_scale_addr_buf_q[3:0] == 4'd0);
+                                  (cmd_scale_addr_buf_q[3:0] == 4'd0) &&
+                                  (!cmd_flags_buf_q[6] || rms_dynamic_initial_buf_w);
     wire proj_hidden_k_shape_w =
         (cmd_k_buf_q == HIDDEN_SIZE_16) &&
         ((cmd_n_buf_q == HIDDEN_SIZE_16) ||
-         (cmd_n_buf_q == 16'd128) ||
+         (cmd_n_buf_q == QKV_KV_OUTPUTS_16) ||
          (cmd_n_buf_q == MLP_INTERMEDIATE_SIZE_16));
     wire proj_mlp_down_shape_w =
         (cmd_k_buf_q == MLP_INTERMEDIATE_SIZE_16) &&
@@ -780,21 +898,22 @@ module ace2_shell #(
         (cmd_m_buf_q == 16'd1) &&
         (cmd_n_buf_q == LM_HEAD_TILE_SIZE_16) &&
         (cmd_k_buf_q == HIDDEN_SIZE_16) &&
-        (cmd_layer_id_buf_q == 8'd24);
+        (cmd_layer_id_buf_q == MODEL_NUM_LAYERS_8);
     wire proj_descriptor_valid_w = (cmd_opcode_buf_q == ACE2_OPCODE_W4A8_PROJ) &&
                                    (cmd_m_buf_q != 16'd0) &&
                                    (cmd_m_buf_q <= 16'(PROJ_M_MAX)) &&
                                    (((proj_hidden_k_shape_w || proj_mlp_down_shape_w) &&
-                                     (cmd_layer_id_buf_q < 8'd24)) ||
+                                     (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8)) ||
                                     proj_lm_head_shape_w) &&
                                    (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                    (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
                                    (cmd_dst_addr_buf_q[3:0] == 4'd0) &&
-                                   (cmd_scale_addr_buf_q[3:0] == 4'd0);
+                                   (cmd_scale_addr_buf_q[3:0] == 4'd0) &&
+                                   (!cmd_flags_buf_q[6] || proj_dynamic_qkv_buf_w);
     wire fused_qkv_descriptor_valid_w =
         (cmd_opcode_buf_q == ACE2_OPCODE_FUSED_QKV) &&
         (cmd_flags_buf_q == 8'd0) &&
-        (cmd_layer_id_buf_q < 8'd24) &&
+        (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
         (cmd_m_buf_q == 16'd1) &&
         (cmd_n_buf_q == HIDDEN_SIZE_16) &&
         (cmd_k_buf_q == HIDDEN_SIZE_16) &&
@@ -809,7 +928,7 @@ module ace2_shell #(
                                    ((cmd_n_buf_q == HIDDEN_SIZE_16) || (cmd_n_buf_q == ROPE_K_SIZE_16)) &&
                                    (cmd_k_buf_q == 16'd0) &&
                                    (cmd_sequence_position_buf_q <= ROPE_MAX_SEQUENCE_POSITION) &&
-                                   (cmd_layer_id_buf_q < 8'd24) &&
+                                   (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
                                    (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                    (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
                                    (cmd_scale_addr_buf_q[3:0] == 4'd0) &&
@@ -819,7 +938,7 @@ module ace2_shell #(
                                        (cmd_n_buf_q == ROPE_K_SIZE_16) &&
                                        (cmd_k_buf_q == 16'd0) &&
                                        (cmd_sequence_position_buf_q <= ROPE_MAX_SEQUENCE_POSITION) &&
-                                       (cmd_layer_id_buf_q < 8'd24) &&
+                                       (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
                                        (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                        (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
                                        (cmd_scratch_addr_buf_q[3:0] == 4'd0) &&
@@ -829,7 +948,7 @@ module ace2_shell #(
                                         (cmd_n_buf_q != 16'd0) &&
                                         (cmd_n_buf_q <= ATTN_CONTEXT_MAX_16) &&
                                         (cmd_k_buf_q == ATTN_HEAD_DIM_16) &&
-                                        (cmd_layer_id_buf_q < 8'd24) &&
+                                        (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
                                         (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                         (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
                                         (cmd_dst_addr_buf_q[3:0] == 4'd0) &&
@@ -839,7 +958,7 @@ module ace2_shell #(
                                      (cmd_n_buf_q != 16'd0) &&
                                      (cmd_n_buf_q <= ATTN_CONTEXT_MAX_16) &&
                                      (cmd_k_buf_q == 16'd0) &&
-                                     (cmd_layer_id_buf_q < 8'd24) &&
+                                     (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
                                      (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                      (cmd_dst_addr_buf_q[3:0] == 4'd0);
     wire attn_value_descriptor_valid_w = (cmd_opcode_buf_q == ACE2_OPCODE_ATTN_VALUE) &&
@@ -847,7 +966,7 @@ module ace2_shell #(
                                          (cmd_n_buf_q != 16'd0) &&
                                          (cmd_n_buf_q <= ATTN_CONTEXT_MAX_16) &&
                                          (cmd_k_buf_q == ATTN_HEAD_DIM_16) &&
-                                         (cmd_layer_id_buf_q < 8'd24) &&
+                                         (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
                                          (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                          (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
                                          (cmd_dst_addr_buf_q[3:0] == 4'd0);
@@ -862,7 +981,7 @@ module ace2_shell #(
         (cmd_n_buf_q != 16'd0) &&
         (cmd_n_buf_q <= ATTN_CONTEXT_MAX_16) &&
         (cmd_k_buf_q == ATTN_HEAD_DIM_16) &&
-        (cmd_layer_id_buf_q < 8'd24) &&
+        (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
         (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
         (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
         (cmd_dst_addr_buf_q[3:0] == 4'd0) &&
@@ -871,7 +990,7 @@ module ace2_shell #(
                                        (cmd_m_buf_q == 16'd1) &&
                                        (cmd_n_buf_q == HIDDEN_SIZE_16) &&
                                        (cmd_k_buf_q == 16'd0) &&
-                                       (cmd_layer_id_buf_q < 8'd24) &&
+                                       (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
                                        (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                        (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
                                        (cmd_dst_addr_buf_q[3:0] == 4'd0);
@@ -880,22 +999,43 @@ module ace2_shell #(
                                    (cmd_n_buf_q != 16'd0) &&
                                    (cmd_n_buf_q <= MLP_INTERMEDIATE_SIZE_16) &&
                                    (cmd_k_buf_q == 16'd0) &&
-                                   (cmd_layer_id_buf_q < 8'd24) &&
+                                   (cmd_layer_id_buf_q < MODEL_NUM_LAYERS_8) &&
                                    (cmd_src0_addr_buf_q[3:0] == 4'd0) &&
                                    (cmd_src1_addr_buf_q[3:0] == 4'd0) &&
                                    (cmd_dst_addr_buf_q[3:0] == 4'd0) &&
                                    (cmd_scale_addr_buf_q[3:0] == 4'd0);
-    wire descriptor_valid_w = rms_descriptor_valid_w ||
-                              proj_descriptor_valid_w ||
-                              fused_qkv_descriptor_valid_w ||
-                              rope_descriptor_valid_w ||
-                              kv_write_descriptor_valid_w ||
-                              attn_score_descriptor_valid_w ||
-                              softmax_descriptor_valid_w ||
-                              attn_value_descriptor_valid_w ||
-                              compose_descriptor_valid_w ||
-                              residual_descriptor_valid_w ||
-                              silu_descriptor_valid_w;
+    wire layer23_v_rank1_command_match_buf_w =
+        (ENABLE_LAYER23_V_RANK1_SIDECAR != 0) &&
+        LAYER23_V_RANK1_PROFILE_SUPPORTED &&
+        (cmd_opcode_buf_q == ACE2_OPCODE_FUSED_QKV) &&
+        (cmd_flags_buf_q == 8'd0) &&
+        (cmd_layer_id_buf_q == LAYER23_V_RANK1_LAYER_ID) &&
+        (cmd_m_buf_q == 16'd1) &&
+        (cmd_n_buf_q == HIDDEN_SIZE_16) &&
+        (cmd_k_buf_q == HIDDEN_SIZE_16) &&
+        (cmd_src0_addr_buf_q == LAYER23_V_RANK1_FUSED_SRC0_ADDR) &&
+        (cmd_src1_addr_buf_q == LAYER23_V_RANK1_FUSED_SRC1_ADDR) &&
+        (cmd_dst_addr_buf_q == LAYER23_V_RANK1_FUSED_DST_ADDR) &&
+        (cmd_scale_addr_buf_q == LAYER23_V_RANK1_FUSED_SCALE_ADDR) &&
+        (cmd_scratch_addr_buf_q == LAYER23_V_RANK1_FUSED_SCRATCH_ADDR);
+    wire layer23_v_rank1_command_allowed_w =
+        !layer23_v_rank1_command_match_buf_w ||
+        (LAYER23_V_RANK1_CONFIG_VALID != 0);
+    wire descriptor_valid_w =
+        (rms_descriptor_valid_w ||
+         proj_descriptor_valid_w ||
+         fused_qkv_descriptor_valid_w ||
+         rope_descriptor_valid_w ||
+         kv_write_descriptor_valid_w ||
+         attn_score_descriptor_valid_w ||
+         softmax_descriptor_valid_w ||
+         attn_value_descriptor_valid_w ||
+         compose_descriptor_valid_w ||
+        residual_descriptor_valid_w ||
+        silu_descriptor_valid_w) &&
+        (!cmd_flags_buf_q[6] || rms_dynamic_initial_buf_w ||
+         proj_dynamic_qkv_buf_w) &&
+        layer23_v_rank1_command_allowed_w;
     wire [3:0] cmd_op_kind_i_w = (cmd_opcode_i == ACE2_OPCODE_RMSNORM) ? OP_KIND_RMSNORM :
                                  ((cmd_opcode_i == ACE2_OPCODE_W4A8_PROJ) ||
                                   (cmd_opcode_i == ACE2_OPCODE_FUSED_QKV)) ? OP_KIND_PROJ :
@@ -909,6 +1049,113 @@ module ace2_shell #(
                                  OP_KIND_KV;
 
     wire core_start_ready_w;
+    `include "generated/ace2_silu_input_scale_table.svh"
+
+    function automatic signed [15:0] silu_scale_product_to_q6_9;
+        input [24:0] product_magnitude;
+        input negative;
+        reg [24:0] quotient;
+        reg [24:0] remainder;
+        reg [25:0] rounded_magnitude;
+        begin
+            quotient = product_magnitude / 25'd127;
+            remainder = product_magnitude % 25'd127;
+            rounded_magnitude = {1'b0, quotient} +
+                {{25{1'b0}}, ({remainder[6:0], 1'b0} > 8'd127)};
+            if (negative) begin
+                silu_scale_product_to_q6_9 =
+                    (rounded_magnitude >= 26'd32768) ? -16'sd32768 :
+                    -$signed(rounded_magnitude[15:0]);
+            end else begin
+                silu_scale_product_to_q6_9 =
+                    (rounded_magnitude > 26'd32767) ? 16'sd32767 :
+                    $signed(rounded_magnitude[15:0]);
+            end
+        end
+    endfunction
+
+    function automatic [8:0] dynamic_apply_delta_s8;
+        input [7:0] value;
+        input signed [7:0] delta;
+        reg signed [32:0] signed_value;
+        reg [32:0] magnitude;
+        reg [32:0] quotient;
+        reg [32:0] remainder;
+        reg [32:0] half;
+        reg [32:0] rounded_magnitude;
+        reg signed [32:0] scaled_value;
+        integer shift_count;
+        begin
+            signed_value = {{25{value[7]}}, value};
+            magnitude = value[7] ? $unsigned(-signed_value) : $unsigned(signed_value);
+            quotient = 33'd0;
+            remainder = 33'd0;
+            half = 33'd0;
+            rounded_magnitude = 33'd0;
+            scaled_value = 33'sd0;
+            shift_count = 0;
+            if (delta >= 0) begin
+                shift_count = {24'd0, delta};
+                scaled_value = signed_value <<< shift_count;
+            end else begin
+                shift_count = -$signed({{24{delta[7]}}, delta});
+                quotient = magnitude >> shift_count;
+                remainder = magnitude & ((33'd1 << shift_count) - 33'd1);
+                half = 33'd1 << (shift_count - 1);
+                rounded_magnitude = quotient +
+                    {32'd0, ((remainder > half) ||
+                             ((remainder == half) && quotient[0]))};
+                scaled_value = value[7] ? -$signed(rounded_magnitude) :
+                                           $signed(rounded_magnitude);
+            end
+            dynamic_apply_delta_s8[8] =
+                (scaled_value > 33'sd127) || (scaled_value < -33'sd128);
+            dynamic_apply_delta_s8[7:0] = scaled_value[7:0];
+        end
+    endfunction
+
+    function automatic [8:0] dynamic_quantize_delta_s8;
+        input [7:0] value;
+        input signed [7:0] delta;
+        reg signed [32:0] signed_value;
+        reg [32:0] magnitude;
+        reg [32:0] quotient;
+        reg [32:0] remainder;
+        reg [32:0] half;
+        reg [32:0] rounded_magnitude;
+        reg signed [32:0] scaled_value;
+        integer shift_count;
+        begin
+            signed_value = {{25{value[7]}}, value};
+            magnitude = value[7] ? $unsigned(-signed_value) : $unsigned(signed_value);
+            quotient = 33'd0;
+            remainder = 33'd0;
+            half = 33'd0;
+            rounded_magnitude = 33'd0;
+            scaled_value = 33'sd0;
+            shift_count = 0;
+            if (delta < 0) begin
+                shift_count = -$signed({{24{delta[7]}}, delta});
+                scaled_value = signed_value <<< shift_count;
+            end else if (delta == 0) begin
+                scaled_value = signed_value;
+            end else begin
+                shift_count = {24'd0, delta};
+                quotient = magnitude >> shift_count;
+                remainder = magnitude & ((33'd1 << shift_count) - 33'd1);
+                half = 33'd1 << (shift_count - 1);
+                rounded_magnitude = quotient +
+                    {32'd0, ((remainder > half) ||
+                             ((remainder == half) && quotient[0]))};
+                scaled_value = value[7] ? -$signed(rounded_magnitude) :
+                                           $signed(rounded_magnitude);
+            end
+            dynamic_quantize_delta_s8[8] =
+                (scaled_value > 33'sd127) || (scaled_value < -33'sd127);
+            dynamic_quantize_delta_s8[7:0] = scaled_value[7:0];
+        end
+    endfunction
+
     wire core_start_valid_w = core_start_valid_q && !response_fault_pending_w;
     wire core_in_ready_w;
     wire core_in_valid_w = core_in_valid_q;
@@ -942,11 +1189,38 @@ module ace2_shell #(
     wire [5:0] proj_meta_right_shift_w = proj_right_shift_q;
     wire signed [ACT_WIDTH-1:0] proj_meta_zero_point_w = proj_output_zero_point_q;
     wire signed [PROJ_ACC_WIDTH-1:0] proj_meta_bias_accumulator_w = proj_bias_accumulator_q;
-    wire [PROJ_MAC_LANES*ACT_WIDTH-1:0] proj_selected_act_w = mem_rdata_i[proj_act_group_lane_offset_w*ACT_WIDTH +: PROJ_MAC_LANES*ACT_WIDTH];
+    wire [PROJ_MAC_LANES*ACT_WIDTH-1:0] proj_selected_act_raw_w =
+        mem_rdata_i[proj_act_group_lane_offset_w*ACT_WIDTH +: PROJ_MAC_LANES*ACT_WIDTH];
+    wire [2:0] dynamic_proj_sidecar_group_w = proj_group_idx_q[7:5];
+    wire signed [7:0] dynamic_proj_delta_w =
+        $signed(dynamic_sidecar_q[
+            (5'd24+{2'd0, dynamic_proj_sidecar_group_w})*8 +: 8
+        ]);
+    wire [PROJ_MAC_LANES*ACT_WIDTH-1:0] proj_selected_act_dynamic_w;
+    wire [PROJ_MAC_LANES-1:0] dynamic_proj_apply_overflow_lane_w;
+    genvar dynamic_proj_lane;
+    generate
+        for (dynamic_proj_lane = 0; dynamic_proj_lane < PROJ_MAC_LANES;
+             dynamic_proj_lane = dynamic_proj_lane + 1) begin : gen_dynamic_proj_apply
+            wire [8:0] applied_w = dynamic_apply_delta_s8(
+                proj_selected_act_raw_w[dynamic_proj_lane*ACT_WIDTH +: ACT_WIDTH],
+                dynamic_proj_delta_w
+            );
+            assign dynamic_proj_apply_overflow_lane_w[dynamic_proj_lane] = applied_w[8];
+            assign proj_selected_act_dynamic_w[
+                dynamic_proj_lane*ACT_WIDTH +: ACT_WIDTH
+            ] = applied_w[7:0];
+        end
+    endgenerate
+    wire dynamic_proj_apply_overflow_w =
+        flags_q[6] && (|dynamic_proj_apply_overflow_lane_w);
+    wire [PROJ_MAC_LANES*ACT_WIDTH-1:0] proj_selected_act_w =
+        flags_q[6] ? proj_selected_act_dynamic_w : proj_selected_act_raw_w;
     wire [PROJ_MAC_LANES*4-1:0] proj_selected_weight_w = mem_rdata_i[proj_wgt_group_lane_offset_w*4 +: PROJ_MAC_LANES*4];
     wire proj_next_act_cache_hit_w =
-        proj_next_act_group_storage_idx_ext_w ==
-        proj_act_group_storage_idx_ext_w;
+        !flags_q[6] &&
+        (proj_next_act_group_storage_idx_ext_w ==
+         proj_act_group_storage_idx_ext_w);
     wire proj_next_weight_cache_hit_w =
         proj_next_wgt_group_storage_idx_ext_w ==
         proj_wgt_group_storage_idx_ext_w;
@@ -1151,8 +1425,121 @@ module ace2_shell #(
     wire silu_numeric_saturation_w =
         (state_q == ST_SILU_WAIT) && silu_out_valid_w && silu_saturation_w;
     wire kv_write_accepted_w = (state_q == ST_KV_WRITE_DATA) && mem_wready_i;
-    wire [LANES*ACT_WIDTH-1:0] mem_write_data_w = (state_q == ST_WRITE_DATA) ? core_out_data_w :
-                                                  (state_q == ST_PROJ_WRITE_DATA) ? shared_payload_q :
+    wire [2:0] dynamic_output_group_w = out_idx_q[5:3];
+    wire signed [7:0] dynamic_output_delta_w =
+        $signed(dynamic_sidecar_q[(5'd24+{2'd0, dynamic_output_group_w})*8 +: 8]);
+    wire [LANES*ACT_WIDTH-1:0] dynamic_core_out_data_w;
+    wire [LANES-1:0] dynamic_output_overflow_lane_w;
+    genvar dynamic_output_lane;
+    generate
+        for (dynamic_output_lane = 0; dynamic_output_lane < LANES;
+             dynamic_output_lane = dynamic_output_lane + 1) begin : gen_dynamic_output_quantize
+            wire [8:0] quantized_w = dynamic_quantize_delta_s8(
+                core_out_data_w[dynamic_output_lane*ACT_WIDTH +: ACT_WIDTH],
+                dynamic_output_delta_w
+            );
+            assign dynamic_output_overflow_lane_w[dynamic_output_lane] =
+                quantized_w[8];
+            assign dynamic_core_out_data_w[
+                dynamic_output_lane*ACT_WIDTH +: ACT_WIDTH
+            ] = quantized_w[7:0];
+        end
+    endgenerate
+    wire dynamic_output_overflow_w =
+        flags_q[6] && (|dynamic_output_overflow_lane_w);
+    reg [511:0] dynamic_output_sidecar_w;
+    always @* begin
+        dynamic_output_sidecar_w = 512'd0;
+        dynamic_output_sidecar_w[31:0] = 32'h3150_4642;
+        dynamic_output_sidecar_w[39:32] = 8'd1;
+        dynamic_output_sidecar_w[47:40] = 8'd128;
+        dynamic_output_sidecar_w[55:48] = 8'd7;
+        dynamic_output_sidecar_w[79:64] = completion_tag_q;
+        dynamic_output_sidecar_w[87:80] = layer_id_q;
+        dynamic_output_sidecar_w[95:88] = ACE2_OPCODE_RMSNORM;
+        dynamic_output_sidecar_w[127:96] = 32'd896;
+        dynamic_output_sidecar_w[191:128] = 64'hadcc_2078_5542_c188;
+        dynamic_output_sidecar_w[247:192] = dynamic_sidecar_q[247:192];
+    end
+    wire layer23_v_rank1_command_match_w;
+    wire layer23_v_rank1_descriptor_match_w;
+    wire layer23_v_rank1_config_complete_w;
+    wire layer23_v_rank1_fail_closed_w;
+    wire [LANES*ACT_WIDTH-1:0] layer23_v_rank1_corrected_beat_w;
+    /* verilator lint_off UNUSED */
+    wire signed [31:0] layer23_v_rank1_rank_accumulator_w;
+    wire signed [31:0] layer23_v_rank1_rank_rounded_w;
+    wire signed [7:0] layer23_v_rank1_rank_s8_w;
+    /* verilator lint_on UNUSED */
+    wire layer23_v_rank1_rank_saturation_w;
+    wire layer23_v_rank1_correction_saturation_w;
+    wire layer23_v_rank1_add_saturation_w;
+    wire layer23_v_rank1_numeric_overflow_sidecar_w;
+    wire layer23_v_rank1_write_active_w =
+        (state_q == ST_PROJ_WRITE_DATA) &&
+        proj_write_data_active_q &&
+        layer23_v_rank1_command_match_w &&
+        layer23_v_rank1_descriptor_match_w &&
+        layer23_v_rank1_config_complete_w;
+    wire layer23_v_rank1_numeric_saturation_w =
+        layer23_v_rank1_write_active_w &&
+        (layer23_v_rank1_rank_saturation_w ||
+         layer23_v_rank1_correction_saturation_w ||
+         layer23_v_rank1_add_saturation_w);
+    wire layer23_v_rank1_numeric_overflow_w =
+        (layer23_v_rank1_write_active_w &&
+         layer23_v_rank1_numeric_overflow_sidecar_w) ||
+        ((state_q == ST_PROJ_WRITE_DATA) &&
+         proj_write_data_active_q &&
+         layer23_v_rank1_descriptor_match_w &&
+         layer23_v_rank1_fail_closed_w);
+
+    ace2_layer23_v_rank1_integer_correction_sidecar #(
+        .ENABLE_SIDECAR(ENABLE_LAYER23_V_RANK1_SIDECAR),
+        .CONFIG_VALID(LAYER23_V_RANK1_CONFIG_VALID),
+        .HIDDEN_SIZE(HIDDEN_SIZE),
+        .OUTPUT_WIDTH(QKV_KV_OUTPUTS),
+        .LANES(LANES),
+        .ACT_WIDTH(ACT_WIDTH)
+    ) u_layer23_v_rank1_sidecar (
+        .descriptor_opcode_i(qkv_fused_q ? ACE2_OPCODE_FUSED_QKV : ACE2_OPCODE_W4A8_PROJ),
+        .descriptor_flags_i(flags_q),
+        .descriptor_layer_id_i(layer_id_q),
+        .descriptor_m_i(m_q),
+        .descriptor_n_i(n_q),
+        .descriptor_k_i(k_q),
+        .descriptor_src0_addr_i(src0_addr_q),
+        .descriptor_src1_addr_i(src1_addr_q),
+        .descriptor_dst_addr_i(dst_addr_q),
+        .descriptor_scale_addr_i(scale_addr_q),
+        .descriptor_scratch_addr_i(scratch_addr_q),
+        .qkv_fused_i(qkv_fused_q),
+        .qkv_phase_i(qkv_phase_q),
+        .output_beat_i(proj_out_idx_q[6:4]),
+        .activation_flat_i(layer23_v_rank1_activation_flat_w),
+        .baseline_beat_i(shared_payload_q),
+        .command_match_o(layer23_v_rank1_command_match_w),
+        .descriptor_match_o(layer23_v_rank1_descriptor_match_w),
+        .config_complete_o(layer23_v_rank1_config_complete_w),
+        .fail_closed_o(layer23_v_rank1_fail_closed_w),
+        .corrected_beat_o(layer23_v_rank1_corrected_beat_w),
+        .rank_accumulator_s32_o(layer23_v_rank1_rank_accumulator_w),
+        .rank_rounded_s32_o(layer23_v_rank1_rank_rounded_w),
+        .rank_intermediate_s8_o(layer23_v_rank1_rank_s8_w),
+        .rank_saturation_o(layer23_v_rank1_rank_saturation_w),
+        .correction_saturation_o(layer23_v_rank1_correction_saturation_w),
+        .add_saturation_o(layer23_v_rank1_add_saturation_w),
+        .numeric_overflow_o(layer23_v_rank1_numeric_overflow_sidecar_w)
+    );
+
+    wire [LANES*ACT_WIDTH-1:0] mem_write_data_w = (state_q == ST_WRITE_DATA) ?
+                                                  (flags_q[6] ? dynamic_core_out_data_w : core_out_data_w) :
+                                                  (state_q == ST_DYN_OUTPUT_WRITE_DATA) ?
+                                                  dynamic_output_sidecar_w[dynamic_sidecar_beat_q*128 +: 128] :
+                                                  (state_q == ST_PROJ_WRITE_DATA) ?
+                                                  (layer23_v_rank1_descriptor_match_w ?
+                                                   layer23_v_rank1_corrected_beat_w :
+                                                   shared_payload_q) :
                                                   (state_q == ST_ROPE_WRITE_DATA) ? shared_payload_q :
                                                   (state_q == ST_ATTN_WRITE_DATA) ? shared_payload_q :
                                                   (state_q == ST_SOFTMAX_WRITE_DATA) ? shared_payload_q :
@@ -1163,6 +1550,7 @@ module ace2_shell #(
                                                   (state_q == ST_KV_WRITE_DATA) ? shared_payload_q :
                                                   {LANES*ACT_WIDTH{1'b0}};
     wire [7:0] mem_write_tag_w = (state_q == ST_WRITE_DATA) ? 8'h30 :
+                                 (state_q == ST_DYN_OUTPUT_WRITE_DATA) ? 8'h13 :
                                  (state_q == ST_PROJ_WRITE_DATA) ? 8'h44 :
                                  (state_q == ST_ROPE_WRITE_DATA) ? 8'h5a :
                                  (state_q == ST_ATTN_WRITE_DATA) ? 8'h74 :
@@ -1175,6 +1563,9 @@ module ace2_shell #(
     wire [6:0] write_resume_state_w =
         (state_q == ST_WRITE_DATA) ?
             ((out_idx_q == LAST_BEAT) ? ST_WAIT_DONE : ST_SCALE_ACT_REQ) :
+        (state_q == ST_DYN_OUTPUT_WRITE_DATA) ?
+            ((dynamic_sidecar_beat_q == 2'd3) ? ST_COMPLETE :
+                                                ST_DYN_OUTPUT_WRITE_REQ) :
         (state_q == ST_PROJ_WRITE_DATA) ?
             (proj_descriptor_final_output_w ? ST_COMPLETE : ST_PROJ_START) :
         (state_q == ST_ROPE_WRITE_DATA) ?
@@ -1250,16 +1641,22 @@ module ace2_shell #(
     assign cmd_done_valid_o = done_valid_q;
     assign cmd_done_tag_o = completion_tag_q;
     assign cmd_done_error_o = done_error_q;
-    assign cmd_done_sumsq_o = core_sumsq_w;
-    assign cmd_done_inv_rms_q30_o = core_inv_w;
+    assign cmd_done_sumsq_o =
+        done_valid_q && (op_kind_q == OP_KIND_RMSNORM) ?
+            done_sumsq_q : {ACC_WIDTH{1'b0}};
+    assign cmd_done_inv_rms_q30_o =
+        done_valid_q && (op_kind_q == OP_KIND_RMSNORM) ?
+            done_inv_rms_q30_q : {(INV_RMS_FRAC+2){1'b0}};
     assign cmd_done_saturation_seen_o = done_saturation_q;
 
     assign mem_req_valid_o = !soft_reset_req_w && !reset_drain_q &&
                              !response_fault_pending_w && ((state_q == ST_ACT_REQ) ||
                              (state_q == ST_SCALE_ACT_REQ) ||
-                             (state_q == ST_GAIN_REQ0) ||
-                             (state_q == ST_GAIN_REQ1) ||
+                             (state_q == ST_DYN_SIDECAR_REQ) ||
+                            (state_q == ST_GAIN_REQ0) ||
+                            (state_q == ST_GAIN_REQ1) ||
                             ((state_q == ST_WRITE_REQ) && core_out_valid_w) ||
+                            (state_q == ST_DYN_OUTPUT_WRITE_REQ) ||
                             (state_q == ST_PROJ_ACT0_REQ) ||
                             (state_q == ST_PROJ_ACT1_REQ) ||
                             (state_q == ST_PROJ_WGT_REQ) ||
@@ -1293,7 +1690,9 @@ module ace2_shell #(
                             (state_q == ST_COMPOSE_SCORE_REQ) ||
                             (state_q == ST_COMPOSE_VALUE_REQ) ||
                             (state_q == ST_COMPOSE_OUT_REQ));
-    assign mem_req_write_o = (state_q == ST_WRITE_REQ) || (state_q == ST_PROJ_WRITE_REQ) || (state_q == ST_ROPE_WRITE_REQ) || (state_q == ST_ATTN_WRITE_REQ) || (state_q == ST_SOFTMAX_WRITE_REQ) || (state_q == ST_AV_WRITE_REQ) || (state_q == ST_RES_WRITE_REQ) || (state_q == ST_SILU_WRITE_REQ) || (state_q == ST_KV_WRITE_REQ) || (state_q == ST_COMPOSE_OUT_REQ);
+    assign mem_req_write_o = (state_q == ST_WRITE_REQ) ||
+                             (state_q == ST_DYN_OUTPUT_WRITE_REQ) ||
+                             (state_q == ST_PROJ_WRITE_REQ) || (state_q == ST_ROPE_WRITE_REQ) || (state_q == ST_ATTN_WRITE_REQ) || (state_q == ST_SOFTMAX_WRITE_REQ) || (state_q == ST_AV_WRITE_REQ) || (state_q == ST_RES_WRITE_REQ) || (state_q == ST_SILU_WRITE_REQ) || (state_q == ST_KV_WRITE_REQ) || (state_q == ST_COMPOSE_OUT_REQ);
     wire proj_mem_req_addr_selected_w =
         (state_q == ST_PROJ_ACT0_REQ) ||
         (state_q == ST_PROJ_ACT1_REQ) ||
@@ -1306,8 +1705,10 @@ module ace2_shell #(
     assign mem_req_len_o = 16'd1;
     assign mem_req_tag_o = (state_q == ST_ACT_REQ)   ? 8'h10 :
                           (state_q == ST_SCALE_ACT_REQ) ? 8'h11 :
+                          (state_q == ST_DYN_SIDECAR_REQ) ? 8'h12 :
                           (state_q == ST_GAIN_REQ0) ? 8'h20 :
                           (state_q == ST_GAIN_REQ1) ? 8'h21 :
+                          (state_q == ST_DYN_OUTPUT_WRITE_REQ) ? 8'h13 :
                           (state_q == ST_PROJ_ACT0_REQ) ? 8'h40 :
                           (state_q == ST_PROJ_ACT1_REQ) ? 8'h41 :
                           (state_q == ST_PROJ_WGT_REQ) ? 8'h42 :
@@ -1345,6 +1746,7 @@ module ace2_shell #(
                           (!soft_reset_req_w && !reset_drain_q &&
                            !response_fault_pending_w &&
                            (((state_q == ST_WRITE_DATA) && core_out_valid_w) ||
+                            (state_q == ST_DYN_OUTPUT_WRITE_DATA) ||
                             (state_q == ST_PROJ_WRITE_DATA) ||
                             (state_q == ST_ROPE_WRITE_DATA) ||
                             (state_q == ST_ATTN_WRITE_DATA) ||
@@ -1363,6 +1765,7 @@ module ace2_shell #(
     wire mem_rready_next_w = (reset_drain_q && read_outstanding_q) ||
                              ((state_q == ST_ACT_RECV) && !core_in_valid_q && core_in_ready_w) ||
                              ((state_q == ST_SCALE_ACT_RECV) && core_scale_act_ready_w) ||
+                             (state_q == ST_DYN_SIDECAR_RECV) ||
                              (state_q == ST_GAIN_RECV0) ||
                              ((state_q == ST_GAIN_RECV1) && core_gain_ready_w) ||
                              (state_q == ST_PROJ_ACT0_RECV) ||
@@ -1400,6 +1803,24 @@ module ace2_shell #(
     assign sram_wstrb_o = {SRAM_BANKS*16{1'b0}};
 
     wire unused_inputs_w = ^{sram_req_ready_i, sram_rdata_i, sram_rvalid_i, n_q, k_q, sequence_position_q, proj_acc_w, proj_multiplier_q, proj_right_shift_q, proj_output_zero_point_q, proj_bias_accumulator_q, compose_context_count_w};
+    wire dynamic_sidecar_start_ready_w;
+    wire dynamic_sidecar_result_valid_w;
+    wire dynamic_sidecar_descriptor_error_w;
+    wire dynamic_sidecar_numeric_overflow_w;
+    wire dynamic_sidecar_numeric_error_w =
+        dynamic_sidecar_numeric_overflow_w;
+    wire [38*32-1:0] dynamic_initial_base_scales_w =
+        {38{32'h0000_8000}};
+    wire [15:0] dynamic_expected_producer_tag_w =
+        (op_kind_q == OP_KIND_RMSNORM) ? sequence_position_q :
+        (completion_tag_q -
+         ((src1_addr_q == DYNAMIC_SCALE32_Q_SRC1_ADDR) ? 16'd1 :
+          (src1_addr_q == DYNAMIC_SCALE32_K_SRC1_ADDR) ? 16'd2 : 16'd3));
+    wire [7:0] dynamic_expected_layer_w =
+        (op_kind_q == OP_KIND_RMSNORM) ? 8'hff : layer_id_q;
+    wire [7:0] dynamic_expected_opcode_w =
+        (op_kind_q == OP_KIND_RMSNORM) ? DYNAMIC_SCALE32_HOST_PLAN_OPCODE :
+                                         ACE2_OPCODE_RMSNORM;
 
     ace2_rmsnorm_core #(
         .HIDDEN_SIZE(HIDDEN_SIZE),
@@ -1432,6 +1853,30 @@ module ace2_shell #(
         .sumsq_o(core_sumsq_w),
         .inv_rms_q30_o(core_inv_w),
         .saturation_seen_o(core_saturation_w)
+    );
+
+    ace2_dynamic_scale32_sidecar_validator_core #(
+        .MAX_GROUPS(38)
+    ) u_dynamic_initial_sidecar_validator (
+        .clk_i(clk_i),
+        .rst_ni(rst_ni),
+        .clear_i(core_clear_q),
+        .start_valid_i(state_q == ST_DYN_VALIDATE_START),
+        .start_ready_o(dynamic_sidecar_start_ready_w),
+        .sidecar_i(dynamic_sidecar_q),
+        .base_scale32_packed_i(dynamic_initial_base_scales_w),
+        .payload_addr_u64_i(src0_addr_q),
+        .expected_group_lanes_u8_i(8'd128),
+        .expected_group_count_u6_i(6'd7),
+        .expected_producer_tag_u16_i(dynamic_expected_producer_tag_w),
+        .expected_layer_id_u8_i(dynamic_expected_layer_w),
+        .expected_producer_opcode_u8_i(dynamic_expected_opcode_w),
+        .expected_tensor_elements_u32_i(32'd896),
+        .expected_model_identity_u64_i(64'hadcc_2078_5542_c188),
+        .result_valid_o(dynamic_sidecar_result_valid_w),
+        .result_ready_i(state_q == ST_DYN_VALIDATE_WAIT),
+        .descriptor_error_o(dynamic_sidecar_descriptor_error_w),
+        .numeric_overflow_o(dynamic_sidecar_numeric_overflow_w)
     );
 
     ace2_w4a8_proj_core #(
@@ -1588,6 +2033,22 @@ module ace2_shell #(
         end
     endfunction
 
+    function [31:0] apply_wstrb32;
+        input [31:0] old_value;
+        input [31:0] new_value;
+        input [3:0] strobe;
+        integer byte_idx;
+        begin
+            apply_wstrb32 = old_value;
+            for (byte_idx = 0; byte_idx < 4; byte_idx = byte_idx + 1) begin
+                if (strobe[byte_idx]) begin
+                    apply_wstrb32[byte_idx*8 +: 8] =
+                        new_value[byte_idx*8 +: 8];
+                end
+            end
+        end
+    endfunction
+
     function [CONTROL_BITS-1:0] apply_wstrb_control;
         input [CONTROL_BITS-1:0] old_value;
         input [CONTROL_BITS-1:0] new_value;
@@ -1644,8 +2105,8 @@ module ace2_shell #(
                     ACE2_CSR_INTERRUPT_EN[7:0]:   csr_read_value = interrupt_enable_value;
                     ACE2_CSR_INTERRUPT_ST[7:0]:   csr_read_value = interrupt_status_value;
                     ACE2_CSR_DESC_BASE[7:0]:      csr_read_value = desc_base_q;
-                    ACE2_CSR_DESC_HEAD[7:0]:      csr_read_value = desc_head_q;
-                    ACE2_CSR_DESC_TAIL[7:0]:      csr_read_value = desc_tail_q;
+                    ACE2_CSR_DESC_HEAD[7:0]:      csr_read_value = {32'd0, desc_head_q};
+                    ACE2_CSR_DESC_TAIL[7:0]:      csr_read_value = {32'd0, desc_tail_q};
                     ACE2_CSR_WATCHDOG_LIMIT[7:0]: csr_read_value = watchdog_limit_q;
                     ACE2_CSR_PERF_CYCLE[7:0]:     csr_read_value = perf_cycle_q;
                     ACE2_CSR_PERF_BYTE[7:0]:      csr_read_value = perf_byte_q;
@@ -1695,7 +2156,10 @@ module ace2_shell #(
             end
             ST_CMD_DISPATCH: begin
                 if (descriptor_valid_q) begin
-                    if (op_kind_q == OP_KIND_RMSNORM) begin
+                    if (((op_kind_q == OP_KIND_RMSNORM) ||
+                         (op_kind_q == OP_KIND_PROJ)) && flags_q[6]) begin
+                        state_d = ST_DYN_SIDECAR_REQ;
+                    end else if (op_kind_q == OP_KIND_RMSNORM) begin
                         state_d = ST_START;
                     end else if (op_kind_q == OP_KIND_ROPE) begin
                         state_d = ST_ROPE_START;
@@ -1719,6 +2183,30 @@ module ace2_shell #(
                     end
                 end else begin
                     state_d = ST_COMPLETE;
+                end
+            end
+            ST_DYN_SIDECAR_REQ: begin
+                if (mem_req_ready_i) begin
+                    state_d = ST_DYN_SIDECAR_RECV;
+                end
+            end
+            ST_DYN_SIDECAR_RECV: begin
+                if (accepted_read_w) begin
+                    state_d = (dynamic_sidecar_beat_q == 2'd3) ?
+                        ST_DYN_VALIDATE_START : ST_DYN_SIDECAR_REQ;
+                end
+            end
+            ST_DYN_VALIDATE_START: begin
+                if (dynamic_sidecar_start_ready_w) begin
+                    state_d = ST_DYN_VALIDATE_WAIT;
+                end
+            end
+            ST_DYN_VALIDATE_WAIT: begin
+                if (dynamic_sidecar_result_valid_w) begin
+                    state_d = (dynamic_sidecar_descriptor_error_w ||
+                               dynamic_sidecar_numeric_error_w) ?
+                        ST_COMPLETE :
+                        ((op_kind_q == OP_KIND_PROJ) ? ST_PROJ_START : ST_START);
                 end
             end
             ST_START: begin
@@ -1790,7 +2278,19 @@ module ace2_shell #(
             end
             ST_WAIT_DONE: begin
                 if (core_done_valid_w && !done_valid_q) begin
-                    state_d = ST_COMPLETE;
+                    state_d = flags_q[6] && !core_saturation_w &&
+                              !dynamic_output_numeric_overflow_q ?
+                        ST_DYN_OUTPUT_WRITE_REQ : ST_COMPLETE;
+                end
+            end
+            ST_DYN_OUTPUT_WRITE_REQ: begin
+                if (mem_req_ready_i) begin
+                    state_d = ST_DYN_OUTPUT_WRITE_DATA;
+                end
+            end
+            ST_DYN_OUTPUT_WRITE_DATA: begin
+                if (mem_wready_i) begin
+                    state_d = ST_WRITE_RESP;
                 end
             end
             ST_COMPLETE: begin
@@ -1811,8 +2311,10 @@ module ace2_shell #(
             end
             ST_PROJ_ACT0_RECV: begin
                 if (accepted_read_transition_q) begin
-                    state_d = proj_current_weight_cache_hit_w ?
-                        ST_PROJ_FEED : ST_PROJ_WGT_REQ;
+                    state_d = dynamic_proj_apply_overflow_q ?
+                        ST_COMPLETE :
+                        (proj_current_weight_cache_hit_w ?
+                         ST_PROJ_FEED : ST_PROJ_WGT_REQ);
                 end
             end
             ST_PROJ_ACT1_REQ: begin
@@ -1827,8 +2329,9 @@ module ace2_shell #(
                             ST_PROJ_START : ST_PROJ_ACT1_REQ;
                     end
                 end else if (accepted_read_transition_q) begin
-                    state_d = proj_current_weight_cache_hit_w ?
-                        ST_PROJ_FEED : ST_PROJ_WGT_REQ;
+                    state_d = dynamic_proj_apply_overflow_q ? ST_COMPLETE :
+                        (proj_current_weight_cache_hit_w ?
+                         ST_PROJ_FEED : ST_PROJ_WGT_REQ);
                 end
             end
             ST_PROJ_WGT_REQ: begin
@@ -2241,6 +2744,11 @@ module ace2_shell #(
             end
             ST_SILU_UP_RECV: begin
                 if (accepted_read_transition_q) begin
+                    state_d = ST_SILU_SCALE;
+                end
+            end
+            ST_SILU_SCALE: begin
+                if (silu_scale_product_valid_q) begin
                     state_d = ST_SILU_FEED;
                 end
             end
@@ -2252,7 +2760,7 @@ module ace2_shell #(
             ST_SILU_WAIT: begin
                 if (silu_out_valid_w) begin
                     state_d = (!silu_output_half_q && silu_has_upper_w) ?
-                              ST_SILU_FEED : ST_SILU_WRITE_REQ;
+                              ST_SILU_SCALE : ST_SILU_WRITE_REQ;
                 end
             end
             ST_SILU_WRITE_REQ: begin
@@ -2393,8 +2901,26 @@ module ace2_shell #(
         end
     end
 
-    // Prearmed bank-local enables keep the SiLU-up state decode off 128 data
-    // enable pins while still capturing the accepted response edge.
+    always @(posedge clk_i or negedge rst_ni) begin
+        if (!rst_ni) begin
+            dynamic_sidecar_q <= 512'd0;
+        end else if (soft_reset_req_w) begin
+            dynamic_sidecar_q <= 512'd0;
+        end else if ((state_q == ST_DYN_SIDECAR_RECV) && accepted_read_w) begin
+            case (dynamic_sidecar_beat_q)
+                2'd0: dynamic_sidecar_q[127:0] <= mem_rdata_i;
+                2'd1: dynamic_sidecar_q[255:128] <= mem_rdata_i;
+                2'd2: dynamic_sidecar_q[383:256] <= mem_rdata_i;
+                default: dynamic_sidecar_q[511:384] <= mem_rdata_i;
+            endcase
+        end
+    end
+
+            // Prearmed bank-local enables keep the SiLU-up state decode off 128 data
+            // enable pins while still capturing the earliest legal response edge.
+            // Arm from state_commit_w on the request-acceptance edge; state_q and
+            // the bank-local state shadow do not reach RECV soon enough for an
+            // N+1 response.
     genvar silu_input_bank;
     generate
         for (silu_input_bank = 0; silu_input_bank < SILU_INPUT_BANKS;
@@ -2419,7 +2945,7 @@ module ace2_shell #(
                     silu_up_recv_q <= 1'b0;
                 end else begin
                     silu_up_recv_q <=
-                                      (silu_up_state_q == ST_SILU_UP_RECV) &&
+                                      (state_commit_w == ST_SILU_UP_RECV) &&
                                       !accepted_read_w && !soft_reset_req_w &&
                                       !watchdog_fire_w &&
                                       !response_fault_pending_w;
@@ -2437,9 +2963,24 @@ module ace2_shell #(
         end
     endgenerate
 
-    // The projection predecessors store sixteen packed signed-int8 values per
-    // memory beat. Present each buffered beat to the unchanged arithmetic core
-    // as ordered lower/upper groups of eight sign-extended signed-int16 lanes.
+    assign silu_gate_core_data_w = silu_gate_core_data_q;
+    assign silu_up_core_data_w = silu_up_core_data_q;
+
+    always @(posedge clk_i or negedge rst_ni) begin
+        if (!rst_ni) begin
+            silu_scale_product_valid_q <= 1'b0;
+        end else if (soft_reset_req_w || watchdog_fire_w ||
+                     response_fault_pending_w) begin
+            silu_scale_product_valid_q <= 1'b0;
+        end else if (state_q != ST_SILU_SCALE) begin
+            silu_scale_product_valid_q <= 1'b0;
+        end else begin
+            silu_scale_product_valid_q <= !silu_scale_product_valid_q;
+        end
+    end
+
+    // Split packed-int8 scaling at the multiply/divide boundary. The extra two
+    // shell cycles do not change the core handshake or arithmetic result.
     genvar silu_core_lane;
     generate
         for (silu_core_lane = 0; silu_core_lane < SILU_LANES;
@@ -2450,13 +2991,67 @@ module ace2_shell #(
             wire [7:0] silu_up_byte_w = silu_output_half_q ?
                 silu_up_data_q[(silu_core_lane + SILU_LANES)*ACT_WIDTH +: ACT_WIDTH] :
                 silu_up_data_q[silu_core_lane*ACT_WIDTH +: ACT_WIDTH];
+            wire signed [8:0] silu_gate_signed_w =
+                {silu_gate_byte_w[7], silu_gate_byte_w};
+            wire signed [8:0] silu_up_signed_w =
+                {silu_up_byte_w[7], silu_up_byte_w};
+            wire [8:0] silu_gate_magnitude_w = silu_gate_byte_w[7] ?
+                $unsigned(-silu_gate_signed_w) : $unsigned(silu_gate_signed_w);
+            wire [8:0] silu_up_magnitude_w = silu_up_byte_w[7] ?
+                $unsigned(-silu_up_signed_w) : $unsigned(silu_up_signed_w);
+            wire [24:0] silu_gate_product_w =
+                silu_gate_magnitude_w * silu_gate_scale_numerator(layer_id_q);
+            wire [24:0] silu_up_product_w =
+                silu_up_magnitude_w * silu_up_scale_numerator(layer_id_q);
+            reg silu_gate_negative_q;
+            reg silu_up_negative_q;
+            reg [24:0] silu_gate_product_q;
+            reg [24:0] silu_up_product_q;
 
-            assign silu_gate_core_data_w[
-                silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
-            ] = {{ACT_WIDTH{silu_gate_byte_w[ACT_WIDTH-1]}}, silu_gate_byte_w};
-            assign silu_up_core_data_w[
-                silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
-            ] = {{ACT_WIDTH{silu_up_byte_w[ACT_WIDTH-1]}}, silu_up_byte_w};
+            always @(posedge clk_i or negedge rst_ni) begin
+                if (!rst_ni) begin
+                    silu_gate_negative_q <= 1'b0;
+                    silu_up_negative_q <= 1'b0;
+                    silu_gate_product_q <= 25'd0;
+                    silu_up_product_q <= 25'd0;
+                    silu_gate_core_data_q[
+                        silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
+                    ] <= 16'd0;
+                    silu_up_core_data_q[
+                        silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
+                    ] <= 16'd0;
+                end else if (soft_reset_req_w || watchdog_fire_w ||
+                             response_fault_pending_w) begin
+                    silu_gate_negative_q <= 1'b0;
+                    silu_up_negative_q <= 1'b0;
+                    silu_gate_product_q <= 25'd0;
+                    silu_up_product_q <= 25'd0;
+                    silu_gate_core_data_q[
+                        silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
+                    ] <= 16'd0;
+                    silu_up_core_data_q[
+                        silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
+                    ] <= 16'd0;
+                end else if ((state_q == ST_SILU_SCALE) &&
+                             !silu_scale_product_valid_q) begin
+                    silu_gate_negative_q <= silu_gate_byte_w[7];
+                    silu_up_negative_q <= silu_up_byte_w[7];
+                    silu_gate_product_q <= silu_gate_product_w;
+                    silu_up_product_q <= silu_up_product_w;
+                end else if ((state_q == ST_SILU_SCALE) &&
+                             silu_scale_product_valid_q) begin
+                    silu_gate_core_data_q[
+                        silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
+                    ] <= silu_scale_product_to_q6_9(
+                        silu_gate_product_q, silu_gate_negative_q
+                    );
+                    silu_up_core_data_q[
+                        silu_core_lane*(2*ACT_WIDTH) +: (2*ACT_WIDTH)
+                    ] <= silu_scale_product_to_q6_9(
+                        silu_up_product_q, silu_up_negative_q
+                    );
+                end
+            end
         end
     endgenerate
 
@@ -2496,12 +3091,12 @@ module ace2_shell #(
                     payload_recv_q <= 1'b0;
                 end else begin
                     payload_recv_q <=
-                        ((payload_state_q == ST_ACT_RECV) ||
-                         (payload_state_q == ST_SCALE_ACT_RECV) ||
-                         (payload_state_q == ST_SOFTMAX_SCORE_RECV) ||
-                         (payload_state_q == ST_COMPOSE_SCORE_RECV) ||
-                         (payload_state_q == ST_KV_READ_RECV) ||
-                         (payload_state_q == ST_RES_SRC0_RECV)) &&
+                        ((state_commit_w == ST_ACT_RECV) ||
+                         (state_commit_w == ST_SCALE_ACT_RECV) ||
+                         (state_commit_w == ST_SOFTMAX_SCORE_RECV) ||
+                         (state_commit_w == ST_COMPOSE_SCORE_RECV) ||
+                         (state_commit_w == ST_KV_READ_RECV) ||
+                         (state_commit_w == ST_RES_SRC0_RECV)) &&
                         !accepted_read_w && !soft_reset_req_w &&
                         !watchdog_fire_w && !response_fault_pending_w;
                 end
@@ -2871,7 +3466,10 @@ module ace2_shell #(
         end else if (!response_fault_pending_w && !watchdog_fire_w) begin
             case (prefix_state_q)
                 ST_CMD_DISPATCH: begin
-                    if ((op_kind_q == OP_KIND_ATTN)) begin
+                    if (((op_kind_q == OP_KIND_RMSNORM) ||
+                         (op_kind_q == OP_KIND_PROJ)) && flags_q[6]) begin
+                        prefix_mem_req_addr_q <= src0_addr_q - 64'd64;
+                    end else if ((op_kind_q == OP_KIND_ATTN)) begin
                         prefix_mem_req_addr_q <= scale_addr_q;
                     end else if ((op_kind_q == OP_KIND_SOFTMAX) ||
                         (op_kind_q == OP_KIND_ATTN_VALUE) ||
@@ -2883,6 +3481,13 @@ module ace2_shell #(
                 ST_START: begin
                     if (core_start_valid_q && core_start_ready_w) begin
                         prefix_mem_req_addr_q <= src0_addr_q;
+                    end
+                end
+                ST_DYN_SIDECAR_RECV: begin
+                    if (accepted_read_w &&
+                        (dynamic_sidecar_beat_q != 2'd3)) begin
+                        prefix_mem_req_addr_q <=
+                            add_small64(prefix_mem_req_addr_q, 12'd16);
                     end
                 end
                 ST_ACT_RECV: begin
@@ -2906,6 +3511,19 @@ module ace2_shell #(
                     if (core_write_accepted_w && (out_idx_q != LAST_BEAT)) begin
                         prefix_mem_req_addr_q <=
                             src0_addr_q + ((beat_idx_ext_w + 64'd1) << 4);
+                    end
+                end
+                ST_WAIT_DONE: begin
+                    if (core_done_valid_w && flags_q[6] &&
+                        !core_saturation_w &&
+                        !dynamic_output_numeric_overflow_q) begin
+                        prefix_mem_req_addr_q <= dst_addr_q - 64'd64;
+                    end
+                end
+                ST_DYN_OUTPUT_WRITE_DATA: begin
+                    if (mem_wready_i && (dynamic_sidecar_beat_q != 2'd3)) begin
+                        prefix_mem_req_addr_q <=
+                            add_small64(prefix_mem_req_addr_q, 12'd16);
                     end
                 end
                 ST_ROPE_START: begin
@@ -3163,23 +3781,24 @@ module ace2_shell #(
                 perf_token_q <= {perf_token_q[63:32], perf_token_q[31:0] + 32'd1};
             end
         end else if (((state_q == ST_WAIT_DONE) && core_done_valid_w &&
-                      !done_valid_q) || compose_command_retire_w) begin
+                      !done_valid_q && !flags_q[6]) ||
+                     compose_command_retire_w) begin
             perf_token_q <= {perf_token_q[63:32], perf_token_q[31:0] + 32'd1};
         end
     end
 
     always @(posedge clk_i or negedge rst_ni) begin
         if (!rst_ni) begin
-            desc_tail_q <= 64'd0;
+            desc_tail_q <= 32'd0;
             desc_tail_inc_q <= 1'b0;
         end else begin
             if (desc_tail_inc_q) begin
-                desc_tail_q <= desc_tail_q + 64'd1;
+                desc_tail_q <= desc_tail_q + 32'd1;
             end
             desc_tail_inc_q <=
                 (write_retire_success_w && write_completes_descriptor_q) ||
                 ((state_q == ST_WAIT_DONE) && core_done_valid_w &&
-                 !done_valid_q) || compose_command_retire_w;
+                 !done_valid_q && !flags_q[6]) || compose_command_retire_w;
         end
     end
 
@@ -3193,7 +3812,7 @@ module ace2_shell #(
             interrupt_status_q <= {STATUS_BITS{1'b0}};
             error_status_q <= {STATUS_BITS{1'b0}};
             desc_base_q <= 64'd0;
-            desc_head_q <= 64'd0;
+            desc_head_q <= 32'd0;
             watchdog_limit_q <= 64'd0;
             watchdog_count_q <= 64'd0;
             watchdog_armed_q <= 1'b0;
@@ -3224,10 +3843,12 @@ module ace2_shell #(
             cmd_scale_addr_buf_q <= 64'd0;
             cmd_scratch_addr_buf_q <= 64'd0;
             beat_idx_q <= {BEAT_INDEX_WIDTH{1'b0}};
+            dynamic_sidecar_beat_q <= 2'd0;
             out_idx_q <= {BEAT_INDEX_WIDTH{1'b0}};
             completion_tag_q <= 16'd0;
             op_kind_q <= OP_KIND_RMSNORM;
             flags_q <= 8'd0;
+            layer_id_q <= 8'd0;
             m_q <= 16'd0;
             n_q <= 16'd0;
             k_q <= 16'd0;
@@ -3252,6 +3873,8 @@ module ace2_shell #(
             reset_write_tag_q <= 8'd0;
             reset_write_strb_q <= 16'd0;
             descriptor_valid_q <= 1'b0;
+            dynamic_output_numeric_overflow_q <= 1'b0;
+            dynamic_proj_apply_overflow_q <= 1'b0;
             proj_row_idx_q <= {PROJ_ROW_INDEX_WIDTH{1'b0}};
             proj_out_idx_q <= {PROJ_OUT_INDEX_WIDTH{1'b0}};
             proj_group_idx_q <= {PROJ_GROUP_INDEX_WIDTH{1'b0}};
@@ -3300,6 +3923,8 @@ module ace2_shell #(
             done_valid_q <= 1'b0;
             done_error_q <= 1'b0;
             done_saturation_q <= 1'b0;
+            done_sumsq_q <= {ACC_WIDTH{1'b0}};
+            done_inv_rms_q30_q <= {(INV_RMS_FRAC+2){1'b0}};
             core_clear_q <= 1'b0;
             core_start_valid_q <= 1'b0;
             core_in_valid_q <= 1'b0;
@@ -3383,9 +4008,12 @@ module ace2_shell #(
             if (cmd_load_decode_q) begin
                 completion_tag_q <= cmd_completion_tag_buf_q;
                 flags_q <= cmd_flags_buf_q;
+                layer_id_q <= cmd_layer_id_buf_q;
                 descriptor_valid_q <= descriptor_valid_w;
                 qkv_fused_q <=
                     (cmd_opcode_buf_q == ACE2_OPCODE_FUSED_QKV);
+                done_sumsq_q <= {ACC_WIDTH{1'b0}};
+                done_inv_rms_q30_q <= {(INV_RMS_FRAC+2){1'b0}};
             end
             if (cmd_fire_w) begin
                 op_kind_q <= cmd_op_kind_i_w;
@@ -3417,21 +4045,21 @@ module ace2_shell #(
                                 (state_commit_w == ST_PROJ_ACT1_RECV)) &&
                                !accepted_read_w && !soft_reset_req_w &&
                                !watchdog_fire_w && !response_fault_pending_w;
-            gain_low_recv_q <= ((state_q == ST_GAIN_RECV0) ||
-                                (state_q == ST_AV_PROB_RECV) ||
-                                (state_q == ST_RES_SRC1_RECV)) &&
+            gain_low_recv_q <= ((state_commit_w == ST_GAIN_RECV0) ||
+                                (state_commit_w == ST_AV_PROB_RECV) ||
+                                (state_commit_w == ST_RES_SRC1_RECV)) &&
                                !accepted_read_w && !soft_reset_req_w &&
                                !watchdog_fire_w && !response_fault_pending_w;
-            gain_high_recv_q <= (state_q == ST_GAIN_RECV1) &&
+            gain_high_recv_q <= (state_commit_w == ST_GAIN_RECV1) &&
                                 !accepted_read_w && !soft_reset_req_w &&
                                 !watchdog_fire_w && !response_fault_pending_w;
-            rope_act_recv_q <= (state_q == ST_ROPE_ACT_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
-            rope_pair_recv_q <= (state_q == ST_ROPE_PAIR_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
-            rope_scale_recv_q <= (state_q == ST_ROPE_SCALE0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
-            rope_pair_scale_recv_q <= (state_q == ST_ROPE_PAIR_SCALE0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
-            rope_cos_recv_q <= (state_q == ST_ROPE_COS0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
-            rope_sin_recv_q <= (state_q == ST_ROPE_SIN0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
-            attn_q_recv_q <= ((state_q == ST_ATTN_Q_RECV) || (state_q == ST_AV_V_RECV)) &&
+            rope_act_recv_q <= (state_commit_w == ST_ROPE_ACT_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
+            rope_pair_recv_q <= (state_commit_w == ST_ROPE_PAIR_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
+            rope_scale_recv_q <= (state_commit_w == ST_ROPE_SCALE0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
+            rope_pair_scale_recv_q <= (state_commit_w == ST_ROPE_PAIR_SCALE0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
+            rope_cos_recv_q <= (state_commit_w == ST_ROPE_COS0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
+            rope_sin_recv_q <= (state_commit_w == ST_ROPE_SIN0_RECV) && !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w && !response_fault_pending_w;
+            attn_q_recv_q <= ((state_commit_w == ST_ATTN_Q_RECV) || (state_commit_w == ST_AV_V_RECV)) &&
                              !accepted_read_w && !soft_reset_req_w && !watchdog_fire_w &&
                              !response_fault_pending_w;
             if ((state_q == ST_COMPOSE_VALUE_RECV) && accepted_read_w) begin
@@ -3471,7 +4099,6 @@ module ace2_shell #(
                            control_enable_w && !halted_on_error_w && !cmd_fire_w &&
                            !cmd_decode_busy_q;
             control_q[1] <= 1'b0;
-            csr_error_o <= 1'b0;
             perf_cycle_event_q <= control_enable_w;
             perf_byte_event_q <= accepted_read_w || accepted_write_w;
             perf_stall_event_q <= mem_stall_w;
@@ -3501,7 +4128,7 @@ module ace2_shell #(
             if (core_numeric_saturation_w) begin
                 error_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
             end
-            if (proj_numeric_overflow_w) begin
+            if (proj_numeric_overflow_w || layer23_v_rank1_numeric_overflow_w) begin
                 error_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
                 interrupt_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
                 done_error_q <= 1'b1;
@@ -3509,12 +4136,14 @@ module ace2_shell #(
             if (core_numeric_saturation_w || proj_numeric_saturation_w ||
                 attn_numeric_saturation_w || softmax_numeric_saturation_w ||
                 silu_numeric_saturation_w ||
+                layer23_v_rank1_numeric_saturation_w ||
                 (residual_write_accepted_w && residual_saturation_w)) begin
                 done_saturation_q <= 1'b1;
             end
 
             if (csr_rvalid_o && csr_rready_i) begin
                 csr_rvalid_o <= 1'b0;
+                csr_error_o <= 1'b0;
             end
             if (csr_fire_w) begin
                 csr_req_valid_q <= 1'b1;
@@ -3553,10 +4182,14 @@ module ace2_shell #(
                             desc_base_q <= apply_wstrb64(desc_base_q, csr_req_wdata_q, csr_req_wstrb_q);
                         end
                         ACE2_CSR_DESC_HEAD[7:0]: begin
-                            desc_head_q <= apply_wstrb64(desc_head_q, csr_req_wdata_q, csr_req_wstrb_q);
+                            desc_head_q <= apply_wstrb32(
+                                desc_head_q,
+                                csr_req_wdata_q[31:0],
+                                csr_req_wstrb_q[3:0]
+                            );
                         end
                         ACE2_CSR_DOORBELL[7:0]: begin
-                            desc_head_q <= desc_head_q + 64'd1;
+                            desc_head_q <= desc_head_q + 32'd1;
                         end
                         ACE2_CSR_WATCHDOG_LIMIT[7:0]: begin
                             watchdog_limit_q <= apply_wstrb64(watchdog_limit_q, csr_req_wdata_q, csr_req_wstrb_q);
@@ -3596,7 +4229,12 @@ module ace2_shell #(
                 end
                 done_valid_q <= 1'b0;
                 done_error_q <= 1'b0;
+                done_sumsq_q <= {ACC_WIDTH{1'b0}};
+                done_inv_rms_q30_q <= {(INV_RMS_FRAC+2){1'b0}};
                 beat_idx_q <= {BEAT_INDEX_WIDTH{1'b0}};
+                dynamic_sidecar_beat_q <= 2'd0;
+                dynamic_output_numeric_overflow_q <= 1'b0;
+                dynamic_proj_apply_overflow_q <= 1'b0;
                 out_idx_q <= {BEAT_INDEX_WIDTH{1'b0}};
                 proj_row_idx_q <= {PROJ_ROW_INDEX_WIDTH{1'b0}};
                 proj_out_idx_q <= {PROJ_OUT_INDEX_WIDTH{1'b0}};
@@ -3727,6 +4365,9 @@ module ace2_shell #(
                     end
                     ST_CMD_DISPATCH: begin
                         beat_idx_q <= {BEAT_INDEX_WIDTH{1'b0}};
+                        dynamic_sidecar_beat_q <= 2'd0;
+                        dynamic_output_numeric_overflow_q <= 1'b0;
+                        dynamic_proj_apply_overflow_q <= 1'b0;
                         out_idx_q <= {BEAT_INDEX_WIDTH{1'b0}};
                         silu_output_half_q <= 1'b0;
                         silu_write_final_q <= 1'b0;
@@ -3758,6 +4399,31 @@ module ace2_shell #(
                             silu_mem_req_addr_q <= scale_addr_q;
                         end
                     end
+                    ST_DYN_SIDECAR_RECV: begin
+                        if (accepted_read_w) begin
+                            if (dynamic_sidecar_beat_q == 2'd3) begin
+                                dynamic_sidecar_beat_q <= 2'd0;
+                            end else begin
+                                dynamic_sidecar_beat_q <=
+                                    dynamic_sidecar_beat_q + 2'd1;
+                            end
+                        end
+                    end
+                    ST_DYN_VALIDATE_WAIT: begin
+                        if (dynamic_sidecar_result_valid_w &&
+                            (dynamic_sidecar_descriptor_error_w ||
+                             dynamic_sidecar_numeric_error_w)) begin
+                            done_valid_q <= 1'b1;
+                            done_error_q <= 1'b1;
+                            if (dynamic_sidecar_descriptor_error_w) begin
+                                error_status_q[ACE2_ERR_DESCRIPTOR] <= 1'b1;
+                                interrupt_status_q[ACE2_ERR_DESCRIPTOR] <= 1'b1;
+                            end else begin
+                                error_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
+                                interrupt_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
+                            end
+                        end
+                    end
                     ST_START: begin
                         if (core_start_valid_q && core_start_ready_w) begin
                             mem_req_addr_q <= src0_addr_q;
@@ -3787,12 +4453,25 @@ module ace2_shell #(
                     end
                     ST_WRITE_DATA: begin
                         if (core_write_accepted_w) begin
+                            dynamic_output_numeric_overflow_q <=
+                                dynamic_output_numeric_overflow_q |
+                                dynamic_output_overflow_w;
                             if (out_idx_q == LAST_BEAT) begin
                                 out_idx_q <= {BEAT_INDEX_WIDTH{1'b0}};
                             end else begin
                                 out_idx_q <= out_idx_q + {{(BEAT_INDEX_WIDTH-1){1'b0}}, 1'b1};
                                 beat_idx_q <= beat_idx_q + {{(BEAT_INDEX_WIDTH-1){1'b0}}, 1'b1};
                                 mem_req_addr_q <= src0_addr_q + ((beat_idx_ext_w + 64'd1) << 4);
+                            end
+                        end
+                    end
+                    ST_DYN_OUTPUT_WRITE_DATA: begin
+                        if (mem_wready_i) begin
+                            if (dynamic_sidecar_beat_q == 2'd3) begin
+                                dynamic_sidecar_beat_q <= 2'd0;
+                            end else begin
+                                dynamic_sidecar_beat_q <=
+                                    dynamic_sidecar_beat_q + 2'd1;
                             end
                         end
                     end
@@ -3804,6 +4483,13 @@ module ace2_shell #(
                     end
                     ST_PROJ_ACT0_RECV: begin
                         mem_req_addr_q <= add_proj_offset64(src1_addr_q, proj_weight_request_offset_w);
+                        if (accepted_read_w && dynamic_proj_apply_overflow_w) begin
+                            dynamic_proj_apply_overflow_q <= 1'b1;
+                            done_valid_q <= 1'b1;
+                            done_error_q <= 1'b1;
+                            error_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
+                            interrupt_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
+                        end
                     end
                     ST_PROJ_ACT1_RECV: begin
                         if (qkv_fused_q && accepted_read_w) begin
@@ -3819,6 +4505,13 @@ module ace2_shell #(
                             end
                         end
                         mem_req_addr_q <= add_proj_offset64(src1_addr_q, proj_weight_request_offset_w);
+                        if (accepted_read_w && dynamic_proj_apply_overflow_w) begin
+                            dynamic_proj_apply_overflow_q <= 1'b1;
+                            done_valid_q <= 1'b1;
+                            done_error_q <= 1'b1;
+                            error_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
+                            interrupt_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
+                        end
                     end
                     ST_PROJ_WGT_RECV: begin
                     end
@@ -4118,11 +4811,19 @@ module ace2_shell #(
                     end
                     ST_WAIT_DONE: begin
                         if (core_done_valid_w && !done_valid_q) begin
-                            done_valid_q <= 1'b1;
-                            done_error_q <= done_error_q | core_saturation_w;
-                            done_saturation_q <= core_saturation_w;
-                            interrupt_status_q[0] <= 1'b1;
-                            if (core_saturation_w) begin
+                            done_sumsq_q <= core_sumsq_w;
+                            done_inv_rms_q30_q <= core_inv_w;
+                            if (!flags_q[6] || core_saturation_w ||
+                                dynamic_output_numeric_overflow_q) begin
+                                done_valid_q <= 1'b1;
+                                done_error_q <= done_error_q |
+                                                core_saturation_w |
+                                                dynamic_output_numeric_overflow_q;
+                                done_saturation_q <= core_saturation_w;
+                                interrupt_status_q[0] <= 1'b1;
+                            end
+                            if (core_saturation_w ||
+                                dynamic_output_numeric_overflow_q) begin
                                 error_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
                                 interrupt_status_q[ACE2_ERR_NUMERIC] <= 1'b1;
                             end

@@ -1,0 +1,12 @@
+localparam integer MODEL_HIDDEN_SIZE = 896;
+localparam integer MODEL_GROUP_SIZE = 1;
+localparam integer MODEL_GROUP_COUNT = 896;
+localparam integer MODEL_Q_OUTPUTS = 896;
+localparam logic [31:0] MODEL_ATTENTION_BASE_SCALE32 = 32'h00fbd492;
+localparam logic [31:0] MODEL_DOWN_BASE_SCALE32 = 32'h00f9d146;
+localparam logic [31:0] MODEL_SUM_SCALE32 = 32'h00fb93d7;
+localparam logic [31:0] MODEL_Q_INPUT_SCALE32 = 32'h00fbe1c4;
+localparam logic [31:0] MODEL_Q_OUTPUT_SCALE32 = 32'h00fbca65;
+localparam logic [47:0] MODEL_RMS_SUMSQ = 48'd1161458;
+localparam logic [31:0] MODEL_RMS_INV_Q30 = 32'd29826161;
+localparam integer MODEL_Q_SATURATION_COUNT = 1;

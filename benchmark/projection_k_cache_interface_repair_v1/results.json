@@ -1,0 +1,93 @@
+{
+  "baseline": {
+    "host_commands": 1,
+    "median_wall_seconds": 20.06282841600114,
+    "memory_read_requests": 57472,
+    "memory_write_requests": 8,
+    "outputs_checked": 128,
+    "saturation": 1,
+    "simulator_cycles": 283359
+  },
+  "benchmark": "projection-k-cache-interface-repair-v1",
+  "candidate": {
+    "host_commands": 1,
+    "median_wall_seconds": 7.819315655000537,
+    "memory_read_requests": 10880,
+    "memory_write_requests": 8,
+    "outputs_checked": 128,
+    "saturation": 1,
+    "simulator_cycles": 115055
+  },
+  "contract": {
+    "bytes": 5394,
+    "path": "benchmark/projection_k_cache_interface_repair_v1/contract.json",
+    "sha256": "b5ad56ceb24af15e2d620f3205faf76752779552f02c9c15a156e86f7217745f"
+  },
+  "equivalence": {
+    "bytes_compared_per_trial": 128,
+    "host_descriptor_commands_unchanged": true,
+    "memory_write_requests_unchanged": true,
+    "public_interface": "IDENTICAL_12_PARAMETERS_64_PORTS",
+    "rtl_reference": "PASS_BIT_EXACT"
+  },
+  "improvement": {
+    "median_wall_time_percent": 61.02585591190008,
+    "memory_read_requests_percent": 81.06904231625836,
+    "simulator_cycles_percent": 59.39603118305754
+  },
+  "interface_manifest": {
+    "bytes": 14710,
+    "path": "benchmark/projection_k_cache_interface_repair_v1/interface_manifest.json",
+    "sha256": "bf9d86a9aba6840b426af7a3e0d8b37e39b30d1693f9b605ddf3a1b0ad9353e0"
+  },
+  "limitations": [
+    "This is a deterministic synthetic layer-0 K projection, not a full model or chat attempt.",
+    "The benchmark measures the abstract streaming-memory boundary, not a physical DRAM controller.",
+    "Activation-beat reuse is disabled for dynamic-sidecar projections; weight-beat reuse remains enabled.",
+    "Full-shell 100 MHz closure remains limited by the pre-existing shared control-to-SILU path."
+  ],
+  "measurement_results": {
+    "baseline": {
+      "bytes": 2972,
+      "path": "build/projection-k-cache-interface-repair-v1/round-0001-baseline/result.json",
+      "sha256": "48dc1f70c3817be608739b8a46bd490c96815a4066bbd17216501823940ae380"
+    },
+    "candidate": {
+      "bytes": 2945,
+      "path": "build/projection-k-cache-interface-repair-v1/round-0001-candidate/result.json",
+      "sha256": "b7d0f9b5fdf04d8920d827f87a9cbff6b9d15e3b3ac36cb80c87759cf2c3edc0"
+    }
+  },
+  "mission_id": "35b17ba3b226",
+  "rtl_scope": "One 128-bit activation beat register and one 128-bit W4 weight beat register in ace2_shell; reuse is internal to a projection output and does not change ports, descriptors, W4A8 arithmetic, or memory layout.",
+  "schema_version": 1,
+  "source_identities": {
+    "baseline": {
+      "identity": "frozen-v3-pre-cache-shell",
+      "immutable_snapshot": {
+        "bytes": 221673,
+        "path": "build/projection-k-cache-interface-repair-v1/frozen-baseline/rtl/ace2_shell.sv",
+        "sha256": "febccf8762a43149eb1964796ff0c842a791cfcdeca106150efcd6d6147ad216"
+      },
+      "origin": {
+        "bytes": 221673,
+        "path": "build/projection-k-cache-v3/frozen-baseline/rtl/ace2_shell.sv",
+        "sha256": "febccf8762a43149eb1964796ff0c842a791cfcdeca106150efcd6d6147ad216"
+      }
+    },
+    "candidate": {
+      "identity": "activation-and-weight-beat-cache-shell",
+      "immutable_snapshot": {
+        "bytes": 225105,
+        "path": "build/projection-k-cache-interface-repair-v1/frozen-candidate/rtl/ace2_shell.sv",
+        "sha256": "6a3db778c0c5e8b410bd4a8c19fbdac738c5cd3dbbbfa7d4ca9b4853a5b51d84"
+      },
+      "origin": {
+        "bytes": 225105,
+        "path": "rtl/ace2_shell.sv",
+        "sha256": "6a3db778c0c5e8b410bd4a8c19fbdac738c5cd3dbbbfa7d4ca9b4853a5b51d84"
+      }
+    }
+  },
+  "status": "PASS"
+}

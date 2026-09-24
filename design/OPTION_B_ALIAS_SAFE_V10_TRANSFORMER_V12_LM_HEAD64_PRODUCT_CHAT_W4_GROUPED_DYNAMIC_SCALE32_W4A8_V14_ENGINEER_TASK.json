@@ -1,0 +1,181 @@
+{
+  "schema_version": 1,
+  "task_id": "task-91ec703b42da",
+  "created_at_utc": "2026-08-07T06:05:21Z",
+  "title": "Execute fresh V14 product-quality W4A8 policy preflight",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v14",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V14_PLAN.json",
+    "sha256": "85a9d5bf1127301b4ae384590a3baa859cfd11ee73bef09a464efbc21941185d",
+    "role": "frozen successor acceptance and authority contract"
+  },
+  "predecessor": {
+    "candidate_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v13",
+    "task_id": "task-6b8d1f4a2c73",
+    "terminal_status": "PRODUCT_PREFLIGHT_NO_GO",
+    "failure_taxonomy": "CONSTRUCTION_OR_CODEC_FAILURE",
+    "construction_marker_sha256": "be54b2bfd782cbda0776c4f9c33ea557e134d72dc552d7273bdc96bb6e6c27d9",
+    "terminal_record_sha256": "8dcb494e89e1e199206cfcb337671bd1b9cb39454f23132697326aaf1ac7f90c",
+    "review_status": "replan_requested",
+    "review_record": "research/raw/specification/v13-product-quality-construction-no-go-review-replan-20260807T060033Z.json",
+    "review_record_sha256": "1299a3a26675f7ec82e76d12a38f3ec6bba43d9bc74a3759b7628fca1effdd64",
+    "quality_campaign_started": false,
+    "quality_conclusion": null,
+    "replay_resume_repair_or_official_execution_permitted": false
+  },
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v14",
+    "quality_campaign": "quality-campaign-0001",
+    "root_must_be_absent_at_task_start": true,
+    "construction_marker": "construction_started.json",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "matrix_must_be_hash_bound_before_quality_marker": true,
+    "construction_attempts_authorized": 1,
+    "quality_campaigns_authorized": 1,
+    "recovery_second_campaign_or_prompt_tuning_permitted": false
+  },
+  "executable": {
+    "project_python": ".venv/bin/python",
+    "runner": {
+      "path": "tools/run_option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v14_stage1.py",
+      "bytes": 1760,
+      "sha256": "2cf4a08da4b9255d30f12526f0318e7ac0838030cb0ba0f6f7b9ba12f6d05c49"
+    },
+    "authority_adapter": {
+      "path": "tools/v14_v10_transformer_v12_lm_head64_backend.py",
+      "bytes": 9312,
+      "sha256": "5dc6fa0e028cb744dfc3c82045968a06f8b65fdaa386471441dc89fed6c1e0a6"
+    },
+    "corrected_algorithm_backend": {
+      "path": "tools/v13_v10_transformer_v12_lm_head64_backend.py",
+      "bytes": 75023,
+      "sha256": "4b06fb0c84f8bd3dbca1915882d59038d2bc40577fa07d5d7543c4741518c82f"
+    },
+    "preexecution_self_test_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v14_stage1.py self-test --output build/v14-constructor-kernel-self-test.json",
+    "authority_consuming_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v14_stage1.py run-all"
+  },
+  "implementation_objective": "Under exactly one fresh V14 construction authority, build two independent deterministic full-model quantized references using all 168 sealed V10 transformer tensors and the isolated V12 64-group lm_head tensor, prove exact codec, alias, byte, and 312-event Dynamic Scale32 closure, then execute exactly the unchanged V13 product-quality matrix through one immutable V14 quality campaign. Preserve raw prompts, token IDs, decoded outputs, rubric results, and honest wall times for Fresh Review. Do not modify RTL, retarget the live chat demo, access U280 tools, or use BF16 token identity as the acceptance oracle.",
+  "inherited_acceptance": {
+    "v13_plan": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V13_PLAN.json",
+    "v13_plan_sha256": "aa3fc2797b27c2227588f2573d9aebe924fa385baee298ea99b69912c95a3603",
+    "acceptance_changes": [],
+    "frozen_matrix_canonical_sha256": "312942cdb47fb294e6f7d402052c4bfec1cf94b48ecfd64995f9b65e7e3dff36",
+    "quality_rubric_canonical_sha256": "f8e8bf4e9dfe04503b72cabd91edd6d96a14f8e0a427c9247400dc779c50f814",
+    "generation_contract_canonical_sha256": "9e8e2a5cdf04bd6015319b5d38ab720ecfac71ec266c07523ecf31b05d567d43"
+  },
+  "required_constructor": {
+    "source_model": "Qwen/Qwen2.5-0.5B-Instruct@7ae557604adf67be50417f59c2c2f167def9a775",
+    "embedding": "preserve the source BF16 embedding bytes and detach lm_head storage before any weight replacement",
+    "transformer": "reconstruct exactly the sealed V10 representation for all 168 transformer Linear tensors, including four-bit payload, packed Scale24 rows, dual codebooks, per-row/block selectors, padding, and authentication",
+    "lm_head": "reconstruct exactly the isolated V12 64 contiguous groups of 2374 rows with seven dual-bank input-block records per group and one selector bit per output row/block",
+    "determinism": "two clean independent constructions must match all payload, metadata, state, reconstruction, tokenizer, prompt-matrix, and manifest hashes",
+    "construction_inputs_forbidden": [
+      "product-quality outputs",
+      "BF16 token arrays",
+      "response-gate outcomes",
+      "Fresh Reviewer holdout outputs",
+      "hidden harnesses or golden outputs"
+    ]
+  },
+  "required_format_closure": {
+    "transformer_tensor_exact_match_count": 168,
+    "lm_head_reconstruction_sha256": "ff463c0a71035c4dc8305c9fe47c96fed7e06a96da0a04cc37b5477c6ab7df76",
+    "whole_model_weight_count": 493961216,
+    "whole_model_four_bit_payload_bytes": 246980608,
+    "whole_model_weight_metadata_bytes": 1926352,
+    "whole_model_total_weight_bytes": 248906960,
+    "whole_model_exact_bits_per_weight": 4.031198433198448,
+    "standard_decoder_layer_total_weight_bytes": 7509856,
+    "lm_head_total_weight_bytes": 68670416,
+    "maximum_activation_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_incremental_sram_bytes": 2368,
+    "maximum_live_weight_metadata_cache_bytes": 192,
+    "public_ace2_shell_parameter_count": 12,
+    "public_ace2_shell_port_count": 64,
+    "public_interface_change_permitted": false
+  },
+  "required_self_tests": [
+    "reject any plan, task, source, model, tokenizer, template, V10, V12, V13 terminal, helper, diagnostic, or review-record hash mismatch before construction",
+    "prove the source embedding bytes remain unchanged and lm_head storage is not aliased to the embedding",
+    "prove all 168 transformer tensors exactly match the sealed V10 decoded representations and metadata",
+    "prove the lm_head decoded representation and metadata exactly match the isolated V12 64-group construction",
+    "round-trip every packed Scale24 record with a restored zero high byte and reject malformed or lossy encodings",
+    "round-trip every codebook, selector stream, group transition, alignment byte, and authentication record",
+    "prove exact whole-model payload, metadata, and total byte counts",
+    "prove candidate A and candidate B construction manifests are identical",
+    "run all 312 named grouped Dynamic Scale32 events with no saturation, clipping, or reserved -128 payload and no more than 832 transport-metadata bytes per decoder-layer token",
+    "prove the inherited V13 quality matrix bytes and hashes are frozen before any V14 candidate output is generated",
+    "prove deterministic greedy re-execution reproduces every token ID and decoded output exactly without changing the frozen result"
+  ],
+  "quality_execution": {
+    "matrix_source": "hash-bound V13 plan frozen_product_quality_matrix",
+    "single_turn_case_count": 12,
+    "multi_turn_case_count": 3,
+    "fresh_reviewer_holdout_count": 4,
+    "maximum_new_tokens_per_response": 32,
+    "sampling_permitted": false,
+    "use_cache": true,
+    "raw_prompt_text_must_be_preserved_after_freeze": true,
+    "raw_decoded_output_must_be_preserved": true,
+    "token_ids_and_termination_reason_must_be_preserved": true,
+    "per_response_wall_seconds_must_be_measured": true,
+    "bf16_token_or_gate_comparison_required": false,
+    "bf16_token_or_gate_comparison_may_affect_routing": false,
+    "software_only_result_is_accelerator_completion": false
+  },
+  "required_quality_artifacts": [
+    "predeclared_contract.json binding all source, model, tokenizer, plan, task, predecessor, matrix, helper, diagnostic, review, and environment hashes",
+    "constructor_self_test.json",
+    "candidate_a_manifest.json",
+    "candidate_b_manifest.json",
+    "transformer_v10_exact_reproduction.json",
+    "lm_head_v12_exact_reproduction.json",
+    "codec_and_byte_accounting.json",
+    "dynamic_preflight.json",
+    "quality-campaign-0001/frozen_matrix.json",
+    "quality-campaign-0001/raw_outputs.jsonl",
+    "quality-campaign-0001/token_and_latency_results.json",
+    "quality-campaign-0001/rubric_results.json",
+    "quality-campaign-0001/RESULT.json",
+    "quality-campaign-0001/SHA256SUMS",
+    "fresh_reviewer_submission.json"
+  ],
+  "quality_pass_gate": {
+    "hard_check_response_pass_rate": "100%",
+    "minimum_single_turn_cases_meeting_required_observable": 11,
+    "required_multi_turn_cases_meeting_required_observable": 3,
+    "required_fresh_reviewer_holdouts_meeting_required_observable": 4,
+    "case_with_any_zero_reviewer_dimension_permitted": 0,
+    "minimum_overall_mean_reviewer_dimension_score": 1.75,
+    "critical_factual_safety_or_instruction_failure_permitted": 0,
+    "required_fresh_reviewer_status": "done_with_product_quality_pass"
+  },
+  "failure_taxonomy": {
+    "construction_or_codec_failure": "preserve PRODUCT_PREFLIGHT_NO_GO with exact mismatch records; no quality execution",
+    "dynamic_policy_failure": "preserve PRODUCT_PREFLIGHT_NO_GO with named event evidence; no quality execution",
+    "evaluator_no_execution": "preserve EVALUATOR_NO_EXECUTION with null quality conclusion; do not classify RTL or numerical correctness",
+    "quality_failure": "preserve PRODUCT_QUALITY_NO_GO with all raw outputs and failed rubric dimensions",
+    "quality_pass": "preserve PRODUCT_QUALITY_READY and submit immutable evidence to a Fresh Reviewer; do not select the policy or advance the stage locally"
+  },
+  "prohibited_actions": [
+    "modify research/PIPELINE_STATE.json or current_stage",
+    "modify RTL, verification references, sealed V10/V12/V13 evidence, or consumed exactly-once evidence",
+    "resume, repair, replay, or write new evidence under the V13 namespace",
+    "consume the V14 construction marker from a Planner cycle or create more than one V14 quality campaign",
+    "use exact BF16 token identity, BF16 response-gate identity, or the obsolete 4.036 cap as a V14 acceptance requirement",
+    "tune weights, metadata, prompts, generation settings, or rubric after observing V14 outputs",
+    "hide prompts, use a hidden harness, inspect a golden output, or omit raw failed outputs",
+    "claim accelerator completion from the quantized software reference",
+    "download or install a proprietary FPGA toolchain"
+  ],
+  "completion_rule": "The Engineer mission is complete only after immutable V14 construction/dynamic no-go evidence, evaluator-no-execution evidence, or one frozen product-quality campaign plus Fresh Reviewer submission. A quality pass is a specification-stage policy result only; selected_policy_id remains null and RTL/demo/U280 work remains locked until Fresh Review and Manager stage advance.",
+  "claim_boundary": {
+    "selected_policy_id_before_fresh_reviewer_and_manager_action": null,
+    "current_stage_remains": "specification",
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "project_completion_eligible": false
+  }
+}

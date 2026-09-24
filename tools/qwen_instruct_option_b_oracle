@@ -1,0 +1,14 @@
+#!/bin/sh
+set -eu
+
+root=$(CDPATH= cd -- "$(dirname -- "$0")/.." && pwd)
+python="$root/.venv/bin/python"
+
+if [ ! -x "$python" ]; then
+    echo "ACE2_OPTION_B_ENVIRONMENT_ERROR missing executable: $python" >&2
+    exit 127
+fi
+
+export PYTHONDONTWRITEBYTECODE=1
+export PYTHONNOUSERSITE=1
+exec "$python" "$root/tools/qwen_instruct_w4a8_oracle.py" "$@"

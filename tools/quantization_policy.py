@@ -266,10 +266,8 @@ def _estimates(descriptor: Mapping[str, Any], policy_id: str) -> dict[str, Any]:
     derived = descriptor["derived"]
     transformer_elements = derived["transformer_linear_weight_elements"]
     lm_head_elements = dimensions["vocab_size"] * dimensions["hidden_size"]
-    projection_record_bytes = descriptor["weight_layout"]["projection_record_bytes"]
-    transformer_projection_rows = (
-        derived["projection_output_rows"] - dimensions["vocab_size"]
-    )
+    input_group_size = descriptor["weight_layout"]["input_group_size"]
+    scale_record_bytes = descriptor["weight_layout"]["scale_record_bytes"]
     fixed_bytes = (
         derived["rmsnorm_metadata_bytes"]
         + derived["operator_aux_metadata_bytes"]
@@ -287,7 +285,7 @@ def _estimates(descriptor: Mapping[str, Any], policy_id: str) -> dict[str, Any]:
     elif policy_id == "mixed_w4a8_a16_bf16":
         matrix_bytes = (transformer_elements + 1) // 2 + 2 * lm_head_elements
         projection_metadata_bytes = (
-            transformer_projection_rows * projection_record_bytes
+            transformer_elements // input_group_size * scale_record_bytes
         )
         kv_bytes_per_layer = 4 * derived["kv_width_elements"]
     else:

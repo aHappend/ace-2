@@ -1,0 +1,132 @@
+{
+  "schema_version": 1,
+  "task_id": "task-7f2c91d8a44e",
+  "created_at_utc": "2026-08-07T01:19:19Z",
+  "title": "Execute four-codebook quaternary-selector palette-Scale18 W4 candidate",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_four_input_block_codebook_quaternary_row_selector_palette_scale18_w4_grouped_dynamic_scale32_w4a8_v11",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_FOUR_INPUT_BLOCK_CODEBOOK_QUATERNARY_ROW_SELECTOR_PALETTE_SCALE18_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V11_PLAN.json",
+    "sha256": "f420ac7870fd3af24f5f9441e9fb50893fae1fde90834ca16b2b4633a3b4ebf4",
+    "role": "immutable_planning_requirements_only"
+  },
+  "terminal_predecessor": {
+    "mission_id": "b1ff12309055",
+    "candidate_id": "option_b_alias_safe_packed_scale24_per_row_selector_dual_input_block_codebook_w4_grouped_dynamic_scale32_w4a8_v10",
+    "status": "PREATTEMPT_NO_GO",
+    "failure_taxonomy": "NO_GO_NON_EVALUATOR_QUALITY_GATE",
+    "review_record": "research/raw/specification/packed-scale24-per-row-selector-v10-review-done-20260807T011340Z.json",
+    "review_record_sha256": "013018e47424a30198917b8b8ac6dcc8d19617b7c5e2286353c1cc58797e5d04",
+    "aggregate_v10_bf16_sse": 2153.4047236346078,
+    "exact_bf16_sequence_match_count": 4,
+    "response_gate_outcome_match_count": 7,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_under_predecessor_id_permitted": false
+  },
+  "fresh_attempt_namespace": {
+    "root": "build/stage1-option-b-alias-safe-four-input-block-codebook-quaternary-row-selector-palette-scale18-w4-grouped-dynamic-scale32-w4a8-v11",
+    "attempt_id": "attempt-0001",
+    "attempt_directory": "build/stage1-option-b-alias-safe-four-input-block-codebook-quaternary-row-selector-palette-scale18-w4-grouped-dynamic-scale32-w4a8-v11/attempt-0001",
+    "attempt_budget": 1,
+    "attempts_consumed_at_task_freeze": 0,
+    "namespace_must_be_absent_at_task_start": true,
+    "execution_marker": "build/stage1-option-b-alias-safe-four-input-block-codebook-quaternary-row-selector-palette-scale18-w4-grouped-dynamic-scale32-w4a8-v11/attempt-0001/execution_started.json",
+    "execution_marker_permitted_during_runner_build_construction_or_preflight": false,
+    "execution_marker_creation_rule": "Create atomically exactly once only after deterministic candidate A/B identity, exact palette-Scale18 codec closure, legal four-bank and quaternary-selector geometry, 169/169 V10-ledger non-regression, strict aggregate V10 SSE improvement, 8/8 construction-blind non-evaluator exactness, 312 legal Dynamic Scale32 events, and complete hash verification produce PREATTEMPT_READY.json.",
+    "replay_resume_or_second_attempt_under_candidate_id_permitted": false
+  },
+  "implementation_objective": "Implement an isolated V11 runner and scalable backend directly from the pinned BF16 source. Use four signed-Q4.4 codebook banks per 128-input block, a two-bit selector per output row and block, and one four-entry exponent palette plus exact 18-bit row records per tensor. Do not modify RTL, the live chat path, sealed evidence, or Manager-owned stage state.",
+  "required_constructor": {
+    "source_only_initialization": "Do not reconstruct or replay V10. Construct all 169 tensors directly from authenticated BF16 weights; use only the sealed V10 per-tensor SSE values as a numeric non-regression ledger.",
+    "palette_scale18": "four strictly increasing legal signed exponents per tensor, followed by row-ordered 16-bit normalized significands plus two-bit palette indices; exact decode, 16-byte alignment, and zero padding are mandatory",
+    "four_codebooks": "four strictly increasing sixteen-entry signed-Q4.4 int8 banks per contiguous 128 input lanes",
+    "quaternary_selector": "two bits per output row and input block for every transformer Linear and lm_head",
+    "selector_packing": "output-row-major then input-block-major, least-significant-bit first, each tensor aligned to 16 bytes, all padding bits zero",
+    "outer_iterations": 8,
+    "objective": "exact unweighted BF16 source-space SSE for all 169 Linear tensors",
+    "determinism": "independent candidate A/B payload, exponent-palette, row-record, four-codebook, selector, reconstruction, objective, iteration-trace, weight, and state manifests match byte-for-byte",
+    "model_gate": "all 169 tensors are non-regressing against the sealed V10 per-tensor SSE ledger and aggregate literal unweighted BF16 SSE is strictly below 2153.4047236346078"
+  },
+  "storage_and_accelerator_contract": {
+    "payload_bits_per_weight": 4,
+    "palette_entries_per_tensor": 4,
+    "row_record_bits": 18,
+    "codebook_banks_per_input_block": 4,
+    "selector_bits_per_output_row_per_input_block": 2,
+    "standard_decoder_layer_total_weight_bytes": 7517584,
+    "standard_decoder_layer_exact_bits_per_weight": 4.033731112637363,
+    "standard_decoder_layer_cap_reserve_bytes": 4228.48,
+    "lm_head_total_weight_bytes": 68675536,
+    "lm_head_exact_bits_per_weight": 4.035741552834276,
+    "lm_head_cap_reserve_bytes": 4397.952,
+    "whole_model_total_weight_bytes": 249097552,
+    "whole_model_exact_bits_per_weight": 4.034285185661216,
+    "whole_model_cap_reserve_bytes": 105881.472,
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "metadata_cache_budget_bytes": 192,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_incremental_sram_bytes": 2368,
+    "public_ace2_shell_ports_changed": false,
+    "floating_point_rtl_permitted": false,
+    "rtl_implementation_or_ppa_authorized_by_this_task": false
+  },
+  "pre_attempt_artifact_set": {
+    "official_nine_prompt_inputs_permitted": false,
+    "all_eight_non_evaluator_inputs_construction_blind": true,
+    "required_before_marker": [
+      "hash-bound V11 runner, scalable backend, exact palette-Scale18 codec, and constructor self-test result",
+      "candidate A and B payload, exponent-palette, row-record, four-codebook, selector, reconstruction, objective, iteration-trace, weight, and state manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "codec tests for palette ordering/range, legal extrema, row-bit ordering, cross-byte records, exact round trip, truncation, extension, nonzero padding, stream alignment, and hash rejection",
+      "constructor tests for energy-bucket initialization, four-bank ordering, quaternary selector ordering, codepoint legality, nibble packing, Scale32 candidates, empty banks, all-zero rows, palette coordinate updates, metadata sequencing, and deterministic ties",
+      "model-only report proving 169/169 V10-ledger non-regression and strict aggregate V10 SSE improvement",
+      "the unchanged eight non-evaluator inputs at 8/8 exact BF16 token arrays and 8/8 matching response-gate outcomes",
+      "fresh-candidate Dynamic Scale32 report with all 312 layer/event names, legal deltas, zero saturation, zero clipping, no reserved -128 payload, and 832 or fewer activation-metadata bytes per decoder-layer token",
+      "predeclared contract binding every source, model, matrix hash, runner, tool version, format, byte count, and policy hash",
+      "PREATTEMPT_READY.json that verifies all prior artifacts without creating execution_started.json"
+    ],
+    "preflight_failure_disposition": "Preserve a hash-bound PREATTEMPT_NO_GO, leave attempt-0001 absent and unconsumed, keep selected_policy_id null, and submit the no-go to a Fresh Reviewer without accessing official inputs."
+  },
+  "official_attempt_contract": {
+    "permitted_only_after_verified_preattempt_ready": true,
+    "attempt_budget": 1,
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "evaluator_no_execution_rule": "If execution_started.json exists but no candidate prompt completes, preserve the attempt, keep numerical correctness null, and forbid replay.",
+    "numerical_failure_rule": "If any candidate prompt completes but the binary gate is not met, set eligible=false, preserve exact disagreements, keep selected_policy_id null, and forbid replay.",
+    "numerical_success_rule": "If the 9/9 binary gate is met, seal immutable evidence and submit it to a Fresh Reviewer; do not select the policy or authorize downstream work before independent acceptance.",
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false
+  },
+  "acceptance_check": "A Fresh Reviewer returns done after reproducing either a sealed marker-free PREATTEMPT_NO_GO with zero attempts consumed or a sealed single authorized attempt, and verifies exact palette-Scale18 and byte accounting, deterministic four-bank construction, the V10-ledger model gate, 8/8 preflight quality, 312-event Dynamic Scale32 legality, and all bound hashes.",
+  "prohibited_work": [
+    "modify, resume, replay, reconstruct, reinterpret, or officially execute V10 or any consumed or terminal predecessor",
+    "create the V11 execution marker during planning, runner development, construction, or preflight",
+    "use official nine-prompt inputs, outputs, token arrays, response gates, hidden harness sources, or golden outputs for construction or preflight",
+    "change palette size, row-record width, bank count, selector width, or byte accounting after observing any non-evaluator or official prompt result",
+    "widen weight payloads, add sparse exceptions or hidden metadata, or exceed 4.036 stored bits per weight",
+    "hide palette, selector, padding, alignment, authentication, or duplicate records outside the frozen byte accounting",
+    "modify research/PIPELINE_STATE.json",
+    "modify RTL, testbenches, formal properties, synthesis constraints, certified PPA evidence, or the sealed two-token record",
+    "retarget or claim the arbitrary-text demo",
+    "begin U280 integration, emulation, bitstream, or board work",
+    "download a proprietary vendor toolchain"
+  ],
+  "claim_boundary": {
+    "task_authority_created": true,
+    "official_attempt_started": false,
+    "official_attempt_consumed": false,
+    "runner_frozen": false,
+    "preflight_complete": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

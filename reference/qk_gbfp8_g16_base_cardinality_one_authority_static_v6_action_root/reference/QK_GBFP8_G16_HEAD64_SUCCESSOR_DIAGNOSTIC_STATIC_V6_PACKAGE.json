@@ -1,0 +1,41 @@
+{
+  "artifact_kind": "qk_gbfp8_g16_head64_successor_diagnostic_static_v6_exact_c02_runtime_package",
+  "artifacts": {
+    "contract": {
+      "byte_count": 19997,
+      "path": "design/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_CONTRACT.json",
+      "sha256": "6a5d16c53d482a07e2f20a68a95dc90618d7069858450a2cc5845d85191cf8e4"
+    },
+    "no_execution_proof": {
+      "byte_count": 1585,
+      "path": "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_NO_EXECUTION_PROOF.json",
+      "sha256": "4544873432051ae92e69d468ec63b1e54acd881ca40574f777cef1a719dd7356"
+    },
+    "reference_evaluator": {
+      "byte_count": 43004,
+      "path": "reference/qk_gbfp8_g16_head64_successor_diagnostic_static_v6.py",
+      "sha256": "c6a5744939734deb18506e88a14f0a8b9f3e7f32dc95c2edc2efca2bde9be327"
+    },
+    "result_schema": {
+      "byte_count": 19082,
+      "path": "reference/QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_SCHEMA.json",
+      "sha256": "8d512af26bf39593236098f850ae5477ae13343ffbdeac4fbb207b1b8fd71840"
+    },
+    "static_verifier": {
+      "byte_count": 68930,
+      "path": "tools/verify_qk_gbfp8_g16_head64_successor_diagnostic_static_v1.py",
+      "sha256": "bf2bb603a8919b0abb4f0bcdbfc34c278d451945f3bfb34cbc0807b478795f0c"
+    }
+  },
+  "claim_boundary": "STATIC_ONLY_NO_AUTHORITY_NO_PAYLOAD_ACCESS",
+  "contract_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1",
+  "evaluator_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_EVALUATOR_V6",
+  "package_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V6_PACKAGE",
+  "provenance": {
+    "accepted_v5_evaluator_sha256": "3fb622acfef9efe389eeed4d4081d8d4ce93fcc7d696dc6c095129ef46f248f5",
+    "accepted_v5_runtime_package_sha256": "42da06a7b28c889f60f6a8484cdf4c48f4ca03fe548061d76a20beae1370d863",
+    "v5_failure_terminal_review_sha256": "a5e8e29954455cfd0658db4255cf455b6e402f568feb2cc4e808bcde2950670a"
+  },
+  "result_schema_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_RESULT_V1",
+  "schema_id": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V6_PACKAGE_V1"
+}

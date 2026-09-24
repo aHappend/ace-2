@@ -14,7 +14,21 @@
     "constraints",
     "protocols",
     "fused_qkv",
-    "immutable_ppa"
+    "immutable_ppa",
+    "version",
+    "stage",
+    "applies",
+    "external_contract",
+    "normative_spec",
+    "claim_boundary",
+    "fixed_external_benchmark",
+    "non_benchmark_statement",
+    "local_contract",
+    "stage_order",
+    "active_productization_contract",
+    "fused_qkv_contract",
+    "u280_environment_gate",
+    "preserved_predecessor_two_token_contract"
   ],
   "properties": {
     "schema_version": {"const": 1},
@@ -251,7 +265,21 @@
         "sidecar_required_before_execution": {"const": true},
         "preflight_executes_synthesis_or_sta": {"const": false}
       }
-    }
+    },
+    "version": {"const": "4.0"},
+    "stage": {"const": "specification"},
+    "applies": {"const": false},
+    "external_contract": {"type": "null"},
+    "normative_spec": {"const": "design/SPEC.md"},
+    "claim_boundary": {"type": "string", "minLength": 1},
+    "fixed_external_benchmark": {"type": "object"},
+    "non_benchmark_statement": {"type": "string", "minLength": 1},
+    "local_contract": {"type": "object"},
+    "stage_order": {"type": "object"},
+    "active_productization_contract": {"type": "object"},
+    "fused_qkv_contract": {"type": "object"},
+    "u280_environment_gate": {"type": "object"},
+    "preserved_predecessor_two_token_contract": {"type": "object"}
   },
   "$defs": {
     "sha1": {"type": "string", "pattern": "^[0-9a-f]{40}$"},

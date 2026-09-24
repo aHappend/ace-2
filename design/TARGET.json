@@ -1,0 +1,621 @@
+{
+  "authority": "operator",
+  "current_architecture_contract": {
+    "architecture_accepted": true,
+    "architecture_checklist": {
+      "architecture.area-reuse-plan": true,
+      "architecture.compute-memory-model": true,
+      "architecture.interface-control": true,
+      "architecture.leverage-risk": true
+    },
+    "authority": "manager_exercising_live_operator_guidance",
+    "baseline_or_candidate_execution_authorized": false,
+    "candidate_capability_accepted": false,
+    "candidate_or_model_execution_count": 0,
+    "certified_harness_chain": {
+      "candidate_or_model_execution_count": 0,
+      "decision": "PASS",
+      "independent_l2_review": {
+        "bytes": 2032,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+        "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+      },
+      "manager_recovery_seal": {
+        "bytes": 8842,
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "manifest": {
+        "bytes": 2034,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+        "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+      },
+      "protected_artifact_count": 264,
+      "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+      "public_certification": {
+        "bytes": 1855,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+        "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+      },
+      "report": {
+        "bytes": 4216,
+        "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+        "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+      },
+      "status": "independently_certified_pass"
+    },
+    "contract_id": "shared_token_group_dynamic_scale32_v1",
+    "current_stage": "architecture",
+    "downstream_runs": {
+      "benchmark": "unrun",
+      "paired": "unrun",
+      "physical": "unrun",
+      "ppa": "unrun",
+      "prototype": "unrun",
+      "shell": "unrun",
+      "signoff": "unrun"
+    },
+    "first_unsupported_layer_operator": "layer_0.rope_q",
+    "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+    "historical_ppa_frontier": {
+      "candidate_ppa_run": false,
+      "cells": 62199,
+      "non_sram_area_mm2": 0.6108746272,
+      "remaining_area_reserve_mm2": 1.3891253728,
+      "setup_slack_ns_at_100mhz": 0.1502,
+      "status": "accepted_historical_frontier_not_successor_ppa"
+    },
+    "id": "shared_token_group_dynamic_scale32_v1",
+    "implementation_authorized": false,
+    "independent_architecture_review": {
+      "bytes": 7462,
+      "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+      "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+    },
+    "manager_freeze": {
+      "bytes": 8318,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+      "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+    },
+    "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+    "mode": "ADVANCE",
+    "next_action_queue": [
+      {
+        "allowed_work": [
+          "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+          "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+          "independent_environment_review"
+        ],
+        "candidate_or_model_execution_authorized": false,
+        "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+        "implementation_authorized": false,
+        "prohibited_work": [
+          "rtl_implementation",
+          "rtl_simulation_or_formal_for_successor",
+          "baseline_or_candidate_quality_execution",
+          "shell_regression",
+          "canonical_ppa",
+          "prototype_benchmark_or_signoff"
+        ],
+        "scope": "environment_compatibility_rebind_and_independent_review_only",
+        "stage": "environment",
+        "stage_closing": true,
+        "status": "queued_pending_manager_stage_advance"
+      }
+    ],
+    "no_execution_claim": true,
+    "ordered_supported_layer_operator_prefix": [
+      "layer_0.input_rmsnorm",
+      "layer_0.q_proj",
+      "layer_0.k_proj",
+      "layer_0.v_proj"
+    ],
+    "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+    "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+    "proposal": {
+      "bytes": 17146,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+      "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+    },
+    "proposal_companion": {
+      "bytes": 80,
+      "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+      "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+    },
+    "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+    "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+    "same_contract_rtl_authorized": false,
+    "sealed_predecessor": {
+      "baseline_or_candidate_execution_authorized": false,
+      "baseline_reproducibility": {
+        "gate": "before_any_candidate_execution",
+        "required": true,
+        "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+      },
+      "candidate_capability_accepted": false,
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "excluded_residual_families": [
+        "q_k_residual",
+        "v_residual",
+        "down_projection_residual_fusion_parameter_variant"
+      ],
+      "id": "cross_layer_quantization_error_carry_final_output_v1",
+      "mechanism": {
+        "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+        "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+        "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+      },
+      "predecessor": "shared_down_projection_residual_fusion_v1",
+      "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+      "same_contract_rtl_authorized": false,
+      "seal_evidence": {
+        "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+        "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+      },
+      "sealed": true,
+      "state": "sealed_terminal_baseline_protocol_no_go",
+      "successor_freeze_authorized": false
+    },
+    "stage_closing": false,
+    "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+    "successor_freeze_authorized": false,
+    "successor_frozen": true,
+    "targets": {
+      "abstract_streaming_memory_boundary_bits": 128,
+      "frequency_floor_mhz": 100.0,
+      "non_sram_area_cap_mm2": 2.0
+    }
+  },
+  "delivery_contract": {
+    "architecture_review_status": "accepted",
+    "current_stage_source": "research/PIPELINE_STATE.json",
+    "delivery_level": "pre_tapeout",
+    "fabricated_silicon_claim_required": false,
+    "fpga_claim_required_for_current_delivery_level": false,
+    "stage_transition_owner": "Manager"
+  },
+  "fast_loop_contract": {
+    "active_repair_authorization": {
+      "architecture_accepted": true,
+      "architecture_checklist": {
+        "architecture.area-reuse-plan": true,
+        "architecture.compute-memory-model": true,
+        "architecture.interface-control": true,
+        "architecture.leverage-risk": true
+      },
+      "authority": "manager_exercising_live_operator_guidance",
+      "baseline_or_candidate_execution_authorized": false,
+      "candidate_capability_accepted": false,
+      "candidate_or_model_execution_count": 0,
+      "certified_harness_chain": {
+        "candidate_or_model_execution_count": 0,
+        "decision": "PASS",
+        "independent_l2_review": {
+          "bytes": 2032,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+          "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+        },
+        "manager_recovery_seal": {
+          "bytes": 8842,
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "manifest": {
+          "bytes": 2034,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+          "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+        },
+        "protected_artifact_count": 264,
+        "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+        "public_certification": {
+          "bytes": 1855,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+          "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+        },
+        "report": {
+          "bytes": 4216,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+          "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+        },
+        "status": "independently_certified_pass"
+      },
+      "contract_id": "shared_token_group_dynamic_scale32_v1",
+      "current_stage": "architecture",
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+      "historical_ppa_frontier": {
+        "candidate_ppa_run": false,
+        "cells": 62199,
+        "non_sram_area_mm2": 0.6108746272,
+        "remaining_area_reserve_mm2": 1.3891253728,
+        "setup_slack_ns_at_100mhz": 0.1502,
+        "status": "accepted_historical_frontier_not_successor_ppa"
+      },
+      "id": "shared_token_group_dynamic_scale32_v1",
+      "implementation_authorized": false,
+      "independent_architecture_review": {
+        "bytes": 7462,
+        "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+        "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+      },
+      "manager_freeze": {
+        "bytes": 8318,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+        "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+      },
+      "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+      "mode": "ADVANCE",
+      "next_action_queue": [
+        {
+          "allowed_work": [
+            "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+            "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+            "independent_environment_review"
+          ],
+          "candidate_or_model_execution_authorized": false,
+          "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+          "implementation_authorized": false,
+          "prohibited_work": [
+            "rtl_implementation",
+            "rtl_simulation_or_formal_for_successor",
+            "baseline_or_candidate_quality_execution",
+            "shell_regression",
+            "canonical_ppa",
+            "prototype_benchmark_or_signoff"
+          ],
+          "scope": "environment_compatibility_rebind_and_independent_review_only",
+          "stage": "environment",
+          "stage_closing": true,
+          "status": "queued_pending_manager_stage_advance"
+        }
+      ],
+      "no_execution_claim": true,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ],
+      "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+      "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+      "proposal": {
+        "bytes": 17146,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+        "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+      },
+      "proposal_companion": {
+        "bytes": 80,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+        "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+      },
+      "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+      "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+      "same_contract_rtl_authorized": false,
+      "sealed_predecessor": {
+        "baseline_or_candidate_execution_authorized": false,
+        "baseline_reproducibility": {
+          "gate": "before_any_candidate_execution",
+          "required": true,
+          "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+        },
+        "candidate_capability_accepted": false,
+        "downstream_runs": {
+          "benchmark": "unrun",
+          "paired": "unrun",
+          "physical": "unrun",
+          "ppa": "unrun",
+          "prototype": "unrun",
+          "shell": "unrun",
+          "signoff": "unrun"
+        },
+        "excluded_residual_families": [
+          "q_k_residual",
+          "v_residual",
+          "down_projection_residual_fusion_parameter_variant"
+        ],
+        "id": "cross_layer_quantization_error_carry_final_output_v1",
+        "mechanism": {
+          "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+          "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+          "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+        },
+        "predecessor": "shared_down_projection_residual_fusion_v1",
+        "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+        "same_contract_rtl_authorized": false,
+        "seal_evidence": {
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "sealed": true,
+        "state": "sealed_terminal_baseline_protocol_no_go",
+        "successor_freeze_authorized": false
+      },
+      "stage_closing": false,
+      "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "successor_freeze_authorized": false,
+      "successor_frozen": true,
+      "targets": {
+        "abstract_streaming_memory_boundary_bits": 128,
+        "frequency_floor_mhz": 100.0,
+        "non_sram_area_cap_mm2": 2.0
+      }
+    },
+    "environment_readiness": "accepted_manager_advanced_to_rtl",
+    "intermediate_operator_uplift_is_one_bounded_rtl_task": true,
+    "intermediate_task_stage_closing": false,
+    "next_action_queue": [
+      {
+        "allowed_work": [
+          "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+          "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+          "independent_environment_review"
+        ],
+        "candidate_or_model_execution_authorized": false,
+        "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+        "implementation_authorized": false,
+        "prohibited_work": [
+          "rtl_implementation",
+          "rtl_simulation_or_formal_for_successor",
+          "baseline_or_candidate_quality_execution",
+          "shell_regression",
+          "canonical_ppa",
+          "prototype_benchmark_or_signoff"
+        ],
+        "scope": "environment_compatibility_rebind_and_independent_review_only",
+        "stage": "environment",
+        "stage_closing": true,
+        "status": "queued_pending_manager_stage_advance"
+      }
+    ],
+    "required_loop": [
+      "rtl_implementation",
+      "full_regression",
+      "fresh_canonical_sky130_ppa",
+      "evidence_binding"
+    ],
+    "rtl_status": "bounded_preflight_pass_independent_review_pending",
+    "selected_replacement_contract": {
+      "architecture_accepted": true,
+      "architecture_checklist": {
+        "architecture.area-reuse-plan": true,
+        "architecture.compute-memory-model": true,
+        "architecture.interface-control": true,
+        "architecture.leverage-risk": true
+      },
+      "authority": "manager_exercising_live_operator_guidance",
+      "baseline_or_candidate_execution_authorized": false,
+      "candidate_capability_accepted": false,
+      "candidate_or_model_execution_count": 0,
+      "certified_harness_chain": {
+        "candidate_or_model_execution_count": 0,
+        "decision": "PASS",
+        "independent_l2_review": {
+          "bytes": 2032,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/L2_HARNESS_REVIEW.json",
+          "sha256": "2fca2c7c8759d82294cc9ec52cdb9d95fb22a163faf29f302d4231ef718e491f"
+        },
+        "manager_recovery_seal": {
+          "bytes": 8842,
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "manifest": {
+          "bytes": 2034,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/MANIFEST.json",
+          "sha256": "224dd28455c5cdda567e2b9f499acdb9da8be3ef5c54e228f65661c29f3a3e1e"
+        },
+        "protected_artifact_count": 264,
+        "protected_manifest_sha256": "0845b1a920933986dc1ce08eb014c5d83e15f92e2a88d2412d85927671638209",
+        "public_certification": {
+          "bytes": 1855,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/PUBLIC_CERTIFICATION.json",
+          "sha256": "49c8cb699ee559a09f0298ec16a1c4e6168cd812aff11357b7c49c68f9d1d315"
+        },
+        "report": {
+          "bytes": 4216,
+          "path": "evidence/baseline_harness_hardening/synthetic_harness_v1/HARNESS_TEST_REPORT.json",
+          "sha256": "88e08ad61aa2f7969ea7e08c74ac4875dc62b915646a618717428513087636b7"
+        },
+        "status": "independently_certified_pass"
+      },
+      "contract_id": "shared_token_group_dynamic_scale32_v1",
+      "current_stage": "architecture",
+      "downstream_runs": {
+        "benchmark": "unrun",
+        "paired": "unrun",
+        "physical": "unrun",
+        "ppa": "unrun",
+        "prototype": "unrun",
+        "shell": "unrun",
+        "signoff": "unrun"
+      },
+      "first_unsupported_layer_operator": "layer_0.rope_q",
+      "frozen_at_utc": "2026-08-02T06:41:45.391072Z",
+      "historical_ppa_frontier": {
+        "candidate_ppa_run": false,
+        "cells": 62199,
+        "non_sram_area_mm2": 0.6108746272,
+        "remaining_area_reserve_mm2": 1.3891253728,
+        "setup_slack_ns_at_100mhz": 0.1502,
+        "status": "accepted_historical_frontier_not_successor_ppa"
+      },
+      "id": "shared_token_group_dynamic_scale32_v1",
+      "implementation_authorized": false,
+      "independent_architecture_review": {
+        "bytes": 7462,
+        "path": "evidence/review/architecture_shared_token_group_dynamic_scale32_v1/decision.json",
+        "sha256": "386a2951ea1f39e3ef51978ced42be72dea8e10c53be188286abbe1507124297"
+      },
+      "manager_freeze": {
+        "bytes": 8318,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/MANAGER_FREEZE.json",
+        "sha256": "175d1dcc7016df0c94fb6ec0d086d78fe6b0e4b80f26d1ef42f746825b53c2d8"
+      },
+      "mechanism": "token_and_tensor_group_dynamic_power_of_two_Scale32_activation_scaling",
+      "mode": "ADVANCE",
+      "next_action_queue": [
+        {
+          "allowed_work": [
+            "rebind_existing_eda_pdk_ip_license_capability_evidence_to_frozen_successor",
+            "run_contract_specific_synthetic_environment_compatibility_probe_if_needed",
+            "independent_environment_review"
+          ],
+          "candidate_or_model_execution_authorized": false,
+          "id": "environment_compatibility_rebind_review_shared_token_group_dynamic_scale32_v1",
+          "implementation_authorized": false,
+          "prohibited_work": [
+            "rtl_implementation",
+            "rtl_simulation_or_formal_for_successor",
+            "baseline_or_candidate_quality_execution",
+            "shell_regression",
+            "canonical_ppa",
+            "prototype_benchmark_or_signoff"
+          ],
+          "scope": "environment_compatibility_rebind_and_independent_review_only",
+          "stage": "environment",
+          "stage_closing": true,
+          "status": "queued_pending_manager_stage_advance"
+        }
+      ],
+      "no_execution_claim": true,
+      "ordered_supported_layer_operator_prefix": [
+        "layer_0.input_rmsnorm",
+        "layer_0.q_proj",
+        "layer_0.k_proj",
+        "layer_0.v_proj"
+      ],
+      "predecessor": "cross_layer_quantization_error_carry_final_output_v1",
+      "predecessor_contract_id": "cross_layer_quantization_error_carry_final_output_v1",
+      "proposal": {
+        "bytes": 17146,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.json",
+        "sha256": "b55ab977574dc2bdeb760e8859ec2fa49f9f835846e3da24bd0f887d84a74f41"
+      },
+      "proposal_companion": {
+        "bytes": 80,
+        "path": "evidence/shared_token_group_dynamic_scale32_v1/architecture/PROPOSAL.sha256",
+        "sha256": "14be981a0c7cdca571f36d17927ad164d17b2603e8d7c4ca914dba2979786a1f"
+      },
+      "required_manager_action": "advance_to_environment_for_compatibility_rebind_review_only",
+      "required_next_gate": "environment_compatibility_rebind_and_independent_review",
+      "same_contract_rtl_authorized": false,
+      "sealed_predecessor": {
+        "baseline_or_candidate_execution_authorized": false,
+        "baseline_reproducibility": {
+          "gate": "before_any_candidate_execution",
+          "required": true,
+          "requirement": "A fresh zero-carry/disabled-mechanism replay must reproduce the frozen baseline bit-for-bit for ordered layer traces and final outputs using the identical model checkpoint, dataset slices, seed, integer metadata, software revision, hooks, and invocation; any mismatch blocks candidate evaluation."
+        },
+        "candidate_capability_accepted": false,
+        "downstream_runs": {
+          "benchmark": "unrun",
+          "paired": "unrun",
+          "physical": "unrun",
+          "ppa": "unrun",
+          "prototype": "unrun",
+          "shell": "unrun",
+          "signoff": "unrun"
+        },
+        "excluded_residual_families": [
+          "q_k_residual",
+          "v_residual",
+          "down_projection_residual_fusion_parameter_variant"
+        ],
+        "id": "cross_layer_quantization_error_carry_final_output_v1",
+        "mechanism": {
+          "class": "cross_layer_quantization_error_carry_with_final_output_reinjection",
+          "final_output_propagation": "Apply the remaining carried correction exactly once to the final hidden-state input before final RMSNorm and lm_head.",
+          "layer_boundary_propagation": "At each transformer-block output, compute the signed fixed-point difference between the wide post-MLP accumulator and the dequantized emitted activation, carry that quantization error as a sideband into the next block, and add it exactly once before the next input RMSNorm."
+        },
+        "predecessor": "shared_down_projection_residual_fusion_v1",
+        "required_next_gate": "fresh_independent_l2_review_of_candidate_independent_synthetic_baseline_harness",
+        "same_contract_rtl_authorized": false,
+        "seal_evidence": {
+          "path": "evidence/cross_layer_quantization_error_carry_final_output_v1/recovery/manager_architecture_rollback_v1/SEAL.json",
+          "sha256": "5dfd2fd991f3e0237a9ffdc60660bd2df04cd19ffd8f083eb39d306c6a182d3f"
+        },
+        "sealed": true,
+        "state": "sealed_terminal_baseline_protocol_no_go",
+        "successor_freeze_authorized": false
+      },
+      "stage_closing": false,
+      "state": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "status": "architecture_frozen_environment_compatibility_rebind_review_queued",
+      "successor_freeze_authorized": false,
+      "successor_frozen": true,
+      "targets": {
+        "abstract_streaming_memory_boundary_bits": 128,
+        "frequency_floor_mhz": 100.0,
+        "non_sram_area_cap_mm2": 2.0
+      }
+    }
+  },
+  "frozen_numeric_targets": {
+    "advance_continue_delta_area_threshold_percent": 3.0,
+    "area_cap_non_sram_mm2": 2.0,
+    "area_status_for_successor": "unmeasured",
+    "compression_continue_threshold_percent": 3.0,
+    "frequency_floor_mhz": 100.0,
+    "frequency_status_for_successor": "unmeasured",
+    "quality_status": "unmet"
+  },
+  "generated_at_utc": "2026-08-02T06:41:45.391072Z",
+  "historical_ppa_frontier": {
+    "cells": 62199,
+    "non_sram_area_mm2": 0.6108746272,
+    "remaining_area_reserve_mm2": 1.3891253728,
+    "setup_slack_ns_at_100mhz": 0.1502,
+    "status": "accepted_historical_frontier_not_successor_ppa"
+  },
+  "non_claims": [
+    "no successor quality or full verification result",
+    "no successor shell admission or full shell regression",
+    "no successor synthesis PPA or power result",
+    "no FPGA prototype or benchmark comparison",
+    "no routed GDS DRC LVS or signoff result",
+    "no tapeout readiness or silicon claim"
+  ],
+  "project": "ACE-2",
+  "schema_version": 2,
+  "source_policy": "design/FAST_LOOP_POLICY.json",
+  "technology_targets": {
+    "comparative": [
+      {
+        "claim_boundary": "academic_platform_not_foundry_signoff",
+        "id": "nangate45",
+        "role": "academic_45nm_comparison"
+      },
+      {
+        "claim_boundary": "predictive_projection_not_silicon",
+        "id": "asap7",
+        "role": "predictive_7nm_comparison"
+      }
+    ],
+    "primary": {
+      "claim_boundary": "reproducible_open_pdk_result_not_foundry_signoff",
+      "family": "SKY130",
+      "flow": "OpenROAD-flow-scripts",
+      "id": "sky130hd",
+      "role": "primary_open_pdk"
+    }
+  }
+}

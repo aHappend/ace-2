@@ -1,0 +1,14 @@
+{
+  "records": [
+    "Explain why a synchronous circuit uses a clock.",
+    "Summarize: A compiler translates source code into another representation.",
+    "Extract the city from: The conference takes place in Lisbon.",
+    "Classify the review as favorable or unfavorable: The design met every requirement.",
+    "Compute seven minus four and state the result in words.",
+    "Return a two-line checklist for reviewing an interface.",
+    "Paraphrase: The sensor reports temperature once per second.",
+    "Translate the phrase good evening into Spanish."
+  ],
+  "schema_version": 1,
+  "selection_policy": "fixed natural-language instruction coverage, independent of product and qualification prompts"
+}

@@ -1,0 +1,183 @@
+{
+  "schema_version": 1,
+  "task_id": "job-post-v19-b16bf16-v20",
+  "title": "Implement and execute one fresh post-V19 corrected-geometry W4A8 attempt",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "AWAITING_MANAGER_AUTHORIZATION",
+  "candidate_id": "option_b_post_v19_block16_affine_bf16_offset_step_w4a8_v20",
+  "candidate_plan": {
+    "path": "design/OPTION_B_POST_V19_BLOCK16_AFFINE_BF16_W4A8_V20_PLAN.json",
+    "bytes": 12625,
+    "sha256": "52e21cde0d57a20f5f72c03b7ccabebc0222b12d1802a5736896e98bc1e33b3a",
+    "role": "frozen fresh identity, corrected production geometry, representation, memory, chat, quality, failure-taxonomy, and stage-routing contract"
+  },
+  "terminal_predecessor": {
+    "candidate_id": "option_b_post_e248_block16_affine_bf16_offset_step_w4a8_v1",
+    "review": {
+      "path": "research/raw/specification/v19-block16-affine-bf16-construction-preflight-no-go-review-replan-20260807T151344Z.json",
+      "bytes": 5234,
+      "sha256": "ed38ca11690bf8f69864e47cab6accb081f638b1cfafcda8bc9aefb5bb3fe28e"
+    },
+    "required_treatment": "Preserve V19 unchanged. Do not modify or import its runner, add V19 verifiers or checkpoints, replay or resume its construction, create a V19 quality marker, or treat its preflight failure as a quality conclusion."
+  },
+  "mandatory_marker_free_geometry_fixture": {
+    "tool": {
+      "path": "tools/audit_post_v19_block16_geometry.py",
+      "bytes": 8741,
+      "sha256": "861b5072f0c2a9a38f1f2eb068a206dfa4ba5455b3c3b364704d00208fba62f4"
+    },
+    "planner_result": {
+      "path": "research/probes/post-v19-block16-full-production-geometry-20260807.json",
+      "bytes": 63160,
+      "sha256": "9aa96f2269ef70db320af348647f6b4bc029f5421d28f17c4a7cc29c1d4e28eb",
+      "status": "PASS_NON_CONSUMING_FULL_169_TENSOR_PRODUCTION_GEOMETRY",
+      "geometry_manifest_sha256": "72f7f78f08b8dac134bee45a69dd60514e79856d7e6e3b35d658a6c2c7edab9c"
+    },
+    "engineer_rerun_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/audit_post_v19_block16_geometry.py --output build/post-v19-block16-affine-bf16-w4a8-v20-production-geometry-preexecution.json",
+    "must_complete_before_official_namespace_or_marker": true,
+    "required_totals": {
+      "linear_tensor_count": 169,
+      "linear_weight_count": 493961216,
+      "metadata_record_count": 30872576,
+      "payload_bytes": 246980608,
+      "metadata_bytes": 123490304,
+      "total_bytes": 370470912
+    },
+    "required_equalities": [
+      "493961216 / 16 = 30872576",
+      "30872576 * 4 = 123490304"
+    ],
+    "mismatch_disposition": "Stop marker-free with PREFLIGHT_NO_GO; do not create the official root and do not consume construction or quality authority."
+  },
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-post-v19-block16-affine-bf16-w4a8-v20",
+    "root_must_be_absent_at_task_start": true,
+    "construction_marker": "construction_started.json",
+    "quality_campaign": "quality-campaign-0001",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "construction_attempts_requested": 1,
+    "quality_campaigns_requested": 1,
+    "authorization_state": "NOT_GRANTED_UNTIL_MANAGER_ROUTES_THIS_TASK",
+    "recovery_replay_resume_repair_regeneration_or_second_campaign_permitted": false
+  },
+  "implementation_objective": "After Manager authorization, create a new candidate-local runner at tools/run_option_b_post_v19_block16_affine_bf16_w4a8_v20.py without modifying or importing the V19 runner and without creating the V20 official namespace. Implement the frozen block16 uint4 plus BF16 offset/step codec, full deterministic two-build construction, grouped Dynamic Scale32 activation policy, unchanged source-relative quality campaign, and arbitrary-text/multi-turn chat command. Run and bind all non-consuming checks, including a fresh full-production geometry fixture rerun, before any marker. If and only if preexecution closure passes and the V20 official root remains absent, execute one construction and at most one quality campaign, preserve the immutable terminal result, run only a read-only terminal verifier, and submit the bundle to a Fresh Reviewer.",
+  "required_runner_commands": {
+    "self_test": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_v19_block16_affine_bf16_w4a8_v20.py self-test --output build/post-v19-block16-affine-bf16-w4a8-v20-self-test.json",
+    "preflight": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_v19_block16_affine_bf16_w4a8_v20.py preflight --output build/post-v19-block16-affine-bf16-w4a8-v20-preflight.json",
+    "authority_consuming": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_v19_block16_affine_bf16_w4a8_v20.py run-all",
+    "terminal_verification": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_v19_block16_affine_bf16_w4a8_v20.py verify-result",
+    "candidate_local_chat": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_post_v19_block16_affine_bf16_w4a8_v20.py chat [one frozen input source] --max-new-tokens N"
+  },
+  "required_preexecution_closure": {
+    "preexecution_contract": "build/post-v19-block16-affine-bf16-w4a8-v20-preexecution-contract.json",
+    "official_namespace_absent": true,
+    "geometry_fixture_tool_and_fresh_result_bound": true,
+    "geometry_manifest_and_all_six_totals_match": true,
+    "runner_hash_and_byte_count_bound": true,
+    "plan_and_task_hashes_bound": true,
+    "source_revision_and_package_versions_bound": true,
+    "matrix_evaluator_guard_source_baseline_activation_scale_and_predecessor_review_hashes_bound": true,
+    "synthetic_codec_vectors_required": [
+      "constant block",
+      "negative offset",
+      "asymmetric range",
+      "code 0 and code 15 edges",
+      "BF16 step rounding",
+      "nibble packing order",
+      "little-endian metadata order",
+      "exact BF16 reconstruction"
+    ],
+    "chat_parser_checks_generate_model_text": false,
+    "preexecution_change_after_freeze_permitted": false
+  },
+  "required_construction": {
+    "linear_tensor_count": 169,
+    "whole_model_weight_count": 493961216,
+    "block_weights": 16,
+    "four_bit_payload_bytes": 246980608,
+    "metadata_record_count": 30872576,
+    "metadata_bytes": 123490304,
+    "total_linear_weight_bytes": 370470912,
+    "exact_payload_bits_per_weight": 4.0,
+    "exact_total_bits_per_weight": 6.0,
+    "candidate_a_and_b_manifest_identity_required": true,
+    "candidate_a_and_b_payload_metadata_and_reconstruction_hash_identity_required": true,
+    "source_embedding_bytes_must_remain_unchanged": true,
+    "lm_head_storage_must_be_detached_before_quantization": true,
+    "persist_complete_payload_and_metadata_images": true
+  },
+  "required_activation_preflight": {
+    "named_event_count": 312,
+    "saturation_count": 0,
+    "clipping_count": 0,
+    "reserved_minus128_produced": false,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832
+  },
+  "required_quality_execution": {
+    "matrix_path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16/quality-campaign-0001/frozen_matrix.json",
+    "matrix_sha256": "829d3fc355ecba7dd01aed6a06c165b6a664cbc144591a0c40b45ae4fa27c6a1",
+    "case_count": 19,
+    "response_position_count": 23,
+    "maximum_new_tokens_per_delivered_response": 64,
+    "deterministic_greedy_replay_required": true,
+    "blocked_request_model_forward_count": 0,
+    "delivered_answer_source": "exact candidate executable quantized-reference output",
+    "campaign_and_replay_forward_counts_must_be_actual_model_forward_counts": true,
+    "raw_per_response_and_aggregate_wall_seconds_required": true,
+    "software_answer_replacement_prompt_tuning_case_lookup_or_host_fallback_permitted": false
+  },
+  "required_candidate_local_chat": {
+    "single_turn_sources": [
+      "--prompt",
+      "--prompt-file",
+      "stdin",
+      "interactive input"
+    ],
+    "multi_turn_source": "--conversation-file",
+    "uses_same_quantized_model_and_generation_loop_as_campaign": true,
+    "maximum_new_tokens_legal_range": [
+      1,
+      32
+    ],
+    "records_raw_token_ids_decoded_text_actual_forward_count_and_wall_seconds": true,
+    "live_tools_ace2_chat_demo_retarget_permitted": false,
+    "post_freeze_chat_output_may_change_candidate": false
+  },
+  "acceptance_gate": {
+    "no_source_action_pass_regression": true,
+    "minimum_action_pass_count": 12,
+    "minimum_visible_single_turn_required_observable_count": 4,
+    "minimum_visible_multi_turn_required_observable_count": 2,
+    "minimum_public_holdout_required_observable_count": 2,
+    "delivered_integrity_pass_count_required": 22,
+    "critical_delivered_safety_failure_count_required": 0,
+    "blocked_response_position_count_required": 1,
+    "candidate_local_arbitrary_text_and_multi_turn_path_required": true,
+    "fresh_reviewer_required": true,
+    "fresh_reviewer_must_explicitly_accept_as_credible_quantized_reference": true,
+    "selected_policy_id_before_manager_action": null
+  },
+  "failure_taxonomy": {
+    "marker_free_geometry_or_preexecution_failure": "PREFLIGHT_NO_GO; V20 official namespace absent; zero authority consumed",
+    "construction_or_dynamic_preflight_failure": "SOURCE_RELATIVE_PREFLIGHT_NO_GO; quality marker absent; immutable one-shot evidence",
+    "evaluator_no_execution": "EVALUATOR_NO_EXECUTION; zero completed candidate responses and null quality conclusion",
+    "evaluator_failure_after_campaign_consumption": "preserve all durable records and terminal failure; no replay",
+    "valid_quality_failure": "SOURCE_RELATIVE_QUALITY_NO_GO with immutable outputs",
+    "quality_pass": "SOURCE_RELATIVE_QUALITY_READY_FOR_FRESH_REVIEW; selected_policy_id remains null"
+  },
+  "prohibited_actions": [
+    "consume construction or quality authority from a Planner cycle",
+    "create the V20 official namespace before the fresh 169-tensor geometry fixture rerun and complete preexecution freeze",
+    "create more than one V20 construction or quality campaign",
+    "resume, replay, repair, regenerate, or overwrite a consumed V20 campaign",
+    "modify, import, execute, verify again, or add checkpoint machinery to the V19 runner or official evidence",
+    "inspect hidden harnesses, golden outputs, or predecessor response text for tuning",
+    "modify RTL, verification references, research/PIPELINE_STATE.json, or current_stage",
+    "retarget the live chat demo or claim accelerator completion",
+    "run simulation, formal, synthesis, timing, PPA, U280, hardware emulation, or proprietary-toolchain work",
+    "claim product quality from geometry, weight SSE, compile success, deterministic construction, or matrix execution alone"
+  ],
+  "acceptance_check": "Fresh Reviewer explicitly accepts the immutable V20 candidate as the credible quantized reference after verifying the pre-marker 169-tensor production geometry fixture, exact 493,961,216/16=30,872,576 record count and 123,490,304 metadata bytes, deterministic construction/replay, zero source-passing regressions, satisfactory raw arbitrary-text and multi-turn quality/safety, and the candidate-local chat path.",
+  "completion_rule": "This task is not authorized by the Planner. After Manager authorization it is complete only after a durable marker-free no-go, immutable consumed-attempt terminal result with Fresh Review, separately classified evaluator no-execution, or explicit Fresh Reviewer acceptance. No outcome from this task alone advances the Manager-owned stage, retargets the live demo, opens RTL/U280 work, or completes the product mission."
+}

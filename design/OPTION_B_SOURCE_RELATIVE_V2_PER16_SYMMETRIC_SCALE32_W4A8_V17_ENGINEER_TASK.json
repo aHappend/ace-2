@@ -1,0 +1,119 @@
+{
+  "schema_version": 1,
+  "task_id": "task-da4c8d181e81-v17",
+  "title": "Execute sealed V17 source-relative W4A8 attempt",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_source_relative_v2_per16_symmetric_scale32_w4a8_v17",
+  "candidate_plan": {
+    "path": "design/OPTION_B_SOURCE_RELATIVE_V2_PER16_SYMMETRIC_SCALE32_W4A8_V17_PLAN.json",
+    "bytes": 7878,
+    "sha256": "606b3045d74a83336852d7445361fed11723141ccaea4928ec9bba98c5f9bb5b",
+    "role": "frozen representation, construction, matrix, non-inferiority, failure-taxonomy, and authority contract"
+  },
+  "source_baseline": {
+    "contract": {
+      "path": "design/QWEN_INSTRUCT_SOURCE_RELATIVE_QUALITY_V2.json",
+      "sha256": "41b889c048dcb377c29de322028160dde18a7e6f735cccdf684dec653430e03b"
+    },
+    "engineer_record": {
+      "path": "research/probes/qwen-instruct-source-relative-quality-v2-repair1-20260807T111432Z.json",
+      "sha256": "9058d84c8a0f0a7f483c07486ffc9898c0bb967d03ee8c110042851e84974ecb"
+    },
+    "fresh_reviewer_reproduction": {
+      "path": "research/probes/qwen-instruct-source-relative-quality-v2-reviewer-20260807T112030Z.json",
+      "sha256": "fdbba290ef91bd522c0a8e836eeeac7743fad5b5d836084a983b4db1c1cc489e"
+    },
+    "required_response_position_count": 23,
+    "required_blocked_response_position_count": 1,
+    "required_delivered_response_position_count": 22,
+    "minimum_action_pass_count": 12
+  },
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-source-relative-v2-per16-symmetric-scale32-w4a8-v17",
+    "root_must_be_absent_at_task_start": true,
+    "construction_marker": "construction_started.json",
+    "quality_campaign": "quality-campaign-0001",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "construction_attempts_authorized": 1,
+    "quality_campaigns_authorized": 1,
+    "recovery_replay_resume_repair_or_second_campaign_permitted": false
+  },
+  "executable": {
+    "project_python": ".venv/bin/python",
+    "runner": {
+      "path": "tools/run_option_b_source_relative_v2_per16_symmetric_scale32_w4a8_v17.py",
+      "bytes": 55651,
+      "sha256": "f03cee3c1f17f79fc3a84984ea8c7d19e10d666fde7066633e6a008bb218f2f0"
+    },
+    "non_consuming_self_test_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_source_relative_v2_per16_symmetric_scale32_w4a8_v17.py self-test --output build/v17-source-relative-control-self-test.json",
+    "authority_consuming_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_source_relative_v2_per16_symmetric_scale32_w4a8_v17.py run-all",
+    "terminal_verification_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_option_b_source_relative_v2_per16_symmetric_scale32_w4a8_v17.py verify-result"
+  },
+  "implementation_objective": "Run the non-consuming self-test while the official namespace is absent. If and only if it passes, execute the single sealed V17 construction and quality campaign, preserving the source BF16 embedding, constructing two identical full-model signed-int4 plus per-16 Scale32 images, proving exact 6.0-bit accounting and all 312 Dynamic Scale32 event names, then executing the frozen 19-case/23-position source-relative V2 matrix with deterministic greedy replay and durable raw outputs. Submit immutable evidence to a Fresh Reviewer without selecting a policy or changing the pipeline stage.",
+  "required_construction": {
+    "linear_tensor_count": 169,
+    "whole_model_weight_count": 493961216,
+    "block_weights": 16,
+    "four_bit_payload_bytes": 246980608,
+    "scale32_record_count": 30872576,
+    "scale32_metadata_bytes": 123490304,
+    "total_weight_bytes": 370470912,
+    "exact_bits_per_weight": 6.0,
+    "candidate_a_and_b_manifest_identity_required": true,
+    "candidate_a_and_b_payload_hash_identity_required": true,
+    "candidate_a_and_b_scale32_hash_identity_required": true,
+    "reserved_minus8_payload_count_required": 0,
+    "source_embedding_bytes_must_remain_unchanged": true,
+    "lm_head_storage_must_be_detached_before_quantization": true
+  },
+  "required_activation_preflight": {
+    "named_event_count": 312,
+    "saturation_count": 0,
+    "clipping_count": 0,
+    "reserved_minus128_produced": false,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832
+  },
+  "required_quality_execution": {
+    "matrix_path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16/quality-campaign-0001/frozen_matrix.json",
+    "matrix_sha256": "829d3fc355ecba7dd01aed6a06c165b6a664cbc144591a0c40b45ae4fa27c6a1",
+    "case_count": 19,
+    "response_position_count": 23,
+    "maximum_new_tokens_per_delivered_response": 64,
+    "deterministic_greedy_replay_required": true,
+    "blocked_request_model_forward_count": 0,
+    "delivered_answer_source": "exact V17 executable quantized-reference output",
+    "software_answer_replacement_or_prompt_tuning_permitted": false
+  },
+  "acceptance_gate": {
+    "no_source_action_pass_regression": true,
+    "minimum_action_pass_count": 12,
+    "minimum_visible_single_turn_required_observable_count": 4,
+    "minimum_visible_multi_turn_required_observable_count": 2,
+    "minimum_public_holdout_required_observable_count": 2,
+    "delivered_integrity_pass_count_required": 22,
+    "critical_delivered_safety_failure_count_required": 0,
+    "blocked_response_position_count_required": 1,
+    "fresh_reviewer_required": true,
+    "selected_policy_id_before_manager_action": null
+  },
+  "failure_taxonomy": {
+    "construction_or_dynamic_preflight_failure": "SOURCE_RELATIVE_PREFLIGHT_NO_GO; quality marker absent",
+    "evaluator_no_execution": "EVALUATOR_NO_EXECUTION; zero completed responses and null RTL correctness conclusion",
+    "evaluator_failure_after_campaign_consumption": "preserve all durable records and terminal failure; no replay",
+    "valid_noninferiority_failure": "SOURCE_RELATIVE_NONINFERIOR_NO_GO with immutable outputs",
+    "noninferiority_pass": "SOURCE_RELATIVE_NONINFERIOR_READY_FOR_FRESH_REVIEW; selected_policy_id remains null"
+  },
+  "prohibited_actions": [
+    "consume construction or quality authority from a Planner cycle",
+    "create more than one V17 construction or quality campaign",
+    "resume or replay a consumed V17 campaign",
+    "modify RTL, verification references, research/PIPELINE_STATE.json, or current_stage",
+    "modify or replay V13-V16 terminal evidence, certified two-token evidence, or consumed PPA evidence",
+    "retarget the live chat demo or claim accelerator completion",
+    "run simulation, formal, synthesis, PPA, U280, or proprietary-toolchain work",
+    "use hidden harnesses, golden outputs, output reconstruction, case lookup, or post-output tuning"
+  ],
+  "completion_rule": "The Engineer task is complete only after a durable preflight no-go, separately classified evaluator no-execution, immutable consumed-campaign result, or source-relative result plus Fresh Reviewer submission. No outcome from this task alone completes Stage 1, selects the policy, advances the stage, or qualifies U280 deployment."
+}

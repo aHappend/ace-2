@@ -1,0 +1,639 @@
+{
+  "alias": "base",
+  "classification": {
+    "earliest_material_primitive": "model.layers.0.self_attn.softmax_probabilities",
+    "first_material_stage": {
+      "boundary_class": "softmax",
+      "local_realization_metrics": {
+        "candidate_absmax": 0.998687744140625,
+        "candidate_zero_fraction": 0.3693379790940767,
+        "cosine_similarity": 0.9999339145038962,
+        "maximum_absolute_error": 0.006979361176490784,
+        "reference_absmax": 0.9986475110054016,
+        "relative_rmse": 0.011570479404064795,
+        "saturation_fraction": null,
+        "severity": "TRACKING"
+      },
+      "metrics": {
+        "candidate_absmax": 0.998687744140625,
+        "candidate_zero_fraction": 0.3693379790940767,
+        "cosine_similarity": 0.7947202102629282,
+        "maximum_absolute_error": 0.528076171875,
+        "reference_absmax": 0.99609375,
+        "relative_rmse": 0.6386866723497563,
+        "saturation_fraction": null,
+        "severity": "MATERIAL"
+      },
+      "ordinal": 4,
+      "stage": "model.layers.0.self_attn.softmax_probabilities"
+    },
+    "first_severe_stage": null
+  },
+  "fixed_input": {
+    "input_token_count": 41,
+    "input_token_ids": [
+      151644,
+      8948,
+      198,
+      2610,
+      525,
+      264,
+      10950,
+      17847,
+      13,
+      11112,
+      279,
+      1196,
+      594,
+      11223,
+      2033,
+      3561,
+      6896,
+      13,
+      151645,
+      198,
+      151644,
+      872,
+      198,
+      5598,
+      1172,
+      279,
+      12122,
+      1102,
+      315,
+      220,
+      16,
+      19,
+      488,
+      220,
+      20,
+      13,
+      151645,
+      198,
+      151644,
+      77091,
+      198
+    ],
+    "input_token_ids_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+    "sealed_first_step": {
+      "base": {
+        "first_generated_token_id": 1,
+        "first_integer_logit_sha256": "990b96dfb82db1d2c2dfc852b03518e3e0ada2d2efe52756843569af3a9ed580",
+        "prompt_id": "g00-arithmetic-short"
+      },
+      "checkpoint-176": {
+        "first_generated_token_id": 24204,
+        "first_integer_logit_sha256": "8481dde4ad121e0d97a53ef8d2825221f200c21c075d7624ff68d5cd2b7237fe",
+        "prompt_id": "g00-arithmetic-short"
+      }
+    }
+  },
+  "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+  "predecessor_downstream_classification": {
+    "first_severe_stage": {
+      "boundary_class": "packed_weight_accumulator",
+      "metrics": {
+        "candidate_absmax": 2.9990276416847337,
+        "candidate_zero_fraction": 0.0012335526315789473,
+        "cosine_similarity": 0.5619337204091465,
+        "maximum_absolute_error": 1.402742639551434,
+        "reference_absmax": 2.8125,
+        "relative_rmse": 1.0415238339224728,
+        "saturation_fraction": null,
+        "severity": "SEVERE"
+      },
+      "ordinal": 50,
+      "stage": "model.layers.1.mlp.up_proj.accumulator"
+    },
+    "result_sha256": "7fb013c376e6353f2bdb30b0d5bcf3d1cfa34d31e56046b250603c9763ccd677"
+  },
+  "prohibitions_observed": {
+    "benchmark_scoring_performed": false,
+    "candidate_bundle_created": false,
+    "candidate_or_official_namespace_created": false,
+    "continuation_generation_performed": false,
+    "execute_command_invoked": false,
+    "frozen_kernel_evaluator_runner_mutated": false,
+    "retraining_performed": false,
+    "sealed_c00_or_c01_mutated": false
+  },
+  "scale_alignment_invariants": {
+    "attention_output_code_equals_o_proj_input_code": true,
+    "bf16_nearest_code_disagreement_fraction": 0.877177700348432,
+    "consumer_hardware_input_scale": 0.002399146556854248,
+    "consumer_scale_exactly_equals_decoded_scale32": true,
+    "consumer_scale_exactly_equals_v_projection_output_scale": true,
+    "producer_scale32_decoded": 0.002399146556854248,
+    "producer_scale32_record": 16227643,
+    "producer_v_projection_output_scale": 0.002399146556854248,
+    "qk_score_realization_local_metrics": {
+      "candidate_absmax": 55.244140625,
+      "candidate_zero_fraction": 0.024390243902439025,
+      "cosine_similarity": 0.9999999898264759,
+      "maximum_absolute_error": 0.022928968188352883,
+      "reference_absmax": 55.243441474216525,
+      "relative_rmse": 0.00014335623874815303,
+      "saturation_fraction": null,
+      "severity": "TRACKING"
+    },
+    "requantization_local_metrics": {
+      "candidate_absmax": 0.29749417304992676,
+      "candidate_zero_fraction": 0.09598214285714286,
+      "cosine_similarity": 0.9995366458761652,
+      "maximum_absolute_error": 0.00119840182014741,
+      "reference_absmax": 0.29667832557424845,
+      "relative_rmse": 0.03044532801679291,
+      "saturation_fraction": 0.0,
+      "severity": "TRACKING"
+    },
+    "score_perturbation_probability_metrics": {
+      "candidate_absmax": 0.9986475110054016,
+      "candidate_zero_fraction": 0.0,
+      "cosine_similarity": 0.7950098836620662,
+      "maximum_absolute_error": 0.5333377495408058,
+      "reference_absmax": 0.99609375,
+      "relative_rmse": 0.6386621369310618,
+      "saturation_fraction": null,
+      "severity": "MATERIAL"
+    },
+    "score_rank_margin": {
+      "bf16_realized_top_index_equal_fraction": 0.35714285714285715,
+      "bf16_top2_margin_max": 6.0,
+      "bf16_top2_margin_mean": 1.1607142857142858,
+      "bf16_top2_margin_min": 0.0,
+      "realized_top2_margin_max": 6.61328125,
+      "realized_top2_margin_mean": 1.4508928571428572,
+      "realized_top2_margin_min": 0.0234375
+    },
+    "softmax_realization_local_metrics": {
+      "candidate_absmax": 0.998687744140625,
+      "candidate_zero_fraction": 0.3693379790940767,
+      "cosine_similarity": 0.9999339145038962,
+      "maximum_absolute_error": 0.006979361176490784,
+      "reference_absmax": 0.9986475110054016,
+      "relative_rmse": 0.011570479404064795,
+      "saturation_fraction": null,
+      "severity": "TRACKING"
+    }
+  },
+  "schema_version": 1,
+  "source_reconstruction": {
+    "artifact_exact_match_count": 7,
+    "artifacts": {
+      "activation-scale32.json": {
+        "exact_byte_match": true,
+        "reconstructed_sha256": "44c8f86f5c49dc6e165a6811b2563b0a113433f33c463ac0a4e312d934ca17b4",
+        "sealed_sha256": "44c8f86f5c49dc6e165a6811b2563b0a113433f33c463ac0a4e312d934ca17b4"
+      },
+      "derived-scales.json": {
+        "exact_byte_match": true,
+        "reconstructed_sha256": "c1781553aef6029b8a032ea1bebed4063452799e696c91d8344aaaf40983726e",
+        "sealed_sha256": "c1781553aef6029b8a032ea1bebed4063452799e696c91d8344aaaf40983726e"
+      },
+      "kv-cache-scale32.json": {
+        "exact_byte_match": true,
+        "reconstructed_sha256": "4b365541e4b0850b5e02524a1070b06e4a9965894732be84baf58d0c88d6c69f",
+        "sealed_sha256": "4b365541e4b0850b5e02524a1070b06e4a9965894732be84baf58d0c88d6c69f"
+      },
+      "operator-scale32.json": {
+        "exact_byte_match": true,
+        "reconstructed_sha256": "9d1923940d5fd1b1ff8db3707df9f2a037ef3fe5bdbc68178970c7f95acd6900",
+        "sealed_sha256": "9d1923940d5fd1b1ff8db3707df9f2a037ef3fe5bdbc68178970c7f95acd6900"
+      },
+      "packed-w4-layout.json": {
+        "exact_byte_match": true,
+        "reconstructed_sha256": "f4e6eb8c909b8040bfd488992f2e5d98d9d7282687cab5f663f29d30eaa757cd",
+        "sealed_sha256": "f4e6eb8c909b8040bfd488992f2e5d98d9d7282687cab5f663f29d30eaa757cd"
+      },
+      "packed-w4.bin": {
+        "exact_byte_match": true,
+        "reconstructed_sha256": "c3b3f0ec8d867a1305c1e77f3017462b3134912a74b028ccf2daea7dd70deb3d",
+        "sealed_sha256": "c3b3f0ec8d867a1305c1e77f3017462b3134912a74b028ccf2daea7dd70deb3d"
+      },
+      "weight-scale32.json": {
+        "exact_byte_match": true,
+        "reconstructed_sha256": "0a70d9790d429309f6fa89c21b45f97ebc61dba8a28de0b45a4583a04e95a71a",
+        "sealed_sha256": "0a70d9790d429309f6fa89c21b45f97ebc61dba8a28de0b45a4583a04e95a71a"
+      }
+    },
+    "clip_ratio_numerator_row_counts": {
+      "1000": 0,
+      "900": 456033,
+      "925": 23,
+      "950": 5,
+      "975": 3,
+      "990": 0
+    },
+    "mismatch_artifacts": [],
+    "module_qweight_hash_mismatches": [],
+    "oracle": "independent c02 BF16 bitfield division, exact ties-to-even W4 codes, binary64 row MSE, frozen larger-ratio tie break",
+    "oracle_row_count": 456064,
+    "packed_qweight_element_count": 493961216,
+    "status": "PASS_EXACT_FROZEN_SOURCE_RECONSTRUCTION"
+  },
+  "stage_comparisons": [
+    {
+      "boundary_class": "qk_rope",
+      "metrics": {
+        "candidate_absmax": 79.78776550292969,
+        "candidate_zero_fraction": 0.16629464285714285,
+        "cosine_similarity": 0.9997139482881775,
+        "maximum_absolute_error": 0.6479339599609375,
+        "reference_absmax": 80.0,
+        "relative_rmse": 0.023917345812737037,
+        "saturation_fraction": 0.0078125,
+        "severity": "TRACKING"
+      },
+      "ordinal": 0,
+      "stage": "model.layers.0.self_attn.q_rope"
+    },
+    {
+      "boundary_class": "qk_rope",
+      "metrics": {
+        "candidate_absmax": 129.99981689453125,
+        "candidate_zero_fraction": 0.22980182926829268,
+        "cosine_similarity": 0.9999407374364536,
+        "maximum_absolute_error": 1.1426849365234375,
+        "reference_absmax": 130.0,
+        "relative_rmse": 0.010888127997283628,
+        "saturation_fraction": 0.0,
+        "severity": "TRACKING"
+      },
+      "ordinal": 1,
+      "stage": "model.layers.0.self_attn.k_rope"
+    },
+    {
+      "boundary_class": "qk_score_scaling",
+      "metrics": {
+        "candidate_absmax": 1319.7840718304506,
+        "candidate_zero_fraction": 0.0,
+        "cosine_similarity": 0.9998362191674403,
+        "maximum_absolute_error": 17.098449439217802,
+        "reference_absmax": 1320.0,
+        "relative_rmse": 0.018106521923318623,
+        "saturation_fraction": null,
+        "severity": "TRACKING"
+      },
+      "ordinal": 2,
+      "stage": "model.layers.0.self_attn.qk_scaled_dot"
+    },
+    {
+      "boundary_class": "qk_score_scaling",
+      "local_realization_metrics": {
+        "candidate_absmax": 55.244140625,
+        "candidate_zero_fraction": 0.024390243902439025,
+        "cosine_similarity": 0.9999999898264759,
+        "maximum_absolute_error": 0.022928968188352883,
+        "reference_absmax": 55.243441474216525,
+        "relative_rmse": 0.00014335623874815303,
+        "saturation_fraction": null,
+        "severity": "TRACKING"
+      },
+      "metrics": {
+        "candidate_absmax": 55.244140625,
+        "candidate_zero_fraction": 0.024390243902439025,
+        "cosine_similarity": 0.9881004522027554,
+        "maximum_absolute_error": 9.19921875,
+        "reference_absmax": 56.5,
+        "relative_rmse": 0.15574108385068816,
+        "saturation_fraction": null,
+        "severity": "TRACKING"
+      },
+      "ordinal": 3,
+      "stage": "model.layers.0.self_attn.qk_score_q6_9_realization"
+    },
+    {
+      "boundary_class": "softmax",
+      "local_realization_metrics": {
+        "candidate_absmax": 0.998687744140625,
+        "candidate_zero_fraction": 0.3693379790940767,
+        "cosine_similarity": 0.9999339145038962,
+        "maximum_absolute_error": 0.006979361176490784,
+        "reference_absmax": 0.9986475110054016,
+        "relative_rmse": 0.011570479404064795,
+        "saturation_fraction": null,
+        "severity": "TRACKING"
+      },
+      "metrics": {
+        "candidate_absmax": 0.998687744140625,
+        "candidate_zero_fraction": 0.3693379790940767,
+        "cosine_similarity": 0.7947202102629282,
+        "maximum_absolute_error": 0.528076171875,
+        "reference_absmax": 0.99609375,
+        "relative_rmse": 0.6386866723497563,
+        "saturation_fraction": null,
+        "severity": "MATERIAL"
+      },
+      "ordinal": 4,
+      "stage": "model.layers.0.self_attn.softmax_probabilities"
+    },
+    {
+      "boundary_class": "attention_value_composition",
+      "metrics": {
+        "candidate_absmax": 0.29667832557424845,
+        "candidate_zero_fraction": 0.005580357142857143,
+        "cosine_similarity": 0.7846825770827384,
+        "maximum_absolute_error": 0.22835261790896766,
+        "reference_absmax": 0.3046875,
+        "relative_rmse": 0.6275943903770721,
+        "saturation_fraction": null,
+        "severity": "MATERIAL"
+      },
+      "ordinal": 5,
+      "stage": "model.layers.0.self_attn.v_weighted_composition"
+    },
+    {
+      "boundary_class": "attention_output_requantization",
+      "local_realization_metrics": {
+        "candidate_absmax": 0.29749417304992676,
+        "candidate_zero_fraction": 0.09598214285714286,
+        "cosine_similarity": 0.9995366458761652,
+        "maximum_absolute_error": 0.00119840182014741,
+        "reference_absmax": 0.29667832557424845,
+        "relative_rmse": 0.03044532801679291,
+        "saturation_fraction": 0.0,
+        "severity": "TRACKING"
+      },
+      "metrics": {
+        "candidate_absmax": 0.29749417304992676,
+        "candidate_zero_fraction": 0.09598214285714286,
+        "cosine_similarity": 0.785401948565825,
+        "maximum_absolute_error": 0.2284311056137085,
+        "reference_absmax": 0.3046875,
+        "relative_rmse": 0.6266076265505194,
+        "saturation_fraction": 0.0,
+        "severity": "MATERIAL"
+      },
+      "ordinal": 6,
+      "stage": "model.layers.0.self_attn.attention_output_requantization"
+    },
+    {
+      "boundary_class": "o_proj_input_scale32",
+      "metrics": {
+        "candidate_absmax": 0.29749417304992676,
+        "candidate_zero_fraction": 0.09598214285714286,
+        "cosine_similarity": 0.785401948565825,
+        "maximum_absolute_error": 0.2284311056137085,
+        "reference_absmax": 0.3046875,
+        "relative_rmse": 0.6266076265505194,
+        "saturation_fraction": 0.0,
+        "severity": "MATERIAL"
+      },
+      "ordinal": 7,
+      "stage": "model.layers.0.self_attn.o_proj_input_scale32_activation_coding"
+    }
+  ],
+  "status": "PASS_ATTENTION_SUBSTAGE_LOCALIZED_NON_SCORING",
+  "tensor_bundle": {
+    "bytes": 1305797,
+    "path": "base/attention-substage-tensors.bin",
+    "sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175",
+    "tensor_count": 25,
+    "tensors": {
+      "bf16.attention_composition": {
+        "dtype": "torch.bfloat16",
+        "sha256": "577b861be090fd0ae3cf22845843ad653e49c4332ddb10a827dbdd327c0b187a",
+        "shape": [
+          1,
+          41,
+          14,
+          64
+        ]
+      },
+      "bf16.k_rope": {
+        "dtype": "torch.bfloat16",
+        "sha256": "401cdb0dc4a8def3190ac424f96df272c2bcf11241874759977d692845a19c0a",
+        "shape": [
+          1,
+          2,
+          41,
+          64
+        ]
+      },
+      "bf16.mapped_value": {
+        "dtype": "torch.bfloat16",
+        "sha256": "121a023d8d50d6f0927781db311cadf8d931272878f6a7c5a7b797764ebbd134",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "bf16.o_proj_input": {
+        "dtype": "torch.bfloat16",
+        "sha256": "f69f9862457a6ab0097de1fc85b681854e5503794a1f1f61a0435aa2724e025e",
+        "shape": [
+          1,
+          41,
+          896
+        ]
+      },
+      "bf16.probabilities": {
+        "dtype": "torch.bfloat16",
+        "sha256": "567f29e51426eb6684ddf7d9debefd432afa53d87f6cf7465c70f179070c9928",
+        "shape": [
+          1,
+          14,
+          41,
+          41
+        ]
+      },
+      "bf16.q_rope": {
+        "dtype": "torch.bfloat16",
+        "sha256": "285e064ffea9571b7e3ed192a7083bf831dc5d444e0139558d3d51f084995429",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "bf16.qk_centered_scores": {
+        "dtype": "torch.bfloat16",
+        "sha256": "3ad078ed30c807a5068c466ac5aa918a067751fa8a80a836170daae24b765c04",
+        "shape": [
+          1,
+          14,
+          41,
+          41
+        ]
+      },
+      "bf16.qk_scaled_scores": {
+        "dtype": "torch.bfloat16",
+        "sha256": "49627e8364e534c61f4db8208d82798e53409c3c10d5d5e28c3c1462ef617765",
+        "shape": [
+          1,
+          14,
+          41,
+          41
+        ]
+      },
+      "w4.attention_output_s8": {
+        "dtype": "torch.int8",
+        "sha256": "2c8ff8a19af33149a63d288667c7ff9a8a59a5866ae328a8bbfc3a5d8a69a049",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "w4.composition_accumulator": {
+        "dtype": "torch.int64",
+        "sha256": "ab3e3a9ac118bc5e2ba417c4c253f15cd0c6c336a52a31415c8200ef926c41bc",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "w4.k_rope_input_s8": {
+        "dtype": "torch.int8",
+        "sha256": "b098759f52fa0b76f2c227a6b10d8fae31a260666a78f11295e489e59447e039",
+        "shape": [
+          1,
+          2,
+          41,
+          64
+        ]
+      },
+      "w4.k_rope_output_s8": {
+        "dtype": "torch.int8",
+        "sha256": "0670e5f84b205d79b0527a6304fff5be2f3faab61bbf518efe963e263f19056a",
+        "shape": [
+          1,
+          2,
+          41,
+          64
+        ]
+      },
+      "w4.k_rope_scale32": {
+        "dtype": "torch.int64",
+        "sha256": "a0b3e9b52a4fccca5aa5eb2f75e91ea49d23e7c2b99f16fd10349b770cc414f2",
+        "shape": [
+          1,
+          2,
+          41
+        ]
+      },
+      "w4.mapped_value_s8": {
+        "dtype": "torch.int8",
+        "sha256": "43b51795596fc9e1b7f2c9869e1698a4053977d7a94eb220146859fed01575f1",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "w4.o_proj_input_s8": {
+        "dtype": "torch.int8",
+        "sha256": "1fdcb58da9768c9e4fcd5f26a3bef4b162cc9e564b9d69038ab386e364e9621a",
+        "shape": [
+          1,
+          41,
+          896
+        ]
+      },
+      "w4.probabilities_q0_15": {
+        "dtype": "torch.int64",
+        "sha256": "68d58461ed37364d19a345af0fd62352aa88247872c2ee1c7d72296ee04fbe21",
+        "shape": [
+          1,
+          14,
+          41,
+          41
+        ]
+      },
+      "w4.q_rope_input_s8": {
+        "dtype": "torch.int8",
+        "sha256": "8dc373b58ad1c4ef359bc2e82c2b5318cadae01ae68d28c0fa480d555767a0bf",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "w4.q_rope_output_s8": {
+        "dtype": "torch.int8",
+        "sha256": "aefb7d8d1c1da0f9f6793c4c2d1c96a0dab13dd3ba375148d41a02bfb0a52b01",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "w4.q_rope_scale32": {
+        "dtype": "torch.int64",
+        "sha256": "7bb2707468d285b9b167db8be0c3ea3cd331df07914bd33aa16f9216c19f2b1b",
+        "shape": [
+          1,
+          14,
+          41
+        ]
+      },
+      "w4.score_key_s8": {
+        "dtype": "torch.int8",
+        "sha256": "f40eb0cb16a3adb28160b7a5a8791d8138c799162545805b2172b898d63dfb26",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "w4.score_key_scale32": {
+        "dtype": "torch.int64",
+        "sha256": "0e1e53533a10bda7b58ea82ac28ce4b0f1a40d66285feb95bd91a4fa306c4141",
+        "shape": [
+          1,
+          14,
+          41
+        ]
+      },
+      "w4.score_query_s8": {
+        "dtype": "torch.int8",
+        "sha256": "aefb7d8d1c1da0f9f6793c4c2d1c96a0dab13dd3ba375148d41a02bfb0a52b01",
+        "shape": [
+          1,
+          14,
+          41,
+          64
+        ]
+      },
+      "w4.score_query_scale32": {
+        "dtype": "torch.int64",
+        "sha256": "7bb2707468d285b9b167db8be0c3ea3cd331df07914bd33aa16f9216c19f2b1b",
+        "shape": [
+          1,
+          14,
+          41
+        ]
+      },
+      "w4.scores_q6_9": {
+        "dtype": "torch.int16",
+        "sha256": "cc28cb7779c022d5e0b79b1c1d36758f332d83d7af32925e3c22862d31e76459",
+        "shape": [
+          1,
+          14,
+          41,
+          41
+        ]
+      },
+      "w4.softmax_input_q6_9": {
+        "dtype": "torch.int16",
+        "sha256": "cc28cb7779c022d5e0b79b1c1d36758f332d83d7af32925e3c22862d31e76459",
+        "shape": [
+          1,
+          14,
+          41,
+          41
+        ]
+      }
+    }
+  }
+}

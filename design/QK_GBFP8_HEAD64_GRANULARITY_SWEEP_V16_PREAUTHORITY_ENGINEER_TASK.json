@@ -1,0 +1,117 @@
+{
+  "acceptance": {
+    "fresh_l2_static_review_required": true,
+    "official_payload_open_count": 0,
+    "official_target_process_starts": 0,
+    "required_disposition": "V16_EVALUATOR_RETURN_PATH_SUCCESSOR_STATIC_PACKAGE_READY_NO_EXECUTION_AUTHORITY",
+    "runtime_namespace_file_count": 0,
+    "stop_before_authority_or_credential": true
+  },
+  "artifact_id": "ace2-qk-gbfp8-head64-v16-preauthority-engineer-task-v1",
+  "claim_boundary": "Bounded RTL-stage additive preauthority package work only. It may construct and independently verify a distinct V16 static successor with synthetic non-sensitive fixtures, but grants no execution authority and permits no official payload open, evaluator sweep, G8/G4/G2/G1 conclusion, checkpoint-176 work, RTL correctness conclusion, verification-stage work, synthesis/PPA, FPGA/U280 work, or stage transition.",
+  "created_at_utc": "2026-08-14T09:04:48Z",
+  "failure_taxonomy": {
+    "class": "POST_CONSUMPTION_AMBIGUITY",
+    "durable_status": "CONSUMED_ORPHAN",
+    "exact_exception_known": false,
+    "observed_boundary": "The V15 evaluator call was entered and the sealed payload was opened once; no result was published, and the durable terminal retained only a failure-detail SHA-256.",
+    "repair_routing": "Do not repair or replay V15. Build a distinct successor only after a marker-free production-path fixture proves evaluator-return decode, schema, record, result-publication, and terminal-attribution behavior."
+  },
+  "frozen_benchmark_contract": {
+    "candidate_order": [
+      "G8",
+      "G4",
+      "G2",
+      "G1"
+    ],
+    "evaluator": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_static_v8_action_root/reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v8.py",
+      "sha256": "8ab74c7397006c9f419059f295613ce4a743a3e0b540176ba7cf6dbb6efd7f63"
+    },
+    "fixed_populations": {
+      "oracle_unique_ranking_rows": 346,
+      "query_rows": 574,
+      "valid_causal_scores": 12054
+    },
+    "hard_gate_and_score_policy_binding": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v15_shellfree_action_root/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_EXECUTION_V15_SHELLFREE_PACKAGE.json",
+      "sha256": "e53777f220db67702c5886112a262bde84e262b6b2e0bb5b817ae61a1f611dd3"
+    },
+    "interpreter": {
+      "path": "/home/argustest/miniconda3/bin/python3.13",
+      "sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad",
+      "version": "3.13.5"
+    },
+    "official_identities": {
+      "input_tokens_sha256": "1b8c972381a2c3d7c754d1d2879b4389a13aca3f1d485f703510702c1cf2eb86",
+      "lane_metadata_sha256": "4d5904378b9ccbabd434119b6a57f8d4266abf3d8e772c4c1bca98df785e7f3a",
+      "model_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+      "tensor_bundle_sha256": "7cd2bbdbe611fdfce4d2cae66f6f20a43685087a35ce05c26c82d96749662175"
+    },
+    "result_schema": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v15_shellfree_action_root/accepted/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_RESULT_SCHEMA.canonical.json",
+      "sha256": "07f818190e7f97032a6bc3724914f00f36070f429f1cd549c67e4e7b026ae720"
+    },
+    "runtime_package": {
+      "path": "reference/qk_gbfp8_head64_granularity_sweep_execution_v15_shellfree_action_root/accepted/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V8_PACKAGE.canonical.json",
+      "sha256": "3d36df763e775bc8f3fb5d106eaf842f7b74482c236b9697906bb93647c44832"
+    },
+    "schema_stack": {
+      "attrs": "26.1.0",
+      "jsonschema": "4.23.0",
+      "jsonschema-specifications": "2025.9.1",
+      "referencing": "0.37.0",
+      "rpds-py": "0.30.0"
+    },
+    "selection_policy": "FIRST_PASSING_CANDIDATE_IN_FIXED_ORDER_WITH_EVERY_HARD_GATE_REQUIRED",
+    "semantic_changes_permitted": false
+  },
+  "implementation": {
+    "required_changes": [
+      "Create a distinct additive V16 action root, action ID, package identity, schemas, launcher/transport identities, and separately named empty writable runtime namespace; never modify V15 in place.",
+      "Factor one pure evaluator-return processing routine used by the production launcher after evaluate_bundle_once returns and by the marker-free fixture. The shared routine must perform canonical JSON decode, result-schema validation, exact result-record validation, and preparation of durable result bytes.",
+      "Add a structured non-sensitive failure_stage field to the V16 first-terminal contract. At minimum distinguish EVALUATOR_CALL, CANONICAL_DECODE, RESULT_SCHEMA, RESULT_RECORD, RESULT_PUBLICATION, TERMINAL_BUILD, TERMINAL_SCHEMA, and TERMINAL_PUBLICATION; successful terminals use null.",
+      "Preserve a failure_detail_sha256 for forensic binding, but do not use that digest as the only durable localization evidence.",
+      "Build a deterministic synthetic fixture that does not import, read, deserialize, hash-open, or project the official sealed tensor and does not invoke the official evaluator. The fixture must inject schema-conforming evaluator-return bytes and targeted malformed variants through the same shared production routine.",
+      "Exercise both terminal outcomes structurally: one all-hard-gates-fail result with selected_candidate null and one first-passing result, plus mutations for noncanonical JSON, schema mismatch, exact-key/binding mismatch, create-once result collision, and terminal validation/publication failure. Verify each mutation maps to the declared failure_stage.",
+      "Have the independent verifier prove by source/AST inspection that production and fixture call the same evaluator-return processing routine in the same order, and that the fixture cannot reach authority, credential, ledger, official result, official terminal, sealed tensor, transport, launcher, controller, or evaluator start paths.",
+      "Bind all frozen benchmark identities, tool versions, official inputs, evaluator bytes, result schema, hard gates, candidate order, and selection policy before Fresh-L2 review."
+    ],
+    "required_outputs": [
+      "a new immutable V16 static action root with no package-local live state",
+      "a separately named empty V16 runtime namespace",
+      "a canonical V16 package manifest and checksum",
+      "V16 authority, credential, ledger, first-terminal, and Fresh-L2 acceptance schemas",
+      "a shell-free transport and create-once launcher that retain exact argv/cwd/four-key environment binding",
+      "a marker-free evaluator-return-path fixture report with per-stage mutation results",
+      "an independent static verifier report with zero official target starts and zero official payload opens",
+      "a Fresh-L2 static acceptance explicitly granting no execution authority"
+    ]
+  },
+  "objective": "Close the V15 consumed orphan without replay, then construct and obtain Fresh-L2 static acceptance for a distinct marker-free V16 successor whose production evaluator-return/decode/schema/record path is exercised non-consumingly and whose future post-consumption failures are durably attributable by stage.",
+  "prohibited_actions": [
+    "invoke, retry, replay, resume, repair, replace, or mutate the V15 action, authority, ledger, terminal, package, runtime namespace, or acceptance",
+    "open, deserialize, inspect, project, or execute against the official sealed tensor during this preauthority task",
+    "create V16 authority, credential, consumed ledger, official result, first terminal, attempt marker, or execution marker",
+    "invoke the V16 transport, launcher, controller, evaluator, or any G8/G4/G2/G1 numerical sweep",
+    "alter the evaluator, official inputs, candidate order, hard gates, score policy, result semantics, or benchmark interface",
+    "infer G8/G4/G2/G1 counters or an RTL correctness result from V15",
+    "modify RTL, verification references, constraints, certified PPA evidence, XRT, FPGA, HBM2, U280, research/PIPELINE_STATE.json, or current_stage",
+    "inspect hidden harnesses, golden outputs, or non-public evaluator outputs"
+  ],
+  "replaces": {
+    "failed_mission_id": "f7b0a2927d2e",
+    "prior_action_id": "ace2:qk-gbfp8-base-v15:execute-once:c2dfe170:20260814T084500Z",
+    "replacement_is_distinct": true,
+    "retry_or_resume": false
+  },
+  "reviewer_binding": {
+    "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/f7b0a2927d2e/round-0001.json",
+    "sha256": "3feef88d46e4d305c84b8a12938a79c463cb43b4e177769a29ab5d8f68e27eab",
+    "status": "replan_requested"
+  },
+  "schema_version": 1,
+  "scope": "bounded",
+  "stage": "rtl",
+  "terminal_action": "Stop after Fresh-L2 static acceptance with all V16 live/consuming files absent. A later, separately authorized Engineer mission is required to execute V16 exactly once."
+}

@@ -1,0 +1,115 @@
+{
+  "schema_version": 1,
+  "task_id": "task-0394d005ed34",
+  "created_at_utc": "2026-08-06T17:38:34Z",
+  "title": "Execute block-covariance error-feedback W4 candidate",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_block_covariance_error_feedback_joint_row_scale_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v6",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_BLOCK_COVARIANCE_ERROR_FEEDBACK_JOINT_ROW_SCALE_TENSOR_CODEBOOK_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V6_PLAN.json",
+    "sha256": "22ead114ede6be6dc6674dda9b6548e7dccdef81195d956f1f06869857096c9f",
+    "role": "immutable_planning_requirements_only"
+  },
+  "terminal_predecessor": {
+    "mission_id": "4c4398b2acd0",
+    "candidate_id": "option_b_alias_safe_calibration_weighted_joint_row_scale_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v5",
+    "status": "PREATTEMPT_NO_GO",
+    "failure_taxonomy": "NO_GO_NON_EVALUATOR_QUALITY_GATE",
+    "review_record": "research/raw/specification/calibration-weighted-codebook-v5-review-done-20260806T173457Z.json",
+    "review_record_sha256": "7dea17f7d6dc262666cddad5604420abf697cfe133a15bb0b9fd1893421fbc13",
+    "exact_bf16_sequence_match_count": 1,
+    "response_gate_outcome_match_count": 8,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_under_predecessor_id_permitted": false
+  },
+  "fresh_attempt_namespace": {
+    "root": "build/stage1-option-b-alias-safe-block-covariance-error-feedback-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v6",
+    "attempt_id": "attempt-0001",
+    "attempt_directory": "build/stage1-option-b-alias-safe-block-covariance-error-feedback-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v6/attempt-0001",
+    "attempt_budget": 1,
+    "attempts_consumed_at_task_freeze": 0,
+    "namespace_must_be_absent_at_task_start": true,
+    "execution_marker": "build/stage1-option-b-alias-safe-block-covariance-error-feedback-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v6/attempt-0001/execution_started.json",
+    "execution_marker_permitted_during_runner_build_covariance_capture_or_preflight": false,
+    "execution_marker_creation_rule": "Create atomically exactly once only after duplicate covariance capture, deterministic candidate A/B identity, 169/169 V4-relative block-objective closure with strict aggregate improvement, 8/8 exact non-evaluator quality, 312 legal Dynamic Scale32 events, and complete hash verification produce PREATTEMPT_READY.json.",
+    "replay_resume_or_second_attempt_under_candidate_id_permitted": false
+  },
+  "implementation_objective": "Implement an isolated V6 runner that captures exact 16-channel BF16 input Gram blocks from only the four frozen calibration prompts, freshly reconstructs the verified alias-safe model split and V4 baseline, and applies deterministic block-covariance error feedback while retaining the exact existing row Scale32, tensor-codebook, packed-W4, and grouped Dynamic Scale32 product formats.",
+  "required_covariance_capture": {
+    "source": "pinned BF16 source model and the four prompts in the hash-bound Instruct calibration contract",
+    "positions": "all prompt-prefill positions plus deterministic BF16 greedy rollout through at most six generated tokens",
+    "block_size": 16,
+    "statistic": "exact complete symmetric G=sum(x*x^T) per contiguous input-channel block on one dyadic integer lattice, followed only by whole-block gcd reduction",
+    "independent_capture": "two fresh captures must produce byte-identical Gram blocks, prompt token hashes, BF16 generated calibration token arrays, position counts, and aggregate manifests",
+    "official_inputs_or_additional_holdout_inputs_permitted": false,
+    "floating_point_statistic_accumulation_permitted": false
+  },
+  "required_constructor": {
+    "initialization": "freshly recompute the complete V4 eight-iteration unweighted joint result from pinned BF16 weights; do not import mutable V4 or V5 state",
+    "outer_sweeps": 4,
+    "objective": "exact undamped sum e_block^T*G_block*e_block for every output row and input block",
+    "factorization": "fixed increasing-order exact rational LDLT of G+lambda*I with the frozen integer damping rule; any nonpositive pivot fails closed",
+    "assignment": "increasing-channel sequential nearest current reconstruction with lower-index ties and exact inverse-Hessian-ratio error propagation to later channels",
+    "row_scale_update": "exact full-block quadratic ideal with legal Scale32 bracketing, immediate normalized-significand neighbors, prior record, and frozen ties",
+    "codebook_update": "increasing-index coordinate sweep over all legal signed-Q4.4 values preserving strict order and minimizing the exact full-block objective",
+    "monotonicity": "the exact undamped tensor objective may not increase after any outer sweep",
+    "determinism": "independent candidate A/B covariance, payload, row-scale, codebook, reconstruction, block-objective, iteration-trace, weight, and state manifests must match"
+  },
+  "required_preflight": {
+    "alias_gate": "source embedding object, storage, shape, dtype, and BF16 bytes remain unchanged while lm_head is detached and quantized separately in both builds",
+    "covariance_gate": "all 169 module covariance records match across two independent captures",
+    "model_gate": "169/169 tensors are non-regressing against freshly reconstructed V4 under the exact undamped block objective and aggregate objective strictly improves",
+    "quality_gate": "the same eight frozen non-evaluator inputs produce 8/8 exact BF16 token arrays and 8/8 matching response-gate outcomes; four holdouts remain construction-blind",
+    "dynamic_gate": "all 312 named Dynamic Scale32 boundaries execute legally with zero saturation, zero clipping, no reserved -128 payload, and at most 832 transport-metadata bytes per decoder-layer token",
+    "marker_gate": "PREATTEMPT_READY.json verifies all prior artifacts without creating execution_started.json",
+    "preflight_failure_disposition": "Preserve hash-bound PREATTEMPT_NO_GO, leave attempt-0001 absent and unconsumed, keep selected_policy_id null, and submit the no-go for Fresh Review without accessing official inputs."
+  },
+  "official_attempt_contract": {
+    "permitted_only_after_verified_preattempt_ready": true,
+    "attempt_budget": 1,
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "eligibility": "binary 9/9 exact BF16 token arrays and 9/9 matching response-gate outcomes",
+    "fresh_reviewer_required": true,
+    "second_attempt_or_repair_after_marker_permitted": false
+  },
+  "required_self_tests": [
+    "small exact-Fraction block fixture matching the scalable LDLT/error-feedback backend",
+    "duplicate covariance capture and manifest identity",
+    "damping, gcd normalization, final-short-block, singular and nonpositive-pivot failure cases",
+    "sequential error propagation and lower-index assignment ties",
+    "full-block row-scale quadratic bracketing and tie rules",
+    "strict codebook coordinate optimum, empty assignment, order, endpoint, and tie rules",
+    "nibble packing, Scale32 legality, hash mismatch, and marker absence"
+  ],
+  "verification_commands_required": [
+    "candidate-specific self-test",
+    "candidate-specific marker-free prepare",
+    "candidate-specific verify",
+    "candidate-specific verify-result only if attempt-0001 legally executes"
+  ],
+  "forbidden_actions": [
+    "create the V6 execution marker during planning, runner development, covariance capture, or preflight",
+    "inspect official prompt content, golden outputs, hidden harness sources, or holdout inputs during construction",
+    "resume, replay, repair, rename, or officially execute V5",
+    "store covariance data in the product image or runtime",
+    "change packed-W4 payload width, row-scale record count, codebook size, activation sidecar geometry, or public ace2_shell ports",
+    "perform RTL modification, simulation acceptance, formal, synthesis, PPA, chat retargeting, U280 build, emulation, or board work at specification stage",
+    "download a proprietary vendor toolchain"
+  ],
+  "acceptance_check": "Fresh Reviewer returns done after reproducing either a sealed PREATTEMPT_NO_GO with zero attempts consumed or a sealed single-attempt result whose eligibility and exact hashes are correctly reported.",
+  "claim_boundary": {
+    "task_authorized": true,
+    "task_execution_started": false,
+    "attempt_started": false,
+    "selected_policy_id": null,
+    "downstream_authorized": false,
+    "manager_stage_change_required_for_downstream": true
+  }
+}

@@ -1,0 +1,83 @@
+{
+  "bindings": {
+    "adapter": {
+      "path": "/home/argustest/ace-2/build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/attempt-0001/checkpoints/checkpoint-176/adapter_model.safetensors",
+      "sha256": "c9476d6ccc687a4d68de1951eb889b689daaf9c5d3822b4c5acfc26a1cd38a28"
+    },
+    "attention_source": {
+      "bytes": 7168,
+      "path": "evidence/candidates/w4a8-layer16-source-grouped-activation-repair-v1/candidate-0001/groups/group-004/attention_source.bin",
+      "sha256": "359545d7318d40845b4351ded55ac7b182a12f39c4a6960033cfa1024c63a135"
+    },
+    "candidate_group_result": {
+      "bytes": 6878,
+      "path": "evidence/candidates/w4a8-layer16-source-grouped-activation-repair-v1/candidate-0001/groups/group-004/result.json",
+      "sha256": "d2b07d83e5f9632aba2bdacd4984bd36b2f3572adc1fa9e2d1464c851bbcd12f"
+    },
+    "candidate_q_input": {
+      "bytes": 896,
+      "path": "evidence/candidates/w4a8-layer16-source-grouped-activation-repair-v1/candidate-0001/groups/group-004/q_input_q.bin",
+      "sha256": "ea6ec13ce4d77f454edbc6b92f14c05326c7a9394d4fa3c58de73dc2fe7206eb"
+    },
+    "candidate_q_output": {
+      "bytes": 896,
+      "path": "evidence/candidates/w4a8-layer16-source-grouped-activation-repair-v1/candidate-0001/groups/group-004/q_output_q.bin",
+      "sha256": "e95014128ca177f252b9e8a6df4eeb95407d3341cfa913b1d14811a85dfa54cf"
+    },
+    "down_source": {
+      "bytes": 7168,
+      "path": "evidence/candidates/w4a8-layer16-source-grouped-activation-repair-v1/candidate-0001/groups/group-004/down_source.bin",
+      "sha256": "c7ba850a2ef65a173e95f6df645da814dd7363bc22869f4b3cba886eb811be46"
+    },
+    "model": {
+      "path": "/home/argustest/.cache/huggingface/hub/models--Qwen--Qwen2.5-0.5B-Instruct/snapshots/7ae557604adf67be50417f59c2c2f167def9a775/model.safetensors",
+      "sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe"
+    }
+  },
+  "boundary": "layer16_group4_source_quantize_common_scale_sum_layer17_rmsnorm_q_proj",
+  "classification": "candidate_only_focused_rtl_vectors_no_official_attempt",
+  "expected": {
+    "q_saturation_count": 1,
+    "q_saturation_indices": [
+      443
+    ],
+    "rms_inv_q30": 29826161,
+    "rms_saturation": false,
+    "rms_sumsq": 1161098,
+    "scale32_vs_frozen_binary32_q_input_mismatches": 180,
+    "scale32_vs_frozen_binary32_q_output_mismatches": 231,
+    "source_saturation_count": 0,
+    "sum_saturation_count": 0
+  },
+  "scale_semantics": {
+    "aligned_sum": "source group values are aligned exactly and rounded once into one tensor-wide common Scale32 before RMSNorm",
+    "encoding": "Scale32 = normalized unsigned Q1.15 significand times 2^signed_exponent",
+    "model_float_to_scale32": "smallest legal Scale32 value greater than or equal to the model-derived positive scale",
+    "range": {
+      "exponent": [
+        -24,
+        4
+      ],
+      "significand": [
+        32768,
+        65535
+      ]
+    },
+    "requantization": "exact common-exponent integer ratio, signed round-to-nearest ties-to-even, signed-A8 saturation"
+  },
+  "scales": {
+    "attention_base_scale32": "0x00fbd492",
+    "down_base_scale32": "0x00f9d146",
+    "q_input_scale32": "0x00fbe2c6",
+    "q_output_scale32": "0x00fbca52",
+    "sum_scale32": "0x00fb93e2"
+  },
+  "schema_version": 1,
+  "shape": {
+    "hidden": 896,
+    "q_mac_lanes": 4,
+    "q_outputs": 896,
+    "source_group": 4,
+    "source_groups": 224
+  }
+}

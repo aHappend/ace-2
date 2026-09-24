@@ -1,0 +1,142 @@
+{
+  "schema_version": 1,
+  "task_id": "task-b87978f9a5a8",
+  "created_at_utc": "2026-08-06T23:16:08Z",
+  "title": "Execute packed Scale24 per-row selector dual-codebook W4 candidate",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_packed_scale24_per_row_selector_dual_input_block_codebook_w4_grouped_dynamic_scale32_w4a8_v10",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_PACKED_SCALE24_PER_ROW_SELECTOR_DUAL_INPUT_BLOCK_CODEBOOK_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V10_PLAN.json",
+    "sha256": "7b5db92cd5907ee2a99e1bd408a79a4da009e2135b093ad2fc13ed5831b31b77",
+    "role": "immutable_planning_requirements_only"
+  },
+  "terminal_predecessor": {
+    "mission_id": "3b229e217703",
+    "candidate_id": "option_b_alias_safe_dual_input_block_codebook_row_group_selector_w4_grouped_dynamic_scale32_w4a8_v9",
+    "status": "PREATTEMPT_NO_GO",
+    "failure_taxonomy": "NO_GO_NON_EVALUATOR_QUALITY_GATE",
+    "review_record": "research/raw/specification/dual-input-block-codebook-row-group-selector-v9-review-done-20260806T231214Z.json",
+    "review_record_sha256": "340e38b4b58ead6ff8639c5d3fd7930b0d199631b81ac8f5953b7f973799ac29",
+    "aggregate_fresh_v7_unweighted_bf16_sse": 2303.224223882074,
+    "aggregate_v9_unweighted_bf16_sse": 2176.5828747795154,
+    "exact_bf16_sequence_match_count": 2,
+    "response_gate_outcome_match_count": 8,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_under_predecessor_id_permitted": false
+  },
+  "fresh_attempt_namespace": {
+    "root": "build/stage1-option-b-alias-safe-packed-scale24-per-row-selector-dual-input-block-codebook-w4-grouped-dynamic-scale32-w4a8-v10",
+    "attempt_id": "attempt-0001",
+    "attempt_directory": "build/stage1-option-b-alias-safe-packed-scale24-per-row-selector-dual-input-block-codebook-w4-grouped-dynamic-scale32-w4a8-v10/attempt-0001",
+    "attempt_budget": 1,
+    "attempts_consumed_at_task_freeze": 0,
+    "namespace_must_be_absent_at_task_start": true,
+    "execution_marker": "build/stage1-option-b-alias-safe-packed-scale24-per-row-selector-dual-input-block-codebook-w4-grouped-dynamic-scale32-w4a8-v10/attempt-0001/execution_started.json",
+    "execution_marker_permitted_during_runner_build_construction_or_preflight": false,
+    "execution_marker_creation_rule": "Create atomically exactly once only after deterministic candidate A/B identity, lossless packed-Scale24 closure, exact fresh-V9 reproduction, 169/169 V9-relative non-regression, strict aggregate fresh-V9 SSE improvement, 8/8 construction-blind non-evaluator exactness, 312 legal Dynamic Scale32 events, and complete hash verification produce PREATTEMPT_READY.json.",
+    "replay_resume_or_second_attempt_under_candidate_id_permitted": false
+  },
+  "implementation_objective": "Implement an isolated V10 runner and scalable backend that preserve V9 four-bit indices, dual signed-Q4.4 codebooks, and exact Scale32 values while storing each legal row scale in three bytes and assigning one selector bit per output row and input block. Do not modify RTL, the live chat path, sealed evidence, or Manager-owned stage state.",
+  "required_constructor": {
+    "v9_initial_state": "Freshly reconstruct all 169 V9 tensors under the V10 namespace, losslessly pack every legal Scale32 record into significand-low, significand-high, exponent bytes, copy V9 payload and dual codebooks, repeat each V9 grouped selector onto all rows in that group, and prove byte-identical V9 BF16 reconstruction before V10 updates.",
+    "packed_scale24": "exact three-byte storage of the low 24 meaningful Scale32 bits; decode restores a zero reserved high byte; malformed reserved, truncated, reordered, or non-round-tripping records fail closed",
+    "dual_codebook": "two strictly increasing sixteen-entry signed-Q4.4 int8 banks per contiguous 128 input lanes",
+    "selector": "one bit per output row and input block for every transformer Linear and lm_head",
+    "selector_packing": "output-row-major then input-block-major, least-significant-bit first, each tensor aligned to 16 bytes, all padding bits zero",
+    "outer_iterations": 8,
+    "objective": "exact unweighted BF16 source-space SSE for all 169 Linear tensors",
+    "determinism": "independent candidate A/B payload, packed-scale, dual-codebook, selector, reconstruction, objective, iteration-trace, weight, and state manifests match byte-for-byte",
+    "model_gate": "all 169 tensors exactly reproduce fresh V9 before updates, none regress after updates, and aggregate literal unweighted BF16 SSE is strictly below 2176.5828747795154"
+  },
+  "model_and_alias_policy": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f",
+    "source_alias_assertion": "lm_head.weight and model.embed_tokens.weight are the same Parameter and storage immediately after pinned-model load",
+    "split_operation": "clone the complete embedding tensor into a detached non-trainable lm_head Parameter before construction and set only in-memory tie_word_embeddings false",
+    "embedding_preservation": "original embedding object, storage, shape, dtype, and complete BF16 bytes remain unchanged",
+    "retie_forbidden": true,
+    "quantization_scope": "exactly 168 transformer Linears plus separated lm_head"
+  },
+  "storage_and_accelerator_contract": {
+    "scale32_mathematical_value_changed": false,
+    "stored_row_scale_bytes": 3,
+    "standard_decoder_layer_total_weight_bytes": 7509856,
+    "standard_decoder_layer_exact_bits_per_weight": 4.029584478021978,
+    "standard_decoder_layer_cap_reserve_bytes": 11956.48,
+    "lm_head_total_weight_bytes": 68656304,
+    "lm_head_exact_bits_per_weight": 4.034611377722951,
+    "lm_head_cap_reserve_bytes": 23629.952,
+    "whole_model_total_weight_bytes": 248892848,
+    "whole_model_exact_bits_per_weight": 4.030969880841819,
+    "whole_model_cap_reserve_bytes": 310585.472,
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "metadata_cache_budget_bytes": 96,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_incremental_sram_bytes": 2368,
+    "public_ace2_shell_ports_changed": false,
+    "floating_point_rtl_permitted": false,
+    "rtl_implementation_or_ppa_authorized_by_this_task": false
+  },
+  "pre_attempt_artifact_set": {
+    "official_nine_prompt_inputs_permitted": false,
+    "all_eight_non_evaluator_inputs_construction_blind": true,
+    "required_before_marker": [
+      "hash-bound V10 runner, scalable backend, exact packed-Scale24 codec, and constructor self-test result",
+      "fresh V9 reconstruction and exact pre-optimization V9 reproduction witness",
+      "candidate A and B payload, packed-scale, dual-codebook, selector, reconstruction, objective, iteration-trace, weight, and state manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "codec tests for legal extrema, all-zero record, reserved-byte rejection, endianness, exact round trip, truncation, and stream alignment",
+      "constructor tests for per-row geometry, selector ordering and zero padding, two-bank ordering, codepoint legality, nibble packing, Scale32 candidates, empty banks, all-zero rows, metadata sequencing, and hash rejection",
+      "model-only report proving 169/169 V9-relative non-regression and strict aggregate fresh-V9 SSE improvement",
+      "the unchanged eight non-evaluator inputs at 8/8 exact BF16 token arrays and 8/8 matching response-gate outcomes",
+      "fresh-candidate Dynamic Scale32 report with all 312 layer/event names, legal deltas, zero saturation, zero clipping, no reserved -128 payload, and 832 or fewer activation-metadata bytes per decoder-layer token",
+      "predeclared contract binding every source, model, matrix hash, runner, tool version, format, byte count, and policy hash",
+      "PREATTEMPT_READY.json that verifies all prior artifacts without creating execution_started.json"
+    ],
+    "preflight_failure_disposition": "Preserve a hash-bound PREATTEMPT_NO_GO, leave attempt-0001 absent and unconsumed, keep selected_policy_id null, and submit the no-go to a Fresh Reviewer without accessing official inputs."
+  },
+  "official_attempt_contract": {
+    "permitted_only_after_verified_preattempt_ready": true,
+    "attempt_budget": 1,
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "evaluator_no_execution_rule": "If execution_started.json exists but no candidate prompt completes, preserve the attempt, keep numerical correctness null, and forbid replay.",
+    "numerical_failure_rule": "If any candidate prompt completes but the binary gate is not met, set eligible=false, preserve exact disagreements, keep selected_policy_id null, and forbid replay.",
+    "numerical_success_rule": "If the 9/9 binary gate is met, seal immutable evidence and submit it to a Fresh Reviewer; do not select the policy or authorize downstream work before independent acceptance.",
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false
+  },
+  "acceptance_check": "A Fresh Reviewer returns done after reproducing either a sealed marker-free PREATTEMPT_NO_GO with zero attempts consumed or a sealed single authorized attempt, and verifies exact packed-Scale24 round trip and accounting, deterministic construction, fresh-V9 reproduction and model gate, 8/8 preflight quality, 312-event Dynamic Scale32 legality, and all bound hashes.",
+  "prohibited_work": [
+    "modify, resume, replay, reinterpret, or officially execute V9 or any consumed or terminal predecessor",
+    "create the V10 execution marker during planning, runner development, construction, or preflight",
+    "use official nine-prompt inputs, outputs, token arrays, response gates, hidden harness sources, or golden outputs for construction or preflight",
+    "change the packed-scale codec, per-row selector geometry, or byte accounting after observing any non-evaluator or official prompt result",
+    "change the mathematical Scale32 value, omit nonzero bits, accept a nonzero reserved high byte, or use lossy scale compression",
+    "widen weight payloads or selectors; add a third codebook, sparse exceptions, per-weight scales, or hidden metadata; or exceed 4.036 stored bits per weight",
+    "hide selector padding, alignment, authentication, or duplicate records outside the frozen byte accounting",
+    "modify research/PIPELINE_STATE.json",
+    "modify RTL, testbenches, formal properties, synthesis constraints, certified PPA evidence, or the sealed two-token record",
+    "retarget or claim the arbitrary-text demo",
+    "begin U280 integration, emulation, bitstream, or board work",
+    "download a proprietary vendor toolchain"
+  ],
+  "claim_boundary": {
+    "task_authority_created": true,
+    "official_attempt_started": false,
+    "official_attempt_consumed": false,
+    "runner_frozen": false,
+    "preflight_complete": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

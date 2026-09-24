@@ -5,7 +5,10 @@ from __future__ import annotations
 from dataclasses import dataclass
 from typing import Iterable, Sequence
 
-from ace2_quality_contracts import pack_scale32, unpack_scale32
+try:
+    from tools.ace2_quality_contracts import pack_scale32, unpack_scale32
+except ModuleNotFoundError:  # Direct execution with tools/ as sys.path[0].
+    from ace2_quality_contracts import pack_scale32, unpack_scale32
 
 
 DELTA_MIN = -24
@@ -205,4 +208,3 @@ def tagged_accumulate(events: Iterable[TaggedEvent]) -> int:
     if count == 0:
         raise ValueError("tagged accumulator requires at least one event")
     return accumulator
-

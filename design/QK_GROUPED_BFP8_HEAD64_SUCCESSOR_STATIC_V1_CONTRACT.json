@@ -1,0 +1,283 @@
+{
+  "accepted_boundary": {
+    "normalization_contract": {
+      "contract_id": "QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_V2",
+      "path": "reference/QK_BFP8_E16_HEAD64_V1_SCORE_NORMALIZATION_CONTRACT.json",
+      "sha256": "539ff95d8f1ad253880c9999fa59e6ac41840761908b188cf2c4bce09f3c1b01"
+    },
+    "output_format": "signed-int64 container holding Q12.20 logits after exact causal-row maximum centering and exact HEAD64 scale 1/8",
+    "output_frame": "The existing QKSPOU01 schema-version-2 frame is unchanged: 24-byte header, row_length signed-int64 scores, then the authoritative valid-key bitmap.",
+    "public_packing_api": "pack_normalized_row(query, keys, valid_mask, alternative_id) validates encoded heads and bitmap, then performs groupwise dot-product normalization internally; callers cannot supply derived scores, row_common_exponent, or argmax_index.",
+    "realization": "For valid key k, realize centered_k * 2^(row_common_exponent+17), round once to nearest ties to even when right shifting, reject any positive result, saturate only values below signed-int64 minimum, and emit canonical integer +0 after underflow or exact zero.",
+    "valid_range": [
+      -9223372036854775808,
+      0
+    ]
+  },
+  "accepted_c02_evidence": {
+    "base_authority_ledger": {
+      "byte_count": 1883,
+      "path": "build/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v2/lanes/base/authority-ledger.json",
+      "sha256": "5f5f15197ca0bbfbbd775b871adbfd39c7189864a2e67c1918fb78a9d5ed8fd6"
+    },
+    "base_first_terminal": {
+      "byte_count": 831,
+      "path": "build/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v2/lanes/base/first-terminal.json",
+      "sha256": "c8667068109ed2c376c3fbc04794e192d528a61347cf311645de06c326f95716",
+      "status": "FAILED_TERMINAL"
+    },
+    "base_result": {
+      "byte_count": 3878,
+      "path": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/base/result.json",
+      "result_self_sha256": "a36ae6d93c33b3c30a4c462593a1beadc2b9992817e2f41c71d11e729336d1fb",
+      "sha256": "df895cb6b7c9f9f7c77f530720d49b6dff1ccee23713c7673924203936a5fbbc",
+      "terminal_reason": "HARD_THRESHOLD_FAILED",
+      "terminal_status": "FAILED_TERMINAL"
+    },
+    "base_result_facts": {
+      "positive_margin_preservation": "187/346",
+      "rank_margin_violation_count": 159,
+      "top_key_matching": "230/574",
+      "top_key_mismatch_count": 344
+    },
+    "checkpoint_176_c02": {
+      "disposition": "UNMATERIALIZED_AND_UNAVAILABLE_UNDER_CONSUMED_BASE_GATED_AUTHORITY",
+      "live_namespace_must_remain_absent": "build/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v2/lanes/checkpoint-176",
+      "result_namespace_must_remain_absent": "build/qk-bfp8-e16-head64-v1-c02-score-path-evaluation-v1/checkpoint-176"
+    },
+    "exactly_once_fresh_l2_verdict": {
+      "byte_count": 882,
+      "mission_id": "19354049edae",
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/19354049edae/round-0001.json",
+      "sha256": "1267e62e761fa117dfec0274b3aa3b53e395a9796fe5e778b13ecf91162c27b1",
+      "status": "done"
+    },
+    "static_v2_fresh_l2_verdict": {
+      "byte_count": 988,
+      "mission_id": "e731a5c90d42",
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/e731a5c90d42/round-0003.json",
+      "sha256": "38287153720110a329ea5842b1ef84b3ef193e62d6cc399418584a710c2da6f9",
+      "status": "done"
+    },
+    "v2_static_checksum_manifest": {
+      "path": "evidence/verification/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v2/SHA256SUMS",
+      "sha256": "cb71a735884550fa6186bcb2623de9d1c8a378c1d4ef728a09ab306a685b4a50"
+    }
+  },
+  "alternatives": [
+    {
+      "alternative_id": "QK_GBFP8_G16_E16_HEAD64_V1",
+      "encoding": {
+        "all_zero_group": "All 16 mantissas are zero and the stored exponent is exactly signed zero.",
+        "decoder": "For lane i in group g, represented_value[i] = signed_int8_mantissa[i] * 2^signed_group_exponent[g].",
+        "exponent_selection": "For each contiguous 16-lane group independently, choose the least integer e such that every finite BF16 source value x in the group satisfies abs(x) <= 127 * 2^e.",
+        "group_count": 4,
+        "group_size_lanes": 16,
+        "grouping": "contiguous groups [0:15], [16:31], [32:47], [48:63]",
+        "mantissa_quantization": "round x * 2^-e to nearest integer, ties to even; saturation and clamp are forbidden",
+        "nonzero_canonicality": "A nonzero group must have maximum absolute mantissa in [64,127], making the least-exponent representation fail-closed and unique for represented group values.",
+        "rank_loss_mechanism_addressed": "Four independently selected exponents prevent a large lane in one 16-lane region from forcing the quantization step of all other 48 lanes. This is a structural statement only, not a numerical-improvement claim."
+      },
+      "groupwise_dot_product": {
+        "alignment": "Across every valid key and all four groups, choose row_common_exponent as the minimum nonzero group_product_exponent. Align each nonzero group partial exactly by left shifting it by group_product_exponent-row_common_exponent, then sum the four aligned terms for that key.",
+        "group_partial": "partial[k,g] = sum over the 16 lanes in group g of q_mantissa[i] * k_mantissa[k,i]",
+        "group_partial_exact_range": [
+          -258064,
+          258064
+        ],
+        "group_partial_minimum_signed_width": 19,
+        "group_product_exponent": "q_group_exponent[g] + k_group_exponent[k,g], signed range -278 through 244; a zero partial does not participate in row exponent selection",
+        "row_all_zero": "If every valid-key group partial is zero, row_common_exponent is exactly zero.",
+        "row_centering": "Choose the exact maximum aligned score over valid keys, lowest key index on ties, and subtract it from every valid aligned score before Q12.20 realization."
+      },
+      "packing": {
+        "baseline_bytes_per_head": 66,
+        "byte_order": "little-endian",
+        "exponent_layout": "bytes 64..71 contain four signed-int16 group exponents in increasing group order",
+        "key_cache_extra_bytes_per_24_layer_token": 288,
+        "key_cache_extra_bytes_per_layer_token": 12,
+        "key_cache_record_bytes_per_layer_token_for_two_kv_heads": 144,
+        "mantissa_layout": "bytes 0..63 are signed-int8 lane mantissas in increasing lane order",
+        "record_bytes_per_head": 72,
+        "storage_and_bandwidth_overhead_fraction": "1/11",
+        "storage_and_bandwidth_overhead_percent": "9.090909...",
+        "trailing_padding_bytes": 0
+      },
+      "static_dataflow": {
+        "alignment_terms_per_key": 4,
+        "embedded_exponent_reads_per_head": 4,
+        "multiplier_count_if_fully_unrolled": "64 signed 8x8 multipliers, unchanged from a fully unrolled per-head dot product",
+        "reduction_shape": "four exact 16-product partial reductions feeding exponent-tagged alignment and one signed-543 score accumulator",
+        "streaming_interface": "Consume one 72-byte query-head record and one 72-byte key-head record under the abstract streaming-memory boundary; no tensor, model, descriptor, RTL, or live command namespace is created by this contract."
+      }
+    },
+    {
+      "alternative_id": "QK_GBFP8_G8_E16_HEAD64_V1",
+      "encoding": {
+        "all_zero_group": "All 8 mantissas are zero and the stored exponent is exactly signed zero.",
+        "decoder": "For lane i in group g, represented_value[i] = signed_int8_mantissa[i] * 2^signed_group_exponent[g].",
+        "exponent_selection": "For each contiguous 8-lane group independently, choose the least integer e such that every finite BF16 source value x in the group satisfies abs(x) <= 127 * 2^e.",
+        "group_count": 8,
+        "group_size_lanes": 8,
+        "grouping": "contiguous groups [0:7], [8:15], [16:23], [24:31], [32:39], [40:47], [48:55], [56:63]",
+        "mantissa_quantization": "round x * 2^-e to nearest integer, ties to even; saturation and clamp are forbidden",
+        "nonzero_canonicality": "A nonzero group must have maximum absolute mantissa in [64,127], making the least-exponent representation fail-closed and unique for represented group values.",
+        "rank_loss_mechanism_addressed": "Eight independently selected exponents reduce the sharing domain to eight lanes, further isolating large-magnitude lanes. This is a structural statement only, not a numerical-improvement claim."
+      },
+      "groupwise_dot_product": {
+        "alignment": "Across every valid key and all eight groups, choose row_common_exponent as the minimum nonzero group_product_exponent. Align each nonzero group partial exactly by left shifting it by group_product_exponent-row_common_exponent, then sum the eight aligned terms for that key.",
+        "group_partial": "partial[k,g] = sum over the 8 lanes in group g of q_mantissa[i] * k_mantissa[k,i]",
+        "group_partial_exact_range": [
+          -129032,
+          129032
+        ],
+        "group_partial_minimum_signed_width": 18,
+        "group_product_exponent": "q_group_exponent[g] + k_group_exponent[k,g], signed range -278 through 244; a zero partial does not participate in row exponent selection",
+        "row_all_zero": "If every valid-key group partial is zero, row_common_exponent is exactly zero.",
+        "row_centering": "Choose the exact maximum aligned score over valid keys, lowest key index on ties, and subtract it from every valid aligned score before Q12.20 realization."
+      },
+      "packing": {
+        "baseline_bytes_per_head": 66,
+        "byte_order": "little-endian",
+        "exponent_layout": "bytes 64..79 contain eight signed-int16 group exponents in increasing group order",
+        "key_cache_extra_bytes_per_24_layer_token": 672,
+        "key_cache_extra_bytes_per_layer_token": 28,
+        "key_cache_record_bytes_per_layer_token_for_two_kv_heads": 160,
+        "mantissa_layout": "bytes 0..63 are signed-int8 lane mantissas in increasing lane order",
+        "record_bytes_per_head": 80,
+        "storage_and_bandwidth_overhead_fraction": "7/33",
+        "storage_and_bandwidth_overhead_percent": "21.212121...",
+        "trailing_padding_bytes": 0
+      },
+      "static_dataflow": {
+        "alignment_terms_per_key": 8,
+        "embedded_exponent_reads_per_head": 8,
+        "multiplier_count_if_fully_unrolled": "64 signed 8x8 multipliers, unchanged from a fully unrolled per-head dot product",
+        "reduction_shape": "eight exact 8-product partial reductions feeding exponent-tagged alignment and one signed-543 score accumulator",
+        "streaming_interface": "Consume one 80-byte query-head record and one 80-byte key-head record under the abstract streaming-memory boundary; no tensor, model, descriptor, RTL, or live command namespace is created by this contract."
+      }
+    }
+  ],
+  "arithmetic_width_closure": {
+    "aligned_group_term": "G16 requires at most signed 541 bits for a signed-19 partial shifted by 522; G8 requires at most signed 540 bits for a signed-18 partial shifted by 522.",
+    "aligned_key_score": "signed 543 bits. The absolute sum over all groups is bounded by 64*127*127*2^522 = 1032256*2^522 < 2^542.",
+    "centered_key_score": "signed 544 bits for exact subtraction of two signed-543 aligned scores",
+    "exponent_delta": "unsigned 10 bits for 0 through 522",
+    "group_exponent": "canonical nonzero range -139 through 122; minimum exact signed width 9; stored signed-int16",
+    "group_product_exponent": "range -278 through 244; minimum exact signed width 10; stored or carried signed-int16",
+    "lane_product": "exact range -16129 through 16129; minimum exact signed width 15",
+    "q12_20_realization_intermediate": "signed 805 bits or wider: signed-544 centered value left shifted by at most 261 when row_common_exponent+17 is nonnegative",
+    "row_common_exponent": "minimum nonzero group_product_exponent over every valid key and group, signed 10 bits and stored signed-int16"
+  },
+  "artifact_kind": "qk_grouped_bfp8_head64_successor_static_pre_execution_contract",
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "claim_boundary": {
+    "candidate_or_execution_namespace_created": false,
+    "c02_evaluator_invoked": false,
+    "calibration_generation_or_retraining_performed": false,
+    "checkpoint_176_c02_materialized": false,
+    "model_or_sealed_tensor_loaded_or_deserialized": false,
+    "new_model_scores_computed": false,
+    "numerical_improvement_claimed": false,
+    "rtl_u280_xrt_hbm_manifest_or_stage_modified": false,
+    "stage1_complete": false,
+    "synthesis_timing_area_or_frequency_claimed": false
+  },
+  "contract_id": "QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1",
+  "hardware_constraints": {
+    "clock_floor_mhz": 100,
+    "memory_boundary": "abstract streaming memory",
+    "non_sram_area_cap_mm2": 2.0,
+    "static_disposition": "Both alternatives use bounded integer fields, finite reductions, fixed group counts, and deterministic shifts and are hardware-realizable at the contract level. Compliance with the 2.0 mm2 cap and 100 MHz floor remains unclaimed until separately authorized canonical SKY130 synthesis and OpenSTA evidence exists."
+  },
+  "input": {
+    "head_lanes": 64,
+    "key_heads": 2,
+    "maximum_row_length": 512,
+    "minimum_row_length": 1,
+    "query_heads": 14,
+    "query_to_key_head_mapping": "kv_head = floor(query_head/7)",
+    "source": "finite BF16 post-RoPE Q and K values supplied only under a future separately frozen diagnostic authority",
+    "source_shape_per_head": [
+      64
+    ],
+    "zero_semantics": "Both positive and negative BF16 zero encode as integer mantissa zero. No negative-zero state exists after encoding."
+  },
+  "malformed_input_policy": {
+    "atomicity": "Validate the complete query record, every key record including masked keys, the complete bitmap, row length, and exact output-frame fields before publishing any score or packed byte.",
+    "fail_closed_conditions": [
+      "wrong Python type or bool supplied where an exact integer is required",
+      "wrong head, group, row, payload, bitmap, or frame length",
+      "BF16 NaN or infinity",
+      "reserved signed-int8 mantissa -128",
+      "group exponent outside -139 through 122 for a nonzero group",
+      "zero group with exponent other than zero",
+      "nonzero group whose maximum absolute mantissa is below 64",
+      "nonzero group whose maximum absolute mantissa exceeds 127",
+      "all-masked row",
+      "nonzero output flags or reserved fields",
+      "nonzero unused bitmap tail bits",
+      "trailing bytes",
+      "caller-supplied normalized scores, row common exponent, or argmax at the public packing boundary",
+      "output argmax index whose valid score is not canonical integer zero",
+      "positive centered or realized valid score",
+      "any internal width-bound violation"
+    ],
+    "repair_policy": "No inference, defaulting, truncation, canonical repair, compatibility alias, partial publication, or field substitution is permitted."
+  },
+  "objective": "Freeze exactly two software-only, hardware-realizable grouped-exponent Q/K score representation successors after the immutable Base c02 negative result, without loading models or tensors, invoking an evaluator, computing new scores, creating execution authority, or modifying RTL or stage state.",
+  "packing_common": {
+    "head_record_selection": "The alternative is selected by a separately checksummed future interface contract; records carry no self-describing tag and are rejected if their exact length does not match the selected alternative.",
+    "normalized_output": "The accepted QKSPOU01 output frame and authoritative valid-key bitmap are unchanged. Public packing accepts only encoded query, encoded keys, valid_mask, and alternative_id, and derives scores, row_common_exponent, and argmax_index internally. Unpacking rejects any frame whose valid argmax slot is not canonical integer zero.",
+    "query_lifetime": "query-head records may be transient",
+    "record_order": "mantissas first in increasing lane order, then signed-int16 exponents in increasing contiguous-group order, no padding or trailing bytes"
+  },
+  "prohibited_actions": [
+    "deserialize or inspect either sealed Q/K tensor bundle",
+    "load or execute Base or checkpoint-176 models",
+    "invoke the c02 evaluator or transaction surface",
+    "compute candidate, diagnostic, calibration, model, or official scores",
+    "materialize checkpoint-176 c02 or replay Base c02",
+    "create live authority, candidate, attempt, command, descriptor, or execution namespaces",
+    "modify accepted c02 artifacts",
+    "modify RTL, U280, XRT, HBM2, manifests, constraints, or stage state",
+    "claim numerical improvement, RTL correctness, synthesis, timing, area, frequency, coverage, benchmark PASS, or Stage 1 completion"
+  ],
+  "recommendation": {
+    "alternative_id": "QK_GBFP8_G16_E16_HEAD64_V1",
+    "basis": "Advance only this alternative into a separately authorized, new-version diagnostic package because it removes the 64-lane shared exponent while adding 6 bytes per head rather than 14, uses four rather than eight exponent paths and aligned terms, and retains the same proven worst-case 543/544/805-bit arithmetic bounds as G8.",
+    "diagnostic_requirements": "A future package must use a new identifier and freshly frozen inputs, evaluator, score policy, tool versions, and exactly-once authority. It must not reuse Base c02 authority or materialize checkpoint-176 under the consumed Base gate.",
+    "numerical_claim": "NONE_PRE_EXECUTION",
+    "ppa_condition": "Recommendation is for diagnostic eligibility only; later accelerator adoption still requires fresh executable RTL verification, canonical SKY130 synthesis/OpenSTA evidence, source and constraint hashes, and independent Reviewer acceptance under the 2.0 mm2 and 100 MHz constraints."
+  },
+  "rounding": {
+    "bf16_encoding": "round to nearest, ties to even, using exact BF16 integer fields and powers of two; host floating point and libm are forbidden",
+    "dot_products": "exact signed integer multiply and add with no rounding, saturation, clamp, or requantization",
+    "q12_20_boundary": "the sole post-encoding rounding boundary; use guard/round/sticky-equivalent round-to-nearest ties-to-even on the nonnegative magnitude, then restore sign"
+  },
+  "schema_version": 1,
+  "static_resource_comparison": {
+    "common": {
+      "alignment_accumulator_bits": 543,
+      "centered_subtractor_bits": 544,
+      "full_unroll_signed_8x8_products": 64,
+      "q12_20_realization_intermediate_bits": 805,
+      "row_state": "one signed-16 row exponent, one signed-543 exact maximum, one unsigned-16 argmax index, plus implementation-selected buffering for a maximum 512-key row"
+    },
+    "g16": {
+      "aligned_terms_per_key": 4,
+      "group_partial_bits": 19,
+      "head_record_bytes": 72,
+      "key_cache_bytes_per_24_layer_token": 3456,
+      "query_plus_key_head_bytes_per_layer_token": 1152
+    },
+    "g8": {
+      "aligned_terms_per_key": 8,
+      "group_partial_bits": 18,
+      "head_record_bytes": 80,
+      "key_cache_bytes_per_24_layer_token": 3840,
+      "query_plus_key_head_bytes_per_layer_token": 1280
+    },
+    "interpretation": "G8 offers finer exponent isolation but doubles exponent reads and aligned terms versus G16 and adds 384 more key-cache bytes per token over 24 layers. No area, timing, energy, or numerical ranking is inferred from these static counts."
+  }
+}

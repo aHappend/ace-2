@@ -1,0 +1,467 @@
+{
+  "bound_at_utc": "2026-08-02T00:33:27Z",
+  "candidate_accepted": false,
+  "candidate_id": "down_projection_residual_fusion_76ef0dda2e646558",
+  "candidate_rtl_hash": "76ef0dda2e646558ecb3e2047d3ec00d69f416cbe0a880b3402876614a4a7a28",
+  "checklist": {
+    "verification.coverage-stress": true,
+    "verification.independent-oracle": false,
+    "verification.reproducible-green": true
+  },
+  "checklist_explanation": {
+    "verification.coverage-stress": "The first retained execution contains the completed reset, boundary, stall/backpressure, illegal Scale32, randomized, X/Z, saturation, overflow, formal, and representative-dataset evidence.",
+    "verification.independent-oracle": "Standalone and all-lane oracle checks pass, but frozen quality constraints fail, so this checklist item remains false.",
+    "verification.reproducible-green": "All first-execution simulator, formal, and replay commands exited successfully and their retained logs and hashes are present; exact-one process integrity is reported separately and failed."
+  },
+  "claim_boundary": [
+    "The first retained execution is authoritative only for the technical bounded NO_GO evidence.",
+    "The exact-one execution acceptance contract failed irreversibly because a second successful execution occurred.",
+    "No third discriminator run and no PPA, prototype, benchmark, signoff, tapeout, or silicon run was performed by this rebinder."
+  ],
+  "commands": [
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "tools/gen_down_projection_residual_fusion_vectors.py"
+      ],
+      "exit_status": 0,
+      "id": "dprf_vector_generation",
+      "raw_log": {
+        "bytes": 282,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_vector_generation.log",
+        "sha256": "65ddb3042ac0a752041e0b736bac6a86cf6cd9e9b6968d66156ea6704d4064fd"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.03
+    },
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "tools/gen_down_projection_residual_fusion_vectors.py"
+      ],
+      "exit_status": 0,
+      "id": "dprf_vector_regeneration",
+      "raw_log": {
+        "bytes": 282,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_vector_regeneration.log",
+        "sha256": "ddbe60056fb3813897a9924fb9da127a39dfd3df54b2e3833f94b4b59fc66876"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.43
+    },
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "tools/gen_down_projection_residual_fusion_metadata.py",
+        "--check"
+      ],
+      "exit_status": 0,
+      "id": "dprf_metadata_check",
+      "raw_log": {
+        "bytes": 214,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_metadata_check.log",
+        "sha256": "137ff04035978da8f55c6e6cd15f179a24e6c37452141076100c48c2ac322c7e"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.34
+    },
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "tools/ace2_down_projection_residual_fusion_hook.py",
+        "--self-test"
+      ],
+      "exit_status": 0,
+      "id": "dprf_hook_self_test",
+      "raw_log": {
+        "bytes": 209,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_hook_self_test.log",
+        "sha256": "f3dfe8c993d6fc203067bf290d68c38cfdaf31ff51407662b012111bfe2a2fb6"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 1.21
+    },
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "-m",
+        "unittest",
+        "verification.test_down_projection_residual_fusion",
+        "-v"
+      ],
+      "exit_status": 0,
+      "id": "dprf_reference_tests",
+      "raw_log": {
+        "bytes": 1251,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_reference_tests.log",
+        "sha256": "0299d582469b5932a4c723a8af8697a805c698b8ea3fa62c96b42539a017acc8"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 1.19
+    },
+    {
+      "command": [
+        "iverilog",
+        "-g2012",
+        "-Wall",
+        "-Iverification/generated",
+        "-o",
+        "build/ace2_dprf_verification_tb.vvp",
+        "rtl/ace2_down_projection_residual_fusion_core.sv",
+        "verification/tb/ace2_down_projection_residual_fusion_tb.sv"
+      ],
+      "exit_status": 0,
+      "id": "dprf_rtl_elaboration",
+      "raw_log": {
+        "bytes": 235,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_rtl_elaboration.log",
+        "sha256": "f3c4fc48fd537b890657efd9ec97dafe1a15a7438506f8b54c422a9c7edc3c32"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.01
+    },
+    {
+      "command": [
+        "vvp",
+        "build/ace2_dprf_verification_tb.vvp"
+      ],
+      "exit_status": 0,
+      "id": "dprf_rtl_simulation",
+      "raw_log": {
+        "bytes": 167,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_rtl_simulation.log",
+        "sha256": "df41aa5fedbed5f7316ea4cbb97d0f1be8180b46b88ef6551ab12cf5d3a9790a"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.01
+    },
+    {
+      "command": [
+        "iverilog",
+        "-g2012",
+        "-Wall",
+        "-o",
+        "build/ace2_dprf_stage_tb.vvp",
+        "rtl/ace2_down_projection_residual_fusion_core.sv",
+        "verification/tb/ace2_down_projection_residual_fusion_stage_tb.sv"
+      ],
+      "exit_status": 0,
+      "id": "dprf_stage_stress_elaboration",
+      "raw_log": {
+        "bytes": 209,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_stage_stress_elaboration.log",
+        "sha256": "be470c20337c670b1e658c4d3b51bda8258373d263e1f19240e3069400a47de7"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.01
+    },
+    {
+      "command": [
+        "vvp",
+        "build/ace2_dprf_stage_tb.vvp"
+      ],
+      "exit_status": 0,
+      "id": "dprf_stage_stress_simulation",
+      "raw_log": {
+        "bytes": 284,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_stage_stress_simulation.log",
+        "sha256": "a639c54f508508b32ef4ceeb9613617d2c1eae7fc5b780fa54131a3a45462999"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.06
+    },
+    {
+      "command": [
+        "verilator",
+        "--lint-only",
+        "--language",
+        "1800-2017",
+        "-Wall",
+        "-Wno-fatal",
+        "--top-module",
+        "ace2_down_projection_residual_fusion_core",
+        "rtl/ace2_down_projection_residual_fusion_core.sv"
+      ],
+      "exit_status": 0,
+      "id": "dprf_verilator_lint",
+      "raw_log": {
+        "bytes": 205,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_verilator_lint.log",
+        "sha256": "87d90688a73bad74f78af21c76d3e80e55ae1cbe4c27d606c6e794670bd5fb57"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 0.05
+    },
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "tools/run_down_projection_residual_fusion_formal.py"
+      ],
+      "exit_status": 0,
+      "id": "dprf_bounded_formal",
+      "raw_log": {
+        "bytes": 326,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_bounded_formal.log",
+        "sha256": "a95924e12c4219d54235a8e40b007c3b8e1a5e36cfba3b2675e82cda38786c72"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 6.65
+    },
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "tools/localize_score_to_lm_head.py",
+        "--output-dir",
+        "verification/raw/latest/dprf_focused_baseline_replay",
+        "--diagnostic-rope-mechanism",
+        "shared_down_projection_residual_fusion_baseline_v1",
+        "--capture-token-limit",
+        "128"
+      ],
+      "exit_status": 0,
+      "id": "dprf_focused_baseline_replay",
+      "raw_log": {
+        "bytes": 552,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_baseline_replay.log",
+        "sha256": "7f7eb0cd82f46f4eda8a02d0823373a1ab07d161775fc6f64076f96c6cdaf1a6"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 47.11
+    },
+    {
+      "command": [
+        "/home/argustest/ace-2/.venv/bin/python",
+        "tools/localize_score_to_lm_head.py",
+        "--output-dir",
+        "verification/raw/latest/dprf_focused_candidate_replay",
+        "--diagnostic-rope-mechanism",
+        "shared_down_projection_residual_fusion_v1",
+        "--capture-token-limit",
+        "128"
+      ],
+      "exit_status": 0,
+      "id": "dprf_focused_candidate_replay",
+      "raw_log": {
+        "bytes": 544,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_candidate_replay.log",
+        "sha256": "3548c87bf6af4a3f3244ef496469cbf74ca68027de6b0ce31e8618464e383555"
+      },
+      "retention_note": "Executed while this directory was verification/raw/latest, then moved intact into the content-addressed archive.",
+      "wall_seconds": 46.47
+    }
+  ],
+  "contract_id": "shared_down_projection_residual_fusion_v1",
+  "coverage": {
+    "capture_token_limit": 128,
+    "datasets": [
+      "wikitext2",
+      "c4_en_512"
+    ],
+    "deterministic_randomized_rtl_cases": 256,
+    "layers": 24,
+    "stage_stress_total_cases": 263,
+    "standalone_boundary_cases": 16,
+    "stress": [
+      "asynchronous_midflight_reset",
+      "midflight_clear",
+      "three_cycle_output_backpressure",
+      "busy_start_rejection",
+      "reserved_unnormalized_low_and_high_exponent_descriptors",
+      "positive_and_negative_saturation",
+      "x_z_known_outputs",
+      "signed96_unsigned64_workspace_bounds",
+      "single_clock_no_internal_cdc"
+    ]
+  },
+  "decision": {
+    "bytes": 133440,
+    "path": "evidence/shared_down_projection_residual_fusion_v1/latest/VERIFICATION_DECISION.json",
+    "sha256": "9655ca8a724fc04c6e32c26f7883f07d3ff117b82d2aa04ebbc68b15de26d8c9"
+  },
+  "execution_integrity": {
+    "failure": "duplicate_successful_execution",
+    "first_successful_execution": {
+      "baseline_replay": {
+        "bytes": 636748,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_baseline_replay/results.json",
+        "sha256": "899925521c6734dafab1cc4c0fa175523e33c1fb84f95d2d020e565f3fc045b8"
+      },
+      "candidate_replay": {
+        "bytes": 637196,
+        "path": "verification/raw/archive/pre-dprf-42fa63d925d813c8/dprf_focused_candidate_replay/results.json",
+        "sha256": "ecc6e52bab249d744c0afccdef0facd2485ff3ba7e19bfb2ec3ee41fe8f554be"
+      },
+      "generated_at_utc": "2026-08-02T00:14:50Z",
+      "raw_root": "verification/raw/archive/pre-dprf-42fa63d925d813c8"
+    },
+    "later_duplicate_execution": {
+      "baseline_replay": {
+        "bytes": 636748,
+        "path": "verification/raw/latest/dprf_focused_baseline_replay/results.json",
+        "sha256": "33d45fc719b8067f0dd176a0fe4a3998c777085a5165332891038db4d4026a8c"
+      },
+      "candidate_replay": {
+        "bytes": 637196,
+        "path": "verification/raw/latest/dprf_focused_candidate_replay/results.json",
+        "sha256": "c3942c6d51aa6c1382293fdb2f84f65bfa7a16962e3030fbe33b2ffa48789fcd"
+      },
+      "generated_at_utc": "2026-08-02T00:17:24Z",
+      "payload_equivalent_except_generated_at_utc": true,
+      "raw_root": "verification/raw/latest"
+    },
+    "observed_successful_execution_count": 2,
+    "required_successful_execution_count": 1,
+    "rerun_permitted": false,
+    "satisfied": false
+  },
+  "independent_l2_review": {
+    "bytes": 133724,
+    "path": "evidence/review/focused_verification_shared_down_projection_residual_fusion_v1/decision.json",
+    "sha256": "1fabab48441f5b90c0586490fd5e021f3db9a31dfe0be7aeb4419ea23c4a4448"
+  },
+  "integrity": {
+    "algorithm": "sha256-canonical-json-v1",
+    "canonical_sha256": "bdd3c6654da24d5b25591ff71ab502665adb0f3461b67fb1fac24a554d073832"
+  },
+  "manager_stage_transition_owner": "Manager",
+  "oracle_manifest": {
+    "bytes": 4009,
+    "path": "reference/ORACLE_MANIFEST.json",
+    "sha256": "f2d9de5906e265ed90d1199bcb425245548f30cafd73e8d9a1df6f3badd0bce2"
+  },
+  "pipeline_current_stage": "verification",
+  "property_manifest": {
+    "bytes": 2105,
+    "path": "formal/ACE2_VERIFICATION_PROPERTIES.json",
+    "sha256": "f66db4b39f88dc00f49e2679a78e34a908263812f56d03bee03308acbaacf724"
+  },
+  "quality_gate": {
+    "comparisons": {
+      "c4_en_512": {
+        "lm_head": {
+          "baseline_matches_frozen": false,
+          "baseline_relative_l2": 1.187661899178937,
+          "candidate_beats_frozen_threshold": false,
+          "candidate_relative_l2": 1.3085945894068536,
+          "delta_relative_l2": 0.12093269022791664,
+          "frozen_baseline_relative_l2": 1.1934673932274116,
+          "id": "c4_en_512.lm_head.strict_improvement",
+          "passed": false,
+          "strictly_improves_fresh_baseline": false
+        },
+        "model.layers.0.post_mlp_residual": {
+          "baseline_matches_frozen": false,
+          "baseline_relative_l2": 0.39920584603914955,
+          "candidate_beats_frozen_threshold": true,
+          "candidate_relative_l2": 0.39429439262846305,
+          "delta_relative_l2": -0.004911453410686495,
+          "frozen_baseline_relative_l2": 0.39761529680619884,
+          "id": "c4_en_512.model.layers.0.post_mlp_residual.strict_improvement",
+          "passed": false,
+          "strictly_improves_fresh_baseline": true
+        }
+      },
+      "wikitext2": {
+        "lm_head": {
+          "baseline_matches_frozen": false,
+          "baseline_relative_l2": 1.0105688315853807,
+          "candidate_beats_frozen_threshold": false,
+          "candidate_relative_l2": 0.9761980551099049,
+          "delta_relative_l2": -0.03437077647547582,
+          "frozen_baseline_relative_l2": 0.9143753483041323,
+          "id": "wikitext2.lm_head.strict_improvement",
+          "passed": false,
+          "strictly_improves_fresh_baseline": true
+        },
+        "model.layers.0.post_mlp_residual": {
+          "baseline_matches_frozen": false,
+          "baseline_relative_l2": 0.4436134115540647,
+          "candidate_beats_frozen_threshold": false,
+          "candidate_relative_l2": 0.4396367781660771,
+          "delta_relative_l2": -0.003976633387987594,
+          "frozen_baseline_relative_l2": 0.43066111261321344,
+          "id": "wikitext2.model.layers.0.post_mlp_residual.strict_improvement",
+          "passed": false,
+          "strictly_improves_fresh_baseline": true
+        }
+      }
+    },
+    "dataset_checks": {
+      "c4_en_512": {
+        "baseline_ordered_trace_sha256": "34fb27547e996e8e8b3fa962d14f1de51494487f84067a1cba28706c53610410",
+        "candidate_ordered_trace_sha256": "fbadc7b50fde935e109c8513539a3d5a33ecbbf29ae32073069b366c3f55c6c8",
+        "composed_all_lane_oracle_match": true,
+        "isolated_all_lane_oracle_match": true,
+        "later_layer_inputs_marked_as_prior_fusion_descendants": true,
+        "layer0_attention_value_bit_identical": true,
+        "layer0_pre_injection_inputs_bit_identical": true,
+        "layer0_score_bit_identical": true
+      },
+      "wikitext2": {
+        "baseline_ordered_trace_sha256": "e6f8ad8ed05187f393a8d82c8634306ee5163f62f7ecb9cbda39e96a31d46ab4",
+        "candidate_ordered_trace_sha256": "be9a1e130feb4e66fa089fa5ed081c1b2473302e5e3df185d545684e3d274fa1",
+        "composed_all_lane_oracle_match": true,
+        "isolated_all_lane_oracle_match": true,
+        "later_layer_inputs_marked_as_prior_fusion_descendants": true,
+        "layer0_attention_value_bit_identical": true,
+        "layer0_pre_injection_inputs_bit_identical": true,
+        "layer0_score_bit_identical": true
+      }
+    },
+    "failed_conditions": [
+      "wikitext2.model.layers.0.post_mlp_residual.fresh_baseline_replay_match",
+      "wikitext2.model.layers.0.post_mlp_residual.candidate_below_frozen_threshold",
+      "wikitext2.lm_head.fresh_baseline_replay_match",
+      "wikitext2.lm_head.candidate_below_frozen_threshold",
+      "c4_en_512.model.layers.0.post_mlp_residual.fresh_baseline_replay_match",
+      "c4_en_512.lm_head.fresh_baseline_replay_match",
+      "c4_en_512.lm_head.strict_improvement_over_fresh_baseline",
+      "c4_en_512.lm_head.candidate_below_frozen_threshold"
+    ],
+    "passed": false
+  },
+  "required_manager_action": "manager_rollback_to_architecture_for_structurally_distinct_successor",
+  "schema_version": 4,
+  "source_hashes": [
+    {
+      "bytes": 15139,
+      "path": "rtl/ace2_down_projection_residual_fusion_core.sv",
+      "sha256": "b3f33cb503aa89f4f7c54b0fb4ffcc814061b28917bf911b35ad335fb2425bdf"
+    },
+    {
+      "bytes": 12340,
+      "path": "tools/ace2_down_projection_residual_fusion_hook.py",
+      "sha256": "b4e222db99a5457a84183b8069654a3881fe5afc1e1caf9c23f49d6aa1463e18"
+    },
+    {
+      "bytes": 5490,
+      "path": "tools/ace2_down_projection_residual_fusion_reference.py",
+      "sha256": "87c97f2559141cede03efd93d4d250115e7adbaf07804ac0e4bf2b385acdd24d"
+    },
+    {
+      "bytes": 36745,
+      "path": "tools/localize_score_to_lm_head.py",
+      "sha256": "db0da7e785e72e2cf3b19cfbca423c586c829728b234fa41ded2f3e41898a4f7"
+    },
+    {
+      "bytes": 32823,
+      "path": "tools/run_down_projection_residual_fusion_verification.py",
+      "sha256": "d487f16275bfbe814a47300cc3b5ff3669dd2068fded64f8e311dc5cfd8b1728"
+    },
+    {
+      "bytes": 27688,
+      "path": "tools/bind_down_projection_residual_fusion_authoritative_discriminator.py",
+      "sha256": "89777cba102424918c0c5f37c67d5cb4d38644cd240be64af103d23858939f90"
+    },
+    {
+      "bytes": 400667,
+      "path": "reference/generated/down_projection_residual_fusion_metadata.json",
+      "sha256": "e083f94cef62b15313d6035bd31855c27961246232197858f5e42ec3737a0eca"
+    }
+  ],
+  "stage": "verification",
+  "stage_closing": false,
+  "status": "integrity_no_go",
+  "technical_execution_generated_at_utc": "2026-08-02T00:14:50Z",
+  "technical_status": "bounded_no_go"
+}

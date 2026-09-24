@@ -1,0 +1,755 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$defs": {
+    "artifact_binding": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_count": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "byte_count",
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    },
+    "fraction": {
+      "additionalProperties": false,
+      "properties": {
+        "denominator": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "numerator": {
+          "minimum": 0,
+          "type": "integer"
+        }
+      },
+      "required": [
+        "denominator",
+        "numerator"
+      ],
+      "type": "object"
+    },
+    "fraction_check": {
+      "additionalProperties": false,
+      "properties": {
+        "actual": {
+          "oneOf": [
+            {
+              "$ref": "#/$defs/fraction"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "limit": {
+          "$ref": "#/$defs/fraction"
+        },
+        "pass": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actual",
+        "limit",
+        "pass"
+      ],
+      "type": "object"
+    },
+    "integer_check": {
+      "additionalProperties": false,
+      "properties": {
+        "actual": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "limit": {
+          "minimum": 0,
+          "type": "integer"
+        },
+        "pass": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "actual",
+        "limit",
+        "pass"
+      ],
+      "type": "object"
+    },
+    "metrics": {
+      "additionalProperties": false,
+      "properties": {
+        "invalid_accounting": {
+          "additionalProperties": false,
+          "properties": {
+            "cross_lane_record_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "invalid_or_non_finite_value_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "normalization_rejection_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "positive_centered_realized_score_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "saturation_event_count": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "cross_lane_record_count",
+            "invalid_or_non_finite_value_count",
+            "normalization_rejection_count",
+            "positive_centered_realized_score_count",
+            "saturation_event_count"
+          ],
+          "type": "object"
+        },
+        "rank_margin": {
+          "additionalProperties": false,
+          "properties": {
+            "minimum_realized_margin_q12_20_lsb": {
+              "type": [
+                "integer",
+                "null"
+              ]
+            },
+            "oracle_tied_row_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "preserved_positive_margin_fraction": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/fraction"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "preserved_positive_margin_row_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "singleton_valid_key_row_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "unique_oracle_top_row_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "violation_count": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "minimum_realized_margin_q12_20_lsb",
+            "oracle_tied_row_count",
+            "preserved_positive_margin_fraction",
+            "preserved_positive_margin_row_count",
+            "singleton_valid_key_row_count",
+            "unique_oracle_top_row_count",
+            "violation_count"
+          ],
+          "type": "object"
+        },
+        "score_error": {
+          "additionalProperties": false,
+          "properties": {
+            "maximum_absolute_error_q12_20_lsb": {
+              "oneOf": [
+                {
+                  "minimum": 0,
+                  "type": "integer"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "sum_absolute_error_q12_20_lsb": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "sum_signed_error_q12_20_lsb": {
+              "type": "integer"
+            },
+            "sum_squared_error_q40_40_lsb2": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "valid_value_count": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "maximum_absolute_error_q12_20_lsb",
+            "sum_absolute_error_q12_20_lsb",
+            "sum_signed_error_q12_20_lsb",
+            "sum_squared_error_q40_40_lsb2",
+            "valid_value_count"
+          ],
+          "type": "object"
+        },
+        "top_key": {
+          "additionalProperties": false,
+          "properties": {
+            "matching_fraction": {
+              "oneOf": [
+                {
+                  "$ref": "#/$defs/fraction"
+                },
+                {
+                  "type": "null"
+                }
+              ]
+            },
+            "matching_row_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "mismatch_count": {
+              "minimum": 0,
+              "type": "integer"
+            },
+            "row_count": {
+              "minimum": 0,
+              "type": "integer"
+            }
+          },
+          "required": [
+            "matching_fraction",
+            "matching_row_count",
+            "mismatch_count",
+            "row_count"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "invalid_accounting",
+        "rank_margin",
+        "score_error",
+        "top_key"
+      ],
+      "type": "object"
+    },
+    "tensor_record": {
+      "additionalProperties": false,
+      "properties": {
+        "dtype": {
+          "const": "torch.bfloat16"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "shape": {
+          "items": {
+            "minimum": 1,
+            "type": "integer"
+          },
+          "minItems": 1,
+          "type": "array"
+        },
+        "tensor_name": {
+          "minLength": 1,
+          "type": "string"
+        }
+      },
+      "required": [
+        "dtype",
+        "sha256",
+        "shape",
+        "tensor_name"
+      ],
+      "type": "object"
+    },
+    "threshold_evaluation": {
+      "additionalProperties": false,
+      "properties": {
+        "all_hard_thresholds_pass": {
+          "type": "boolean"
+        },
+        "cross_lane_record_count_maximum": {
+          "$ref": "#/$defs/integer_check"
+        },
+        "invalid_or_non_finite_value_count_maximum": {
+          "$ref": "#/$defs/integer_check"
+        },
+        "normalization_rejection_count_maximum": {
+          "$ref": "#/$defs/integer_check"
+        },
+        "positive_centered_realized_score_count_maximum": {
+          "$ref": "#/$defs/integer_check"
+        },
+        "rank_margin_violation_count_maximum": {
+          "$ref": "#/$defs/integer_check"
+        },
+        "saturation_event_count_maximum": {
+          "$ref": "#/$defs/integer_check"
+        },
+        "top_key_matching_fraction_minimum": {
+          "$ref": "#/$defs/fraction_check"
+        },
+        "top_key_mismatch_count_maximum": {
+          "$ref": "#/$defs/integer_check"
+        },
+        "unique_oracle_positive_margin_preserved_fraction_minimum": {
+          "$ref": "#/$defs/fraction_check"
+        }
+      },
+      "required": [
+        "all_hard_thresholds_pass",
+        "cross_lane_record_count_maximum",
+        "invalid_or_non_finite_value_count_maximum",
+        "normalization_rejection_count_maximum",
+        "positive_centered_realized_score_count_maximum",
+        "rank_margin_violation_count_maximum",
+        "saturation_event_count_maximum",
+        "top_key_matching_fraction_minimum",
+        "top_key_mismatch_count_maximum",
+        "unique_oracle_positive_margin_preserved_fraction_minimum"
+      ],
+      "type": "object"
+    }
+  },
+  "additionalProperties": false,
+  "allOf": [
+    {
+      "if": {
+        "properties": {
+          "terminal": {
+            "properties": {
+              "status": {
+                "const": "SUCCEEDED_TERMINAL"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "terminal"
+        ]
+      },
+      "then": {
+        "properties": {
+          "metrics": {
+            "$ref": "#/$defs/metrics"
+          },
+          "terminal": {
+            "properties": {
+              "invocation_count_performed": {
+                "const": 1
+              },
+              "metrics_published": {
+                "const": true
+              },
+              "reason_code": {
+                "const": "HARD_THRESHOLDS_PASSED"
+              },
+              "thresholds_evaluated": {
+                "const": true
+              }
+            },
+            "required": [
+              "invocation_count_performed",
+              "metrics_published",
+              "reason_code",
+              "thresholds_evaluated"
+            ]
+          },
+          "threshold_evaluation": {
+            "allOf": [
+              {
+                "$ref": "#/$defs/threshold_evaluation"
+              },
+              {
+                "properties": {
+                  "all_hard_thresholds_pass": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "all_hard_thresholds_pass"
+                ]
+              }
+            ]
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "terminal": {
+            "properties": {
+              "status": {
+                "const": "NO_EXECUTION_TERMINAL"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "terminal"
+        ]
+      },
+      "then": {
+        "properties": {
+          "metrics": {
+            "type": "null"
+          },
+          "terminal": {
+            "properties": {
+              "invocation_count_performed": {
+                "const": 0
+              },
+              "metrics_published": {
+                "const": false
+              },
+              "reason_code": {
+                "const": "NO_EXECUTION_AUTHORITY"
+              },
+              "thresholds_evaluated": {
+                "const": false
+              }
+            },
+            "required": [
+              "invocation_count_performed",
+              "metrics_published",
+              "reason_code",
+              "thresholds_evaluated"
+            ]
+          },
+          "threshold_evaluation": {
+            "type": "null"
+          }
+        }
+      }
+    },
+    {
+      "if": {
+        "properties": {
+          "terminal": {
+            "properties": {
+              "status": {
+                "const": "FAILED_TERMINAL"
+              }
+            },
+            "required": [
+              "status"
+            ]
+          }
+        },
+        "required": [
+          "terminal"
+        ]
+      },
+      "then": {
+        "oneOf": [
+          {
+            "properties": {
+              "metrics": {
+                "type": "null"
+              },
+              "terminal": {
+                "properties": {
+                  "invocation_count_performed": {
+                    "const": 1
+                  },
+                  "metrics_published": {
+                    "const": false
+                  },
+                  "reason_code": {
+                    "enum": [
+                      "INPUT_BINDING_REJECTED",
+                      "INPUT_SCHEMA_REJECTED",
+                      "NON_FINITE_INPUT_REJECTED",
+                      "NORMALIZATION_REJECTED",
+                      "REPRESENTATION_REJECTED",
+                      "RESULT_SCHEMA_REJECTED"
+                    ]
+                  },
+                  "thresholds_evaluated": {
+                    "const": false
+                  }
+                },
+                "required": [
+                  "invocation_count_performed",
+                  "metrics_published",
+                  "reason_code",
+                  "thresholds_evaluated"
+                ]
+              },
+              "threshold_evaluation": {
+                "type": "null"
+              }
+            }
+          },
+          {
+            "properties": {
+              "metrics": {
+                "$ref": "#/$defs/metrics"
+              },
+              "terminal": {
+                "properties": {
+                  "invocation_count_performed": {
+                    "const": 1
+                  },
+                  "metrics_published": {
+                    "const": true
+                  },
+                  "reason_code": {
+                    "const": "HARD_THRESHOLD_FAILED"
+                  },
+                  "thresholds_evaluated": {
+                    "const": true
+                  }
+                },
+                "required": [
+                  "invocation_count_performed",
+                  "metrics_published",
+                  "reason_code",
+                  "thresholds_evaluated"
+                ]
+              },
+              "threshold_evaluation": {
+                "allOf": [
+                  {
+                    "$ref": "#/$defs/threshold_evaluation"
+                  },
+                  {
+                    "properties": {
+                      "all_hard_thresholds_pass": {
+                        "const": false
+                      }
+                    },
+                    "required": [
+                      "all_hard_thresholds_pass"
+                    ]
+                  }
+                ]
+              }
+            }
+          }
+        ]
+      }
+    }
+  ],
+  "properties": {
+    "authority_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "evaluator_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "generation_id": {
+      "minLength": 1,
+      "type": "string"
+    },
+    "input_bindings": {
+      "additionalProperties": false,
+      "properties": {
+        "input_token_ids_sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        },
+        "lane_metadata": {
+          "$ref": "#/$defs/artifact_binding"
+        },
+        "sealed_set_id": {
+          "const": "w4a8-c02-attention-substage-trace-v2"
+        },
+        "tensor_bundle": {
+          "$ref": "#/$defs/artifact_binding"
+        },
+        "tensor_records": {
+          "additionalProperties": false,
+          "properties": {
+            "bf16_oracle_scores": {
+              "$ref": "#/$defs/tensor_record"
+            },
+            "realized_key_source": {
+              "$ref": "#/$defs/tensor_record"
+            },
+            "realized_query_source": {
+              "$ref": "#/$defs/tensor_record"
+            }
+          },
+          "required": [
+            "bf16_oracle_scores",
+            "realized_key_source",
+            "realized_query_source"
+          ],
+          "type": "object"
+        }
+      },
+      "required": [
+        "input_token_ids_sha256",
+        "lane_metadata",
+        "sealed_set_id",
+        "tensor_bundle",
+        "tensor_records"
+      ],
+      "type": "object"
+    },
+    "invocation_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "lane_label": {
+      "enum": [
+        "Base",
+        "checkpoint-176"
+      ]
+    },
+    "metrics": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/metrics"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    },
+    "model_identity_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "namespace_label": {
+      "enum": [
+        "base",
+        "checkpoint-176"
+      ]
+    },
+    "package_id": {
+      "const": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_STATIC_V1_PACKAGE"
+    },
+    "package_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "result_sha256": {
+      "pattern": "^[0-9a-f]{64}$",
+      "type": "string"
+    },
+    "schema_id": {
+      "const": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_RESULT_V1"
+    },
+    "terminal": {
+      "additionalProperties": false,
+      "properties": {
+        "first_record_immutable": {
+          "const": true
+        },
+        "invocation_count_performed": {
+          "maximum": 1,
+          "minimum": 0,
+          "type": "integer"
+        },
+        "metrics_published": {
+          "type": "boolean"
+        },
+        "reason_code": {
+          "enum": [
+            "HARD_THRESHOLDS_PASSED",
+            "HARD_THRESHOLD_FAILED",
+            "INPUT_BINDING_REJECTED",
+            "INPUT_SCHEMA_REJECTED",
+            "NON_FINITE_INPUT_REJECTED",
+            "NO_EXECUTION_AUTHORITY",
+            "NORMALIZATION_REJECTED",
+            "REPRESENTATION_REJECTED",
+            "RESULT_SCHEMA_REJECTED"
+          ]
+        },
+        "retry_replay_resume_repair_permitted": {
+          "const": false
+        },
+        "status": {
+          "enum": [
+            "SUCCEEDED_TERMINAL",
+            "FAILED_TERMINAL",
+            "NO_EXECUTION_TERMINAL"
+          ]
+        },
+        "thresholds_evaluated": {
+          "type": "boolean"
+        }
+      },
+      "required": [
+        "first_record_immutable",
+        "invocation_count_performed",
+        "metrics_published",
+        "reason_code",
+        "retry_replay_resume_repair_permitted",
+        "status",
+        "thresholds_evaluated"
+      ],
+      "type": "object"
+    },
+    "threshold_evaluation": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/threshold_evaluation"
+        },
+        {
+          "type": "null"
+        }
+      ]
+    }
+  },
+  "required": [
+    "authority_sha256",
+    "evaluator_sha256",
+    "generation_id",
+    "input_bindings",
+    "invocation_sha256",
+    "lane_label",
+    "metrics",
+    "model_identity_sha256",
+    "namespace_label",
+    "package_id",
+    "package_sha256",
+    "result_sha256",
+    "schema_id",
+    "terminal",
+    "threshold_evaluation"
+  ],
+  "title": "QK_GBFP8_G16_HEAD64_SUCCESSOR_DIAGNOSTIC_RESULT_V1",
+  "type": "object"
+}

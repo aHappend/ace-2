@@ -1,0 +1,108 @@
+{
+  "artifact_kind": "qk_gbfp8_head64_granularity_sweep_static_v7_package",
+  "candidates": [
+    {"bytes_per_head": 80, "exponent_bytes_per_head": 16, "group_count": 8, "group_size": 8, "label": "G8", "mantissa_bytes_per_head": 64},
+    {"bytes_per_head": 96, "exponent_bytes_per_head": 32, "group_count": 16, "group_size": 4, "label": "G4", "mantissa_bytes_per_head": 64},
+    {"bytes_per_head": 128, "exponent_bytes_per_head": 64, "group_count": 32, "group_size": 2, "label": "G2", "mantissa_bytes_per_head": 64},
+    {"bytes_per_head": 192, "exponent_bytes_per_head": 128, "group_count": 64, "group_size": 1, "label": "G1", "mantissa_bytes_per_head": 64}
+  ],
+  "claim_boundary": {
+    "authority_materialized": false,
+    "checkpoint_176_activity": false,
+    "controller_or_evaluator_invoked": false,
+    "credential_materialized": false,
+    "fresh_l2_accepted": false,
+    "hardware_or_rtl_activity": false,
+    "ledger_result_or_terminal_materialized": false,
+    "sealed_tensor_accessed_or_projected": false,
+    "status": "STATIC_ONLY_NOT_AUTHORIZED_FOR_EXECUTION"
+  },
+  "future_namespaces": {
+    "authority": "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/authority.json",
+    "credential": "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/credential.json",
+    "first_terminal": "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/first-terminal.json",
+    "ledger": "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/authority-ledger.json",
+    "result": "build/qk-gbfp8-head64-granularity-sweep-v7/base/result.json"
+  },
+  "future_protocol": {
+    "consume_before_payload": true,
+    "consumed_orphan_handling": "CONSERVATIVE_NO_REPLAY",
+    "create_only_publication": true,
+    "durable_ledger_before_tensor_open": true,
+    "execution_requires_new_irreversible_action_id": true,
+    "one_evaluator_invocation": true,
+    "one_tensor_open": true,
+    "retry_replay_resume_repair_permitted": false
+  },
+  "hard_gates": {
+    "cross_lane_record_count_maximum": 0,
+    "invalid_or_non_finite_value_count_maximum": 0,
+    "normalization_rejection_count_maximum": 0,
+    "positive_centered_realized_score_count_maximum": 0,
+    "rank_margin_violation_count_maximum": 0,
+    "saturation_event_count_maximum": 0,
+    "top_key_matching_fraction_minimum": {"denominator": 1, "numerator": 1},
+    "top_key_mismatch_count_maximum": 0,
+    "unique_oracle_positive_margin_preserved_fraction_minimum": {"denominator": 1, "numerator": 1}
+  },
+  "mission_id": "2a5b510c82b4",
+  "numerical_contract": {
+    "candidate_evaluation": "ALL_FOUR_IN_ONE_INVOCATION",
+    "c02_accepted_reader_cross_parser": "INDEPENDENT_REQUIRED",
+    "c02_producer_magic": "ACE2-C02-TENSORS-V1\n",
+    "full_record_nonfinite_scan_before_transformation": true,
+    "head_lanes": 64,
+    "kv_head_mapping": "floor(query_head/7)",
+    "mantissa": {"forbidden_value": -128, "maximum": 127, "minimum": -127, "saturation_or_clamping_permitted": false, "signed_bits": 8},
+    "oracle_and_hard_gates": "SAME_AS_IMMUTABLE_G16_V6",
+    "rounding": {"mantissa": "round_to_nearest_ties_to_even(value / 2**exponent)", "ranking_tie": "lowest_key_index", "zero_group_exponent": 0},
+    "score_error_policy": "TRACKING_ONLY_NOT_A_HARD_GATE",
+    "score_path": "Q12.20_INTEGER_LSB",
+    "shared_exponent": {"bytes_per_group": 2, "canonical_rule": "smallest_signed_int16_exponent_with_all_rounded_mantissas_in_-127_to_127", "signed_bits": 16},
+    "tensor_open_count": 1
+  },
+  "package_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE",
+  "package_schema_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE_V1",
+  "result_contract": {
+    "candidate_result_exact_keys": ["bytes_per_head", "exponent_bytes_per_head", "group_count", "group_size", "label", "mantissa_bytes_per_head", "metrics", "threshold_evaluation"],
+    "failure_terminal": {"reason_code": "HARD_THRESHOLD_FAILED", "status": "FAILED_TERMINAL"},
+    "package_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE",
+    "result_schema": {
+      "path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RESULT_SCHEMA.json",
+      "schema_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_RESULT_V1_SCHEMA",
+      "sha256": "6be8515a19952f85776af525b234dd5db8bb77df86cd205becc101888670f3d7"
+    },
+    "schema_id": "QK_GBFP8_HEAD64_GRANULARITY_SWEEP_RESULT_V1",
+    "success_terminal": {"reason_code": "HARD_THRESHOLDS_PASSED", "status": "SUCCEEDED_TERMINAL"},
+    "top_level_exact_keys": ["authority_sha256", "candidate_results", "consumed_ledger_sha256", "evaluator_sha256", "fresh_l2_acceptance_sha256", "generation_id", "input_bindings", "invocation_sha256", "irreversible_action_id", "lane_label", "model_identity_sha256", "namespace_label", "package_id", "package_sha256", "result_sha256", "schema_id", "selected_candidate", "selection", "terminal"]
+  },
+  "schema_version": 7,
+  "selection_policy": {
+    "failure_if_none_pass": "HARD_THRESHOLD_FAILED",
+    "order": ["G8", "G4", "G2", "G1"],
+    "policy": "FIRST_PASSING_CANDIDATE_IN_FIXED_ORDER",
+    "require_every_hard_gate": true,
+    "score_error_affects_selection": false
+  },
+  "static_bindings": {
+    "controller": {"path": "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v7.py", "sha256": "565dd9727458199157f8eba0edb3aa39a13d78bfc076f259433022efc49d9474"},
+    "controller_argv": ["/home/argustest/miniconda3/bin/python3.13", "reference/qk_gbfp8_head64_granularity_sweep_controller_static_v7.py", "--package", "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE.json", "--authority", "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/authority.json", "--credential", "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/credential.json", "--ledger", "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/authority-ledger.json", "--result", "build/qk-gbfp8-head64-granularity-sweep-v7/base/result.json", "--first-terminal", "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/first-terminal.json", "--irreversible-action-id", "<NEW_IRREVERSIBLE_ACTION_ID>"],
+    "environment": {"LANG": "C", "LC_ALL": "C", "PYTHONDONTWRITEBYTECODE": "1", "PYTHONHASHSEED": "0", "TZ": "UTC"},
+    "evaluator": {"path": "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v7.py", "sha256": "13eb6348aeb180722c1addee3220454119fbb4a428c36a63d5f8416759feac1e"},
+    "evaluator_argv": ["/home/argustest/miniconda3/bin/python3.13", "reference/qk_gbfp8_head64_granularity_sweep_evaluator_static_v7.py", "--package", "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_PACKAGE.json", "--consumed-ledger", "build/qk-gbfp8-head64-granularity-sweep-v7-authority/base/authority-ledger.json", "--result", "build/qk-gbfp8-head64-granularity-sweep-v7/base/result.json", "--irreversible-action-id", "<NEW_IRREVERSIBLE_ACTION_ID>"],
+    "interpreter": {"path": "/home/argustest/miniconda3/bin/python3.13", "sha256": "fd4487ad3503b1aff61919108fd6f4f63c4245169fe9275f7c2ab76a1a53d3ad", "version": "3.13.5"},
+    "result_schema": {"path": "reference/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_RESULT_SCHEMA.json", "sha256": "6be8515a19952f85776af525b234dd5db8bb77df86cd205becc101888670f3d7"},
+    "reviewer": {"acceptance_artifact": "review/QK_GBFP8_HEAD64_GRANULARITY_SWEEP_STATIC_V7_REVIEW.json", "role": "Fresh-L2", "status": "PENDING_INDEPENDENT_REVIEW"},
+    "verifier": {"path": "tools/verify_qk_gbfp8_head64_granularity_sweep_static_v7_schema_compatibility.py", "sha256": "a8c45cce3cdf740ee1e3a12ef226a4bacda394835107b45160552ff5a37b2237"}
+  },
+  "v6_immutable_evidence": {
+    "aftermath_recomputation_sha256": "7f17929b5b087764e3d321b8354e750ac42542aad772fe18cb4f4942e01b53fb",
+    "base_failed_all_four_ranking_hard_gates": true,
+    "first_terminal_file_sha256": "83a875fab228f552e6b26cfeacf021296ad65b122981873570d65ea9c4f367e6",
+    "fresh_l2_terminal_handoff_sha256": "0d20e696e77e47e425a761d726fa10ab57c09733d7d3af066ea6f874b7debd49",
+    "no_replay": true,
+    "result_file_sha256": "74b5d8fded1e344848023144336d0f8de8e0409c6f589fb8c9a7b642fade695c",
+    "result_self_checksum": "12769e09c6d0ebbcc52d6487b716d5f6bae921d1dd324832f77ed0f7d127f7f5",
+    "task_id": "c9e0569b083e"
+  }
+}

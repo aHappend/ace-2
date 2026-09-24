@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "version": "1.0",
+  "effective_contract_revision": "2.1",
+  "kind": "additive_normative_interface_erratum_v1",
+  "mission_id": "extend-two-token-24layer-rtl-stack",
+  "published_at_utc": "2026-08-11T21:00:34Z",
+  "status": "NORMATIVE_ERRATUM_ACTIVE",
+  "scope": "simulator_cycle_oracle_only",
+  "normative_precedence": {
+    "base_artifacts_remain_immutable": true,
+    "conflict_rule": "ERRATUM_WINS_FOR_CYCLE_FIELDS_ONLY",
+    "superseded_fields": [
+      "design/SPEC.md#Frozen workload and simulator-cycle expectations",
+      "design/BENCHMARK_INTERFACE.json#/latency_throughput_expectations/derivation",
+      "design/BENCHMARK_INTERFACE.json#/latency_throughput_expectations/per_layer_expected_simulator_cycles_exact",
+      "design/BENCHMARK_INTERFACE.json#/latency_throughput_expectations/all_layers_expected_simulator_cycles_exact",
+      "design/LORA_V4_TWO_TOKEN_24LAYER_RTL_CONTRACT.json#/protocol_and_scenario_contract/exact_aggregate_simulator_cycles"
+    ],
+    "unchanged_fields": "all_non_cycle_behavior_interface_transaction_clock_reset_handshake_scenario_claim_boundary_and_acceptance_fields"
+  },
+  "family_name_map": {
+    "projection": "projection",
+    "rmsnorm": "rmsnorm",
+    "rope": "rope",
+    "attention_score": "score",
+    "softmax": "softmax",
+    "attention_compose": "compose",
+    "silu_gate": "silu",
+    "residual_shell": "residual"
+  },
+  "cycle_oracle": {
+    "classification": "deterministic_family_local_simulator_cycles_not_wall_clock_or_accelerator_latency",
+    "derivation": "source_derived_exact_per_layer_workload_oracle_bound_before_attempt_0003_run",
+    "families_in_normative_order": [
+      "projection",
+      "rmsnorm",
+      "rope",
+      "score",
+      "softmax",
+      "compose",
+      "silu",
+      "residual"
+    ],
+    "workload_dependent_families": [
+      "projection",
+      "rmsnorm",
+      "rope",
+      "silu",
+      "residual"
+    ],
+    "invariant_families": [
+      "score",
+      "softmax",
+      "compose"
+    ],
+    "fixed_scheduler_cycles": {
+      "projection": 25836293,
+      "rmsnorm": 248828,
+      "rope": 743237,
+      "score": 5,
+      "softmax": 5,
+      "compose": 4,
+      "silu": 1316935,
+      "residual": 3615
+    },
+    "exact_formulas": {
+      "projection": "25836293 + sum(projection_shift[25344])",
+      "rmsnorm": "248828 + 2*sum(ceil_sqrt(round_half_up_nonnegative(sumsq/896))) across four cases",
+      "rope": "743237 + 3*count(signed_negate_paths_across_3584_lanes)",
+      "score": "5 + 134*sum(context_count[28])",
+      "softmax": "5 + 36*28 + 49*sum(context_count[28])",
+      "compose": "4 + 1214 + 27*1215 for 28 context-9 cases",
+      "silu": "1316935 + sum(case_length*right_shift) across two 4864-lane cases",
+      "residual": "3615 + 8*sum(expected_saturation across four residual commands)"
+    },
+    "per_layer_expected_simulator_cycles_exact": [
+      {"layer_id": 0, "projection": 26764922, "rmsnorm": 249060, "rope": 757397, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1764423, "residual": 3623, "aggregate": 29582152},
+      {"layer_id": 1, "projection": 26786410, "rmsnorm": 248984, "rope": 758465, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1769287, "residual": 3631, "aggregate": 29609504},
+      {"layer_id": 2, "projection": 26771681, "rmsnorm": 249038, "rope": 758792, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1822791, "residual": 3623, "aggregate": 29648652},
+      {"layer_id": 3, "projection": 26704046, "rmsnorm": 248856, "rope": 757460, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1842247, "residual": 3615, "aggregate": 29598951},
+      {"layer_id": 4, "projection": 26700964, "rmsnorm": 248836, "rope": 759704, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1764423, "residual": 3615, "aggregate": 29520269},
+      {"layer_id": 5, "projection": 26708739, "rmsnorm": 248836, "rope": 758276, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1803335, "residual": 3615, "aggregate": 29565528},
+      {"layer_id": 6, "projection": 26702918, "rmsnorm": 248836, "rope": 757658, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1774151, "residual": 3615, "aggregate": 29529905},
+      {"layer_id": 7, "projection": 26702314, "rmsnorm": 248836, "rope": 758966, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1754695, "residual": 3615, "aggregate": 29511153},
+      {"layer_id": 8, "projection": 26700030, "rmsnorm": 248836, "rope": 757382, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29497557},
+      {"layer_id": 9, "projection": 26717326, "rmsnorm": 248836, "rope": 757682, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1749831, "residual": 3615, "aggregate": 29520017},
+      {"layer_id": 10, "projection": 26701585, "rmsnorm": 248836, "rope": 757709, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29499439},
+      {"layer_id": 11, "projection": 26711625, "rmsnorm": 248836, "rope": 758714, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1754695, "residual": 3615, "aggregate": 29520212},
+      {"layer_id": 12, "projection": 26709225, "rmsnorm": 248836, "rope": 757154, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29506524},
+      {"layer_id": 13, "projection": 26710218, "rmsnorm": 248836, "rope": 758228, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29508591},
+      {"layer_id": 14, "projection": 26715857, "rmsnorm": 248836, "rope": 758393, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29514395},
+      {"layer_id": 15, "projection": 26712266, "rmsnorm": 248836, "rope": 758168, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29510579},
+      {"layer_id": 16, "projection": 26706474, "rmsnorm": 248836, "rope": 758390, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29505009},
+      {"layer_id": 17, "projection": 26709874, "rmsnorm": 248836, "rope": 758360, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29508379},
+      {"layer_id": 18, "projection": 26716639, "rmsnorm": 248836, "rope": 758459, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1744967, "residual": 3615, "aggregate": 29515243},
+      {"layer_id": 19, "projection": 26724003, "rmsnorm": 248836, "rope": 757850, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1783879, "residual": 3615, "aggregate": 29560910},
+      {"layer_id": 20, "projection": 26719698, "rmsnorm": 248838, "rope": 758204, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1774151, "residual": 3615, "aggregate": 29547233},
+      {"layer_id": 21, "projection": 26713144, "rmsnorm": 248840, "rope": 759332, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1837383, "residual": 3615, "aggregate": 29605041},
+      {"layer_id": 22, "projection": 26747743, "rmsnorm": 248860, "rope": 757598, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1798471, "residual": 3623, "aggregate": 29599022},
+      {"layer_id": 23, "projection": 26761676, "rmsnorm": 248896, "rope": 755825, "score": 5633, "softmax": 3071, "compose": 34023, "silu": 1808199, "residual": 3623, "aggregate": 29620946}
+    ],
+    "all_layers_expected_simulator_cycles_exact": {
+      "projection": 641319377,
+      "rmsnorm": 5972748,
+      "rope": 18194166,
+      "score": 135192,
+      "softmax": 73704,
+      "compose": 816552,
+      "silu": 42506664,
+      "residual": 86808,
+      "aggregate": 709105211
+    },
+    "superseded_repeated_layer0_values": {
+      "projection": 642358128,
+      "rmsnorm": 5977440,
+      "rope": 18177528,
+      "score": 135192,
+      "softmax": 73704,
+      "compose": 816552,
+      "silu": 42346152,
+      "residual": 86952,
+      "aggregate": 709971648
+    },
+    "aggregate_delta_from_superseded_table": -866437,
+    "overlap": "cases_serialized_within_each_family_and_layer",
+    "timeout_semantics": "hard_failure_bound_not_expected_latency"
+  },
+  "acceptance": {
+    "exact_simulator_cycles_required": true,
+    "per_layer_family_values_required": true,
+    "family_aggregates_required": true,
+    "aggregate_simulator_cycles_exact": 709105211,
+    "obsolete_aggregate_rejected": 709971648,
+    "fail_closed_checker": "tools/check_lora_v4_two_token_24layer_rtl_erratum_v1.py",
+    "fail_closed_command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/check_lora_v4_two_token_24layer_rtl_erratum_v1.py",
+    "consumed_attempts_read_only": [
+      "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0001",
+      "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0002",
+      "evidence/verification/lora-v4-two-token-24layer-rtl-v1/attempt-0003"
+    ],
+    "attempt_relabel_replay_or_overwrite_allowed": false
+  }
+}

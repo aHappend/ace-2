@@ -1,0 +1,165 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "ACE2_STAGE1_ATTESTATION_VERIFICATION_CONTRACT_SCHEMA_V1",
+  "$defs": {
+    "sha256": {
+      "type": "string",
+      "pattern": "^[0-9a-f]{64}$"
+    },
+    "key_ids": {
+      "type": "array",
+      "uniqueItems": true,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    }
+  },
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": {
+      "const": 1
+    },
+    "artifact_kind": {
+      "const": "ace2_stage1_attestation_verification_contract"
+    },
+    "signature_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": {
+          "const": "Ed25519"
+        },
+        "key_id": {
+          "type": "string",
+          "minLength": 1
+        },
+        "verification_key_base64": {
+          "type": "string",
+          "pattern": "^[A-Za-z0-9+/]{43}=$"
+        },
+        "verification_key_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "canonicalization_identifier": {
+          "const": "ACE2_SORTED_COMPACT_JSON_ASCII_LF"
+        },
+        "canonicalization_version": {
+          "const": "1"
+        },
+        "signed_fields": {
+          "const": [
+            "schema_version",
+            "artifact_kind",
+            "trust_domain",
+            "issuer",
+            "canonicalization",
+            "payload"
+          ]
+        }
+      },
+      "required": [
+        "algorithm",
+        "key_id",
+        "verification_key_base64",
+        "verification_key_sha256",
+        "canonicalization_identifier",
+        "canonicalization_version",
+        "signed_fields"
+      ]
+    },
+    "key_rotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "active_epoch": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "active_key_ids": {
+          "$ref": "#/$defs/key_ids"
+        },
+        "retired_key_ids": {
+          "$ref": "#/$defs/key_ids"
+        },
+        "revoked_key_ids": {
+          "$ref": "#/$defs/key_ids"
+        },
+        "contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "active_epoch",
+        "active_key_ids",
+        "retired_key_ids",
+        "revoked_key_ids",
+        "contract_sha256"
+      ]
+    },
+    "replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "authority": {
+          "const": "FRAMEWORK_OWNED"
+        },
+        "nonce_uniqueness_scope": {
+          "type": "string",
+          "minLength": 1
+        },
+        "consumed_nonce_sha256": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": {
+            "$ref": "#/$defs/sha256"
+          }
+        },
+        "snapshot_sequence": {
+          "type": "integer",
+          "minimum": 0
+        },
+        "snapshot_sha256": {
+          "$ref": "#/$defs/sha256"
+        },
+        "contract_sha256": {
+          "$ref": "#/$defs/sha256"
+        }
+      },
+      "required": [
+        "authority",
+        "nonce_uniqueness_scope",
+        "consumed_nonce_sha256",
+        "snapshot_sequence",
+        "snapshot_sha256",
+        "contract_sha256"
+      ]
+    },
+    "freshness": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "max_future_skew_ns": {
+          "type": "integer",
+          "minimum": 0
+        }
+      },
+      "required": [
+        "max_future_skew_ns"
+      ]
+    },
+    "contract_sha256": {
+      "$ref": "#/$defs/sha256"
+    }
+  },
+  "required": [
+    "schema_version",
+    "artifact_kind",
+    "signature_profile",
+    "key_rotation",
+    "replay",
+    "freshness",
+    "contract_sha256"
+  ]
+}

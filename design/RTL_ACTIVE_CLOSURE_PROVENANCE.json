@@ -1,0 +1,375 @@
+{
+  "claim_boundary": "Path-qualified provenance for the 18-source active RTL compilation/include closure only. These records identify first-party project origin and project-internal disposition; they do not assert a repository-wide public license, an external redistribution grant, RTL correctness, admission, execution authority, or stage closure.",
+  "closure_manifest_sha256": "54a9b34e502928eaf7515a64f167ce00e2206624a1de1dcf6ad6434fe5419fbc",
+  "file_count": 18,
+  "manifest_binding": {
+    "authoritative_field": "active_closure_provenance",
+    "legacy_field_scope": "RTL_MANIFEST.json ip_provenance is a historical mixed inventory and is not the active-closure provenance authority."
+  },
+  "provenance_assertion_basis": "Operator-authorized ACE-2 provenance-only metadata repair. Origin and ownership statements are bounded project stewardship assertions, not public-license or external-redistribution claims.",
+  "schema": "ace2-active-rtl-closure-provenance-v3",
+  "sources": [
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 synthesizable RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_attention_compose_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_attention_compose_core.sv",
+      "sha256": "33ca20e48a6f9eb8f93874e95c8e8b73a48c00e435693b84d4a5915da7ca78ff",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 synthesizable RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_attention_score_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_attention_score_core.sv",
+      "sha256": "400234b1f5b28f379792d5c1e023adc3f2c81e7bea825d5f7683bdc6ccd1dd55",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal diagnostic retention only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 rejected diagnostic RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_dynamic_rope_head_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_dynamic_rope_head_core.sv",
+      "sha256": "938ab70d2ccef3e1dc03177c4e281a27d33307464d7ecee8c6ff1ca295e32f77",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 RTL recovered and validated by the Engineer from unaudited project-local planner drafts.",
+      "origin_evidence": [
+        "design/DYNAMIC_SCALE32_IP_PROVENANCE.json",
+        "evidence/shared_token_group_dynamic_scale32_v1/recovery/planner_cycle0_bypass/ENGINEER_SOURCE_ADOPTION.json"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_dynamic_scale32_core.sv",
+      "sha256": "0d6d75ccaa630fb5444b5bc00c6375c808a1624ebeaa06f4a82bd978b8384334",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal diagnostic retention only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 rejected diagnostic RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_fixed_q7_rope_score_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_fixed_q7_rope_score_core.sv",
+      "sha256": "fc7b8590a0a16257392f3483581744a28a03c9b47d55fc7e48bf389ad48a398d",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 Layer-23 V rank-1 integer-correction sidecar RTL authored from the reviewed project-local correction candidate.",
+      "origin_evidence": [
+        "design/STAGE1_LAYER23_V_RANK1_INTEGER_CORRECTION_SPEC.md",
+        "evidence/verification/stage1-layer23-v-rank1-integration-v1/latest/RESULT.json"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_layer23_v_rank1_integer_correction_sidecar.sv",
+      "sha256": "5851d5fe3d9473ae38837dc27b668d7cd2b403dd7f52256bdab2eeca381be5f8",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 package RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#current_rtl_stage_binding.package_source"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_pkg.sv",
+      "sha256": "80916442d452056eb49e52c48f955fbf9a1205610322ad36c5ea552556820c28",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal diagnostic retention only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 rejected diagnostic RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_relative_rope_score_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_relative_rope_score_fusion_core.sv",
+      "sha256": "d3d6b5d7458b53cfba7359ff3fa1216a2aa88f9b2eb45f8134caf1da716901cd",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 synthesizable RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_rmsnorm_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_rmsnorm_core.sv",
+      "sha256": "b09fe7073fd6509f0ca83d5b0982b1952aa624d4883631690df35c0bfabb014d",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 synthesizable RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_rope_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_rope_core.sv",
+      "sha256": "e5feff02169c5f58b81bfd44350380f6074ca0cbbedf536a0744d8c2f663f3c8",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 top-level shell RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_shell]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_shell.sv",
+      "sha256": "77eadf2546f36672a3b76c67ab536e7962de5fbed1069804befc7f96627281bc",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 synthesizable RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_silu_gate_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_silu_gate_core.sv",
+      "sha256": "ace98af2654bb2ea0ccb256e55ee6d755ff4bc34d0fe0d2cdeff6dcd581199ae",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 synthesizable RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_softmax_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_softmax_core.sv",
+      "sha256": "9bd0becbf890c1b83ae626fbdc7bfed51c5cc31e92b076235c4f8302e0b85f14",
+      "third_party": false
+    },
+    {
+      "generated": false,
+      "license_disposition": "No repository-wide external license is declared. Disposition is operator-authorized ACE-2 project-internal use only; no external redistribution grant is claimed.",
+      "origin": "First-party ACE-2 synthesizable RTL authored for this project.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[name=ace2_w4a8_proj_core]"
+      ],
+      "ownership": "ACE-2 operator-directed project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/ace2_w4a8_proj_core.sv",
+      "sha256": "e4e7ff9d458ae823728669ae0a53ba650dbb0633d28c613347e4af2e1e198dfe",
+      "third_party": false
+    },
+    {
+      "generated": true,
+      "generator": {
+        "path": "tools/gen_layer23_v_rank1_integer_correction_vectors.py",
+        "regeneration_command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/gen_layer23_v_rank1_integer_correction_vectors.py",
+        "sha256": "1a0b482341de54de75fe6cd11da18ea233e287d06262b65c68a01fd33daf5c55",
+        "version_binding": "content_sha256"
+      },
+      "external_inputs": [
+        {
+          "availability": "operator-managed prerequisite consumed by the hash-bound reference implementation",
+          "identifier": "candidate_fresh_l2_review_receipt",
+          "required": true,
+          "sha256": "80881054b5dc3b06f83027dd548446a8b177b7c56add0cdfd306c4f737cbfc06"
+        },
+        {
+          "availability": "operator-managed prerequisite consumed by the hash-bound reference implementation",
+          "identifier": "generalization_fresh_l2_review_receipt",
+          "required": true,
+          "sha256": "08df2f4ce013161c279dcbedcbb1243e6bc7841f14e44d6227bc5d6cc749e90d"
+        }
+      ],
+      "inputs": [
+        {
+          "path": "tools/ace2_layer23_v_rank1_integer_correction_reference.py",
+          "role": "bit-exact project reference and binding validator",
+          "sha256": "40be407f9c8505bf741261b17621f78812dd951051b848b0db0ac747552a20a3"
+        },
+        {
+          "path": "evidence/candidates/stage1-layer23-v-rank1-integer-correction-v1/nonofficial-candidate-0001/candidate-freeze.json",
+          "role": "frozen factor and quantization input manifest",
+          "sha256": "c00e607a567ebc1f02854e9763f9722eeb985bfaf97962401f48414c73dfd0f4"
+        },
+        {
+          "path": "evidence/candidates/stage1-layer23-v-rank1-integer-correction-v1/nonofficial-candidate-0001/result.json",
+          "role": "frozen candidate artifact binding",
+          "sha256": "fa4547a5884a070966a5c0c1fea8997b2aef51d22d40431df34f719cce6ca037"
+        },
+        {
+          "path": "evidence/candidates/stage1-layer23-v-rank1-integer-correction-v1/nonofficial-generalization-0001/generalization-freeze.json",
+          "role": "generator validation input manifest",
+          "sha256": "a9ae7e1c2368aeb3ca0a0a2673b16403e8d2e1d1b8266495e0c42005c67acc83"
+        },
+        {
+          "path": "evidence/candidates/stage1-layer23-v-rank1-integer-correction-v1/nonofficial-generalization-0001/result.json",
+          "role": "generator validation artifact binding",
+          "sha256": "3201ac208ff856fa331c6c9544b4abda5557d3701f0cdf153f1dc0f2cf665a90"
+        }
+      ],
+      "license_disposition": "Generated from first-party, operator-authorized ACE-2 project-internal inputs. No repository-wide external license or external redistribution grant is declared.",
+      "origin": "Deterministically generated first-party ACE-2 Layer-23 correction configuration RTL include.",
+      "origin_evidence": [
+        "design/STAGE1_LAYER23_V_RANK1_INTEGER_CORRECTION_SPEC.md",
+        "rtl/generated/ace2_layer23_v_rank1_integer_correction_payload.svh#generator-comment"
+      ],
+      "ownership": "ACE-2 operator-directed generated project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/generated/ace2_layer23_v_rank1_integer_correction_payload.svh",
+      "reproducibility_binding": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/gen_layer23_v_rank1_integer_correction_vectors.py",
+        "input_closure": "The five repository inputs bind the frozen candidate and generalization manifests/results; their recursively listed data artifacts are verified by the generator's hash-bound reference. The two required external review receipts are separately identified and SHA-256-bound above.",
+        "repair_execution_status": "NOT_RUN_METADATA_ONLY",
+        "status": "CONDITIONAL_ON_TWO_DIGEST_BOUND_OPERATOR_MANAGED_REVIEW_RECEIPTS",
+        "target_output_sha256": "145a8d57b8a92e55390f912dac14e7b72ce2208300fed979d8376b60744ebd85",
+        "working_directory": "repository_root"
+      },
+      "sha256": "145a8d57b8a92e55390f912dac14e7b72ce2208300fed979d8376b60744ebd85",
+      "third_party": false
+    },
+    {
+      "generated": true,
+      "generator": {
+        "path": "tools/model_hardware_contract_phase2.py",
+        "regeneration_command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/model_hardware_contract_phase2.py --write",
+        "sha256": "1c4ec6f10618e606ac0d3e4ed5d946c98b9c2e7ce5257ff8e60de79b7354c3bf",
+        "version_binding": "content_sha256"
+      },
+      "inputs": [
+        {
+          "path": "tools/model_hardware_contract.py",
+          "role": "base model configuration and derived-dimension implementation",
+          "sha256": "7e9e3bba6f43bd71700b00cd5bd34c26b885bb81dae1bcabb56f3efff2461e80"
+        },
+        {
+          "path": "design/model_hardware_contract_phase2.schema.json",
+          "role": "phase-2 descriptor schema bound by the regeneration command",
+          "sha256": "5faf94297971471c5e37b9655741c9e4ffcdc8615c29079bb29224fd65f56001"
+        },
+        {
+          "path": "design/model_hardware_contracts/phase2/qwen2.5-0.5b.json",
+          "role": "selected model descriptor",
+          "sha256": "0ae5069ab91ba74b55bcce86fdd9f6a02311e9897dad188b42b1e193982b4a2f"
+        }
+      ],
+      "license_disposition": "Generated from first-party, operator-authorized ACE-2 project-internal inputs. No repository-wide external license or external redistribution grant is declared.",
+      "origin": "Deterministically generated first-party ACE-2 model-parameter RTL include.",
+      "origin_evidence": [
+        "rtl/generated/ace2_model_parameters.svh#generator-comment",
+        "design/RTL_MANIFEST.json#current_rtl_stage_binding.generated_parameter_header"
+      ],
+      "ownership": "ACE-2 operator-directed generated project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/generated/ace2_model_parameters.svh",
+      "reproducibility_binding": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/model_hardware_contract_phase2.py --write",
+        "input_closure": "The selected model descriptor, descriptor schema, and base contract implementation are content-hash bound above.",
+        "repair_execution_status": "NOT_RUN_METADATA_ONLY",
+        "status": "REPOSITORY_INPUTS_COMPLETE",
+        "target_output_sha256": "201636ffc60fae9db5bdd9dbf90910bddd4ce30b6fb8892f5d4c023e75a8f1bd",
+        "working_directory": "repository_root",
+        "writes_additional_outputs": true
+      },
+      "sha256": "201636ffc60fae9db5bdd9dbf90910bddd4ce30b6fb8892f5d4c023e75a8f1bd",
+      "third_party": false
+    },
+    {
+      "generated": true,
+      "generator": {
+        "path": "tools/gen_silu_gate_vectors.py",
+        "regeneration_command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/gen_silu_gate_vectors.py",
+        "sha256": "fde5fd2ff77bb2a98e434b97baaa7dbbac165a5b90623358080c3308d24fc172",
+        "version_binding": "content_sha256"
+      },
+      "inputs": [
+        {
+          "path": "tools/ace2_silu_gate_reference.py",
+          "role": "bit-exact SiLU lookup and quantization reference",
+          "sha256": "833b71e326d8cc9b8a1d01ef018e03614878f643d7adbcd9756ce7ea9565d938"
+        },
+        {
+          "path": "evidence/layer0_tile_bfp_score_attention_v1/paired-smoke-20260801-v1/derived_scales.json",
+          "role": "accepted per-layer gate/up output-scale input",
+          "sha256": "78280eb606e0c14ea74163f72f45cbb045670fb26f400c054013b9726266ebaa"
+        }
+      ],
+      "license_disposition": "Generated from first-party, operator-authorized ACE-2 project-internal inputs. No repository-wide external license or external redistribution grant is declared.",
+      "origin": "Deterministically generated first-party ACE-2 per-layer SiLU input-scale RTL include.",
+      "origin_evidence": [
+        "rtl/generated/ace2_silu_input_scale_table.svh#generator-comment"
+      ],
+      "ownership": "ACE-2 operator-directed generated project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/generated/ace2_silu_input_scale_table.svh",
+      "reproducibility_binding": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/gen_silu_gate_vectors.py",
+        "input_closure": "The bit-exact SiLU reference and accepted per-layer scale source are content-hash bound above.",
+        "repair_execution_status": "NOT_RUN_METADATA_ONLY",
+        "status": "REPOSITORY_INPUTS_COMPLETE",
+        "target_output_sha256": "7ecf3573856a262160f76a4d8aff1d91f894a3731e80ffdeb4890d597ab6d455",
+        "working_directory": "repository_root",
+        "writes_additional_outputs": true
+      },
+      "sha256": "7ecf3573856a262160f76a4d8aff1d91f894a3731e80ffdeb4890d597ab6d455",
+      "third_party": false
+    },
+    {
+      "generated": true,
+      "generator": {
+        "path": "tools/gen_silu_gate_vectors.py",
+        "regeneration_command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/gen_silu_gate_vectors.py",
+        "sha256": "fde5fd2ff77bb2a98e434b97baaa7dbbac165a5b90623358080c3308d24fc172",
+        "version_binding": "content_sha256"
+      },
+      "inputs": [
+        {
+          "path": "tools/ace2_silu_gate_reference.py",
+          "role": "bit-exact SiLU lookup and quantization reference",
+          "sha256": "833b71e326d8cc9b8a1d01ef018e03614878f643d7adbcd9756ce7ea9565d938"
+        },
+        {
+          "path": "evidence/layer0_tile_bfp_score_attention_v1/paired-smoke-20260801-v1/derived_scales.json",
+          "role": "companion scale-table input consumed by the same deterministic regeneration command",
+          "sha256": "78280eb606e0c14ea74163f72f45cbb045670fb26f400c054013b9726266ebaa"
+        }
+      ],
+      "license_disposition": "Generated from first-party, operator-authorized ACE-2 project-internal inputs. No repository-wide external license or external redistribution grant is declared.",
+      "origin": "Deterministically generated first-party ACE-2 SiLU lookup-table RTL include.",
+      "origin_evidence": [
+        "design/RTL_MANIFEST.json#ip_provenance[path=rtl/generated/ace2_silu_lut.svh]",
+        "rtl/generated/ace2_silu_lut.svh#generator-comment"
+      ],
+      "ownership": "ACE-2 operator-directed generated project work product under project stewardship; no third-party ownership or dependency is asserted.",
+      "path": "rtl/generated/ace2_silu_lut.svh",
+      "reproducibility_binding": {
+        "command": "PYTHONDONTWRITEBYTECODE=1 python3 tools/gen_silu_gate_vectors.py",
+        "input_closure": "The bit-exact SiLU reference and companion scale source consumed by the shared generator are content-hash bound above.",
+        "repair_execution_status": "NOT_RUN_METADATA_ONLY",
+        "status": "REPOSITORY_INPUTS_COMPLETE",
+        "target_output_sha256": "23aa3f3257a6324b9c0d1d40a14321fd7887ace664f475cfdd4d7a76e88862b1",
+        "working_directory": "repository_root",
+        "writes_additional_outputs": true
+      },
+      "sha256": "23aa3f3257a6324b9c0d1d40a14321fd7887ace664f475cfdd4d7a76e88862b1",
+      "third_party": false
+    }
+  ]
+}

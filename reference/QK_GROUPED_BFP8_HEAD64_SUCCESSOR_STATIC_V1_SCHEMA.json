@@ -1,0 +1,108 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "additionalProperties": false,
+  "properties": {
+    "artifact_kind": {
+      "const": "qk_grouped_bfp8_head64_successor_static_pre_execution_package"
+    },
+    "artifacts": {
+      "additionalProperties": false,
+      "properties": {
+        "contract": {
+          "$ref": "#/$defs/binding"
+        },
+        "pure_reference": {
+          "$ref": "#/$defs/binding"
+        },
+        "schema": {
+          "$ref": "#/$defs/binding"
+        },
+        "static_verifier": {
+          "$ref": "#/$defs/binding"
+        }
+      },
+      "required": [
+        "contract",
+        "pure_reference",
+        "schema",
+        "static_verifier"
+      ],
+      "type": "object"
+    },
+    "authority": {
+      "const": "NO_EXECUTION_AUTHORITY"
+    },
+    "claim_boundary": {
+      "additionalProperties": false,
+      "properties": {
+        "execution_performed": {
+          "const": false
+        },
+        "model_or_tensor_accessed": {
+          "const": false
+        },
+        "numerical_improvement_claimed": {
+          "const": false
+        },
+        "rtl_or_stage_modified": {
+          "const": false
+        }
+      },
+      "required": [
+        "execution_performed",
+        "model_or_tensor_accessed",
+        "numerical_improvement_claimed",
+        "rtl_or_stage_modified"
+      ],
+      "type": "object"
+    },
+    "contract_id": {
+      "const": "QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1"
+    },
+    "package_id": {
+      "const": "QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_PACKAGE"
+    },
+    "schema_id": {
+      "const": "QK_GROUPED_BFP8_HEAD64_SUCCESSOR_STATIC_V1_PACKAGE_SCHEMA"
+    },
+    "schema_version": {
+      "const": 1
+    }
+  },
+  "required": [
+    "artifact_kind",
+    "artifacts",
+    "authority",
+    "claim_boundary",
+    "contract_id",
+    "package_id",
+    "schema_id",
+    "schema_version"
+  ],
+  "type": "object",
+  "$defs": {
+    "binding": {
+      "additionalProperties": false,
+      "properties": {
+        "byte_count": {
+          "minimum": 1,
+          "type": "integer"
+        },
+        "path": {
+          "minLength": 1,
+          "type": "string"
+        },
+        "sha256": {
+          "pattern": "^[0-9a-f]{64}$",
+          "type": "string"
+        }
+      },
+      "required": [
+        "byte_count",
+        "path",
+        "sha256"
+      ],
+      "type": "object"
+    }
+  }
+}

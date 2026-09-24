@@ -1,0 +1,73 @@
+{
+  "schema_version": 1,
+  "artifact_kind": "s7_current_viability_status_blocker",
+  "created_at_utc": "2026-08-25T09:50:53.198445Z",
+  "classification": "BOUND_RESERVATION_RUNNING_BUT_CONNECTION_AUTHORITY_CONSUMED",
+  "canonical_viability_verdict": "The exact accepted S7 backend job now reports running, but it is the same reservation whose sole authorized connection attempt was consumed. Replay remains forbidden, and no accepted replacement-reservation node-1 preflight exists, so the usable-reservation dependency remains external.",
+  "accepted_binding": {
+    "path": "external/s7-owned-reservation-control-plane-binding.accepted.json",
+    "sha256": "7a6a44a763d4792d673b4d5f2464a94d19ec6c6408ecbbb2ee7837e45d99f0fa",
+    "checksum_match_before_query": true
+  },
+  "current_reality_check": {
+    "interface": "amlt status",
+    "project_override": "v-boxiuli-river:sanbpx4p3idss6q:amulet",
+    "experiment": "a100s-idle",
+    "job_selector": ":gpu4x2-a100-idle",
+    "force_status_update": true,
+    "database_write_disabled": true,
+    "urls_hidden": true,
+    "query_invocation_count": 1,
+    "command_result": "success",
+    "machine_readable_json": true,
+    "record_count": 1,
+    "exact_binding_match_count": 1,
+    "result": {
+      "backend_job_id": "magenta_plow_d0885txc6h",
+      "workspace": "srgxws",
+      "cluster": "msrresrchbasicvc",
+      "service": "sing",
+      "sku": "2xG4",
+      "status": "running",
+      "user": "Boxiu Li",
+      "duration_reported": "2mo"
+    }
+  },
+  "comparison_to_accepted_blocker": {
+    "path": "diagnosis/operator_only_external_blocker_s7_usable_reservation.json",
+    "prior_control_plane_status": "Finalizing",
+    "current_control_plane_status": "running",
+    "reservation_identity_changed": false,
+    "consumed_connection_attempt_count": 1,
+    "replacement_preflight_target": "external/s7-owned-running-reservation-node1-preflight.accepted.json",
+    "replacement_preflight_target_present": false
+  },
+  "exact_external_prerequisite": {
+    "manager_authority_required": true,
+    "requirements": [
+      "Provision and bind a new S7 reservation identity to the current principal.",
+      "Confirm the new backend is running through the accepted read-only control plane.",
+      "Issue a new task id and separate one-shot Manager authority for one marker-free node-1 environment preflight.",
+      "Obtain Fresh-L2 acceptance of external/s7-owned-running-reservation-node1-preflight.accepted.json."
+    ]
+  },
+  "authority_boundary": {
+    "repeat_consumed_connection": false,
+    "ssh_or_node1_preflight": false,
+    "replacement_reservation_submission": false,
+    "gpu_or_s7_execution": false,
+    "port_1111": false,
+    "alternate_unbound_resource": false,
+    "replay_or_resume": false
+  },
+  "sanitization": {
+    "raw_status_output_persisted": false,
+    "raw_stderr_persisted": false,
+    "command_field_persisted_or_printed": false,
+    "urls_persisted_or_printed": false,
+    "access_tokens_persisted_or_printed": false,
+    "sas_urls_persisted_or_printed": false,
+    "storage_keys_persisted_or_printed": false,
+    "private_keys_persisted_or_printed": false
+  }
+}

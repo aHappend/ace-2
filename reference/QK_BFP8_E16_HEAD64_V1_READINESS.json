@@ -1,0 +1,149 @@
+{
+  "artifact_kind": "qk_bfp8_e16_head64_v1_implementation_readiness_binding",
+  "authority": "NO_EXECUTION_AUTHORITY",
+  "claim_boundary": {
+    "calibration_or_scoring_performed": false,
+    "candidate_or_execution_package_created": false,
+    "generation_or_repair_replay_performed": false,
+    "model_loaded_or_executed": false,
+    "rtl_spec_manifest_or_u280_modified": false,
+    "stage_transition_authorized": false
+  },
+  "normalized_subject": {
+    "arithmetic": {
+      "bf16_finite_maximum": "255 * 2^120",
+      "bf16_minimum_positive_subnormal": "2^-133",
+      "decoder": "signed_mantissa_times_2_pow_signed_exponent",
+      "exponent_rule": "least_integer_e_such_that_max_abs_le_127_times_2_pow_e",
+      "head_lanes": 64,
+      "non_finite_policy": "reject_before_payload_creation",
+      "rounding": "round_to_nearest_ties_to_even",
+      "saturation_or_clamping_allowed": false,
+      "score_rule": "sum_64_exact_signed_mantissa_products_and_add_head_exponents",
+      "zero_head_exponent": 0
+    },
+    "authority": "NO_EXECUTION_AUTHORITY",
+    "contract_id": "QK_BFP8_E16_HEAD64_V1",
+    "cost": {
+      "baseline_bytes_per_token_per_layer": 264,
+      "contract_bytes_per_token_per_layer": 260,
+      "delta_bytes_for_24_layers_and_512_tokens": -49152,
+      "delta_bytes_per_token_across_24_layers": -96,
+      "delta_bytes_per_token_per_layer": -4,
+      "query_transient_bytes_per_token_per_layer": 924
+    },
+    "model_bindings": {
+      "Base": {
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7",
+        "representation": "QK_BFP8_E16_HEAD64_V1"
+      },
+      "checkpoint-176": {
+        "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98",
+        "representation": "QK_BFP8_E16_HEAD64_V1"
+      }
+    },
+    "packing": {
+      "head_record_bytes": 66,
+      "head_record_layout": "64_signed_int8_lane_bytes_then_signed_int16_little_endian_exponent",
+      "key_record_order": [
+        "layer",
+        "token",
+        "kv_head",
+        "head_record"
+      ],
+      "padding_bytes": 0,
+      "query_persisted_in_kv_cache": false
+    },
+    "ranges": {
+      "head_exponent": [
+        -139,
+        122
+      ],
+      "lane_mantissa": [
+        -127,
+        127
+      ],
+      "lane_product": [
+        -16129,
+        16129
+      ],
+      "reserved_lane_payload": -128,
+      "score_exponent": [
+        -278,
+        244
+      ],
+      "score_mantissa": [
+        -1032256,
+        1032256
+      ]
+    },
+    "topology": {
+      "head_dim": 64,
+      "hidden_size": 896,
+      "maximum_bound_sequence_length": 512,
+      "num_attention_heads": 14,
+      "num_hidden_layers": 24,
+      "num_key_value_heads": 2
+    }
+  },
+  "normalized_subject_sha256": "bf1b476c9bc85c72e8e386f800ca1a3da72aa7fd02e86fd400a55336c58e4032",
+  "readiness_artifacts": {
+    "pure_reference": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "path": "reference/qk_bfp8_e16_head64_v1.py",
+      "sha256": "bfb8b0d95ef8a8b939694fe8fec710d4acb1abff8b38b4bbbb4a43bdea5bb704"
+    },
+    "static_verifier": {
+      "authority": "NO_EXECUTION_AUTHORITY",
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_readiness.py",
+      "sha256": "ea40e12f39351fe6240d861a68488a4bc22517dab72434762f05a8bdf88fdd2e"
+    }
+  },
+  "schema_version": 1,
+  "source_identities": {
+    "accepted_contract": {
+      "contract_id": "QK_BFP8_E16_HEAD64_V1",
+      "path": "design/W4A8_C02_SATURATION_FREE_JOINT_QK_REPRESENTATION_PREREQUISITE_V1.json",
+      "sha256": "92840df94b6f9bc2b1bfc752fd4e24da58cde64f811b2fd84190462badd1a4ef",
+      "verdict": "CONTRACT_ACCEPTED_NO_EXECUTION_AUTHORITY"
+    },
+    "corrected_fresh_l2_handoff": {
+      "mission_id": "71ae6f113ca4",
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/71ae6f113ca4/round-0001.json",
+      "producer_role": "reviewer",
+      "review_status": "done",
+      "round": 1,
+      "sha256": "65c439db0d88dceb19426cd0bfef9656dcf5d55ce8bcf741615dfa992d6632ce"
+    },
+    "corrected_fresh_l2_mission": {
+      "mission_id": "71ae6f113ca4",
+      "path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/71ae6f113ca4/mission.json",
+      "sha256": "5dae659157a79764d1d9c283a72e5d0260202dcf03ccc331903697fd316d2094"
+    },
+    "models": {
+      "Base": {
+        "alias": "base",
+        "manifest": {
+          "path": "build/w4a8-full-model-software-contract-v1/base/c01-mse-clip-grid/attempt-0001/manifest.json",
+          "sha256": "130431a0e5f681a5947b5baae7ae9aa0db4d6ce501f23fe6ab4b7ce952b066cf"
+        },
+        "model_id": "qwen2.5-0.5b-instruct",
+        "model_identity_sha256": "4a3c398aa381103aadf185da47b0631bce67539700e767eef588b761dc7827a7"
+      },
+      "checkpoint-176": {
+        "alias": "checkpoint-176",
+        "base_model_identity": "qwen2.5-0.5b-instruct",
+        "manifest": {
+          "path": "build/w4a8-full-model-software-contract-v1/checkpoint-176/c01-mse-clip-grid/attempt-0001/manifest.json",
+          "sha256": "3b1e8f8cd15d481c40fc9cb7f73c20ebb754a80bcdeebcaf3cf422574c96b2c7"
+        },
+        "model_id": "ace2-lora-v4-checkpoint-176",
+        "model_identity_sha256": "94eb1fe142aa11925863386e796e1157341351cfb664283388291a4fa9d8bf98"
+      }
+    },
+    "software_contract": {
+      "path": "design/QWEN25_05B_W4A8_FULL_MODEL_SOFTWARE_CONTRACT_V1.json",
+      "sha256": "8f037b438f53bb378c60eded9cf15593a8173b11dd42130b40ea7658939140ef"
+    }
+  }
+}

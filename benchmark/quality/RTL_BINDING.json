@@ -1,0 +1,71 @@
+{
+  "candidate_rtl_hash": "53e033086efc026090c8638b08dff0554c9cee120374d8b45c20d39f3cd80f75",
+  "manifest": {
+    "path": "evidence/rmsnorm_scale_contract/latest/RESULTS.json",
+    "sha256": "2731ac3f18c5bf9fdc9d8010aabe3d5d6cdc7d42931fd39ce36237996103184f"
+  },
+  "numerical_rtl": [
+    {
+      "bytes": 3312,
+      "mtime_ns": 1785315110930012378,
+      "path": "rtl/ace2_pkg.sv",
+      "sha256": "17f081f1645d66a88f9c964a49ee4e402b66df0fadc3c6b59189928cca78b112"
+    },
+    {
+      "bytes": 23766,
+      "mtime_ns": 1785453423971723436,
+      "path": "rtl/ace2_rmsnorm_core.sv",
+      "sha256": "37fc050c776998eabad3cb8b534362303b4bae1393c8486db2dc282d3024a9a8"
+    },
+    {
+      "bytes": 14090,
+      "mtime_ns": 1785206098147839710,
+      "path": "rtl/ace2_w4a8_proj_core.sv",
+      "sha256": "0aab10c5f3e175c20f8af5136ec484b4237a219cd4a84fea57ee30371bf1e0bc"
+    },
+    {
+      "bytes": 30023,
+      "mtime_ns": 1785439395505985385,
+      "path": "rtl/ace2_rope_core.sv",
+      "sha256": "e5feff02169c5f58b81bfd44350380f6074ca0cbbedf536a0744d8c2f663f3c8"
+    },
+    {
+      "bytes": 6361,
+      "mtime_ns": 1785449041352240142,
+      "path": "rtl/ace2_attention_score_core.sv",
+      "sha256": "400234b1f5b28f379792d5c1e023adc3f2c81e7bea825d5f7683bdc6ccd1dd55"
+    },
+    {
+      "bytes": 14073,
+      "mtime_ns": 1785198746931633181,
+      "path": "rtl/ace2_softmax_core.sv",
+      "sha256": "33b76b6a840111bf17f3c5324b6c2f71f1ca1a6ca29a67746fc92ffa53043ea6"
+    },
+    {
+      "bytes": 26322,
+      "mtime_ns": 1785350820616083778,
+      "path": "rtl/ace2_attention_compose_core.sv",
+      "sha256": "33ca20e48a6f9eb8f93874e95c8e8b73a48c00e435693b84d4a5915da7ca78ff"
+    },
+    {
+      "bytes": 11356,
+      "mtime_ns": 1785197712157344054,
+      "path": "rtl/ace2_silu_gate_core.sv",
+      "sha256": "ace98af2654bb2ea0ccb256e55ee6d755ff4bc34d0fe0d2cdeff6dcd581199ae"
+    },
+    {
+      "bytes": 7039,
+      "mtime_ns": 1785439673031128017,
+      "path": "rtl/generated/ace2_silu_lut.svh",
+      "sha256": "23aa3f3257a6324b9c0d1d40a14321fd7887ace664f475cfdd4d7a76e88862b1"
+    },
+    {
+      "bytes": 186715,
+      "mtime_ns": 1785459819215205153,
+      "path": "rtl/ace2_shell.sv",
+      "sha256": "40692a015f4e5a1bef8b6ebfbc345bccea3a29362275b49a4bb55d5f58077636"
+    }
+  ],
+  "schema_version": 1,
+  "status": "rmsnorm_downstream_scale_contract_ppa_threshold_miss"
+}

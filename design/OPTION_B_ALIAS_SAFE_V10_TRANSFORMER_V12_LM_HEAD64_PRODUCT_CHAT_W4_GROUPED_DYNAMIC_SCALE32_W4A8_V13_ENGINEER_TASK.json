@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "task_id": "task-6b8d1f4a2c73",
+  "created_at_utc": "2026-08-07T05:26:27Z",
+  "title": "Execute V13 product-quality W4A8 policy preflight",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "authorized_not_started",
+  "candidate_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v13",
+  "candidate_plan": {
+    "path": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V13_PLAN.json",
+    "sha256": "aa3fc2797b27c2227588f2573d9aebe924fa385baee298ea99b69912c95a3603",
+    "role": "frozen acceptance contract"
+  },
+  "predecessor": {
+    "candidate_id": "option_b_alias_safe_v10_preserving_mixed_four_bank_lm_head64_grouped_dual_codebook_packed_scale24_w4_grouped_dynamic_scale32_w4a8_v12",
+    "terminal_status": "PREATTEMPT_NO_GO",
+    "fresh_reviewer_status": "done",
+    "review_record": "research/raw/specification/v10-preserving-mixed-bank-lm-head64-v12-review-done-20260807T051730Z.json",
+    "review_record_sha256": "2c136a7434639d8c158214be578b9b1963ad3ad293410cdcdb093c81c22676b4",
+    "replay_resume_repair_or_official_execution_permitted": false
+  },
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v13",
+    "quality_campaign": "quality-campaign-0001",
+    "root_must_be_absent_at_task_start": true,
+    "construction_marker": "construction_started.json",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "matrix_must_be_hash_bound_before_quality_marker": true,
+    "second_campaign_or_prompt_tuning_under_candidate_id_permitted": false
+  },
+  "implementation_objective": "Build a fresh deterministic V13 quantized reference using all 168 sealed V10 transformer tensors and the isolated V12 64-group lm_head tensor, prove exact codec and byte closure, then run the frozen diverse single-turn and multi-turn product-quality matrix with the exact Instruct tokenizer/template and deterministic greedy decode. Preserve raw prompts, token IDs, decoded outputs, rubric results, and honest wall times for Fresh Review. Do not modify RTL, retarget the live chat demo, access U280 tools, or use BF16 token identity as the acceptance oracle.",
+  "required_constructor": {
+    "source_model": "Qwen/Qwen2.5-0.5B-Instruct@7ae557604adf67be50417f59c2c2f167def9a775",
+    "embedding": "preserve the source BF16 embedding bytes and detach lm_head storage before any weight replacement",
+    "transformer": "reconstruct exactly the sealed V10 representation for all 168 transformer Linear tensors, including four-bit payload, packed Scale24 rows, dual codebooks, per-row/block selectors, padding, and authentication",
+    "lm_head": "reconstruct exactly the isolated V12 64 contiguous groups of 2374 rows with seven dual-bank input-block records per group and one selector bit per output row/block",
+    "determinism": "two clean independent constructions must match all payload, metadata, state, reconstruction, tokenizer, prompt-matrix, and manifest hashes",
+    "construction_inputs_forbidden": [
+      "product-quality outputs",
+      "BF16 token arrays",
+      "response-gate outcomes",
+      "Fresh Reviewer holdout outputs",
+      "hidden harnesses or golden outputs"
+    ]
+  },
+  "required_format_closure": {
+    "transformer_tensor_exact_match_count": 168,
+    "lm_head_reconstruction_sha256": "ff463c0a71035c4dc8305c9fe47c96fed7e06a96da0a04cc37b5477c6ab7df76",
+    "whole_model_weight_count": 493961216,
+    "whole_model_four_bit_payload_bytes": 246980608,
+    "whole_model_weight_metadata_bytes": 1926352,
+    "whole_model_total_weight_bytes": 248906960,
+    "whole_model_exact_bits_per_weight": 4.031198433198448,
+    "standard_decoder_layer_total_weight_bytes": 7509856,
+    "lm_head_total_weight_bytes": 68670416,
+    "maximum_activation_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_incremental_sram_bytes": 2368,
+    "maximum_live_weight_metadata_cache_bytes": 192,
+    "public_ace2_shell_parameter_count": 12,
+    "public_ace2_shell_port_count": 64,
+    "public_interface_change_permitted": false
+  },
+  "required_self_tests": [
+    "reject any plan, task, model, tokenizer, template, V10, V12, helper, or review-record hash mismatch before construction",
+    "prove the source embedding bytes remain unchanged and lm_head storage is not aliased to the embedding",
+    "prove all 168 transformer tensors exactly match the sealed V10 decoded representations and metadata",
+    "prove the lm_head decoded representation and metadata exactly match the isolated V12 64-group construction",
+    "round-trip every packed Scale24 record with a restored zero high byte and reject malformed or lossy encodings",
+    "round-trip every codebook, selector stream, group transition, alignment byte, and authentication record",
+    "prove exact whole-model payload, metadata, and total byte counts",
+    "prove candidate A and candidate B construction manifests are identical",
+    "run all 312 named grouped Dynamic Scale32 events with no saturation, clipping, or reserved -128 payload and no more than 832 transport-metadata bytes per decoder-layer token",
+    "prove the quality matrix bytes and hashes are frozen before any candidate output is generated",
+    "prove deterministic greedy re-execution reproduces every token ID and decoded output exactly without changing the frozen result"
+  ],
+  "quality_execution": {
+    "matrix_source": "candidate_plan.frozen_product_quality_matrix",
+    "single_turn_case_count": 12,
+    "multi_turn_case_count": 3,
+    "fresh_reviewer_holdout_count": 4,
+    "maximum_new_tokens_per_response": 32,
+    "sampling_permitted": false,
+    "use_cache": true,
+    "raw_prompt_text_must_be_preserved_after_freeze": true,
+    "raw_decoded_output_must_be_preserved": true,
+    "token_ids_and_termination_reason_must_be_preserved": true,
+    "per_response_wall_seconds_must_be_measured": true,
+    "bf16_token_or_gate_comparison_required": false,
+    "bf16_token_or_gate_comparison_may_affect_routing": false,
+    "software_only_result_is_accelerator_completion": false
+  },
+  "required_quality_artifacts": [
+    "predeclared_contract.json binding all source, model, tokenizer, plan, task, predecessor, matrix, helper, and environment hashes",
+    "constructor_self_test.json",
+    "candidate_a_manifest.json",
+    "candidate_b_manifest.json",
+    "transformer_v10_exact_reproduction.json",
+    "lm_head_v12_exact_reproduction.json",
+    "codec_and_byte_accounting.json",
+    "dynamic_preflight.json",
+    "quality-campaign-0001/frozen_matrix.json",
+    "quality-campaign-0001/raw_outputs.jsonl",
+    "quality-campaign-0001/token_and_latency_results.json",
+    "quality-campaign-0001/rubric_results.json",
+    "quality-campaign-0001/RESULT.json",
+    "quality-campaign-0001/SHA256SUMS",
+    "fresh_reviewer_submission.json"
+  ],
+  "quality_pass_gate": {
+    "hard_check_response_pass_rate": "100%",
+    "minimum_single_turn_cases_meeting_required_observable": 11,
+    "required_multi_turn_cases_meeting_required_observable": 3,
+    "required_fresh_reviewer_holdouts_meeting_required_observable": 4,
+    "case_with_any_zero_reviewer_dimension_permitted": 0,
+    "minimum_overall_mean_reviewer_dimension_score": 1.75,
+    "critical_factual_safety_or_instruction_failure_permitted": 0,
+    "required_fresh_reviewer_status": "done_with_product_quality_pass"
+  },
+  "failure_taxonomy": {
+    "construction_or_codec_failure": "preserve PRODUCT_PREFLIGHT_NO_GO with exact mismatch records; no quality execution",
+    "dynamic_policy_failure": "preserve PRODUCT_PREFLIGHT_NO_GO with named event evidence; no quality execution",
+    "evaluator_no_execution": "preserve EVALUATOR_NO_EXECUTION with null quality conclusion; do not classify RTL or numerical correctness",
+    "quality_failure": "preserve PRODUCT_QUALITY_NO_GO with all raw outputs and failed rubric dimensions",
+    "quality_pass": "preserve PRODUCT_QUALITY_READY and submit immutable evidence to a Fresh Reviewer; do not select the policy or advance the stage locally"
+  },
+  "prohibited_actions": [
+    "modify research/PIPELINE_STATE.json or current_stage",
+    "modify RTL, verification references, sealed V10/V12 evidence, or consumed exactly-once evidence",
+    "create a replacement or replay under any V1 through V12 candidate ID",
+    "use exact BF16 token identity, BF16 response-gate identity, or the obsolete 4.036 cap as a V13 acceptance requirement",
+    "tune weights, metadata, prompts, generation settings, or rubric after observing V13 outputs",
+    "hide prompts, use a hidden harness, inspect a golden output, or omit raw failed outputs",
+    "claim accelerator completion from the quantized software reference",
+    "download or install a proprietary FPGA toolchain"
+  ],
+  "completion_rule": "The Engineer mission is complete only after immutable V13 construction/dynamic no-go evidence, evaluator-no-execution evidence, or one frozen product-quality campaign plus Fresh Reviewer submission. A quality pass is a specification-stage policy result only; selected_policy_id remains null and RTL/demo/U280 work remains locked until Fresh Review and Manager stage advance.",
+  "claim_boundary": {
+    "selected_policy_id_before_fresh_reviewer_and_manager_action": null,
+    "current_stage_remains": "specification",
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "project_completion_eligible": false
+  }
+}

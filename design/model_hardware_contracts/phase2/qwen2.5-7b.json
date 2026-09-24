@@ -1,0 +1,315 @@
+{
+  "claim_boundary": "Canonical descriptor, derived-parameter arithmetic, and static capacity planning only. This artifact does not elaborate RTL, run a simulator/formal tool, execute a model, build a bitstream, or claim product completion.",
+  "compatibility": {
+    "existing_0p5b_runtime_preflight": false,
+    "full_model_rtl_execution_validated": false,
+    "larger_model_rtl_execution_validated": false,
+    "synthesis_timing_or_u280_validated": false
+  },
+  "contract_id": "ace2-phase2-qwen2.5-7b-w4a8_scale32-v1",
+  "current_parameterization_gaps": [
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 896,
+      "id": "hidden_size",
+      "required": 3584
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation"
+      ],
+      "current": 4864,
+      "id": "intermediate_size",
+      "required": 18944
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 24,
+      "id": "num_layers",
+      "required": 28
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 14,
+      "id": "attention_heads",
+      "required": 28
+    },
+    {
+      "blocking_surfaces": [
+        "model_packer",
+        "command_generation"
+      ],
+      "current": 2,
+      "id": "kv_heads",
+      "required": 4
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 64,
+      "id": "head_dim",
+      "required": 128
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation"
+      ],
+      "current": 128,
+      "id": "kv_width_elements",
+      "required": 512
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 151936,
+      "id": "vocab_size",
+      "required": 152064
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": 32768,
+      "id": "max_context",
+      "required": 131072
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "host_runtime"
+      ],
+      "current": 1,
+      "id": "compute_tiles",
+      "required": 8
+    },
+    {
+      "blocking_surfaces": [
+        "rtl",
+        "model_packer",
+        "host_runtime"
+      ],
+      "current": 1,
+      "id": "memory_channels",
+      "required": 8
+    },
+    {
+      "blocking_surfaces": [
+        "model_packer",
+        "command_generation",
+        "host_runtime"
+      ],
+      "current": "sealed_0p5b_ace2rt2_package_and_image",
+      "id": "runtime_artifact_identity",
+      "required": "qwen2.5-7b_descriptor_hash_bound_package_and_image"
+    }
+  ],
+  "derived": {
+    "bf16_embedding_bytes": 1089994752,
+    "estimated_weight_bytes": 5509576144,
+    "head_dim": 128,
+    "kv_bytes_per_token_per_layer": 1056,
+    "kv_payload_bytes_per_token_per_layer": 1024,
+    "kv_scale_metadata_bytes_per_token_per_layer": 32,
+    "kv_width_elements": 512,
+    "lm_head_input_elements": 3584,
+    "lm_head_output_elements": 152064,
+    "lm_head_tile_count": 4752,
+    "lm_head_tile_size": 32,
+    "max_context": 131072,
+    "maximum_kv_bytes": 3875536896,
+    "maximum_weight_plus_kv_bytes": 9385113040,
+    "num_layers": 28,
+    "operator_aux_metadata_bytes": 243264,
+    "packed_linear_weight_elements": 7070285824,
+    "packed_w4_bytes": 3535142912,
+    "per_layer_linear_weight_elements": 233046016,
+    "per_layer_packed_w4_bytes": 116523008,
+    "per_layer_projection_metadata_bytes": 29130752,
+    "per_layer_projection_rows": 49664,
+    "per_layer_projection_scale_record_count": 7282688,
+    "projection_metadata_bytes": 883785728,
+    "projection_output_rows": 1542656,
+    "projection_scale_record_count": 220946432,
+    "qkv_k_metadata_bytes": 229376,
+    "qkv_k_scale_record_count": 57344,
+    "qkv_k_weight_bytes": 917504,
+    "qkv_metadata_offsets_q_k_v": [
+      0,
+      1605632,
+      1835008
+    ],
+    "qkv_metadata_span_bytes": 2064384,
+    "qkv_output_offsets_q_k_v": [
+      0,
+      3584,
+      4096
+    ],
+    "qkv_output_span_bytes": 4608,
+    "qkv_q_metadata_bytes": 1605632,
+    "qkv_q_scale_record_count": 401408,
+    "qkv_q_weight_bytes": 6422528,
+    "qkv_v_metadata_bytes": 229376,
+    "qkv_v_scale_record_count": 57344,
+    "qkv_v_weight_bytes": 917504,
+    "qkv_weight_offsets_q_k_v": [
+      0,
+      6422528,
+      7340032
+    ],
+    "qkv_weight_span_bytes": 8257536,
+    "query_heads_per_kv_head": 7,
+    "required_hidden_index_bits": 12,
+    "required_intermediate_index_bits": 15,
+    "required_kv_width_index_bits": 9,
+    "required_layer_id_bits": 5,
+    "required_lm_head_tile_index_bits": 13,
+    "required_sequence_position_bits": 17,
+    "required_vocab_index_bits": 18,
+    "rmsnorm_metadata_bytes": 409488,
+    "rmsnorm_record_bytes": 7184,
+    "transformer_linear_weight_elements": 6525288448
+  },
+  "dimensions": {
+    "attention_heads": 28,
+    "head_dim": 128,
+    "hidden_size": 3584,
+    "intermediate_size": 18944,
+    "kv_heads": 4,
+    "max_context": 131072,
+    "num_layers": 28,
+    "tie_word_embeddings": false,
+    "vocab_size": 152064
+  },
+  "formats": {
+    "accumulator_format": "signed_int32_dot_product",
+    "activation_format": "signed_int8",
+    "embedding_storage": "bf16",
+    "kv_format": "signed_int8_payload_scale32_per_kv_head",
+    "packed_weight_group_bytes": 16,
+    "scale_format": "scale32",
+    "weight_format": "signed_int4_packed_w4",
+    "weight_input_group_size": 32,
+    "weight_scale_format": "scale32_little_endian_u32",
+    "weight_scale_granularity": "per_output_channel_per_input_group",
+    "weight_scale_record_bytes": 4
+  },
+  "hardware_interface": {
+    "address_bits": 64,
+    "current_shell_command_widths": {
+      "address_bits": 64,
+      "completion_tag_bits": 16,
+      "k_bits": 16,
+      "layer_id_bits": 8,
+      "m_bits": 16,
+      "n_bits": 16,
+      "sequence_position_bits": 16
+    },
+    "data_width_bits": 128,
+    "lm_head_tile_size": 32,
+    "projection_tile_k": 32,
+    "projection_tile_m": 1,
+    "projection_tile_n": 32,
+    "required_command_widths": {
+      "address_bits": 64,
+      "completion_tag_bits": 16,
+      "k_bits": 16,
+      "layer_id_bits": 8,
+      "m_bits": 16,
+      "n_bits": 16,
+      "sequence_position_bits": 17
+    },
+    "vector_lanes": 16
+  },
+  "model_id": "qwen2.5-7b",
+  "product": {
+    "claim_boundary": "Phase-2 configuration contract only; compute_tiles and memory_channels are specification parameters, not measured throughput, timing, synthesis, FPGA, or U280 evidence.",
+    "compatible_tiers": [
+      "ace2_pro"
+    ],
+    "compute_tiles": 8,
+    "memory_channels": 8,
+    "primary_tier": "ace2_pro"
+  },
+  "schema_version": 2,
+  "source": {
+    "config_path": "config.json",
+    "config_url": "https://huggingface.co/Qwen/Qwen2.5-7B/blob/d149729398750b98c0af14eb82c78cfe92750796/config.json",
+    "repository": "Qwen/Qwen2.5-7B",
+    "revision": "d149729398750b98c0af14eb82c78cfe92750796"
+  },
+  "static_capacity_checks": [
+    {
+      "evidence": "3584 % 28 == 0",
+      "id": "hidden-divisible-by-attention-heads",
+      "pass": true
+    },
+    {
+      "evidence": "28 % 4 == 0",
+      "id": "attention-heads-divisible-by-kv-heads",
+      "pass": true
+    },
+    {
+      "evidence": "hidden_size=3584, vector_lanes=16, projection_k=32",
+      "id": "hidden-aligns-to-vector-and-projection-k",
+      "pass": true
+    },
+    {
+      "evidence": "intermediate_size=18944, projection_n=32",
+      "id": "intermediate-aligns-to-projection-n",
+      "pass": true
+    },
+    {
+      "evidence": "vocab_size=152064, lm_head_tile=32",
+      "id": "vocab-aligns-to-lm-head-tile",
+      "pass": true
+    },
+    {
+      "evidence": "required bits layer=5, sequence=17, max_mnk=18944",
+      "id": "phase2-command-fields-cover-required-shapes",
+      "pass": true
+    },
+    {
+      "evidence": "maximum_weight_plus_kv_bytes=9385113040",
+      "id": "address-and-byte-counts-fit-64-bit-space",
+      "pass": true
+    },
+    {
+      "evidence": "qkv_weight=8257536, qkv_metadata=2064384, qkv_output=4608",
+      "id": "qkv-spans-are-16-byte-aligned",
+      "pass": true
+    },
+    {
+      "evidence": "compute_tiles=8, memory_channels=8",
+      "id": "product-compute-and-memory-channels-positive",
+      "pass": true
+    }
+  ]
+}

@@ -1,0 +1,133 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "QK_GBFP8_HEAD64_B0_V30_EXTERNAL_FRAMEWORK_CONTRACT_SCHEMA",
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema_version": { "const": 1 },
+    "artifact_kind": {
+      "const": "qk_gbfp8_head64_b0_v30_external_framework_attestation_contract"
+    },
+    "contract_source": { "const": "FRAMEWORK_OWNED_ROLE_INACCESSIBLE" },
+    "delivery_mode": {
+      "enum": [
+        "FRAMEWORK_OWNED_SIGNED_ATTESTATION_ENDPOINT",
+        "IMMUTABLE_FRAMEWORK_SIGNED_EVENT_RECEIPTS"
+      ]
+    },
+    "signing_service": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "ownership": { "const": "FRAMEWORK_OWNED" },
+        "private_key_access": {
+          "const": "INACCESSIBLE_TO_ENGINEER_REVIEWER_AND_PROJECT_CODE"
+        },
+        "endpoint_access": {
+          "const": "INACCESSIBLE_TO_ENGINEER_REVIEWER_AND_PROJECT_CODE"
+        }
+      },
+      "required": ["ownership", "private_key_access", "endpoint_access"]
+    },
+    "production_signature_profile": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "algorithm": { "type": "string", "minLength": 1 },
+        "key_id": { "type": "string", "minLength": 1 },
+        "public_key_sha256": {
+          "type": "string",
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "canonicalization_identifier": { "type": "string", "minLength": 1 },
+        "canonicalization_version": { "type": "string", "minLength": 1 },
+        "signed_payload_field_order": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        }
+      },
+      "required": [
+        "algorithm",
+        "key_id",
+        "public_key_sha256",
+        "canonicalization_identifier",
+        "canonicalization_version",
+        "signed_payload_field_order"
+      ]
+    },
+    "key_rotation": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "active_epoch": { "type": "integer", "minimum": 0 },
+        "active_key_ids": {
+          "type": "array",
+          "minItems": 1,
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "retired_key_ids": {
+          "type": "array",
+          "uniqueItems": true,
+          "items": { "type": "string", "minLength": 1 }
+        },
+        "revocation_is_immediate": { "type": "boolean" }
+      },
+      "required": [
+        "contract_sha256",
+        "active_epoch",
+        "active_key_ids",
+        "retired_key_ids",
+        "revocation_is_immediate"
+      ]
+    },
+    "anti_replay": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "authority": { "const": "FRAMEWORK_OWNED" },
+        "nonce_uniqueness_scope": { "type": "string", "minLength": 1 },
+        "immutable_consumption_evidence_required": { "const": true }
+      },
+      "required": [
+        "contract_sha256",
+        "authority",
+        "nonce_uniqueness_scope",
+        "immutable_consumption_evidence_required"
+      ]
+    },
+    "first_terminal": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "contract_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" },
+        "ordering_source": { "const": "FRAMEWORK_SIGNED_MONOTONIC_SEQUENCE" },
+        "earliest_terminal_is_final": { "const": true },
+        "post_terminal_receipts_rejected": { "const": true }
+      },
+      "required": [
+        "contract_sha256",
+        "ordering_source",
+        "earliest_terminal_is_final",
+        "post_terminal_receipts_rejected"
+      ]
+    },
+    "contract_sha256": { "type": "string", "pattern": "^[0-9a-f]{64}$" }
+  },
+  "required": [
+    "schema_version",
+    "artifact_kind",
+    "contract_source",
+    "delivery_mode",
+    "signing_service",
+    "production_signature_profile",
+    "key_rotation",
+    "anti_replay",
+    "first_terminal",
+    "contract_sha256"
+  ]
+}

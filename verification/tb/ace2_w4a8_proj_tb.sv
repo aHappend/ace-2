@@ -112,9 +112,9 @@ module ace2_w4a8_proj_tb;
             for (group_index = 0; group_index < proj_case_groups[selected_case]; group_index = group_index + 1) begin
                 while (!pair_ready) @(posedge clk);
                 weight_word = proj_weight_beats[proj_case_weight_offset[selected_case] + selected_out*proj_case_weight_beats_per_output[selected_case] + (group_index / PROJ_GROUPS_PER_WEIGHT_BEAT)];
-                act_word = proj_input_beats[selected_case*PROJ_MAX_ROWS*PROJ_MAX_INPUT_BEATS + selected_row*PROJ_MAX_INPUT_BEATS + (group_index / PROJ_GROUPS_PER_WEIGHT_BEAT)];
+                act_word = proj_input_beats[selected_case*PROJ_MAX_ROWS*PROJ_MAX_INPUT_BEATS + selected_row*PROJ_MAX_INPUT_BEATS + (group_index / PROJ_GROUPS_PER_INPUT_BEAT)];
                 weight_data = weight_word[((group_index % PROJ_GROUPS_PER_WEIGHT_BEAT)*MAC_LANES*4) +: MAC_LANES*4];
-                act_data = act_word[((group_index % PROJ_GROUPS_PER_WEIGHT_BEAT)*MAC_LANES*ACT_WIDTH) +: MAC_LANES*ACT_WIDTH];
+                act_data = act_word[((group_index % PROJ_GROUPS_PER_INPUT_BEAT)*MAC_LANES*ACT_WIDTH) +: MAC_LANES*ACT_WIDTH];
                 @(negedge clk);
                 pair_valid = 1'b1;
                 @(posedge clk);

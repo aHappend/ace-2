@@ -1,0 +1,60 @@
+{
+  "schema_version": 1,
+  "blocker_id": "s7-usable-reservation-after-consumed-preflight-20260810",
+  "classification": "EXACT_BOUND_RESERVATION_NOT_CONNECTABLE",
+  "created_at_utc": "2026-08-10T08:06:00Z",
+  "local_engineer_action_required_before_mount": false,
+  "canonical_viability_verdict": "The exact owned S7 backend job is Finalizing and the sole authorized connector-backed SSH attempt returned 255 before remote execution. No node-1, Python, Transformers, CUDA, or GPU preflight evidence exists, and replay is forbidden.",
+  "required_external_targets": [
+    "external/s7-owned-running-reservation-node1-preflight.accepted.json"
+  ],
+  "next_owner": "manager-authorized infrastructure allocator and Fresh L2 reviewer",
+  "required_target_contract": {
+    "path": "external/s7-owned-running-reservation-node1-preflight.accepted.json",
+    "required_fields": [
+      "new_reservation_identity",
+      "current_principal_owner_binding",
+      "running_backend_status",
+      "successful_marker_free_node1_connection",
+      "python_path_and_version",
+      "transformers_version",
+      "gpu_inventory",
+      "fresh_l2_acceptance"
+    ],
+    "requirements": [
+      "The consumed magenta_plow_d0885txc6h connection attempt must never be replayed.",
+      "Any replacement reservation requires separate Manager authority before cloud mutation.",
+      "The accepted preflight must use a new task id and a new one-shot authority.",
+      "Port 1111, unrelated reservations, environment mutation, GPU workload launch, RTL execution, and stage transition remain forbidden."
+    ]
+  },
+  "accepted_evidence": {
+    "original_binding": {
+      "path": "external/s7-owned-reservation-control-plane-binding.accepted.json",
+      "sha256": "7a6a44a763d4792d673b4d5f2464a94d19ec6c6408ecbbb2ee7837e45d99f0fa"
+    },
+    "consumed_connectivity_attempt": {
+      "path": "external/s7-node1-environment-preflight.connectivity-blocker.sanitized.json",
+      "sha256": "1caf909708ffc335abd87a99647ca7c71d8e26f07cb4796097e3fe649ddefeb7",
+      "external_reservation_connection_attempt_count": 1,
+      "ssh_return_code": 255,
+      "remote_command_started": false,
+      "control_plane_job_status": "Finalizing"
+    },
+    "review_disposition": {
+      "status": "replan_requested",
+      "reason": "The first connector-help probe emitted credential-bearing transient tool output, so the mission cannot establish its zero-token-leak acceptance condition."
+    }
+  },
+  "authority_boundary": {
+    "repeat_consumed_connection": false,
+    "replacement_reservation_submission": false,
+    "ssh_or_node1_preflight": false,
+    "gpu_or_s7_execution": false,
+    "port_1111": false,
+    "alternate_unbound_resource": false,
+    "rtl_or_host_implementation": false,
+    "stage_transition": false,
+    "v4_replay": false
+  }
+}

@@ -1,0 +1,122 @@
+{
+  "acceptance_thresholds": {
+    "applies_independently_to_both_models": true,
+    "c4_en_512_perplexity_ratio_max": 1.1,
+    "lm_eval_average_normalized_accuracy_drop_percentage_points_max": 3.0,
+    "lm_eval_individual_task_drop_percentage_points_max": 8.0,
+    "mission_local_not_project_final_emnlp_gate": true,
+    "wikitext2_perplexity_ratio_max": 1.1
+  },
+  "activation_quantization": {
+    "calibration_dataset": "c4_calibration",
+    "granularity": "static_per_linear_tensor_with_dynamic_per_token_per_head_rope_requantization",
+    "integer_max": 127,
+    "integer_min": -128,
+    "scale": "maximum_absolute_observed_bf16_value_divided_by_127",
+    "zero_point": 0
+  },
+  "arithmetic": {
+    "accumulator": "signed_int32_across_the_complete_projection_reduction",
+    "fixed_multiplier": "nearest_even(real_multiplier_times_2_to_right_shift), largest right_shift_in_0_to_63_with_signed_int32_multiplier",
+    "group_merge": "raw_int4_times_int8_products_accumulate_without_intermediate_rescaling_then_one_per_output_multiplier_and_shift_are_applied",
+    "output": "signed_int8",
+    "rounding": "round_to_nearest_ties_to_even",
+    "saturation": {
+      "maximum": 127,
+      "minimum": -128,
+      "point": "after_bias_and_group_merge"
+    }
+  },
+  "baseline": {
+    "comparison_scope": "each_contract_model_compared_only_to_its_own_bf16_control",
+    "dtype": "bfloat16",
+    "model_ids": [
+      "qwen2.5-0.5b-instruct",
+      "ace2-lora-v4-checkpoint-176"
+    ],
+    "model_repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "model_revision": "7ae557604adf67be50417f59c2c2f167def9a775"
+  },
+  "determinism": {
+    "datasets_seed": 20260729,
+    "numpy_seed": 20260729,
+    "python_seed": 20260729,
+    "torch_deterministic_algorithms": true,
+    "torch_seed": 20260729
+  },
+  "evaluation": {
+    "c4_en_512": {
+      "batch_size": 1,
+      "prompt_count": 64,
+      "sequence_length": 512
+    },
+    "lm_eval": {
+      "batch_size": 1,
+      "bootstrap_iters": 100000,
+      "limit_per_task": 64,
+      "log_samples": true,
+      "metric": "acc_norm,none",
+      "task_average": "unweighted_arithmetic_mean"
+    },
+    "wikitext2": {
+      "first_complete_windows": 64,
+      "sequence_length": 512,
+      "stride": 512
+    }
+  },
+  "full_model_scope": {
+    "attention_scale_derivation": {
+      "attention_value_output_scale": "v_projection_output_scale",
+      "o_projection_input_scale": "attention_value_output_scale",
+      "producer_scale": "normalized_nonzero_Scale32_per_q_or_k_projection_tensor",
+      "qk_basis_rotation": "none",
+      "rope_output_scale": "smallest_normalized_Scale32_greater_than_or_equal_to_producer_scale_times_wide_head_maximum_divided_by_127_times_2^15",
+      "score_requantization": "17_bit_pair_significand_round_even_q_sig_times_k_sig_divided_by_2^15_then_signed_50_bit_dot_product_round_shifted_by_9_minus_exponent_sum"
+    },
+    "fixed_point_layers": "all torch.nn.Linear modules including lm_head",
+    "nonlinear_and_normalization_path": "accepted integer RMSNorm, RoPE, attention score, softmax, attention value, SiLU-gate, residual-add, requantization, rounding, and saturation semantics",
+    "operator_formats": {
+      "attention_probability": "unsigned_int16_Q0.15",
+      "attention_score": "signed_int16_Q6.9",
+      "attention_score_requantization": "query_Scale32_plus_mapped_per_key_K_Scale32_with_17_bit_pair_significand_and_unsigned_6_bit_shift",
+      "rmsnorm_gain": "signed_int16_Q7.8_of_weight_divided_by_static_output_scale",
+      "rmsnorm_output": "signed_int8_static_per_rmsnorm_tensor",
+      "rope_input": "signed_int8_projection_payload_plus_ProducerScale32_immediate",
+      "rope_scale_metadata": "normalized_Scale32_per_token_per_64_lane_query_or_key_head",
+      "rope_sin_cos": "signed_int16_Q1.15",
+      "silu_input": "signed_int16_Q6.9",
+      "silu_lookup_output": "signed_int16_Q3.12"
+    },
+    "qk_basis_contract": {
+      "angle_degrees": null,
+      "command_flag_half_degree_units": null,
+      "exact_model_invariance": "standard_qwen_rope_basis_is_preserved_without_an_added_qk_basis_rotation",
+      "runtime_arithmetic_added": true,
+      "scope": "all_layers_all_query_and_kv_heads_dynamic_per_token_per_head_requantization"
+    },
+    "residual_scale": "static_per_residual_tensor_maximum_absolute_observed_bf16_value_divided_by_127",
+    "rmsnorm_output_contract": {
+      "derivation": "maximum_of_frozen_calibration_bf16_rmsnorm_output_absmax_divided_by_127_and_maximum_absolute_gain_times_2^8_divided_by_32767",
+      "downstream_propagation": "the_same_per_rmsnorm_output_scale_is_folded_into_signed_Q7.8_gain_metadata_and_used_to_derive_all_q_k_v_gate_up_and_lm_head_projection_metadata",
+      "rounding": "round_to_nearest_ties_to_even_after_q30_reciprocal_and_scaled_Q7.8_gain_product",
+      "saturation": "signed_int8_after_rounding",
+      "scale": "static_per_rmsnorm_tensor"
+    }
+  },
+  "schema_version": 1,
+  "software": {
+    "datasets": "4.8.5",
+    "lm_eval": "0.4.9.2",
+    "torch": "2.11.0",
+    "transformers": "4.57.6"
+  },
+  "weight_quantization": {
+    "granularity": "symmetric_per_output_channel_across_the_complete_projection_reduction",
+    "packing_group_size": 128,
+    "integer_max": 7,
+    "integer_min": -8,
+    "packing": "two_signed_int4_values_per_byte_low_nibble_first",
+    "scale": "maximum_absolute_bf16_weight_in_complete_output_reduction_divided_by_7",
+    "zero_point": 0
+  }
+}

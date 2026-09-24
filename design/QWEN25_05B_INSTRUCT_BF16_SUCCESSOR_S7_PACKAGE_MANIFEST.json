@@ -1,0 +1,38 @@
+{
+   "components" : [
+      {
+         "path" : "design/QWEN25_05B_INSTRUCT_BF16_SUCCESSOR_S7_DORA_SFT_DPO_SPECIFICATION_PACKAGE.json",
+         "role" : "frozen_s7_specification",
+         "sha256" : "c144781eda57946960453ac671501b2facb2a0dac8657b85efdfb5e65a86457a"
+      },
+      {
+         "path" : "tools/audit_bf16_successor_s7_specification.py",
+         "role" : "non_consuming_static_auditor",
+         "sha256" : "a36871025a41c109b2d776ff7e5e9a0a64dd40938e4641d6c78de18097612652"
+      }
+   ],
+   "consuming_state_created" : false,
+   "fresh_l2_status" : "PENDING",
+   "package_id" : "qwen2.5-0.5b-instruct-ace2-bf16-successor-s7-design-package-v1",
+   "package_status" : "FROZEN_PENDING_FRESH_L2_NO_AUTHORITY",
+   "schema_version" : 1,
+   "source_anchors" : [
+      {
+         "path" : "latest.json",
+         "sha256" : "ac0a0560b586fc371306d3a1500f9a69d66fece051e71748a22118434934df5c"
+      },
+      {
+         "path" : "research/FINAL_PRODUCT_CERTIFICATE.json",
+         "sha256" : "a5d1ea92dff045b1887c7bfb12f1c8985d1dbeb4f6c3be097e650fdfd3bd9537"
+      },
+      {
+         "path" : "design/QWEN25_05B_INSTRUCT_BF16_CATEGORY_BALANCED_CONFLICT_PROJECTED_SUCCESSOR_S6_CLEAN_ROOM_V2_DESIGN_FREEZE.json",
+         "sha256" : "99bc106c2738a5cdfcba52485d2e4b6f61dac41ea74202bd884f00168070d6d5"
+      },
+      {
+         "path" : "design/QWEN_INSTRUCT_OPTION_B_SOURCE_CONTRACT.json",
+         "sha256" : "0da7d95e92637e29c0369ce9aa9c8d0fe9d50802cf1144bc79095b129962576d"
+      }
+   ],
+   "stage" : "specification"
+}

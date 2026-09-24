@@ -1,0 +1,34 @@
+{
+  "amendment": {
+    "path": "reference/QK_BFP8_E16_HEAD64_V1_C02_SCORE_PATH_AUTHORITATIVE_AMENDMENT_V2.json",
+    "sha256": "ba78ea65ba764df0009132fe7e29b9e7d0e4ec92077e22ab9af318970eaa02bb"
+  },
+  "artifact_kind": "qk_bfp8_e16_head64_v1_c02_live_authority_surface_implementation_package_v2",
+  "claim_boundary": {
+    "accepted_invocation_execution_count": 0,
+    "authority_materialized": false,
+    "live_namespace_created": false,
+    "model_or_sealed_tensor_access_count": 0,
+    "status": "STATIC_ONLY_NO_EXECUTION_PERFORMED"
+  },
+  "implementation": {
+    "path": "tools/qk_bfp8_e16_head64_v1_c02_live_authority_surface_v2.py",
+    "sha256": "e3d049185fbe8f92fba084da87b262362fa8f89de39be178df92dbe8df9c5f36"
+  },
+  "package_id": "QK_BFP8_E16_HEAD64_V1_C02_LIVE_AUTHORITY_SURFACE_IMPLEMENTATION_PACKAGE_V2",
+  "schema_version": 2,
+  "static_verification": {
+    "builder": {
+      "path": "tools/build_qk_bfp8_e16_head64_v1_c02_authoritative_amendment_v2.py",
+      "sha256": "2ad81def5ef49a33156900065548d82a97b328a8be6a710eb31e7ac89d0cd7e4"
+    },
+    "checksum_manifest_path": "evidence/verification/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v2/SHA256SUMS",
+    "proof_path": "evidence/verification/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v2/static_synthetic_proof.json",
+    "review_request_path": "evidence/verification/qk-bfp8-e16-head64-v1-c02-live-authority-surface-v2/fresh_l2_review_request.json",
+    "verifier": {
+      "path": "tools/verify_qk_bfp8_e16_head64_v1_c02_authoritative_amendment_v2.py",
+      "sha256": "0359d769a23de8dcfb2729b9fcea762337dca7a963529fa0827c1308d3dd5e1a"
+    }
+  },
+  "status": "FROZEN_IMPLEMENTATION_NO_LIVE_AUTHORITY"
+}

@@ -1,18 +1,29 @@
-build/
+# Local agent and editor state
+.argus/
+.argus_subagents/
+.autors/
+.venv/
 __pycache__/
 *.py[cod]
-*.vvp
+
+# Generated builds, attempts, and raw evidence
+build/
+reports/
+out/
+work/
+*.log
 *.vcd
 *.fst
-*.log
-.venv/
-venv/
-.cache/
-.pytest_cache/
-.idea/
-.vscode/
-.DS_Store
-*.key
-*.pem
-*.token
+
+# Model artifacts
+*.safetensors
+*.bin
+*.pt
+*.pth
+
+# Credentials
 .env
+*.pem
+*.key
+credentials*
+secrets*

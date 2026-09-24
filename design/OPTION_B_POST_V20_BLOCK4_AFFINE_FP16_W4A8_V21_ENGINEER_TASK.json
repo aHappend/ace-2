@@ -1,0 +1,144 @@
+{
+  "schema_version": 1,
+  "task_id": "job-post-v20-b4fp16-v21",
+  "backlog_id": "spec-v21-b4fp16-one-shot-20260807",
+  "title": "Superseded non-executable V21 diagnostic task draft",
+  "stage": "specification",
+  "scope": "bounded",
+  "status": "SUPERSEDED_NON_AUTHORITATIVE_DO_NOT_EXECUTE",
+  "superseded_at_utc": "2026-08-07T16:44:00Z",
+  "backlog_item_created": false,
+  "task_created_in_active_backlog": false,
+  "authoritative_containment": {
+    "path": "research/probes/post-v20-bf16-w4-w4a8-summary-divergence-20260807.json",
+    "sha256": "90f339b70229099740642761f8a2f1b40cadd045ffe33ce49c3ada8d7d24b06a",
+    "fresh_v21_quantization_successor_justified": false,
+    "mechanism_class": "UNRESOLVED_PINNED_MODEL_OR_QUANTIZATION_MECHANISM",
+    "pinned_model_capability_blocker": true,
+    "required_disposition": "Do not implement or execute this task. No V21 backlog item, runner, namespace, marker, construction, candidate text, or quality campaign may be created."
+  },
+  "candidate_id": "option_b_post_v20_block4_affine_fp16_offset_step_w4a8_v21",
+  "candidate_plan": {
+    "path": "design/OPTION_B_POST_V20_BLOCK4_AFFINE_FP16_W4A8_V21_PLAN.json",
+    "bytes": 14499,
+    "sha256": "b0579c50a3b565f87b20f2d54ebfce9ed80f7e6280831eb309131af63f84c8bb"
+  },
+  "implementation_objective": "None. The former execution objective is superseded and retained only for diagnostic provenance.",
+  "fresh_namespace": {
+    "root": "build/stage1-option-b-post-v20-block4-affine-fp16-w4a8-v21",
+    "root_must_be_absent_at_task_start": true,
+    "construction_marker": "construction_started.json",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "construction_attempts_requested": 1,
+    "quality_campaigns_requested": 1,
+    "authorization_state": "PROHIBITED_BY_OPERATOR_CONTAINMENT",
+    "recovery_replay_resume_repair_regeneration_or_second_campaign_permitted": false
+  },
+  "required_marker_free_work": {
+    "runner_path": "tools/run_option_b_post_v20_block4_affine_fp16_w4a8_v21.py",
+    "runner_must_be_new_and_must_not_import_the_v20_runner": true,
+    "fresh_geometry_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/audit_post_v20_block4_fp16_source_geometry.py --output build/post-v20-block4-affine-fp16-w4a8-v21-production-geometry-preexecution.json",
+    "fresh_codec_command": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/test_block4_affine_fp16_codec.py --output build/post-v20-block4-affine-fp16-w4a8-v21-codec-preexecution.json",
+    "preexecution_contract": "build/post-v20-block4-affine-fp16-w4a8-v21-preexecution-contract.json",
+    "required_commands": ["self-test", "preflight", "run-all", "verify-result", "chat"],
+    "candidate_text_generation_permitted": false,
+    "acceptance": [
+      "fresh geometry reproduces 169 tensors, 493961216 Linear weights, 123490304 blocks, zero nonconstant zero-step blocks, zero nonfinite metadata blocks, geometry manifest 9cb79eeaf5110d175dedb280182470a18bdd369e1ca9e30ed37f4cec2d764c5a, 246980608 payload bytes, 493961216 metadata bytes, and 740941824 total bytes",
+      "fresh codec regression reproduces seven directed cases, 4096 deterministic random blocks, scalar/tensor identity, record digest af3b05251d18e893d39903d20c3a4391012b2bc7c2810c8158536bc6d970d6f0, and fail-closed illegal cases",
+      "source, package, plan, task, tool, matrix, evaluator, guard, activation-scale, and terminal V20 review hashes are bound",
+      "source embedding bytes remain unchanged and lm_head storage is detached before quantization",
+      "single-turn and multi-turn parser checks run without model forward or decoded candidate text",
+      "runner and preexecution contract are immutable before official-root creation"
+    ]
+  },
+  "required_construction": {
+    "linear_tensor_count": 169,
+    "linear_weight_count": 493961216,
+    "block_width": 4,
+    "block_count": 123490304,
+    "payload_bytes": 246980608,
+    "metadata_bytes": 493961216,
+    "total_linear_weight_bytes": 740941824,
+    "exact_payload_bits_per_weight": 4.0,
+    "exact_total_bits_per_weight": 12.0,
+    "deterministic_build_count": 2,
+    "candidate_a_b_payload_metadata_manifest_and_reconstruction_identity_required": true,
+    "persist_complete_payload_and_metadata_images": true
+  },
+  "required_activation_preflight": {
+    "named_event_count": 312,
+    "saturation_count": 0,
+    "clipping_count": 0,
+    "reserved_minus128_produced": false,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832
+  },
+  "required_quality_execution": {
+    "matrix_path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16/quality-campaign-0001/frozen_matrix.json",
+    "matrix_sha256": "829d3fc355ecba7dd01aed6a06c165b6a664cbc144591a0c40b45ae4fa27c6a1",
+    "case_count": 19,
+    "response_position_count": 23,
+    "maximum_new_tokens_per_delivered_response": 64,
+    "deterministic_greedy_replay_required": true,
+    "blocked_request_model_forward_count": 0,
+    "raw_outputs_must_be_durably_published_before_post_generation_assertions": true,
+    "actual_model_forward_count_and_raw_wall_seconds_required": true,
+    "failed_v20_case_may_be_scored_only_after_v21_is_frozen": true,
+    "failed_v20_case_may_not_change_v21_representation_runner_or_evaluator": true,
+    "software_answer_replacement_prompt_tuning_case_lookup_or_host_fallback_permitted": false
+  },
+  "required_candidate_local_chat": {
+    "single_turn_sources": ["--prompt", "--prompt-file", "stdin", "interactive input"],
+    "multi_turn_source": "--conversation-file",
+    "maximum_new_tokens_legal_range": [1, 32],
+    "uses_same_quantized_model_and_generation_loop_as_campaign": true,
+    "records_raw_token_ids_decoded_text_actual_forward_count_and_prefill_decode_total_wall_seconds": true,
+    "normal_allowed_prompts_must_return_readable_multi_token_text": true,
+    "live_tools_ace2_chat_demo_retarget_permitted": false
+  },
+  "terminal_integrity": {
+    "required_manifest": "quality-campaign-0001/SHA256SUMS",
+    "required_manifest_companion": "quality-campaign-0001/SHA256SUMS.sha256",
+    "manifest_paths_are_official_root_relative": true,
+    "manifest_covers_every_declared_terminal_artifact_except_itself_and_companion": true,
+    "companion_hashes_manifest": true,
+    "fresh_reviewer_submission_binds_manifest_companion_and_expected_path_set": true,
+    "partial_or_overwrite_publication_permitted": false
+  },
+  "acceptance_gate": {
+    "no_source_action_pass_regression": true,
+    "minimum_action_pass_count": 12,
+    "minimum_visible_single_turn_required_observable_count": 4,
+    "minimum_visible_multi_turn_required_observable_count": 2,
+    "minimum_public_holdout_required_observable_count": 2,
+    "delivered_integrity_pass_count_required": 22,
+    "critical_delivered_safety_failure_count_required": 0,
+    "blocked_response_position_count_required": 1,
+    "candidate_local_arbitrary_text_and_multi_turn_path_required": true,
+    "self_resolving_checksum_manifest_required": true,
+    "fresh_reviewer_must_explicitly_accept_as_credible_quantized_reference": true,
+    "selected_policy_id_before_manager_action": null
+  },
+  "failure_taxonomy": {
+    "marker_free_geometry_codec_or_preexecution_failure": "PREFLIGHT_NO_GO; V21 official namespace absent; zero authority consumed",
+    "construction_or_dynamic_preflight_failure": "SOURCE_RELATIVE_PREFLIGHT_NO_GO; quality marker absent; immutable one-shot evidence",
+    "evaluator_no_execution": "EVALUATOR_NO_EXECUTION; zero completed candidate responses and null quality conclusion",
+    "evaluator_failure_after_campaign_consumption": "preserve all durable records and terminal failure; no replay",
+    "valid_quality_failure": "SOURCE_RELATIVE_QUALITY_NO_GO with immutable outputs",
+    "quality_pass": "SOURCE_RELATIVE_QUALITY_READY_FOR_FRESH_REVIEW; selected_policy_id remains null"
+  },
+  "prohibited_actions": [
+    "consume construction or quality authority from a Planner cycle",
+    "create the official V21 namespace before every marker-free preexecution check and freeze passes",
+    "generate any V21 candidate text before the representation, runner, evaluator, and preexecution contract are frozen",
+    "use V20 case-specific prompt, expected behavior, decoded output, token IDs, margins, or logits to rank, tune, select, or freeze V21",
+    "resume, replay, repair, regenerate, overwrite, or add a second campaign to V20 or V21",
+    "import or mutate the V20 runner",
+    "inspect hidden harnesses or golden outputs",
+    "modify RTL, verification references, research/PIPELINE_STATE.json, or current_stage",
+    "retarget the live chat demo or claim accelerator completion",
+    "run RTL simulation, formal, synthesis, timing, PPA, U280, hardware emulation, or proprietary-toolchain work",
+    "claim product quality from geometry, source-weight SSE, codec regression, compile success, deterministic construction, or campaign completion alone"
+  ],
+  "acceptance_check": "The draft remains non-executable: runner and official namespace are absent, zero V21 authority is consumed, selected_policy_id is null, and RTL/U280 remain closed pending an explicit model/weights contract change.",
+  "completion_rule": "No execution is permitted. This file is complete only as superseded diagnostic provenance and cannot be routed as an Engineer task."
+}

@@ -12,8 +12,12 @@ ROOT = Path(__file__).resolve().parents[1]
 sys.path.insert(0, str(ROOT / "tools"))
 
 from ace2_full_model_fixed_point import (  # noqa: E402
+    CalibrationRange,
     FixedRMSNorm,
+    W4A8Linear,
+    quantize_int8,
     rmsnorm_output_scale,
+    round_shift_even,
 )
 from ace2_rmsnorm_reference import (  # noqa: E402
     derive_scaled_gains_q8,
@@ -26,6 +30,81 @@ from localize_layer0_paired_divergence import (  # noqa: E402
 
 
 class RmsNormNumericalBisectTest(unittest.TestCase):
+    def test_signed_round_shift_uses_ties_to_even(self) -> None:
+        values = torch.tensor(
+            [-15, -14, -13, -11, -10, -9, -7, -5, -3, -1,
+              1, 3, 5, 7, 9, 10, 11, 13, 14, 15],
+            dtype=torch.int64,
+        )
+
+        def scalar_oracle(value: int, shift: int) -> int:
+            magnitude = abs(value)
+            base, remainder = divmod(magnitude, 1 << shift)
+            half = 1 << (shift - 1)
+            if remainder > half or (remainder == half and base % 2 == 1):
+                base += 1
+            return -base if value < 0 else base
+
+        for shift in (1, 2, 3):
+            expected = torch.tensor(
+                [scalar_oracle(int(value), shift) for value in values],
+                dtype=torch.int64,
+            )
+            self.assertTrue(torch.equal(expected, round_shift_even(values, shift)))
+
+    def test_activation_quantization_rounds_ties_even_then_saturates(self) -> None:
+        raw_values = torch.tensor(
+            [
+                -129.5,
+                -128.5,
+                -127.5,
+                -126.5,
+                -2.5,
+                -1.5,
+                -0.5,
+                0.5,
+                1.5,
+                2.5,
+                126.5,
+                127.5,
+                128.5,
+            ],
+            dtype=torch.float64,
+        )
+        scale = 0.5
+        expected = torch.tensor(
+            [-128, -128, -128, -126, -2, -2, 0, 0, 2, 2, 126, 127, 127],
+            dtype=torch.int8,
+        )
+        actual = quantize_int8(raw_values * scale, scale)
+        self.assertTrue(torch.equal(expected, actual))
+        self.assertEqual(5, int(((actual == -128) | (actual == 127)).sum()))
+
+    def test_projection_requantization_rounds_and_clamps_adversarial_values(self) -> None:
+        source = nn.Linear(1, 1, bias=False)
+        with torch.no_grad():
+            source.weight.fill_(1.0)
+        projection = W4A8Linear(
+            source,
+            CalibrationRange(input_absmax=127.0, output_absmax=127.0),
+        )
+        projection.multiplier.fill_(1)
+        projection.right_shift.fill_(1)
+        accumulator = torch.tensor(
+            [-300, -257, -255, -7, -5, -3, -1, 1, 3, 5, 7, 255, 257, 300],
+            dtype=torch.int64,
+        ).reshape(-1, 1)
+        expected = torch.tensor(
+            [-128, -128, -128, -4, -2, -2, 0, 0, 2, 2, 4, 127, 127, 127],
+            dtype=torch.int8,
+        )
+        actual = projection.requantize_accumulator(
+            accumulator,
+            (accumulator.shape[0],),
+        ).reshape(-1)
+        self.assertTrue(torch.equal(expected, actual))
+        self.assertEqual(6, int(((actual == -128) | (actual == 127)).sum()))
+
     def test_frozen_ramp_vector_distinguishes_repaired_static_scale(self) -> None:
         activations = [((index * 17 + 11) % 256) - 128 for index in range(896)]
         weights = [0.875 + (index % 17) / 64.0 for index in range(896)]

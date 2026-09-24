@@ -1,0 +1,209 @@
+{
+  "schema_version": 2,
+  "version": "2.0",
+  "kind": "frozen_pre_official_mission_contract_v2",
+  "mission_id": "extend-two-token-24layer-rtl-stack",
+  "frozen_at_utc": "2026-08-11T17:16:43Z",
+  "supersedes": {
+    "version": "1.0",
+    "sha256": "2caef52f957b2973d4f509e45d6d965c885434f2153a20cfe7b8e3d867ea5577",
+    "reason": "mission-specific specification and benchmark-interface closure plus privacy-safe preview metadata"
+  },
+  "claim_boundary": "exact two-position execution through Qwen2.5-0.5B-Instruct transformer layers 0 through 23 using the canonical LoRA V4 checkpoint-176 and maintained ACE-2 W4A8 RTL operator path; final RMSNorm, LM head, token generation, readable chat, full Stage 1, FPGA/U280, synthesis/PPA, routed timing, and accelerator-latency claims are excluded",
+  "normative_contracts": {
+    "specification": {
+      "path": "design/SPEC.md",
+      "bytes": 15063,
+      "sha256": "eee44dd1f777b608c2a36662c36937c7a46aa6b29d8ae30eab69f3663ad0abc0",
+      "version": "2.0"
+    },
+    "benchmark_interface": {
+      "path": "design/BENCHMARK_INTERFACE.json",
+      "bytes": 29042,
+      "sha256": "a7cf9c7b7b8d68d1b24501026c90919abe2583efd17787e465f93f2542579fe9",
+      "version": "2.0"
+    },
+    "runner": {
+      "path": "tools/run_lora_v4_two_token_24layer_rtl.py",
+      "bytes": 23337,
+      "sha256": "ce587ae28ae550c83e958a2264edcdd8ecb9717e629093141d2fb5b617aef0eb"
+    },
+    "composition_rule": "SPEC.md and BENCHMARK_INTERFACE.json are co-normative. The specification defines the 24-layer schedule and acceptance; the interface directly enumerates exact declarations, semantic ranges, reset values, handshake rules, scenarios, and cycle/transaction expectations."
+  },
+  "benchmark_applicability": {
+    "applies": false,
+    "classification": "non_benchmark_bounded_24layer_rtl_reproduction",
+    "statement": "No external accelerator benchmark, hidden harness, hidden golden, score, ranking, or third-party performance contract applies. Acceptance is exact local RTL agreement with an independently implemented fixed-point golden."
+  },
+  "accepted_parent": {
+    "mission_id": "extend-layer0-two-token-kv-rtl",
+    "fresh_l2_status": "accepted",
+    "v2_specification": {
+      "path": "design/LORA_V4_LAYER0_TWO_TOKEN_KV_FULL_SPEC_V2.md",
+      "sha256": "e13a6cd8656691ae8476e5ea06b7e12b620d04f6b7de5f8340da2bbfc75973d2"
+    },
+    "v2_interface": {
+      "path": "design/LORA_V4_LAYER0_TWO_TOKEN_KV_FULL_INTERFACE_V2.json",
+      "sha256": "104afaf2af51945bdb469da841713a8bc2df82f578bfe0bf1ca5037e38512c33"
+    },
+    "v2_runner": {
+      "path": "tools/run_lora_v4_layer0_two_token_kv_full_rtl_v2.py",
+      "sha256": "58e5537af58e0820b75bfbb91889b8b98025ea5295780c21b10f8e684f981d4e"
+    },
+    "repair_contract": {
+      "path": "evidence/verification/lora-v4-layer0-two-token-kv-full-v1/repair-0002-contract.json",
+      "sha256": "c112e751419e7e5c224c3f027c39441f8ae2a924b089ad6e211b79119f7cbc35"
+    },
+    "fresh_l2_attempt_sha256s": {
+      "path": "evidence/verification/lora-v4-layer0-two-token-kv-full-v1/attempt-0002/SHA256SUMS",
+      "sha256": "7b27e7f9d93777b5015094579495342f0d5b19e013b7e74255c4a953a7dd5d05",
+      "members": 143
+    },
+    "preserved_attempt_0001_sha256s": {
+      "path": "evidence/verification/lora-v4-layer0-two-token-kv-full-v1/attempt-0001/SHA256SUMS",
+      "sha256": "8a9eca9fc23a6ed40c9faa18e76dd01ef6e0587472e0488de92aa625db7a09aa",
+      "members": 143
+    },
+    "mutate_parent_evidence": false
+  },
+  "preserved_preview": {
+    "path": "build/lora-v4-two-token-24layer-rtl-preview/preflight-0001",
+    "sha256s_sha256": "1bf58cee203e05b4dae4012a1955f66e207d169c5fae80172df23fe4ba549438",
+    "sealed_members": 2,
+    "mutate": false,
+    "status": "PASS_24LAYER_PREFLIGHT_READBACK_PREDECESSOR"
+  },
+  "canonical_checkpoint": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "base_model_artifact_alias": "canonical-source/model.safetensors",
+    "base_model_sha256": "fdf756fa7fcbe7404d5c60e26bff1a0c8b8aa1f72ced49e7dd0210fe288fb7fe",
+    "adapter_path": "build/qwen2.5-0.5b-instruct-ace2-bf16-lora-product-v4/attempt-0001/checkpoints/checkpoint-176/adapter_model.safetensors",
+    "adapter_sha256": "c9476d6ccc687a4d68de1951eb889b689daaf9c5d3822b4c5acfc26a1cd38a28",
+    "checkpoint_tree_sha256": "8cee9b9343e49b66ee2ea427578f87335ffa259919356cdd119cd8712ff7eeee",
+    "lora_rank": 16,
+    "lora_alpha": 32,
+    "merge_rule": "merged_f32 = base_bf16_as_f32 + (lora_alpha / lora_rank) * (lora_B_f32 @ lora_A_f32)",
+    "quality_claim_boundary": "LoRA V4 quality NO-GO remains in force; stock-weight substitution is forbidden"
+  },
+  "fixed_input": {
+    "sequence_alias": "canonical_lora_v4_two_position_sequence",
+    "token_ids": [5576, 12, 17, 467, 19, 32, 23, 6193, 36929, 29295, 33085, 13],
+    "selected_positions": [0, 1],
+    "selected_token_ids": [5576, 12],
+    "literal_input_text_persisted": false,
+    "causal_order": "position 0 completes each layer cache publication before position 1 consumes that layer's position-0 K/V"
+  },
+  "privacy": {
+    "literal_input_fields_allowed": false,
+    "host_absolute_artifact_paths_allowed": false,
+    "external_artifact_path_policy": "stable_logical_alias_plus_content_hash",
+    "preview_metadata_must_match_policy": true
+  },
+  "architecture": {
+    "layers": 24,
+    "layer_ids": [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15, 16, 17, 18, 19, 20, 21, 22, 23],
+    "hidden": 896,
+    "intermediate": 4864,
+    "query_heads": 14,
+    "kv_heads": 2,
+    "head_dim": 64,
+    "grouped_query_mapping": "kv_head = query_head // 7",
+    "projection_order": ["q", "k", "v", "o", "gate", "up", "down"],
+    "operator_order_per_layer": ["input_rmsnorm", "q_proj", "k_proj", "v_proj", "rope_q", "rope_k", "attention_score", "softmax", "attention_value", "o_proj", "attention_residual_add", "post_attention_rmsnorm", "mlp_gate_proj", "mlp_up_proj", "silu_gate", "mlp_down_proj", "mlp_residual_add"],
+    "distinct_kv_cache_per_layer": true,
+    "carry_both_position_hidden_states_between_layers": true,
+    "final_rmsnorm_executed": false,
+    "lm_head_executed": false
+  },
+  "quantization": {
+    "projection_weight": "signed W4 symmetric per output channel absmax/7",
+    "projection_weight_rounding": "round-to-nearest ties-to-even then clamp to [-8,7]",
+    "projection_accumulator": "signed int32 complete reduction",
+    "operator_activation_and_cache": "signed A8/int8",
+    "residual": "common-scale signed-int8 saturating add",
+    "rope": "theta 1000000 with maintained Q9 activation-scale and Q15 cosine/sine split-half semantics",
+    "rounding": "round-to-nearest ties-to-even",
+    "saturation": "explicit signed-width clamp with mismatch-fatal expected value",
+    "weight_projection_count": 168,
+    "logical_w4_weight_count": 357826560,
+    "packed_w4_payload_bytes": 178913280
+  },
+  "public_interface": {
+    "mission_specific_exact_interface_path": "design/BENCHMARK_INTERFACE.json",
+    "mission_specific_exact_interface_sha256": "a7cf9c7b7b8d68d1b24501026c90919abe2583efd17787e465f93f2542579fe9",
+    "direct_declarations_present": true,
+    "allowed_layer_id_range": [0, 23],
+    "compatibility_aliases_allowed": false,
+    "wrapper_port_substitution_allowed": false
+  },
+  "protocol_and_scenario_contract": {
+    "clock_reset_handshake_latency_normative": true,
+    "normal_boundary_illegal_reset_stall_recovery_matrix_normative": true,
+    "source": "design/BENCHMARK_INTERFACE.json",
+    "exact_aggregate_simulator_cycles": 709971648,
+    "classification": "family_local_simulator_cycles_not_accelerator_latency"
+  },
+  "evaluator_policy": {
+    "independent_python_fixed_point_required": true,
+    "integer_mismatch_max": 0,
+    "projection_channels_per_layer": 25344,
+    "projection_channels_total": 608256,
+    "kv_cache_bytes_per_layer": 512,
+    "kv_cache_bytes_total": 12288,
+    "final_layer23_hidden_bytes_both_positions": 1792,
+    "compare_projection_accumulators": true,
+    "compare_every_operator_boundary": true,
+    "compare_every_layer_residual_output": true,
+    "compare_every_layer_cache_byte": true,
+    "position1_uses_position0_cache_layer_count": 24,
+    "nonzero_cached_attention_contribution_required_layer_count": 24,
+    "cached_v_removal_effect_required_layer_count": 24,
+    "float_fidelity_threshold": null,
+    "compile_only_pass_allowed": false,
+    "evaluator_no_execution_classification": "NO_EXECUTION_NO_RTL_CONCLUSION"
+  },
+  "rtl_sources": {
+    "projection": {"path": "rtl/ace2_w4a8_proj_core.sv", "sha256": "e4e7ff9d458ae823728669ae0a53ba650dbb0633d28c613347e4af2e1e198dfe"},
+    "rmsnorm": {"path": "rtl/ace2_rmsnorm_core.sv", "sha256": "b09fe7073fd6509f0ca83d5b0982b1952aa624d4883631690df35c0bfabb014d"},
+    "rope": {"path": "rtl/ace2_rope_core.sv", "sha256": "e5feff02169c5f58b81bfd44350380f6074ca0cbbedf536a0744d8c2f663f3c8"},
+    "score": {"path": "rtl/ace2_attention_score_core.sv", "sha256": "400234b1f5b28f379792d5c1e023adc3f2c81e7bea825d5f7683bdc6ccd1dd55"},
+    "softmax": {"path": "rtl/ace2_softmax_core.sv", "sha256": "33b76b6a840111bf17f3c5324b6c2f71f1ca1a6ca29a67746fc92ffa53043ea6"},
+    "compose": {"path": "rtl/ace2_attention_compose_core.sv", "sha256": "33ca20e48a6f9eb8f93874e95c8e8b73a48c00e435693b84d4a5915da7ca78ff"},
+    "silu": {"path": "rtl/ace2_silu_gate_core.sv", "sha256": "ace98af2654bb2ea0ccb256e55ee6d755ff4bc34d0fe0d2cdeff6dcd581199ae"},
+    "shell": {"path": "rtl/ace2_shell.sv", "sha256": "1325b0fa8993f5d760d38ad15bff0065088eeb3e894fda431e5cdcad0a614bb9"}
+  },
+  "toolchain": {
+    "python": "3.13.5",
+    "torch": "2.11.0+cu130",
+    "safetensors": "0.8.0",
+    "transformers": "4.57.6",
+    "iverilog": "11.0 (stable)",
+    "vvp": "11.0 (stable)",
+    "execution_device": "cpu",
+    "gpu_required": false
+  },
+  "namespaces": {
+    "preview_root": "build/lora-v4-two-token-24layer-rtl-preview",
+    "preserve_preflight_0001": true,
+    "new_preview_namespace_required": true,
+    "official_root": "evidence/verification/lora-v4-two-token-24layer-rtl-v1",
+    "first_official_attempt": "attempt-0001",
+    "first_official_attempt_immutable": true,
+    "repair_attempts_separate": true
+  },
+  "commands": {
+    "preflight": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_lora_v4_two_token_24layer_rtl.py --preflight",
+    "preflight_readback": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_lora_v4_two_token_24layer_rtl.py --check-preflight",
+    "prepare": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_lora_v4_two_token_24layer_rtl.py --prepare",
+    "run": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_lora_v4_two_token_24layer_rtl.py --run",
+    "check": "PYTHONDONTWRITEBYTECODE=1 .venv/bin/python tools/run_lora_v4_two_token_24layer_rtl.py --check"
+  },
+  "official_attempt_gate": {
+    "status": "LOCKED_PENDING_PREVIEW_PREPARE_RUN_CHECK_CLOSURE",
+    "preview_may_consume_official_attempt": false,
+    "specification_closure_unlocks_execution": false,
+    "official_run_before_complete_source_and_artifact_hash_freeze": false,
+    "independent_review_required_for_mission_acceptance": true
+  }
+}

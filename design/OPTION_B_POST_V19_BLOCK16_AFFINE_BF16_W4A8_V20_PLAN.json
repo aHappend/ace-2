@@ -1,0 +1,198 @@
+{
+  "schema_version": 1,
+  "candidate_id": "option_b_post_v19_block16_affine_bf16_offset_step_w4a8_v20",
+  "created_at_utc": "2026-08-07T15:22:21Z",
+  "stage": "specification",
+  "status": "FROZEN_AWAITING_MANAGER_AUTHORIZATION",
+  "objective": "Execute one fresh, separately authorized corrected-geometry successor to terminal V19, preserving the output-blind block16 affine BF16 W4A8 representation while proving complete production geometry before any exactly-once marker, then subject the immutable candidate to the unchanged source-relative and arbitrary-text product-quality gates.",
+  "predecessor_closure": {
+    "candidate_id": "option_b_post_e248_block16_affine_bf16_offset_step_w4a8_v1",
+    "terminal_status": "SOURCE_RELATIVE_PREFLIGHT_NO_GO",
+    "failure_taxonomy": "CANDIDATE_PREFLIGHT_FAILURE",
+    "fresh_reviewer_record": {
+      "path": "research/raw/specification/v19-block16-affine-bf16-construction-preflight-no-go-review-replan-20260807T151344Z.json",
+      "bytes": 5234,
+      "sha256": "ed38ca11690bf8f69864e47cab6accb081f638b1cfafcda8bc9aefb5bb3fe28e"
+    },
+    "sealed_namespace": "build/stage1-option-b-post-e248-block16-affine-bf16-w4a8-v1",
+    "construction_attempts_consumed": 1,
+    "quality_campaigns_consumed": 0,
+    "candidate_a_manifest_exists": false,
+    "candidate_text_or_token_output_generated": false,
+    "prohibited": "Do not modify, replay, resume, repair, regenerate, verify again, or add checkpoint machinery to V19. Its official namespace and Fresh Reviewer closure are immutable."
+  },
+  "fresh_identity": {
+    "task_id": "job-post-v19-b16bf16-v20",
+    "mission_label": "post-v19-block16-affine-bf16-w4a8-v20",
+    "official_root": "build/stage1-option-b-post-v19-block16-affine-bf16-w4a8-v20",
+    "construction_marker": "construction_started.json",
+    "quality_campaign": "quality-campaign-0001",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "namespace_must_be_absent_before_all_non_consuming_preexecution_checks": true,
+    "namespace_existed_when_this_plan_was_frozen": false
+  },
+  "production_geometry_fixture": {
+    "tool": {
+      "path": "tools/audit_post_v19_block16_geometry.py",
+      "bytes": 8741,
+      "sha256": "861b5072f0c2a9a38f1f2eb068a206dfa4ba5455b3c3b364704d00208fba62f4"
+    },
+    "result": {
+      "path": "research/probes/post-v19-block16-full-production-geometry-20260807.json",
+      "bytes": 63160,
+      "sha256": "9aa96f2269ef70db320af348647f6b4bc029f5421d28f17c4a7cc29c1d4e28eb",
+      "status": "PASS_NON_CONSUMING_FULL_169_TENSOR_PRODUCTION_GEOMETRY",
+      "geometry_manifest_sha256": "72f7f78f08b8dac134bee45a69dd60514e79856d7e6e3b35d658a6c2c7edab9c"
+    },
+    "derivation": "Load the pinned local source model in BF16, enumerate every production nn.Linear module, require 169 unique modules ending in lm_head, require every input width divisible by 16, and aggregate rows times width and rows times width/16 without tokenizer use, model forwards, candidate construction, or marker creation.",
+    "frozen_totals": {
+      "linear_tensor_count": 169,
+      "linear_weight_count": 493961216,
+      "block_weights": 16,
+      "metadata_record_count": 30872576,
+      "four_bit_payload_bytes": 246980608,
+      "metadata_bytes_per_record": 4,
+      "metadata_bytes": 123490304,
+      "total_linear_weight_bytes": 370470912,
+      "exact_total_bits_per_weight": 6.0
+    },
+    "required_arithmetic": [
+      "493961216 / 16 = 30872576 records",
+      "30872576 * 4 = 123490304 metadata bytes",
+      "493961216 * 4 / 8 = 246980608 payload bytes",
+      "246980608 + 123490304 = 370470912 total bytes"
+    ],
+    "mandatory_pre_marker_rerun": "Before creating the V20 official root or any construction marker, the Engineer must rerun this exact fixture to a fresh non-official output, reproduce the same source identities, package versions, tensor list geometry_manifest_sha256, and frozen totals, and bind that rerun into the preexecution contract. Any mismatch is a marker-free PREFLIGHT_NO_GO."
+  },
+  "source_model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "local_files_only": true,
+    "dtype": "BF16",
+    "embedding_rule": "Preserve source BF16 embedding bytes. Detach lm_head storage before quantizing any Linear weight so source embedding and candidate lm_head cannot alias."
+  },
+  "representation": {
+    "scope": "all 169 Linear tensors including a detached lm_head; source embedding and non-Linear tensors remain BF16",
+    "block_order": "row-major output row, then contiguous 16-weight input block, then input lane",
+    "payload": "one unsigned uint4 code per weight; earlier flat element in low nibble, later element in high nibble",
+    "metadata_record": "one little-endian BF16 minimum offset followed by one little-endian BF16 affine step per row-local 16-weight block",
+    "construction": "For each source BF16 block, round the minimum to BF16 offset; compute (maximum - decoded offset)/15 and round it to BF16 step, with zero step and zero codes for a constant block; otherwise round-to-nearest-ties-to-even the normalized code and clamp to 0..15.",
+    "executable_decode": "BF16(FP32(BF16 offset) + uint4 code * FP32(BF16 step))",
+    "stochastic_rounding_calibration_prompt_ranking_output_tuning_sparse_exceptions_or_case_lookup_permitted": false
+  },
+  "memory_and_accelerator_facing_contract": {
+    "abstract_memory_data_bits": 128,
+    "payload_stream": "contiguous row-major packed nibbles with no per-row padding; base and total length 16-byte aligned",
+    "metadata_stream": "contiguous offset_u16_le,step_u16_le pairs with no per-block or per-row padding; base and total length 16-byte aligned",
+    "row_geometry": "Four 16-weight blocks consume 32 payload bytes plus 16 metadata bytes, exactly 48 bytes or three 128-bit beats for 64 weights.",
+    "claim_boundary": "This is exact byte-traffic arithmetic, not measured RTL latency, throughput, timing, area, power, hardware emulation, or board evidence.",
+    "later_agreement_gate": "An accepted quantized reference and accelerator package must bind identical payload and metadata stream hashes, identical decoded BF16 hashes for all 169 tensors, and cycle-accurate per-command token/output agreement. This plan does not open RTL."
+  },
+  "activation_policy": {
+    "policy": "inherited authenticated grouped Dynamic Scale32 activation quantization",
+    "base_scales": {
+      "path": "evidence/verification/qwen2.5-0.5b-instruct-w4a8-calibration-v1/derived_scales.json",
+      "sha256": "cb99f71eeca54dbbc1a703dbcde4a9f3e7868ea317b0734addbf1a45d19b07ca"
+    },
+    "named_event_count": 312,
+    "saturation_or_clipping_permitted": 0,
+    "reserved_minus128_activation_payload_permitted": false,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832
+  },
+  "matrix_and_delivery": {
+    "matrix": {
+      "path": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v16/quality-campaign-0001/frozen_matrix.json",
+      "sha256": "829d3fc355ecba7dd01aed6a06c165b6a664cbc144591a0c40b45ae4fa27c6a1",
+      "case_count": 19,
+      "response_position_count": 23
+    },
+    "decode": "deterministic greedy argmax, no sampling, use_cache=true",
+    "maximum_new_tokens_per_delivered_response": 64,
+    "blocked_action": "BLOCKED_NO_ANSWER before tokenization or model forward",
+    "delivered_answer_rule": "Every allowed visible answer is exact decoded output from the executable V20 quantized reference; software answer replacement, host fallback, prompt rewriting, case lookup, or post-output tuning is forbidden."
+  },
+  "candidate_local_chat_contract": {
+    "required_before_authority_consumption": true,
+    "single_turn_sources": [
+      "--prompt TEXT",
+      "--prompt-file PATH",
+      "non-interactive UTF-8 stdin",
+      "interactive User: input"
+    ],
+    "multi_turn_source": "--conversation-file PATH containing one validated alternating messages array ending in user",
+    "maximum_new_tokens_range": [
+      1,
+      32
+    ],
+    "required_output": "exact decoded UTF-8 model text, raw token IDs, actual model-forward count, and measured wall seconds; normal allowed prompts must return readable multi-token text",
+    "execution_boundary": "The command is candidate-local after runner and preexecution hashes freeze. Its output cannot be used to modify V20. The live tools/ace2_chat_demo.py path remains unchanged until Fresh Reviewer acceptance and Manager routing."
+  },
+  "preexecution_closure": {
+    "runner_path": "tools/run_option_b_post_v19_block16_affine_bf16_w4a8_v20.py",
+    "required_commands": [
+      "self-test",
+      "preflight",
+      "run-all",
+      "verify-result",
+      "chat"
+    ],
+    "preexecution_contract_path": "build/post-v19-block16-affine-bf16-w4a8-v20-preexecution-contract.json",
+    "required_non_consuming_checks": [
+      "fresh V20 namespace and all V20 markers absent",
+      "full 169-tensor production geometry fixture rerun with exact tensor manifest and totals",
+      "Python syntax and import closure",
+      "constant, asymmetric, negative-offset, code-edge, metadata-rounding, nibble-order, byte-order, and exact-decode codec vectors",
+      "source embedding/lm_head alias separation",
+      "output-blind source-weight reproduction without tokenization or text generation",
+      "matrix, evaluator, guard, source, activation-scale, and predecessor-review hashes",
+      "candidate-local single-turn and multi-turn parser validation without model output generation"
+    ],
+    "runner_or_contract_change_after_preexecution_freeze_permitted": false,
+    "v19_runner_import_or_mutation_permitted": false
+  },
+  "requested_fresh_authority": {
+    "authorization_status": "NOT_GRANTED_BY_PLANNER_AWAITING_MANAGER",
+    "construction_attempts_requested": 1,
+    "quality_campaigns_requested": 1,
+    "recovery_replay_resume_repair_regeneration_or_second_campaign_permitted": false,
+    "planner_may_consume_authority": false,
+    "authority_consuming_command_may_run_in_planner_cycle": false
+  },
+  "acceptance_gate": {
+    "deterministic_full_constructions_required": 2,
+    "candidate_a_and_b_manifest_payload_metadata_and_reconstruction_identity_required": true,
+    "exact_geometry_and_byte_accounting_required": true,
+    "no_regression_of_any_source_action_pass": true,
+    "minimum_action_pass_count": 12,
+    "minimum_visible_single_turn_required_observable_count": 4,
+    "minimum_visible_multi_turn_required_observable_count": 2,
+    "minimum_public_holdout_required_observable_count": 2,
+    "delivered_integrity_pass_count_required": 22,
+    "critical_delivered_safety_failure_count_required": 0,
+    "blocked_response_position_count_required": 1,
+    "deterministic_candidate_replay_required": true,
+    "candidate_local_arbitrary_text_and_multi_turn_chat_required": true,
+    "fresh_reviewer_acceptance_required": "Fresh Reviewer must verify immutable evidence, manually adjudicate raw diverse outputs, exercise or inspect the arbitrary-text path, find no source-passing regression or critical safety failure, and explicitly accept V20 as the credible quantized reference.",
+    "selected_policy_id_before_manager_action": null
+  },
+  "failure_taxonomy": {
+    "marker_free_geometry_or_preexecution_failure": "PREFLIGHT_NO_GO with zero authority consumed and V20 official namespace absent",
+    "construction_or_dynamic_preflight_failure_after_marker": "SOURCE_RELATIVE_PREFLIGHT_NO_GO; quality marker absent; immutable one-shot evidence",
+    "evaluator_no_execution": "EVALUATOR_NO_EXECUTION with zero completed candidate responses and null quality conclusion",
+    "evaluator_failure_after_campaign_consumption": "Preserve every durable response and terminal failure; no replay",
+    "valid_quality_failure": "SOURCE_RELATIVE_QUALITY_NO_GO with immutable outputs",
+    "quality_pass": "SOURCE_RELATIVE_QUALITY_READY_FOR_FRESH_REVIEW; selected_policy_id remains null until Fresh Reviewer and Manager action"
+  },
+  "public_interface_and_stage_closure": {
+    "external_benchmark_applies": false,
+    "public_top_module": "ace2_shell",
+    "public_interface_change_permitted": false,
+    "clock_reset_or_protocol_change_permitted": false,
+    "this_plan_may_modify_rtl": false,
+    "this_plan_may_modify_verification_references": false,
+    "this_plan_may_modify_research_pipeline_state": false,
+    "this_plan_may_run_simulation_formal_synthesis_timing_ppa_u280_or_hardware_emulation": false,
+    "this_plan_may_retarget_live_chat_demo": false,
+    "current_stage_remains": "specification"
+  }
+}

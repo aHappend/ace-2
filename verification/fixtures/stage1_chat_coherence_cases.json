@@ -1,0 +1,53 @@
+{
+  "cases": [
+    {
+      "accepted": false,
+      "id": "sealed-postparser-pair",
+      "prompt": "Why do registers store state?",
+      "response": "تون Automationús龢",
+      "token_ids": [
+        135564,
+        53778,
+        33762,
+        123781
+      ]
+    },
+    {
+      "accepted": false,
+      "id": "generalized-mixed-script-non-answer",
+      "prompt": "Why do counters advance?",
+      "response": "Clouds 计数 drift вперед",
+      "token_ids": [
+        11,
+        12,
+        13,
+        14
+      ]
+    },
+    {
+      "accepted": false,
+      "id": "same-script-semantic-non-answer",
+      "prompt": "Why do registers store state?",
+      "response": "Clouds drift over mountains",
+      "token_ids": [
+        21,
+        22,
+        23,
+        24
+      ]
+    },
+    {
+      "accepted": true,
+      "id": "prompt-responsive-short-answer",
+      "prompt": "Why do registers store state?",
+      "response": "Registers retain circuit state",
+      "token_ids": [
+        31,
+        32,
+        33,
+        34
+      ]
+    }
+  ],
+  "schema_version": 1
+}

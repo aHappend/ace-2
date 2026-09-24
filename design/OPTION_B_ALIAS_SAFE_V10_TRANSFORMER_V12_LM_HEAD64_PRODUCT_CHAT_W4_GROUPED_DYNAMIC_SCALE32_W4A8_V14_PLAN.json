@@ -1,0 +1,136 @@
+{
+  "schema_version": 1,
+  "contract_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v14",
+  "candidate_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v14",
+  "created_at_utc": "2026-08-07T06:05:21Z",
+  "status": "frozen_not_started",
+  "stage": "specification",
+  "selected_policy_id": null,
+  "replacement_reason": {
+    "failure_taxonomy": "CONSTRUCTION_OR_CODEC_FAILURE",
+    "summary": "V13 consumed its fresh construction marker and terminated with KeyError 'selector' before full-model construction. Its quality campaign never started. The corrected algorithm has different source hashes and only tensor-1 diagnostic evidence, so V13 cannot be resumed or repaired in place.",
+    "acceptance_contract_changed": false,
+    "representation_changed": false,
+    "quality_matrix_changed": false,
+    "generation_contract_changed": false
+  },
+  "terminal_predecessor": {
+    "mission_id": "9f4ab32999cc",
+    "candidate_id": "option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v13",
+    "task_id": "task-6b8d1f4a2c73",
+    "status": "PRODUCT_PREFLIGHT_NO_GO",
+    "construction_marker": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v13/construction_started.json",
+    "construction_marker_sha256": "be54b2bfd782cbda0776c4f9c33ea557e134d72dc552d7273bdc96bb6e6c27d9",
+    "terminal_record": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v13/PRODUCT_PREFLIGHT_NO_GO.json",
+    "terminal_record_sha256": "8dcb494e89e1e199206cfcb337671bd1b9cb39454f23132697326aaf1ac7f90c",
+    "review_record": "research/raw/specification/v13-product-quality-construction-no-go-review-replan-20260807T060033Z.json",
+    "review_record_sha256": "1299a3a26675f7ec82e76d12a38f3ec6bba43d9bc74a3759b7628fca1effdd64",
+    "quality_campaign_started": false,
+    "quality_conclusion": null,
+    "selected_policy_id": null,
+    "replay_resume_or_repair_permitted": false
+  },
+  "inherited_v13_acceptance_contract": {
+    "path": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V13_PLAN.json",
+    "sha256": "aa3fc2797b27c2227588f2573d9aebe924fa385baee298ea99b69912c95a3603",
+    "acceptance_changes": [],
+    "inheritance_rule": "The named sections are inherited byte-semantically from the hash-bound V13 plan. V14 changes only execution authority, source bindings, task identity, and namespace.",
+    "sections": {
+      "weight_policy": "bb82b8d89946ab2e91808a00549a962dc53e6d4607e67f9a78dee95ba5dbf3c7",
+      "storage_and_accelerator_accounting": "ea02e80643c7c06ed02df6ca783a574c8d87156813e6d60572716352c395d5d0",
+      "activation_policy": "512288c00417a83b9849f8ed5f143c1e585a42aa17a3680979c73025c2b7e490",
+      "generation_contract": "9e8e2a5cdf04bd6015319b5d38ab720ecfac71ec266c07523ecf31b05d567d43",
+      "frozen_product_quality_matrix": "312942cdb47fb294e6f7d402052c4bfec1cf94b48ecfd64995f9b65e7e3dff36",
+      "quality_rubric": "f8e8bf4e9dfe04503b72cabd91edd6d96a14f8e0a427c9247400dc779c50f814",
+      "quantized_reference_to_accelerator_contract": "e4a967125dfdf0ad228511732027a192352a39a852d5608430a9b5cfd9108cbd",
+      "clock_reset_and_protocol": "251fd1e7b66fd392ed38dc6dc8ea82203d47b9d0e267fb9321f8c211a362135c"
+    }
+  },
+  "frozen_product_quality_matrix_source": {
+    "matrix_id": "ace2-v13-product-quality-v1",
+    "source_path": "design/OPTION_B_ALIAS_SAFE_V10_TRANSFORMER_V12_LM_HEAD64_PRODUCT_CHAT_W4_GROUPED_DYNAMIC_SCALE32_W4A8_V13_PLAN.json#frozen_product_quality_matrix",
+    "canonical_sha256": "312942cdb47fb294e6f7d402052c4bfec1cf94b48ecfd64995f9b65e7e3dff36",
+    "single_turn_case_count": 12,
+    "multi_turn_dialogue_count": 3,
+    "fresh_reviewer_holdout_count": 4,
+    "frozen_before_v13_or_v14_candidate_output": true,
+    "prompt_tuning_or_replacement_permitted": false
+  },
+  "corrected_execution_binding": {
+    "algorithm_backend": {
+      "path": "tools/v13_v10_transformer_v12_lm_head64_backend.py",
+      "bytes": 75023,
+      "sha256": "4b06fb0c84f8bd3dbca1915882d59038d2bc40577fa07d5d7543c4741518c82f"
+    },
+    "v14_authority_adapter": {
+      "path": "tools/v14_v10_transformer_v12_lm_head64_backend.py",
+      "bytes": 9312,
+      "sha256": "5dc6fa0e028cb744dfc3c82045968a06f8b65fdaa386471441dc89fed6c1e0a6"
+    },
+    "v14_runner": {
+      "path": "tools/run_option_b_alias_safe_v10_transformer_v12_lm_head64_product_chat_w4_grouped_dynamic_scale32_w4a8_v14_stage1.py",
+      "bytes": 1760,
+      "sha256": "2cf4a08da4b9255d30f12526f0318e7ac0838030cb0ba0f6f7b9ba12f6d05c49"
+    },
+    "tensor_1_diagnostic": {
+      "path": "build/v14-preplan-final-source-tensor1-diagnostic.json",
+      "bytes": 7139,
+      "sha256": "fe0b47f7cbc529f19a5fd5a675477a03fc541fffc1ce330d220f2f6e7a40a54a",
+      "scope": "diagnostic only; not full-model or quality evidence"
+    }
+  },
+  "fresh_authority": {
+    "task_id": "task-91ec703b42da",
+    "root": "build/stage1-option-b-alias-safe-v10-transformer-v12-lm-head64-product-chat-w4-grouped-dynamic-scale32-w4a8-v14",
+    "root_must_be_absent_before_construction": true,
+    "construction_marker": "construction_started.json",
+    "quality_campaign": "quality-campaign-0001",
+    "quality_marker": "quality-campaign-0001/execution_started.json",
+    "construction_attempts_authorized": 1,
+    "quality_campaigns_authorized": 1,
+    "recovery_or_second_campaign_permitted": false,
+    "planner_may_consume_authority": false
+  },
+  "required_closure": {
+    "transformer_exact_v10_tensor_count": 168,
+    "lm_head_exact_v12_tensor_count": 1,
+    "lm_head_group_count": 64,
+    "whole_model_weight_count": 493961216,
+    "whole_model_four_bit_payload_bytes": 246980608,
+    "whole_model_weight_metadata_bytes": 1926352,
+    "whole_model_total_weight_bytes": 248906960,
+    "whole_model_exact_bits_per_weight": 4.031198433198448,
+    "dynamic_scale32_named_event_count": 312,
+    "maximum_activation_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "public_ace2_shell_parameter_count": 12,
+    "public_ace2_shell_port_count": 64
+  },
+  "quality_gate": {
+    "hard_check_response_pass_rate": "100%",
+    "minimum_single_turn_cases_meeting_required_observable": 11,
+    "required_multi_turn_cases_meeting_required_observable": 3,
+    "required_fresh_reviewer_holdouts_meeting_required_observable": 4,
+    "case_with_any_zero_dimension_permitted": 0,
+    "minimum_overall_mean_dimension_score": 1.75,
+    "critical_factual_safety_or_instruction_failure_permitted": 0,
+    "required_fresh_reviewer_status": "done_with_product_quality_pass",
+    "bf16_token_identity_is_acceptance_criterion": false,
+    "software_only_result_completes_stage_1_product": false
+  },
+  "stage_routing": {
+    "this_plan_may_modify_rtl": false,
+    "this_plan_may_retarget_live_chat_demo": false,
+    "this_plan_may_run_simulation_formal_synthesis_ppa_or_u280_tools": false,
+    "quality_pass_effect": "submit immutable evidence to a Fresh Reviewer; policy selection and specification-to-rtl transition remain Manager decisions",
+    "quality_fail_effect": "preserve immutable V14 evidence and route only from the observed failure taxonomy",
+    "current_stage_remains": "specification"
+  },
+  "claim_boundary": {
+    "planning_requirements_frozen": true,
+    "candidate_construction_started": false,
+    "quality_execution_started": false,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "project_completion_eligible": false
+  }
+}

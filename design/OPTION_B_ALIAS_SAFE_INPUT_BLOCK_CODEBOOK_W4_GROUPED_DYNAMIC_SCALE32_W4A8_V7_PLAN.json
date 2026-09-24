@@ -1,0 +1,210 @@
+{
+  "schema_version": 1,
+  "contract_id": "option_b_alias_safe_input_block_codebook_w4_grouped_dynamic_scale32_w4a8_v7",
+  "candidate_id": "option_b_alias_safe_input_block_codebook_w4_grouped_dynamic_scale32_w4a8_v7",
+  "status": "planner_frozen_preexecution_requirements_no_attempt_authority",
+  "stage": "specification",
+  "selected_policy_id": null,
+  "predecessor": {
+    "mission_id": "5551a459e416",
+    "candidate_id": "option_b_alias_safe_block_covariance_error_feedback_joint_row_scale_tensor_codebook_w4_grouped_dynamic_scale32_w4a8_v6",
+    "disposition": "fresh_reviewer_accepted_terminal_preattempt_no_go",
+    "failure_taxonomy": "NO_GO_NON_EVALUATOR_QUALITY_GATE",
+    "terminal_no_go": {
+      "path": "build/stage1-option-b-alias-safe-block-covariance-error-feedback-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v6/PREATTEMPT_NO_GO.json",
+      "sha256": "57f32123e08d4a0bd7613c291dd4ccc88cd647192296528c2b8153dad779c4ef"
+    },
+    "review_record": "research/raw/specification/block-covariance-codebook-v6-review-done-20260806T184429Z.json",
+    "review_record_sha256": "a7cf83a240ba282b93190e704b121b45303b7c5a33d7fa049ba446176e6cced2",
+    "non_evaluator_exact_bf16_sequence_match_count": 2,
+    "non_evaluator_response_gate_outcome_match_count": 8,
+    "aggregate_fresh_v4_unweighted_bf16_sse": 2387.058149454451,
+    "aggregate_v6_unweighted_bf16_sse": 3796.53346323738,
+    "official_attempts_consumed": 0,
+    "replay_resume_repair_or_official_execution_permitted": false
+  },
+  "evidence_backed_direction": {
+    "retained_construct": "Fresh Review verified the alias-safe source-tied then runtime-split lm_head construction, complete embedding preservation, deterministic independent candidate construction, and legal grouped Dynamic Scale32 execution at all 312 activation boundaries.",
+    "measured_failure": "V3 through V6 retained one 16-entry codebook per complete Linear tensor. Their exact non-evaluator sequence matches were 3/8, 2/8, 1/8, and 2/8. V6 improved its block-covariance detector but worsened aggregate unweighted BF16 weight SSE to 3796.53346323738, showing that another loss-detector change within the same tensor-codebook representational class is not the highest-value next move.",
+    "replacement_hypothesis": "Keep one 4-bit index per weight, one existing Scale32 record per output row, signed-Q4.4 codepoints, and the grouped Dynamic Scale32 A8 policy, but replace one codebook per tensor with one codebook per contiguous 128-input-lane block. The format is a strict representational superset of V4 because every block may reproduce the V4 tensor codebook, while independent block codebooks can model column-group distributions without adding per-group scales or widening the payload.",
+    "distinctness": "V7 changes product geometry and codebook fetch sequencing. It is not a replay or detector-only reoptimization of V3 through V6: a standard decoder layer grows from seven tensor-codebook records to eighty input-block records while remaining below 4.036 stored bits per weight. The A8 policy, row-scale count, nibble payload width, public shell ports, and signed-8-bit codepoint multiply remain unchanged."
+  },
+  "model": {
+    "repository": "Qwen/Qwen2.5-0.5B-Instruct",
+    "revision": "7ae557604adf67be50417f59c2c2f167def9a775",
+    "source_config_tie_word_embeddings": true,
+    "source_embedding_tensor": "model.embed_tokens.weight",
+    "source_embedding_bf16_sha256": "4e96b0df6d274768cbb7e72404011853d23349999b658dc2f4dfb3c431ea223f"
+  },
+  "candidate_state_construction": {
+    "initial_invariant": "lm_head.weight and model.embed_tokens.weight are the same Parameter object and storage immediately after pinned-model load",
+    "separation_rule": "Before construction, replace only lm_head.weight with a detached byte-identical non-trainable clone and set only the in-memory candidate configuration tie_word_embeddings field to false.",
+    "retie_forbidden": true,
+    "quantization_scope": "exactly 168 transformer Linear weights plus the separated lm_head weight",
+    "post_quantization_embedding_invariant": "The original embedding Parameter object, storage pointer, shape, dtype, and complete BF16 byte stream remain unchanged.",
+    "independent_candidate_a_and_b_manifest_equality_required": true,
+    "module_counts": {
+      "transformer_linears": 168,
+      "lm_head": 1,
+      "total_linears": 169
+    }
+  },
+  "weight_policy": {
+    "payload_bits_per_weight": 4,
+    "payload_semantics": "unsigned codebook index 0 through 15",
+    "packing": "row-major output row then input lane; even flat index in low nibble and odd flat index in high nibble",
+    "row_scale": {
+      "format": "existing normalized unsigned-Q1.15 Scale32 significand plus signed exponent record",
+      "bytes_per_output_row": 4,
+      "record_count_changed": false,
+      "legal_significand_range": [32768, 65535],
+      "legal_exponent_range": [-24, 4],
+      "all_zero_weight_row_rule": "use the frozen all-zero Scale32 record and payload index of the nearest-to-zero codepoint in each input block",
+      "overflow_clipping_or_saturation_permitted": false
+    },
+    "codebook": {
+      "scope": "one codebook per contiguous 128 input channels of each Linear tensor",
+      "input_block_lanes": 128,
+      "legal_input_feature_counts": [896, 4864],
+      "block_count_rule": "input_features divided by 128; every selected model Linear input dimension is exactly divisible by 128",
+      "record_bytes": 16,
+      "alignment_bytes": 16,
+      "memory_beats_at_128_bits": 1,
+      "entry_count": 16,
+      "entry_format": "strictly increasing signed-Q4.4 two's-complement int8",
+      "entry_order": "byte offset equals payload index"
+    },
+    "input_block_joint_construction_algorithm": {
+      "data_source": "pinned BF16 weights and authenticated row Scale32 semantics only",
+      "official_prompt_output_token_or_gate_access_permitted": false,
+      "initial_state": "Freshly reconstruct the complete V4 eight-iteration tensor-codebook result from pinned BF16 weights, copy its tensor codebook identically into every 128-lane input block, and copy its row Scale32 and payload state. This exactly reproduces the V4 decoded weights before any V7 update.",
+      "outer_iterations": 8,
+      "objective": "For each tensor, minimize exact unweighted BF16 source-space sum of squared reconstruction error over all output rows and input lanes.",
+      "assignment_step": "For each output row and 128-lane block, assign every BF16 weight to the nearest reconstructed level row_scale times block_codepoint_q4_4 divided by 16; exact-distance ties select the lower payload index.",
+      "row_scale_step": "With all block payload indices and block codebooks fixed, form the exact dyadic least-squares ideal across the complete output row and every input block. Constrain it to the no-overflow lower bound and legal Scale32 range; evaluate bracketing legal records, immediate normalized-significand neighbors, and the prior record. Choose minimum row SSE, then smaller positive scale, then smaller packed record.",
+      "block_codebook_step": "With payload and row scales fixed, optimize each 128-lane block independently. Accumulate exact per-cluster quadratic costs for every signed-Q4.4 value and use dynamic programming to select the globally minimum-cost strictly increasing 16-entry codebook. Empty clusters retain their prior value; cost ties choose the lexicographically smaller codebook.",
+      "iteration_acceptance": "Reassign after each row-scale and complete block-codebook sweep. The exact tensor SSE may not increase from the preceding outer iteration; a violation fails closed. Execute all eight iterations even after a fixed point.",
+      "final_reconstruction": "decoded_weight = decoded_row_scale * signed_block_codebook_q4_4 / 16",
+      "floating_point_nondeterminism_stochastic_rounding_prompt_ranking_or_gate_tuning_permitted": false
+    },
+    "pre_attempt_model_only_gate": {
+      "v4_reference_report": {
+        "path": "build/stage1-option-b-alias-safe-joint-row-scale-tensor-codebook-w4-grouped-dynamic-scale32-w4a8-v4/preattempt/model_only_reconstruction.json",
+        "sha256": "725a3467127736fe2346d1577abce53370941d8c647357c21499bb7a25c3c53a",
+        "aggregate_unweighted_bf16_sse": 2387.058149454451
+      },
+      "fresh_v4_reconstruction_required": true,
+      "per_tensor_unweighted_bf16_sse_may_increase_against_fresh_v4": false,
+      "aggregate_unweighted_bf16_sse_must_strictly_decrease_against_fresh_v4": true,
+      "candidate_a_and_b_payload_row_scale_block_codebook_reconstruction_iteration_trace_weight_and_state_manifests_must_match": true
+    }
+  },
+  "activation_policy": {
+    "payload": "signed A8 symmetric range -127 through +127 with -128 reserved",
+    "rounding": "round_to_nearest_ties_to_even",
+    "event_family_count_per_layer": 13,
+    "event_count_all_24_layers": 312,
+    "group_lanes": [64, 128],
+    "base_record_source": "the same frozen authenticated activation Scale32 significands used by V3 through V6",
+    "selection_rule": "For each live finite group, preserve the base activation Scale32 significand and choose the minimum integer exponent delta in [-24,+24] whose effective exponent remains in [-24,+4] and covers every lane without saturation.",
+    "all_zero_group_rule": "use exponent delta zero",
+    "failure_rule": "If no legal delta covers a finite group, fail closed; never clip, saturate, or mutate the base activation significand.",
+    "prompt_or_dataset_specific_runtime_scale_control_permitted": false
+  },
+  "accelerator_facing_format": {
+    "public_ace2_shell_contract_changed": false,
+    "weight_payload_transport": "existing 128-bit external-memory read channel; packed 4-bit indices retain the existing byte count",
+    "row_scale_transport": "existing one 32-bit Scale32 record per output row; only record values may change",
+    "codebook_transport": "one aligned 128-bit codebook beat before each contiguous 128-input-lane weight block; blocks are consumed in increasing input-channel order",
+    "codebook_cache_budget_bytes": 32,
+    "cache_policy": "two 16-byte banks hold current and next input-block codebooks; a block cannot issue until its codebook beat is authenticated and resident",
+    "compute_primitive": "unchanged signed A8 activation multiplied by signed Q4.4 int8 codepoint, integer accumulation, row Scale32 application, and fixed fractional shift four",
+    "additional_product_runtime_transport_or_sram_bytes": {
+      "standard_decoder_layer_codebook_bytes": 1280,
+      "incremental_standard_decoder_layer_bytes_vs_v3_v6": 1168,
+      "whole_model_codebook_bytes": 30832,
+      "incremental_whole_model_bytes_vs_v3_v6": 28128,
+      "incremental_sram_bytes": 0
+    },
+    "floating_point_rtl_permitted": false,
+    "cycle_accurate_rtl_or_ppa_claimed_by_this_plan": false
+  },
+  "compression_and_accelerator_limits": {
+    "maximum_total_stored_bits_per_weight": 4.036,
+    "standard_decoder_layer_weight_count": 14909440,
+    "standard_decoder_layer_packed_w4_payload_bytes": 7454720,
+    "standard_decoder_layer_row_scale_bytes": 50688,
+    "standard_decoder_layer_input_block_codebook_count": 80,
+    "standard_decoder_layer_input_block_codebook_bytes": 1280,
+    "standard_decoder_layer_total_weight_bytes": 7506688,
+    "standard_decoder_layer_exact_bits_per_weight": 4.027884615384615,
+    "standard_decoder_layer_cap_reserve_bytes": 15124.48,
+    "lm_head_shape": [151936, 896],
+    "lm_head_input_block_codebook_count": 7,
+    "lm_head_input_block_codebook_bytes": 112,
+    "whole_model_input_block_codebook_count": 1927,
+    "whole_model_input_block_codebook_bytes": 30832,
+    "additional_row_scale_bytes": 0,
+    "per_group_or_per_scalar_weight_scale_metadata_permitted": false,
+    "input_block_codebook_metadata_permitted_and_fully_counted": true,
+    "maximum_scale_metadata_bits_per_activation": 0.5,
+    "maximum_transport_metadata_bytes_per_decoder_layer_token": 832,
+    "maximum_tensor_sidecars_per_decoder_layer_token": 13,
+    "abstract_streaming_memory_boundary_bits": 128,
+    "maximum_payload_bytes_per_cycle": 16,
+    "maximum_incremental_sram_bytes": 2368,
+    "new_public_ace2_shell_ports_permitted": false,
+    "non_sram_area_cap_mm2": 2.0,
+    "frequency_floor_mhz": 100.0
+  },
+  "pre_attempt_closure": {
+    "official_execution_marker_permitted": false,
+    "official_nine_prompt_inputs_permitted_for_preflight": false,
+    "network_access_permitted": false,
+    "representation_gate": "Fresh V4 reconstruction copied into every input block must reproduce the V4 decoded tensor exactly before optimization; after eight V7 iterations all 169 tensors must be non-regressing and aggregate unweighted BF16 SSE must strictly improve.",
+    "non_evaluator_quality_gate": "The same frozen eight non-evaluator inputs must achieve 8/8 exact BF16 token arrays and 8/8 matching BF16 response-gate outcomes before an official marker may be created. Because V7 construction uses weights only, all eight inputs are construction-blind.",
+    "dynamic_gate": "A fresh V7 candidate must cover all 312 named activation boundaries with legal deltas, zero saturation, zero clipping, no reserved -128 payload, and no more than 832 activation-metadata bytes per decoder-layer token.",
+    "required_artifacts": [
+      "hash-bound candidate-specific runner and exact input-block constructor self-test",
+      "fresh V4 reconstruction and exact pre-optimization V4 reproduction witness",
+      "candidate A and B payload, row-scale, input-block-codebook, reconstruction, objective, iteration-trace, weight, and state manifests",
+      "embedding-preservation and lm_head-separation witness",
+      "block-count, ordering, codebook-cache sequencing, nibble-packing, Scale32, strict-codebook dynamic-programming, empty-cluster, tie-break, range, and hash-mismatch self-tests",
+      "model-only report proving 169/169 V4-relative non-regression and strict aggregate SSE improvement",
+      "8/8 construction-blind non-evaluator exact-sequence and response-gate report",
+      "fresh-candidate 312-event Dynamic Scale32 report",
+      "predeclared contract binding every source, model, matrix, runner, tool version, format, byte count, and policy hash",
+      "PREATTEMPT_READY.json that verifies all artifacts without creating execution_started.json"
+    ],
+    "failure_disposition": "Preserve PREATTEMPT_NO_GO, leave the official attempt unconsumed, keep selected_policy_id null, and submit the bounded result for Fresh Review without accessing official inputs."
+  },
+  "official_attempt": {
+    "attempts_authorized_by_this_file": 0,
+    "required_fresh_attempt_directory": "build/stage1-option-b-alias-safe-input-block-codebook-w4-grouped-dynamic-scale32-w4a8-v7/attempt-0001",
+    "matrix": {
+      "path": "build/option-b-v2-weight-policy-20260806/full_sequence_discrimination.json",
+      "sha256": "276fc96611ecc2d5205024d0190460cce2847b766e1f436a9982361d4ae6ceaf",
+      "prompt_count": 9
+    },
+    "generation": "deterministic greedy argmax; no sampling; use_cache=false; maximum six generated tokens; termination IDs 151643 and 151645",
+    "score_policy": "binary only: 9/9 complete token arrays exactly equal BF16 and 9/9 response-gate outcomes equal BF16",
+    "tuning_ranking_bisection_prompt_sweep_gate_relaxation_or_second_attempt_permitted": false,
+    "fresh_reviewer_required": true
+  },
+  "risk_register": [
+    "Input-block codebooks increase representational capacity but do not prove exact token identity; the eight-input exact gate remains mandatory and precedes official execution.",
+    "The row Scale32 record is shared across all input blocks of an output row, so block codebooks may still be insufficient even though the format strictly contains V4.",
+    "Codebook traffic rises by 1,168 bytes per standard decoder layer relative to V3 through V6; this is fully counted and remains below the 4.036 stored-bit cap, but measured latency and bandwidth effects require later cycle-accurate evidence.",
+    "The eventual RTL must authenticate and sequence codebook changes at 128-lane boundaries without changing public ports; no RTL work is authorized at specification stage.",
+    "Any accepted policy still requires Manager stage advance, focused RTL regression, fresh tree-specific PPA, local demo acceptance, and later U280 work."
+  ],
+  "claim_boundary": {
+    "planning_requirements_frozen": true,
+    "attempt_authority_created": false,
+    "official_attempt_started": false,
+    "numerical_conclusion": null,
+    "selected_policy_id": null,
+    "rtl_demo_ppa_u280_or_stage2_authorized": false,
+    "current_stage_remains": "specification"
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schema": "ace-public-progress/v1",
+  "project": "ACE2",
+  "snapshot_utc": "2026-09-24T16:50:59Z",
+  "live_state_observed_utc": "2026-09-24T16:58:55Z",
+  "live_state_may_advance": true,
+  "publication": {
+    "equal_mirrors": [
+      "https://github.com/aHappend/ace-2",
+      "https://github.com/Argus-AiTeam/ace-2"
+    ],
+    "branch": "main",
+    "checkpoint_ref": "refs/tags/checkpoint-2026-09-24-source",
+    "checkpoint_commit": null,
+    "checkpoint_commit_resolution": "Set to the exact first publication commit in the final main documentation commit before push.",
+    "required_github_login": "aHappend"
+  },
+  "live_identity_observed": {
+    "daemon_pid": 2164713,
+    "daemon_start_ticks": 199242116,
+    "state_root": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b",
+    "workdir": "/home/argustest/ace-2",
+    "runtime_source": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/managed-maintenance/ace2-host-consumer-bridge-20260913/candidate",
+    "runtime_release": "0.1.2+25c3e94b317cae89",
+    "runtime_source_digest": "7ebd4c868aa358a3f79ee411feb32f9534f72f58ad68cca7925888a95db1227a",
+    "continuous_enabled": true,
+    "continuous_generation": 346,
+    "identity_is_observation_not_launch_instruction": true
+  },
+  "accepted_milestones": [
+    {
+      "mission_id": "baf69a66567b",
+      "status": "done",
+      "native_finished_ts": 1790260407.1799488,
+      "summary": "Fresh persistent-conversation active RTL diagnostic 0005: two turns, four tokens per turn, eight full-vocabulary heads, 840 layer checks over 35 positions, 24 retained KV layers, no prefix recomputation, zero integer/logit/token mismatch, no fallback.",
+      "scope_limits": [
+        "computer-local RTL simulation and host/oracle qualification",
+        "no board, FPGA, synthesis, PPA, bitstream, or silicon claim"
+      ],
+      "evidence": [
+        {
+          "host_path": "/home/argustest/ace-2/reports/verification/persistent-conversation-active-rtl-diagnostic-0005/result.json",
+          "sha256": "5795ee568d2c1a952c5cdbc41e650a23850714b2f9971ba9297176f81cc4f893",
+          "published": false
+        },
+        {
+          "host_path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/baf69a66567b/round-0003.json",
+          "sha256": "dce0e9283776576384a0125bf219d197b6c1b1ad2cfe6651b5d54e55d04506d3",
+          "published": false,
+          "review_status": "done"
+        }
+      ]
+    }
+  ],
+  "running_at_snapshot": [
+    {
+      "mission_id": "04bdbc62467f",
+      "status": "running",
+      "title": "Implement three-turn persistent RTL conversation",
+      "run": "extend-persistent-rtl-three-turn-1790260720261180274",
+      "namespace": "0006",
+      "worker_pid_observed": 2805260,
+      "driver_pid_observed": 2805269,
+      "instruction": "Do not interrupt, restart, or duplicate this mission for publication."
+    }
+  ],
+  "rejected_or_failed": [],
+  "public_summary_is_authoritative_receipt": false,
+  "acceptance_rule": "Only original issuer binding, normal Reviewer verdict, and native terminal acceptance count.",
+  "source_snapshot_manifest": "source-manifest-2026-09-24.json",
+  "host_only_inventory": "HOST_ONLY_DEPENDENCIES.md"
+}
