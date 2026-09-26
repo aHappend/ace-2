@@ -31,6 +31,9 @@ DEFAULT_TURNS = 2
 MIN_GENERATED_TOKENS = 2
 MAX_GENERATED_TOKENS = 8
 DEFAULT_GENERATED_TOKENS = 4
+DEFAULT_CONTEXT_TOKENS = backend.MAX_CONTEXT_TOKENS
+THREE_TURN_CONTEXT_TOKENS = 64
+ASSISTANT_CONTENT_MARKER = "ACE2_PERSISTENT_ASSISTANT_CONTENT_BOUNDARY"
 REQUIRED_BYTE_COUNTS = (
     "kv_append_bytes_compared",
     "full_cache_bytes_compared",
@@ -69,6 +72,18 @@ def validate_turns(value: object) -> int:
     return value
 
 
+def configure_context_bound(turns: int) -> int:
+    turns = validate_turns(turns)
+    context_tokens = (
+        DEFAULT_CONTEXT_TOKENS
+        if turns == DEFAULT_TURNS
+        else THREE_TURN_CONTEXT_TOKENS
+    )
+    backend.MAX_CONTEXT_TOKENS = context_tokens
+    generation.MAX_CONTEXT_TOKENS = context_tokens
+    return context_tokens
+
+
 def render_turn(tokenizer: Any, messages: list[dict[str, str]]) -> list[int]:
     token_ids = tokenizer.apply_chat_template(
         messages,
@@ -82,6 +97,51 @@ def render_turn(tokenizer: Any, messages: list[dict[str, str]]) -> list[int]:
         "chat template returned invalid token IDs",
     )
     return token_ids
+
+
+def render_continuation(
+    tokenizer: Any,
+    previous_summary: dict[str, Any],
+    assistant_replies: list[str],
+) -> list[int]:
+    require(assistant_replies, "assistant reply history is empty")
+    require(
+        all(ASSISTANT_CONTENT_MARKER not in reply for reply in assistant_replies),
+        "assistant reply contains the continuation marker",
+    )
+    prompt_ids = previous_summary.get("prompt_token_ids")
+    generated_ids = previous_summary.get("generated_token_ids")
+    carried = previous_summary.get("carried_state")
+    retained_ids = carried.get("output_context_token_ids") if isinstance(carried, dict) else None
+    require(
+        isinstance(prompt_ids, list)
+        and all(type(token) is int for token in prompt_ids)
+        and isinstance(generated_ids, list)
+        and generated_ids
+        and all(type(token) is int for token in generated_ids)
+        and isinstance(retained_ids, list)
+        and retained_ids == prompt_ids + generated_ids[:-1],
+        "prior turn carried context differs from exact generated tokens",
+    )
+    marked_replies = assistant_replies[:-1] + [ASSISTANT_CONTENT_MARKER]
+    rendered = tokenizer.apply_chat_template(
+        conversation_messages(marked_replies),
+        tokenize=False,
+        add_generation_prompt=True,
+    )
+    require(
+        isinstance(rendered, str) and rendered.count(ASSISTANT_CONTENT_MARKER) == 1,
+        "chat template did not preserve the continuation marker",
+    )
+    suffix_text = rendered.partition(ASSISTANT_CONTENT_MARKER)[2]
+    suffix_ids = tokenizer.encode(suffix_text, add_special_tokens=False)
+    require(
+        isinstance(suffix_ids, list)
+        and suffix_ids
+        and all(type(token) is int for token in suffix_ids),
+        "chat template returned an invalid continuation suffix",
+    )
+    return retained_ids + generated_ids[-1:] + suffix_ids
 
 
 def conversation_messages(assistant_replies: list[str] | None = None) -> list[dict[str, str]]:
@@ -396,6 +456,7 @@ def run_oracle_worker(
 ) -> dict[str, Any]:
     max_new_tokens = validate_generated_tokens(max_new_tokens)
     turns = validate_turns(turns)
+    context_tokens = configure_context_bound(turns)
     oracle_output = output / "independent-oracle"
     require(not oracle_output.exists(), "independent-oracle output must be fresh")
     snapshot = generation.resolve_snapshot()
@@ -454,6 +515,7 @@ def run_oracle_worker(
         "status": "PASS",
         "turns": turn_records,
         "coverage": aggregate_agreements(agreements),
+        "backend_context_bound": context_tokens,
         "software_transformer_or_logits_fallback": False,
         "measurement_scope": "computer-local host oracle over retained RTL artifacts",
     }
@@ -515,6 +577,7 @@ def run(
 ) -> dict[str, Any]:
     max_new_tokens = validate_generated_tokens(max_new_tokens)
     turns = validate_turns(turns)
+    context_tokens = configure_context_bound(turns)
     require(not output.exists(), "diagnostic output must be a fresh path")
     snapshot = generation.resolve_snapshot()
     _record, tokenizer = generation.tokenizer_record(
@@ -527,7 +590,11 @@ def run(
     assistant_replies = []
     state = None
     for turn_index in range(turns):
-        prompt_ids = render_turn(tokenizer, conversation_messages(assistant_replies))
+        prompt_ids = (
+            render_turn(tokenizer, conversation_messages())
+            if turn_index == 0
+            else render_continuation(tokenizer, summaries[-1], assistant_replies)
+        )
         run_arguments = {
             "execution_mode": "stage1_product",
         }
@@ -556,7 +623,11 @@ def run(
             }
             for turn_index in range(turns)
         ],
-        "coverage": coverage | {"independent_oracle": oracle_result["coverage"]},
+        "coverage": coverage
+        | {
+            "backend_context_bound": context_tokens,
+            "independent_oracle": oracle_result["coverage"],
+        },
         "independent_oracle": oracle.file_record(
             output / "independent-oracle/result.json"
         ),

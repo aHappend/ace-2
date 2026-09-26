@@ -1,0 +1,25 @@
+{
+  "schema": "ace-incremental-source-manifest/v1",
+  "project": "ACE2",
+  "snapshot_utc": "2026-09-26T13:11:25.984013+00:00",
+  "base_main_commit": "eafe74f95d0408d9476f23d14d47c8a993691606",
+  "policy": "Two-file live diagnostic WIP snapshot; ongoing three-turn run is not finally qualified.",
+  "files": [
+    {
+      "path": "scripts/run_persistent_conversation_rtl_diagnostic.py",
+      "bytes": 23850,
+      "sha256": "ab765b5c3fd85fe402e771fface6dcc45b4b80d325044a6ddc0e7319dace0d35",
+      "status": "in_progress_not_finally_qualified",
+      "origin": "scripts/run_persistent_conversation_rtl_diagnostic.py"
+    },
+    {
+      "path": "tests/test_persistent_conversation_rtl_diagnostic.py",
+      "bytes": 17370,
+      "sha256": "842cd6f20542fbf68e7a3892171b96e8918b334d9ddc26278e61015478ae78c4",
+      "status": "in_progress_not_finally_qualified",
+      "origin": "tests/test_persistent_conversation_rtl_diagnostic.py"
+    }
+  ],
+  "source_copy_hashes_verified": true,
+  "unchanged_source_inventory": "source-manifest-2026-09-24.json at checkpoint-2026-09-24-source"
+}

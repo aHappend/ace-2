@@ -6,6 +6,11 @@
 
 [English](README.md) | [简体中文](README.zh-CN.md)
 
+> **9 月 26 日同步：** 两轮对话已有验收结果，三轮对话仍在本机 RTL 仿真中。
+> 本次 driver/tests 增量明确标为 WIP，不代表三轮验证完成。见
+> [最新进度](docs/continuation/progress-2026-09-26.json)和
+> [发布说明](docs/results/PERSISTENT_CONVERSATION_20260926.md)。
+
 [![Release](https://img.shields.io/github/v/release/aHappend/ace-2?include_prereleases&label=release)](https://github.com/aHappend/ace-2/releases)
 [![License](https://img.shields.io/github/license/aHappend/ace-2)](LICENSE)
 [![RTL](https://img.shields.io/badge/RTL-SystemVerilog-5C4EE5)](rtl/)

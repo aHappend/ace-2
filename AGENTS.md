@@ -1,7 +1,11 @@
 # ACE-2 continuation entry
 
 Read `docs/continuation/HANDOFF.zh-CN.md` and
-`docs/continuation/progress-2026-09-24.json` before changing anything.
+`docs/continuation/progress-2026-09-26.json` before changing anything.
+
+The three-turn diagnostic was still running at this snapshot. The updated
+driver and tests are explicitly WIP, not final three-turn qualification.
+Discover the current run rather than restarting an old namespace.
 
 On the original host, run `python tools/argus_continuation.py inspect` first.
 Discover the live runtime from `daemon.status.json`; never import the ambient

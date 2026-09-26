@@ -1,0 +1,51 @@
+{
+  "schema": "ace-public-progress/v2",
+  "project": "ACE2",
+  "observed_utc": "2026-09-26T13:11:25.984013+00:00",
+  "live_state_may_advance": true,
+  "public_summary_is_authoritative_receipt": false,
+  "accepted_milestones": [
+    {
+      "mission_id": "baf69a66567b",
+      "status": "done",
+      "native_finished_ts": 1790260407.1799488,
+      "summary": "Fresh persistent-conversation active RTL diagnostic 0005: two turns, four tokens per turn, eight full-vocabulary heads, 840 layer checks over 35 positions, 24 retained KV layers, no prefix recomputation, zero integer/logit/token mismatch, no fallback.",
+      "scope_limits": [
+        "computer-local RTL simulation and host/oracle qualification",
+        "no board, FPGA, synthesis, PPA, bitstream, or silicon claim"
+      ],
+      "evidence": [
+        {
+          "host_path": "/home/argustest/ace-2/reports/verification/persistent-conversation-active-rtl-diagnostic-0005/result.json",
+          "sha256": "5795ee568d2c1a952c5cdbc41e650a23850714b2f9971ba9297176f81cc4f893",
+          "published": false
+        },
+        {
+          "host_path": "/home/argustest/.argus-skill-ace2/projects/s-c8ae985b/handoffs/baf69a66567b/round-0003.json",
+          "sha256": "dce0e9283776576384a0125bf219d197b6c1b1ad2cfe6651b5d54e55d04506d3",
+          "published": false,
+          "review_status": "done"
+        }
+      ]
+    }
+  ],
+  "current_run": {
+    "mission_id": "04bdbc62467f",
+    "status": "running",
+    "namespace": "0008",
+    "requested_turns": 3,
+    "requested_max_new_tokens_per_turn": 4,
+    "final_result_present": false,
+    "final_review_complete": false,
+    "latest_output": "reports/verification/persistent-conversation-active-rtl-diagnostic-0008/turn-03/tokens/position-39/layer-13/logs/projection.iverilog.stdout.log",
+    "latest_output_utc": "2026-09-26T13:10:55.235720+00:00"
+  },
+  "source_snapshot_manifest": "source-manifest-2026-09-26.json",
+  "scope": "Computer-local RTL simulation and host/oracle work; no board/FPGA/silicon or hardware performance claim.",
+  "source_status": "Incremental driver/tests are WIP, not completed three-turn qualification.",
+  "equal_mirrors": [
+    "https://github.com/aHappend/ace-2",
+    "https://github.com/Argus-AiTeam/ace-2"
+  ],
+  "checkpoint_ref": "refs/tags/checkpoint-2026-09-26-source"
+}

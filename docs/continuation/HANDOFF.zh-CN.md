@@ -1,7 +1,8 @@
 # ACE-2 跨对话接续说明
 
-源码快照时间：**2026-09-24T16:50:59Z**；live state 读取时间：
-**2026-09-24T16:58:55Z**。live state 可能在此后继续前进。
+本次增量快照日期：**2026-09-26**；准确读取时间见
+[progress-2026-09-26.json](progress-2026-09-26.json)。live state 可能继续前进。
+本次 driver/tests 是 **WIP**，不是三轮对话的最终验收。
 
 ## GitHub 双镜像
 
@@ -10,8 +11,8 @@
 - 个人：<https://github.com/aHappend/ace-2>
 - 团队：<https://github.com/Argus-AiTeam/ace-2>
 - 分支：`main`
-- 不可变日期 checkpoint：`refs/tags/checkpoint-2026-09-24-source`
-- checkpoint commit：`da5f71ab4160344db3680e2865648ca199796f8c`
+- 不可变日期 checkpoint：`refs/tags/checkpoint-2026-09-26-source`
+- 9 月 24 日历史 checkpoint 保留，不修改或覆盖。
 
 发布后必须核对两个远端的 commit 和 tree 相同。Git push 不是事务；如果只成功
 一个，必须如实记录 partial sync，并继续补齐另一个，不能声称已经双同步。
@@ -20,7 +21,7 @@
 
 ```text
 请先阅读仓库 AGENTS.md、docs/continuation/HANDOFF.zh-CN.md 和
-progress-2026-09-24.json。先发现 live Argus daemon/status/runtime/backlog/
+progress-2026-09-26.json。先发现 live Argus daemon/status/runtime/backlog/
 current claim/最近 native events/normal Reviewer handoff/registry 与 terminal
 outputs；不要从 ambient checkout 猜 runtime。若 worker 或 mission 正在运行，
 不要重启、重复执行或抢 ownership，等待合法 terminal。通过 normal Manager
@@ -64,7 +65,7 @@ receipts。只有 issuer binding、normal Reviewer 和 native terminal acceptanc
 - state root：`/home/argustest/.argus-skill-ace2/projects/s-c8ae985b`
 - global root：`/home/argustest/.argus-skill-ace2`
 
-这些是 2026-09-24 的定位信息，不是永久 launch command。runtime 必须每次从
+这些是原主机的定位信息，不是永久 launch command。runtime 必须每次从
 live status 重新发现并验证 import path，不能重演历史上的 wrong-path pin。
 
 ## 磁盘/主机丢失：能力边界
@@ -86,6 +87,11 @@ verification。最近已验收四 token、两轮 persistent conversation；没�
 FPGA、synthesis、PPA 或 silicon claim。正在运行的三轮任务必须由 live Argus
 自然完成，发布操作不得中断或复制它。阈值和 scientific contract 仍然有效；
 一次 recovery-only 限制不得变成永久 global whitelist。
+
+本次观察的是任务 `04bdbc62467f`、namespace `0008`，已进入第三轮，但没有
+最终 `result.json` 或本轮最终独立审核。旧 `0006`、`0007` 不是要重启的指令。
+位置编号不是生成 token 数。本次仅同步两个 driver/test 文件的源码增量，
+明确标为未完成资格验证；详见[发布说明](../results/PERSISTENT_CONVERSATION_20260926.md)。
 
 原始 acceptance 要到 host-local handoff/terminal 中核对。公开 JSON 是带原始
 hash 的 sanitized summary，不是未经变化的 authoritative receipt。

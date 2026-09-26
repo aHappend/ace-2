@@ -2,8 +2,10 @@
 
 > **Continue or recover this work:** start with [AGENTS.md](AGENTS.md) and the
 > [Chinese continuation handoff](docs/continuation/HANDOFF.zh-CN.md). The dated
-> [progress snapshot](docs/continuation/progress-2026-09-24.json) separates
-> accepted evidence, running work, and host-only dependencies.
+> [September 26 progress snapshot](docs/continuation/progress-2026-09-26.json)
+> separates accepted two-turn evidence from the still-running three-turn
+> diagnostic. Its updated driver/tests are WIP, not final qualification.
+> See the [publication note](docs/results/PERSISTENT_CONVERSATION_20260926.md).
 
 ACE-2 is an evidence-driven, pre-tapeout ASIC accelerator project for
 batch-1 Qwen2.5-0.5B inference. It explores a complete W4A8 system boundary:

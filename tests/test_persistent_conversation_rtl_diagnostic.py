@@ -94,6 +94,50 @@ class PersistentConversationRtlDiagnosticTest(unittest.TestCase):
             ),
         )
 
+    def test_continuation_preserves_noncanonical_generated_token_ids(self) -> None:
+        previous = {
+            "prompt_token_ids": [10, 11],
+            "generated_token_ids": [20, 21, 22],
+            "carried_state": {
+                "output_context_token_ids": [10, 11, 20, 21],
+            },
+        }
+        tokenizer = mock.Mock()
+        tokenizer.apply_chat_template.return_value = (
+            "prefix"
+            + diagnostic.ASSISTANT_CONTENT_MARKER
+            + "<|im_end|>\nnext-turn"
+        )
+        tokenizer.encode.return_value = [30, 31]
+
+        prompt = diagnostic.render_continuation(
+            tokenizer,
+            previous,
+            ["decoded text that retokenizes differently"],
+        )
+
+        self.assertEqual([10, 11, 20, 21, 22, 30, 31], prompt)
+        tokenizer.encode.assert_called_once_with(
+            "<|im_end|>\nnext-turn",
+            add_special_tokens=False,
+        )
+
+    def test_continuation_rejects_inexact_carried_context(self) -> None:
+        previous = {
+            "prompt_token_ids": [10],
+            "generated_token_ids": [20, 21],
+            "carried_state": {"output_context_token_ids": [10, 99]},
+        }
+        with self.assertRaisesRegex(
+            diagnostic.DiagnosticError,
+            "carried context differs from exact generated tokens",
+        ):
+            diagnostic.render_continuation(
+                mock.Mock(),
+                previous,
+                ["reply"],
+            )
+
     def test_accepts_turn_two_starting_at_exact_carried_boundary(self) -> None:
         first = summary(0, 3, [])
         second = summary(3, 2, first["carried_state"]["output_context_token_ids"])
@@ -273,6 +317,40 @@ class PersistentConversationRtlDiagnosticTest(unittest.TestCase):
                     "integer from 2 through 3",
                 ):
                     diagnostic.validate_turns(value)
+
+    def test_three_turn_context_bound_expands_without_changing_default(self) -> None:
+        with (
+            mock.patch.object(
+                diagnostic.backend,
+                "MAX_CONTEXT_TOKENS",
+                diagnostic.DEFAULT_CONTEXT_TOKENS,
+            ),
+            mock.patch.object(
+                diagnostic.generation,
+                "MAX_CONTEXT_TOKENS",
+                diagnostic.DEFAULT_CONTEXT_TOKENS,
+            ),
+        ):
+            self.assertEqual(
+                diagnostic.DEFAULT_CONTEXT_TOKENS,
+                diagnostic.configure_context_bound(2),
+            )
+            self.assertEqual(
+                diagnostic.DEFAULT_CONTEXT_TOKENS,
+                diagnostic.backend.MAX_CONTEXT_TOKENS,
+            )
+            self.assertEqual(
+                diagnostic.THREE_TURN_CONTEXT_TOKENS,
+                diagnostic.configure_context_bound(3),
+            )
+            self.assertEqual(
+                diagnostic.THREE_TURN_CONTEXT_TOKENS,
+                diagnostic.backend.MAX_CONTEXT_TOKENS,
+            )
+            self.assertEqual(
+                diagnostic.THREE_TURN_CONTEXT_TOKENS,
+                diagnostic.generation.MAX_CONTEXT_TOKENS,
+            )
 
     def test_invalid_token_count_is_rejected_before_rtl_execution(self) -> None:
         with tempfile.TemporaryDirectory() as temporary:
