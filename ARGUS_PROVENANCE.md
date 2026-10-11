@@ -1,19 +1,24 @@
-# Argus Design Provenance
+# Vulcan Design Provenance
 
 ## Attribution
 
 **ACE** means **Argus Compute Engine**. ACE-2 was designed and iterated by
-**Argus — Autonomous Research Generation & Understanding System** under a
-human-owned mission and explicit approval gates.
+**[Vulcan](https://ahappend.github.io/vulcan/) (formerly Argus for Chips)**
+under a human-owned mission and explicit approval gates. Vulcan is an
+independently developed, AI-native hardware engineering system compatible
+with **[Argus](https://argusbot.cn/)**.
 
-Public Argus resources:
+The historical `ARGUS_PROVENANCE.md` filename is retained for existing links.
+The naming update does not rewrite frozen evidence, runtime identifiers,
+scientific results, or acceptance boundaries.
 
+Public resources:
+
+- Vulcan: [website](https://ahappend.github.io/vulcan/) · [source](https://github.com/aHappend/vulcan)
+- Argus: [website](https://argusbot.cn/) · [official source](https://github.com/microsoft/ArgusAgent)
 - Argus AI Team projects: <https://github.com/Argus-AiTeam>
-- Official website: <https://argusbot.cn/>
-- Results: <https://argusbot.cn/results.html>
-- Research: <https://argusbot.cn/research.html>
 
-“Designed by Argus” means that Argus performed the iterative engineering work:
+“Designed by Vulcan” means that Vulcan performed the iterative engineering work:
 contract analysis, architecture proposals, RTL generation, reference-model
 construction, test generation, verification, quality localization, evidence
 binding, independent review handoffs, and rollback/reroute decisions. The human
@@ -27,7 +32,7 @@ is part of the provenance; it does not weaken the evidence requirement.
 
 ## Engineering workflow
 
-Argus used a staged, evidence-driven loop:
+Vulcan used a staged, evidence-driven loop:
 
 ```text
 human mission and immutable targets
@@ -49,7 +54,7 @@ The harness deliberately distinguishes:
 This distinction is why the Alpha can contain a broad RTL framework while its
 accepted numerical frontier remains narrower.
 
-## What Argus produced for the Alpha
+## What Vulcan produced for the Alpha
 
 - accelerator architecture and interface specifications;
 - synthesizable compute and shell RTL;
@@ -62,7 +67,7 @@ accepted numerical frontier remains narrower.
 
 ## Evidence-driven rejection
 
-Argus did not convert a clean standalone test into a false full-model success.
+Vulcan did not convert a clean standalone test into a false full-model success.
 When full-model benchmarking contradicted earlier structural evidence, it
 rolled the accepted frontier back to the earliest unsupported operator. Later
 candidate mechanisms were accepted only for bounded implementation and were
@@ -79,15 +84,15 @@ The current Alpha therefore states both:
 |---|---|
 | Mission and product goal | Human operator |
 | Immutable quality, area, and frequency targets | Human-approved contract |
-| Architecture/RTL/test iteration | Argus |
-| Independent evidence review | Argus reviewer role |
-| Ordinary reversible execution | Argus under authorization |
+| Architecture/RTL/test iteration | Vulcan |
+| Independent evidence review | Vulcan reviewer role |
+| Ordinary reversible execution | Vulcan under authorization |
 | Credentials, publication, and external release | Human operator |
 | Final project license | Human/project owner |
 
 ## Reproducibility
 
-The release package excludes Argus runtime state and private infrastructure.
-Its public demo does not require the Argus harness. This separation lets others
+The release package excludes legacy Argus runtime state and private infrastructure.
+Its public demo does not require Vulcan or the Argus harness. This separation lets others
 reproduce the packaged RTL evidence while still preserving attribution to the
 system that designed and iterated it.

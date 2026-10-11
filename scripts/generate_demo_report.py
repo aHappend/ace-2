@@ -148,6 +148,9 @@ def main() -> None:
     )
     report = f"""# ACE-2 Transformer RTL Demo Report
 
+Designed by [Vulcan](https://ahappend.github.io/vulcan/) (formerly Argus for Chips),
+an [Argus](https://argusbot.cn/)-compatible hardware engineering system.
+
 ## Result
 
 `ACE2_LOCAL_RTL_DEMO_PASS`
@@ -313,12 +316,13 @@ border:1px solid var(--line)}} th,td{{padding:10px 13px;border-bottom:1px solid 
 th{{color:var(--muted);font-size:12px;text-transform:uppercase}} code{{font-family:ui-monospace,monospace;font-size:12px}}
 .boundary{{padding:18px 20px;border-left:4px solid var(--amber);background:#241b16;border-radius:8px}}
 .pass-text{{color:var(--cyan)}} .extended-text{{color:var(--amber)}}
+.subtitle a{{color:var(--cyan);text-underline-offset:3px}}
 @media(max-width:850px){{.metrics,.flow,.ppa-grid{{grid-template-columns:1fr 1fr}}}}
 @media(max-width:520px){{.metrics,.flow,.ppa-grid{{grid-template-columns:1fr}}}}
 .waveform{{width:100%;background:#07111f;border:1px solid var(--line);border-radius:12px}}
 </style></head><body><main>
 <h1>ACE-2 <em>Transformer RTL Demo</em></h1>
-<div class="subtitle">Machine-local operator, shell-integration, and challenge evidence for an Argus-designed Qwen W4A8 accelerator</div>
+<div class="subtitle">Machine-local operator, shell-integration, and challenge evidence for a Qwen W4A8 accelerator designed by <a href="https://ahappend.github.io/vulcan/">Vulcan</a> (formerly Argus for Chips), an <a href="https://argusbot.cn/">Argus</a>-compatible hardware engineering system.</div>
 <div class="pill">LOCAL CHALLENGE {escape(challenge_id)}</div>
 <div class="metrics">{metric_cards}</div>
 

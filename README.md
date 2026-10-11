@@ -1,4 +1,4 @@
-# ACE-2: ARGUS Compute Engine
+# ACE-2: Argus Compute Engine
 
 > **Continue or recover this work:** start with [AGENTS.md](AGENTS.md) and the
 > [Chinese continuation handoff](docs/continuation/HANDOFF.zh-CN.md). The dated
@@ -12,9 +12,11 @@ batch-1 Qwen2.5-0.5B inference. It explores a complete W4A8 system boundary:
 the numerical reference, synthesizable SystemVerilog, command/runtime
 integration, verification, and reproducible physical-design evidence.
 
-ACE-2 is developed with **[Argus](https://github.com/lbx154/Argus)**, the
-open-source long-running agent harness used to plan, execute, review, and
-preserve evidence across this engineering campaign.
+ACE-2 is designed and iterated by **[Vulcan](https://ahappend.github.io/vulcan/)
+(formerly Argus for Chips)** under human-defined objectives and approval gates.
+Vulcan is an independently developed, AI-native hardware engineering system
+compatible with **[Argus](https://argusbot.cn/)**. See the
+[design provenance](ARGUS_PROVENANCE.md) for responsibilities and evidence boundaries.
 
 ## Project contract
 
@@ -216,12 +218,15 @@ Some flows require tools or licensed hardware that are not bundled with this
 repository. A missing tool, model artifact, FPGA board, or external service is
 reported as a prerequisite rather than represented as a successful run.
 
-## Argus
+## Vulcan and Argus
 
-Argus provides the long-horizon engineering loop behind ACE-2: backlog and
-budget supervision, reusable skill matching, engineer execution, independent
-review, checkpoints, and evidence-aware replanning.
+[Vulcan](https://ahappend.github.io/vulcan/) (formerly Argus for Chips) provides
+the hardware engineering workflow behind ACE-2: planning, implementation,
+focused verification, independent review, and evidence-aware iteration.
+It is independently developed and compatible with the general-purpose
+[Argus](https://argusbot.cn/) agent system.
 
-- Source: <https://github.com/lbx154/Argus>
-- ACE-2 remains the hardware project; Argus is the general agent harness used
-  to develop and supervise it.
+- Vulcan: [website](https://ahappend.github.io/vulcan/) · [source](https://github.com/aHappend/vulcan)
+- Argus: [website](https://argusbot.cn/) · [official source](https://github.com/microsoft/ArgusAgent)
+- ACE-2 remains the hardware project. This attribution update does not rename
+  historical runtime commands, alter recorded results, or expand accepted claims.
