@@ -5,9 +5,8 @@
 - refresh the English and Chinese project presentation using the public
   evidence-first style of other Argus AI Team projects;
 - clarify that ACE-2 was primarily designed, implemented, tested, reviewed,
-  and iterated by [Vulcan](https://ahappend.github.io/vulcan/) (formerly Argus
-  for Chips), an [Argus](https://argusbot.cn/)-compatible hardware engineering
-  system, under human-owned mission and release boundaries;
+  and iterated by [Vulcan](https://ahappend.github.io/vulcan/), an AI-native
+  hardware engineering system, under human-owned mission and release boundaries;
 - record Fresh-L2 acceptance of the V8 host-trust recovery package after
   58 verifier checks with zero issues;
 - publish the accepted V8 content hash and the precise public status

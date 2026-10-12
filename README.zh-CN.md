@@ -19,10 +19,10 @@
 [![Claim boundary](https://img.shields.io/badge/claims-evidence_bound-0F766E)](KNOWN_LIMITATIONS.md)
 
 **ACE 即 Argus Compute Engine。ACE-2 的设计、实现、测试、审查和持续迭代主要由
-[Vulcan](https://ahappend.github.io/vulcan/)（原 Argus for Chips）在人类定义的目标与发布权限下自主完成。**
+[Vulcan](https://ahappend.github.io/vulcan/) (cooperated with [Argus](https://argusbot.cn/) for Chips) 在人类定义的目标与发布权限下自主完成。**
 
 Vulcan 是独立开发的 AI 原生硬件工程系统，兼容通用智能体系统
-[Argus](https://argusbot.cn/)。
+Argus。
 
 </div>
 
@@ -81,19 +81,17 @@ runtime/RTL。此前较完整的摘要仍保留在公开 Git 历史中；本次�
 ## Vulcan 的设计与工程贡献
 
 ACE-2 是 [Argus AI Team](https://github.com/Argus-AiTeam) 公开成果体系的一部分。
-[Vulcan](https://ahappend.github.io/vulcan/)（原 Argus for Chips）完成了主要的迭代工程闭环：
+[Vulcan](https://ahappend.github.io/vulcan/) 完成了主要的迭代工程闭环：
 架构拆解、RTL 与 oracle 实现、确定性测试生成、
 长时间验证、失败定位、证据绑定、Reviewer 交接，以及 fail-closed 回滚决策。
 人类保留任务目标、预算、授权、凭据和对外发布等边界的最终控制权。
 
 “由 Vulcan 设计”并不替代证据。仓库明确区分已验收结果、失败候选、可复现 Demo
 和非声明边界。完整说明见 [Vulcan 设计溯源](ARGUS_PROVENANCE.md)。
-历史运行时中的 Argus 命令、路径和原始证据名称保留，不因更名而改写实验记录。
+历史运行时中的 Argus 命令、路径和原始证据名称保留，不因署名调整而改写实验记录。
 
 [Vulcan 官网](https://ahappend.github.io/vulcan/) ·
-[Vulcan 源码](https://github.com/aHappend/vulcan) ·
-[Argus 官网](https://argusbot.cn/) ·
-[Argus 官方源码](https://github.com/microsoft/ArgusAgent)
+[Vulcan 源码](https://github.com/aHappend/vulcan)
 
 独立审查过的固定输入生成记录见
 [公开双 token 诊断证据包](evidence/public/fixed-hi-two-token-diagnostic-v1/)。

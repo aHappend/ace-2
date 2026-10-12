@@ -148,8 +148,8 @@ def main() -> None:
     )
     report = f"""# ACE-2 Transformer RTL Demo Report
 
-Designed by [Vulcan](https://ahappend.github.io/vulcan/) (formerly Argus for Chips),
-an [Argus](https://argusbot.cn/)-compatible hardware engineering system.
+Designed by [Vulcan](https://ahappend.github.io/vulcan/),
+an AI-native hardware engineering system.
 
 ## Result
 
@@ -322,7 +322,7 @@ th{{color:var(--muted);font-size:12px;text-transform:uppercase}} code{{font-fami
 .waveform{{width:100%;background:#07111f;border:1px solid var(--line);border-radius:12px}}
 </style></head><body><main>
 <h1>ACE-2 <em>Transformer RTL Demo</em></h1>
-<div class="subtitle">Machine-local operator, shell-integration, and challenge evidence for a Qwen W4A8 accelerator designed by <a href="https://ahappend.github.io/vulcan/">Vulcan</a> (formerly Argus for Chips), an <a href="https://argusbot.cn/">Argus</a>-compatible hardware engineering system.</div>
+<div class="subtitle">Machine-local operator, shell-integration, and challenge evidence for a Qwen W4A8 accelerator designed by <a href="https://ahappend.github.io/vulcan/">Vulcan</a>, an AI-native hardware engineering system.</div>
 <div class="pill">LOCAL CHALLENGE {escape(challenge_id)}</div>
 <div class="metrics">{metric_cards}</div>
 

@@ -13,9 +13,9 @@ the numerical reference, synthesizable SystemVerilog, command/runtime
 integration, verification, and reproducible physical-design evidence.
 
 ACE-2 is designed and iterated by **[Vulcan](https://ahappend.github.io/vulcan/)
-(formerly Argus for Chips)** under human-defined objectives and approval gates.
+(cooperated with [Argus](https://argusbot.cn/) for Chips)** under human-defined objectives and approval gates.
 Vulcan is an independently developed, AI-native hardware engineering system
-compatible with **[Argus](https://argusbot.cn/)**. See the
+compatible with Argus. See the
 [design provenance](ARGUS_PROVENANCE.md) for responsibilities and evidence boundaries.
 
 ## Project contract
@@ -220,13 +220,12 @@ reported as a prerequisite rather than represented as a successful run.
 
 ## Vulcan and Argus
 
-[Vulcan](https://ahappend.github.io/vulcan/) (formerly Argus for Chips) provides
+[Vulcan](https://ahappend.github.io/vulcan/) provides
 the hardware engineering workflow behind ACE-2: planning, implementation,
 focused verification, independent review, and evidence-aware iteration.
 It is independently developed and compatible with the general-purpose
-[Argus](https://argusbot.cn/) agent system.
+Argus agent system.
 
 - Vulcan: [website](https://ahappend.github.io/vulcan/) · [source](https://github.com/aHappend/vulcan)
-- Argus: [website](https://argusbot.cn/) · [official source](https://github.com/microsoft/ArgusAgent)
 - ACE-2 remains the hardware project. This attribution update does not rename
   historical runtime commands, alter recorded results, or expand accepted claims.

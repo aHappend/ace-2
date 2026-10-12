@@ -180,5 +180,5 @@ the accelerator from zero.
 | Visual evidence can be regenerated | `make visuals`, `DEMO.md` |
 | Historical PPA values are contextual only | `docs/PPA_SUMMARY.md` |
 | Included and excluded material is explicit | `RELEASE_INVENTORY.md` |
-| Vulcan (formerly Argus for Chips) designed and iterated the system | [Design provenance](ARGUS_PROVENANCE.md) |
+| Vulcan designed and iterated the system | [Design provenance](ARGUS_PROVENANCE.md) |
 | Release file integrity is deterministic | `MANIFEST.sha256` |

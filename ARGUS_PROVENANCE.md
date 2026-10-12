@@ -3,19 +3,17 @@
 ## Attribution
 
 **ACE** means **Argus Compute Engine**. ACE-2 was designed and iterated by
-**[Vulcan](https://ahappend.github.io/vulcan/) (formerly Argus for Chips)**
+**[Vulcan](https://ahappend.github.io/vulcan/)**
 under a human-owned mission and explicit approval gates. Vulcan is an
-independently developed, AI-native hardware engineering system compatible
-with **[Argus](https://argusbot.cn/)**.
+independently developed, AI-native hardware engineering system.
 
 The historical `ARGUS_PROVENANCE.md` filename is retained for existing links.
-The naming update does not rewrite frozen evidence, runtime identifiers,
+This attribution update does not rewrite frozen evidence, runtime identifiers,
 scientific results, or acceptance boundaries.
 
 Public resources:
 
 - Vulcan: [website](https://ahappend.github.io/vulcan/) · [source](https://github.com/aHappend/vulcan)
-- Argus: [website](https://argusbot.cn/) · [official source](https://github.com/microsoft/ArgusAgent)
 - Argus AI Team projects: <https://github.com/Argus-AiTeam>
 
 “Designed by Vulcan” means that Vulcan performed the iterative engineering work:
